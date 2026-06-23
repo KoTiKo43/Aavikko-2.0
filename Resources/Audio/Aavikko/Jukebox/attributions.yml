@@ -1,0 +1,39 @@
+- files: ["hardcore_dance.ogg"]
+  license: "CC-BY-NC-SA-3.0"
+  copyright: "Hardcore Dance - Disco Elysium OST."
+  source: "https://youtu.be/2-Yvi2bC2to?si=Odoc0Hmy_mXafeib"
+
+- files: ["whirling_cafeteria_night.ogg"]
+  license: "CC-BY-NC-SA-3.0"
+  copyright: "Whirling Cafeteria(Night) - Disco Elysium OST by British Sea Power"
+  source: "https://youtu.be/zpg5VK97M2c?si=mVXj8THR0PfQ5TjO"
+
+- files: ["whirling_cafeteria_morning.ogg"]
+  license: "CC-BY-NC-SA-3.0"
+  copyright: "Whirling Cafeteria, 8 AM - Disco Elysium OST by British Sea Power"
+  source: "https://www.youtube.com/watch?v=LeILSPhyExw"
+
+- files: ["starman.ogg"]
+  license: "CC-BY-NC-SA-3.0"
+  copyright: "Starman by David Bowie"
+  source: "https://www.youtube.com/watch?v=t365MuktYQs"
+
+- files: ["disco_elysium.ogg"]
+  license: "CC-BY-NC-SA-3.0"
+  copyright: "диско элизиум by pyrokinesis"
+  source: "https://youtu.be/5T0K-WJerF8?si=BX39q8H0kZwvu_b4"
+
+- files: ["headlock.ogg"]
+  license: "CC-BY-NC-SA-3.0"
+  copyright: "Headlock by Imogen Heap"
+  source: "https://youtu.be/nIf6F0cWQUM?si=4fsxv880VTS4Vu0N"
+
+- files: ["her_eyes.ogg"]
+  license: "CC-BY-NC-SA-3.0"
+  copyright: "Her Eyes by Narvent"
+  source: "https://www.youtube.com/watch?v=cIhNXNR27Sc"
+
+- files: ["memory_reboot.ogg"]
+  license: "CC-BY-NC-SA-3.0"
+  copyright: "Memory Reboot by VØJ, Narvent"
+  source: "https://www.youtube.com/watch?v=44UaY-AN6ho"
