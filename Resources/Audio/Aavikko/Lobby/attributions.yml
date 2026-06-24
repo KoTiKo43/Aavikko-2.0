@@ -1,13 +1,3 @@
-- files: ["space_oddity.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Space Oddity by Chris Hadfield."
-  source: "https://www.youtube.com/watch?v=KaOC9danxNo"
-
-- files: ["whirling_cafeteria_night.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Whirling Cafeteria(Night) - Disco Elysium OST."
-  source: "https://youtu.be/zpg5VK97M2c?si=mVXj8THR0PfQ5TjO"
-
 - files: ["wehtle2.ogg"]
   license: "CC-BY-NC-SA-3.0"
   copyright: "weh.wmv by KoboldCommando"
@@ -18,46 +8,6 @@
   copyright: "Space Station 14 - Tin Tin On Moon Mark II by pinkblossom6."
   source: "https://www.youtube.com/watch?v=d7hc_GrZP4Y"
 
-- files: ["stuck_in_a_loop.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Stuck in a Loop by Infected Mushroom"
-  source: "https://www.youtube.com/watch?v=L1LvOZbBFNI"
-
-- files: ["prey_mindgame.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "PREY - Mind Game by R.Colantonio and by M. Piersall."
-  source: "https://youtu.be/3OHTrRs3c6Y"
-
-- files: ["disco_dodgeball.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Robot Roller - Derby Disco Dodgeball OST."
-  source: "https://youtu.be/1Y9PdZ8fyCA"
-
-- files: ["ghostrunner_air.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Air - Ghostrunner OST"
-  source: "https://youtu.be/C6NuJou-zHg"
-
-- files: ["hotline_miami_2_dust.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Dust - Hotline Miami 2: Wrong Number OST."
-  source: "https://youtu.be/vsZtCLMsevM"
-
-- files: ["hardcore_dance.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Hardcore Dance - Disco Elysium OST."
-  source: "https://youtu.be/2-Yvi2bC2to"
-
-- files: ["pompeii.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Pompeii by Bastille"
-  source: "https://youtu.be/F90Cw4l-8NY"
-
-- files: ["katana_zero.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Katana Zero (OST) by Ludowic and Bill Kiley"
-  source: "https://www.youtube.com/watch?v=CfSwxETYAd8"
-
 - files: ["fifty_million_year_trip.ogg"]
   license: "CC-BY-NC-SA-3.0"
   copyright: "50 Million Year Trip by Carl Casey"
@@ -67,18 +17,3 @@
   license: "CC-BY-NC-SA-3.0"
   copyright: "Interlinked by Lonely Lies"
   source: "https://www.youtube.com/watch?v=aKCi0nY2Ouw"
-
-- files: ["her_eyes.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Her Eyes by Narvent"
-  source: "https://www.youtube.com/watch?v=cIhNXNR27Sc"
-
-- files: ["memory_reboot.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Memory Reboot by VØJ, Narvent"
-  source: "https://www.youtube.com/watch?v=44UaY-AN6ho"
-
-- files: ["starman_instrumental.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Starman by David Bowie"
-  source: "https://www.youtube.com/watch?v=vbUm0iSbMio"
