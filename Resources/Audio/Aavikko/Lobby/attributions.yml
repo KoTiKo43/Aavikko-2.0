@@ -22,3 +22,13 @@
   license: "CC-BY-NC-SA-3.0"
   copyright: "Clown.wmv by Hugo"
   source: "https://youtu.be/9whQIbNmu9s"
+
+- files: ["sb_computations.ogg"]
+  license: "CC-BY-4.0"
+  copyright: "'Computations in a Snowstorm' by Scott Buckley"
+  source: "www.scottbuckley.com.au"
+
+- files: ["sb_theclimb.ogg"]
+  license: "CC-BY-4.0"
+  copyright: "'The Climb' by Scott Buckley"
+  source: "www.scottbuckley.com.au"
