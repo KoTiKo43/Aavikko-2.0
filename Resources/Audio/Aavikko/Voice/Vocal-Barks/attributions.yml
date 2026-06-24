@@ -12,3 +12,8 @@
   license: "CC-BY-SA-3.0"
   copyright: "Original sound from https://zvukipro.com/situacii/387-zvuki-belogo-shuma.html"
   source: "https://zvukipro.com/situacii/387-zvuki-belogo-shuma.html"
+
+- files: ["human-*.ogg", "animal-*.ogg", "robot-*.ogg"]
+  license: "All Rights Reserved (Proprietary)"
+  copyright: "Copyright (c) 2026 Valikzant. All rights reserved."
+  source: "Exclusive content for Aavikko. Contact Valikzant for permissions (Discord: valikzant)."
