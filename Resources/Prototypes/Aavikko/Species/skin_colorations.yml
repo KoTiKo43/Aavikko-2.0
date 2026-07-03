@@ -1,0 +1,5 @@
+- type: skinColoration
+  id: GethToned
+  strategy: !type:ClampedHsvColoration
+    saturation: [ 0, 0 ]
+    value: [ 0.4, 1.0 ]

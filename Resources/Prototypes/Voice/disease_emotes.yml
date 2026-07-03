@@ -8,6 +8,7 @@
   blacklist:
     tags:
     - SiliconEmotes
+    - Geth # Aavikko-Species
   chatMessages: ["chat-emote-msg-sneeze"]
   chatTriggers:
   - sneeze
@@ -38,6 +39,7 @@
     tags:
     - SiliconEmotes
     - Ipc # Corvax-Species
+    - Geth # Aavikko-Species
   chatMessages: ["chat-emote-msg-cough"]
   chatTriggers:
     - cough
@@ -91,6 +93,7 @@
     tags:
     - SiliconEmotes
     - Ipc # Corvax-Species
+    - Geth # Aavikko-Species
   chatMessages: ["chat-emote-msg-yawn"]
   chatTriggers:
     - yawn
@@ -104,4 +107,7 @@
   id: Snore
   name: chat-emote-name-snore
   category: Vocal
+  blacklist:
+    tags:
+    - Geth # Aavikko-Species
   chatMessages: ["chat-emote-msg-snore"]

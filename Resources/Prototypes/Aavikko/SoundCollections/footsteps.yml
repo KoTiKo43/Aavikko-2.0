@@ -1,0 +1,6 @@
+- type: soundCollection
+  id: FootstepGeth
+  files:
+  - /Audio/Aavikko/Effects/Footsteps/geth_step1.ogg
+  - /Audio/Aavikko/Effects/Footsteps/geth_step2.ogg
+  - /Audio/Aavikko/Effects/Footsteps/geth_step3.ogg

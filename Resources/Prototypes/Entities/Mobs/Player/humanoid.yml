@@ -49,7 +49,7 @@
   id: DeathSquad
   parent: EventHumanoidCentcomm
   randomizeName: false
-  speciesBlacklist: ['Diona'] # Corvax-MRP
+  speciesBlacklist: ['Diona', 'Geth'] # Corvax-MRP
   components:
     - type: GhostRole
       name: ghost-role-information-Death-Squad-name
@@ -334,6 +334,7 @@
   id: ERTSecurity
   speciesBlacklist: # Corvax-MRP
     - Diona
+    - Geth
   parent: ERTLeader
   components:
     - type: GhostRole
@@ -550,6 +551,7 @@
 - type: randomHumanoidSettings
   speciesBlacklist: # Corvax-MRP
     - Diona
+    - Geth
   id: CBURNAgent
   parent: EventHumanoidCentcomm
   components:

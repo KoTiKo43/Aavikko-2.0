@@ -1,0 +1,84 @@
+# Базовый класс для синтетических рас (роботов, ИИ в гуманоидном теле)
+- type: entity
+  abstract: true
+  parent:
+  - MobAtmosStandard
+  - MobFlammable
+  - BaseSpeciesMob
+  id: BaseSpeciesMobSynthetic
+  save: false
+  components:
+  - type: ZombieImmune
+  - type: Repairable
+    damageValue: -10
+    doAfterDelay: 1
+    fuelCost: 0.5
+    allowSelfRepair: false
+  - type: PassiveDamage
+    allowedStates:
+    - Alive
+    damageCap: 30
+    damage:
+      types:
+        Heat: -0.1
+        Blunt: -0.1
+        Piercing: -0.1
+        Slash: -0.1
+  - type: Damageable
+    damageContainer: Silicon
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers:
+        - part-container
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: DamagedSiliconAccent
+  - type: Reflect
+    reflectProb: 0.05
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      60: 0.7
+      80: 0.5
+  - type: Temperature
+    currentTemperature: 310.15
+    specificHeat: 42
+  - type: TemperatureDamage
+    heatDamageThreshold: 600 # Выдерживают большую температуру
+    coldDamageThreshold: 150 # Выдерживает больший холод
+    coldDamage:
+      types:
+        Cold: 0.05 # Вдвое меньший урон от холода по сравнению с органикой
+    heatDamage:
+      types:
+        Heat: 0.5 # Втрое меньший урон от огня по сравнению с органикой
+  - type: Speech
+    speechVerb: Robotic
+    speechSounds: Borg
+  - type: Vocal
+    sounds:
+      Unsexed: UnisexSilicon
+    wilhelmProbability: 0
+  - type: TypingIndicator
+    proto: robot
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepBorg
+  - type: Butcherable
+    spawned:
+    - id: SheetSteel1
+      amount: 3
+  - type: Tag
+    tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - SiliconEmotes
+    - Unimplantable

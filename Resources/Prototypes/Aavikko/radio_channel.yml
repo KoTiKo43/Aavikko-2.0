@@ -1,0 +1,7 @@
+- type: radioChannel
+  id: GethRadio
+  name: Геты
+  keycode: 'г'
+  frequency: 7458
+  color: "#3db5c0"
+  longRange: true

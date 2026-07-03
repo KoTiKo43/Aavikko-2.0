@@ -1,0 +1,39 @@
+{
+    "version": 1,
+    "license": "CLA with hosting restrictions",
+    "copyright": "Sprite by DrMiheto",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "frame",
+            "directions": 4
+        },
+        {
+            "name": "frame_chest",
+            "directions": 4
+        },
+        {
+            "name": "frame_head",
+            "directions": 4
+        },
+        {
+            "name": "frame_l_arm",
+            "directions": 4
+        },
+        {
+            "name": "frame_r_arm",
+            "directions": 4
+        },
+        {
+            "name": "frame_l_leg",
+            "directions": 4
+        },
+        {
+            "name": "frame_r_leg",
+            "directions": 4
+        }
+    ]
+}

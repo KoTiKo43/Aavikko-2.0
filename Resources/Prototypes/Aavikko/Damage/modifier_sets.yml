@@ -1,0 +1,19 @@
+# Geth
+    # Геты:
+    # У: 10%
+    # Р: 10%
+    # К: 10%
+    # В: 30%
+    # Р: 100%
+    # Ки: 0%
+    # Вз: 5%
+- type: damageModifierSet
+  id: GethDamageSet
+  coefficients:
+    Radiation: 0
+    Blunt: 0.9
+    Slash: 0.9
+    Piercing: 0.9
+    Heat: 0.7
+    Cold: 0.7
+    Caustic: 1
