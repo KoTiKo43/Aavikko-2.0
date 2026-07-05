@@ -24,6 +24,22 @@
             "directions": 4
         },
         {
+            "name": "equipped-FEET-reptilian",
+            "directions": 4
+        },
+        {
+            "name": "on-equipped-FEET-reptilian",
+            "directions": 4
+        },
+        {
+            "name": "equipped-FEET-orc",
+            "directions": 4
+        },
+        {
+            "name": "on-equipped-FEET-orc",
+            "directions": 4
+        },
+        {
             "name": "icon"
         },
         {
