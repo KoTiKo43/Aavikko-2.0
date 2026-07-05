@@ -25,7 +25,6 @@
 - type: startingGear
   id: SeniorPhysicianGear
   equipment:
-    shoes: ClothingShoesColorBlack
     id: SeniorPhysicianPDA
     ears: ClothingHeadsetMedical
     belt: ClothingBeltMedicalFilled

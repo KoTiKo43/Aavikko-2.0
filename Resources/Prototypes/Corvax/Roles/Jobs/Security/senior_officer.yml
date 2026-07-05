@@ -33,7 +33,6 @@
 - type: startingGear
   id: SeniorOfficerGear
   equipment:
-    shoes: ClothingShoesBootsCombatFilled
     eyes: ClothingEyesGlassesSecurity
     id: SeniorOfficerPDA
     ears: ClothingHeadsetSecurity

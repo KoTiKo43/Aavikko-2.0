@@ -1,0 +1,245 @@
+# Miscellaneous
+#- type: loadoutGroup
+#  id: Racial
+#  name: Расовое
+#  minLimit: 0
+#  loadouts:
+#  - ClothfootwrapsWhite
+#  - ClothfootwrapsBlack
+#  - ClothfootwrapsBlue
+#  - ClothfootwrapsBrown
+#  - ClothfootwrapsRed
+#  - ClothfootwrapsSilver
+#  - ClothfootwrapsYellow
+
+# Shoes for clothfootwraps
+
+- type: loadoutGroup
+  id: ServiceShoes
+  name: Сервисный работник, обувь
+  loadouts:
+  - BlackShoes
+  - WhiteShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: ChaplainShoes
+  name: Священник, обувь
+  loadouts:
+  - BlackShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: BartenderShoes
+  name: Бармен, обувь
+  loadouts:
+  - BlackShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: BotanistShoes
+  name: Ботаник, обувь
+  loadouts:
+  - BrownShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: MimeShoes
+  name: Мим, обувь
+  loadouts:
+  - WhiteShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: MusicianShoes
+  name: Музыкант, обувь
+  loadouts:
+  - LaceupShoes
+  - BlackShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: ChefShoes
+  name: Шеф-повар, обувь
+  loadouts:
+  - ChefShoes
+  - BlackShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: LibrarianShoes
+  name: Библиотекарь, обувь
+  loadouts:
+  - LaceupShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: JanitorShoes
+  name: Бармен, обувь
+  loadouts:
+  - Galoshes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: MaidShoes
+  name: Секретарь, обувь
+  loadouts:
+  - BlackShoes
+  - WhiteShoes
+  - BlueShoes
+  - RedShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: HoPShoes
+  name: Глава персонала, обувь
+  loadouts:
+  - BrownShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: BoxerShoes
+  name: Боксёр, обувь
+  loadouts:
+  - RedShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: PsychologistShoes
+  name: Психолог, обувь
+  loadouts:
+  - LeatherShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: ZookeeperShoes
+  name: Зоотехник, обувь
+  loadouts:
+  - WhiteShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: ReporterShoes
+  name: Репортёр, обувь
+  loadouts:
+  - WhiteShoes
+  - BlackShoes
+  - BlueShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+- type: loadoutGroup
+  id: LawyerShoes
+  name: Юрист, обувь
+  loadouts:
+  - LaceupShoes
+  - BlackShoes
+  - WhiteShoes
+  - BlueShoes
+  - RedShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
+# Other
+- type: loadoutGroup
+  id: GroupSpeciesBreathToolSecurityPilot
+  name: loadout-group-breath-tool
+  minLimit: 1
+  maxLimit: 1
+  hidden: true
+  loadouts:
+  - LoadoutSpeciesBreathToolSecurityPilot

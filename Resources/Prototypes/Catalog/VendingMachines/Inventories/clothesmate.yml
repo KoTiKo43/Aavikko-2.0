@@ -94,6 +94,14 @@
     ClothingHandsGlovesColorPurple: 2
     ClothingEyesGlassesCheapSunglasses: 3
     # DO NOT ADD MORE, USE UNIFORM DYING
+    ClothingShoesClothfootwrapsWhite: 3
+    ClothingShoesClothfootwrapsBlack: 3
+    ClothingShoesClothfootwrapsBlue: 3
+    ClothingShoesClothfootwrapsBrown: 3
+    ClothingShoesClothfootwrapsRed: 3
+    ClothingShoesClothfootwrapsSilver: 3
+    ClothingShoesClothfootwrapsYellow: 3
+    # Aavikko cloth footwraps
   contrabandInventory:
     ClothingMaskNeckGaiter: 2
     ClothingUniformJumpsuitTacticool: 1

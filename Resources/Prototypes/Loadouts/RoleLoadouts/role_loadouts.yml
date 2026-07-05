@@ -8,6 +8,7 @@
   - CaptainJumpsuit
   - CaptainBackpack
   - CaptainOuterClothing
+  - CaptainShoes # Aavikko-Loadouts
   - Survival
   - Trinkets
   #- CaptainJobTrinkets
@@ -23,6 +24,7 @@
   - HoPJumpsuit
   - HoPBackpack
   - HoPOuterClothing
+  - HoPShoes # Aavikko-Loadouts
   - Glasses
   - Survival
   - Trinkets
@@ -68,6 +70,7 @@
   - BartenderJumpsuit
   - CommonBackpack
   - BartenderOuterClothing
+  - BartenderShoes # Aavikko-Loadouts
   - Glasses
   - Survival
   - Trinkets
@@ -81,6 +84,7 @@
   - GroupTankHarness
   - BartenderJumpsuit
   - CommonBackpack
+  - ServiceShoes # Aavikko-Loadouts
   - Glasses
   - Survival
   - Trinkets
@@ -97,6 +101,7 @@
   - ChefJumpsuit
   - CommonBackpack
   - ChefOuterClothing
+  - ChefShoes # Aavikko-Loadouts
   - Glasses
   - Survival
   - Trinkets
@@ -110,6 +115,7 @@
   - GroupTankHarness
   - LibrarianJumpsuit
   - CommonBackpack
+  - LibrarianShoes # Aavikko-Loadouts
   - Glasses
   - Survival
   - Trinkets
@@ -124,6 +130,7 @@
   - LawyerNeck
   - LawyerJumpsuit
   - CommonBackpack
+  - LawyerShoes # Aavikko-Loadouts
   - Glasses
   - Survival
   - Trinkets
@@ -142,6 +149,7 @@
   - ChaplainJumpsuit
   - CommonBackpack
   - ChaplainOuterClothing
+  - ChaplainShoes # Aavikko-Loadouts
   - ChaplainBible
   - Glasses
   - Survival
@@ -159,6 +167,7 @@
   - JanitorGloves
   - CommonBackpack
   - JanitorOuterClothing
+  - JanitorShoes # Aavikko-Loadouts
   - Glasses
   - Survival
   - Trinkets
@@ -174,6 +183,7 @@
   - BotanistJumpsuit
   - BotanistBackpack
   - BotanistOuterClothing
+  - BotanistShoes # Aavikko-Loadouts
   - Glasses
   - Survival
   - Trinkets
@@ -207,6 +217,7 @@
   - MimeJumpsuit
   - MimeBackpack
   - MimeOuterClothing
+  - MimeShoes # Aavikko-Loadouts
   - MimeBelt
   - Glasses
   - SurvivalMime
@@ -222,6 +233,7 @@
   - MusicianJumpsuit
   - CommonBackpack
   - MusicianOuterClothing
+  - MusicianShoes # Aavikko-Loadouts
   - Glasses
   - Survival
   - Trinkets
@@ -302,6 +314,7 @@
   - GroupTankHarness
   - TechnicalAssistantJumpsuit
   - StationEngineerBackpack
+  - StationEngineerShoes # Aavikko-Loadouts
   - SurvivalExtended
   - Trinkets
   #- TechnicalAssistantJobTrinkets
@@ -382,6 +395,7 @@
   - GroupTankHarness
   - ResearchAssistantJumpsuit
   - ScientistBackpack
+  - ScientistShoes # Aavikko-Loadouts
   - Glasses
   - Survival
   - Trinkets
@@ -472,6 +486,7 @@
   - ReporterHead
   - ReporterOuterClothing
   - CommonBackpack
+  - ReporterShoes # Aavikko-Loadouts
   - Glasses
   - Survival
   - Trinkets
@@ -485,6 +500,7 @@
   - GroupTankHarness
   - PsychologistJumpsuit
   - MedicalBackpack
+  - PsychologistShoes # Aavikko-Loadouts
   - Glasses
   - Survival
   - Trinkets
