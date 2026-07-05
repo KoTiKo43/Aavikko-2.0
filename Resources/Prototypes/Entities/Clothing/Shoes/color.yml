@@ -8,28 +8,9 @@
   description: Stylish black shoes.
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/color.rsi
-    layers:
-    - state: icon
-      color: "#3f3f3f" #Different from the worn state for contrast reasons.
-    - state: soles-icon
-  - type: Item
-    inhandVisuals:
-      left:
-      - state: inhand-left
-        color: "#3f3f3f"
-      - state: soles-inhand-left
-      right:
-      - state: inhand-right
-        color: "#3f3f3f"
-      - state: soles-inhand-right
+    sprite: Clothing/Shoes/Color/black.rsi
   - type: Clothing
-    sprite: Clothing/Shoes/color.rsi
-    clothingVisuals:
-      shoes:
-      - state: equipped-FEET
-        color: "#1d1d1d"
-      - state: soles-equipped-FEET
+    sprite: Clothing/Shoes/Color/black.rsi
 
 # White Shoes
 - type: entity
@@ -39,26 +20,9 @@
   description: Don't take them off at your office Christmas party.
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/color.rsi
-    layers:
-    - state: icon
-      color: "#EAE8E8" #Deliberately NOT pure white
-    - state: soles-icon
-  - type: Item
-    inhandVisuals: #We don't want the sole icons. Since this is white, it's just going to look weird (white on white doesn't really contrast.)
-      left:
-      - state: inhand-left
-        color: "#EAE8E8"
-      right:
-      - state: inhand-right
-        color: "#EAE8E8"
+    sprite: Clothing/Shoes/Color/white.rsi
   - type: Clothing
-    sprite: Clothing/Shoes/color.rsi
-    clothingVisuals:
-      shoes:
-      - state: equipped-FEET
-        color: "#EAE8E8"
-      - state: contrastedsoles-equipped-FEET
+    sprite: Clothing/Shoes/Color/white.rsi
 
 # Blue Shoes
 - type: entity
@@ -68,28 +32,9 @@
   description: Stylish blue shoes.
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/color.rsi
-    layers:
-    - state: icon
-      color: "#0089EF"    
-    - state: soles-icon
-  - type: Item
-    inhandVisuals:
-      left:
-      - state: inhand-left
-        color: "#0089EF"
-      - state: soles-inhand-left
-      right:
-      - state: inhand-right
-        color: "#0089EF"
-      - state: soles-inhand-right
+    sprite: Clothing/Shoes/Color/blue.rsi
   - type: Clothing
-    sprite: Clothing/Shoes/color.rsi
-    clothingVisuals:
-      shoes:
-      - state: equipped-FEET
-        color: "#0089EF"
-      - state: soles-equipped-FEET
+    sprite: Clothing/Shoes/Color/blue.rsi
 
 # Brown Shoes
 - type: entity
@@ -99,28 +44,9 @@
   description: A pair of brown shoes.
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/color.rsi
-    layers:
-    - state: icon
-      color: "#723A02"    
-    - state: soles-icon
-  - type: Item
-    inhandVisuals:
-      left:
-      - state: inhand-left
-        color: "#723A02"
-      - state: soles-inhand-left
-      right:
-      - state: inhand-right
-        color: "#723A02"
-      - state: soles-inhand-right
+    sprite: Clothing/Shoes/Color/brown.rsi
   - type: Clothing
-    sprite: Clothing/Shoes/color.rsi
-    clothingVisuals:
-      shoes:
-      - state: equipped-FEET
-        color: "#592D01"
-      - state: soles-equipped-FEET
+    sprite: Clothing/Shoes/Color/brown.rsi
 
 # Green Shoes
 - type: entity
@@ -130,28 +56,9 @@
   description: Stylish green shoes.
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/color.rsi
-    layers:
-    - state: icon
-      color: "#5ABF2F"    
-    - state: soles-icon
-  - type: Item
-    inhandVisuals:
-      left:
-      - state: inhand-left
-        color: "#5ABF2F"
-      - state: soles-inhand-left
-      right:
-      - state: inhand-right
-        color: "#5ABF2F"
-      - state: soles-inhand-right
+    sprite: Clothing/Shoes/Color/green.rsi
   - type: Clothing
-    sprite: Clothing/Shoes/color.rsi
-    clothingVisuals:
-      shoes:
-      - state: equipped-FEET
-        color: "#5ABF2F"
-      - state: soles-equipped-FEET
+    sprite: Clothing/Shoes/Color/green.rsi
 
 # Orange Shoes
 - type: entity
@@ -161,28 +68,9 @@
   description: Stylish orange shoes.
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/color.rsi
-    layers:
-    - state: icon
-      color: "#EF8100"    
-    - state: soles-icon
-  - type: Item
-    inhandVisuals:
-      left:
-      - state: inhand-left
-        color: "#EF8100"
-      - state: soles-inhand-left
-      right:
-      - state: inhand-right
-        color: "#EF8100"
-      - state: soles-inhand-right
+    sprite: Clothing/Shoes/Color/orange.rsi
   - type: Clothing
-    sprite: Clothing/Shoes/color.rsi
-    clothingVisuals:
-      shoes:
-      - state: equipped-FEET
-        color: "#EF8100"
-      - state: soles-equipped-FEET
+    sprite: Clothing/Shoes/Color/orange.rsi
 
 # Red Shoes
 - type: entity
@@ -192,28 +80,9 @@
   description: Stylish red shoes.
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/color.rsi
-    layers:
-    - state: icon
-      color: "#940000"    
-    - state: soles-icon
-  - type: Item
-    inhandVisuals:
-      left:
-      - state: inhand-left
-        color: "#940000"
-      - state: soles-inhand-left
-      right:
-      - state: inhand-right
-        color: "#940000"
-      - state: soles-inhand-right
+    sprite: Clothing/Shoes/Color/red.rsi
   - type: Clothing
-    sprite: Clothing/Shoes/color.rsi
-    clothingVisuals:
-      shoes:
-      - state: equipped-FEET
-        color: "#940000"
-      - state: soles-equipped-FEET
+    sprite: Clothing/Shoes/Color/red.rsi
 
 # Yellow Shoes
 - type: entity
@@ -223,28 +92,9 @@
   description: Stylish yellow shoes.
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/color.rsi
-    layers:
-    - state: icon
-      color: "#EBE216"    
-    - state: soles-icon
-  - type: Item
-    inhandVisuals:
-      left:
-      - state: inhand-left
-        color: "#EBE216"
-      - state: soles-inhand-left
-      right:
-      - state: inhand-right
-        color: "#EBE216"
-      - state: soles-inhand-right
+    sprite: Clothing/Shoes/Color/yellow.rsi
   - type: Clothing
-    sprite: Clothing/Shoes/color.rsi
-    clothingVisuals:
-      shoes:
-      - state: equipped-FEET
-        color: "#EBE216"
-      - state: soles-equipped-FEET
+    sprite: Clothing/Shoes/Color/yellow.rsi
 
 # Purple Shoes
 - type: entity
@@ -254,25 +104,6 @@
   description: Stylish purple shoes.
   components:
   - type: Sprite
-    sprite: Clothing/Shoes/color.rsi
-    layers:
-    - state: icon
-      color: "#9C0DE1"    
-    - state: soles-icon
-  - type: Item
-    inhandVisuals:
-      left:
-      - state: inhand-left
-        color: "#9C0DE1"
-      - state: soles-inhand-left
-      right:
-      - state: inhand-right
-        color: "#9C0DE1"
-      - state: soles-inhand-right
+    sprite: Clothing/Shoes/Color/purple.rsi
   - type: Clothing
-    sprite: Clothing/Shoes/color.rsi
-    clothingVisuals:
-      shoes:
-      - state: equipped-FEET
-        color: "#9C0DE1"
-      - state: soles-equipped-FEET
+    sprite: Clothing/Shoes/Color/purple.rsi
