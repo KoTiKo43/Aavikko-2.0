@@ -91,7 +91,7 @@
   - type: HumanoidProfile
     species: Vulpkanin
   - type: Inventory
-    speciesId: vulpkanin
+    speciesId: reptilian # Aavikko tweak
 #Corvax-Vulp_Port start
     femaleDisplacements:
       jumpsuit:
