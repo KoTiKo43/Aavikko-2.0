@@ -11,6 +11,12 @@
 			"name": "brutepack"
 		},
 		{
+			"name": "brutepack_1"
+		},
+		{
+			"name": "brutepack_2"
+		},
+		{
 			"name": "brutepack-inhand-left",
 			"directions": 4
 		},
@@ -49,6 +55,12 @@
 		{
 			"name": "ointment"
 		},
+		{
+			"name": "ointment_1"
+		},
+		{
+			"name": "ointment_2"
+		},
         {
             "name": "ointment-storage"
         },
@@ -75,6 +87,15 @@
 			"name": "medicated-suture"
 		},
 		{
+			"name": "medicated-suture_1"
+		},
+		{
+			"name": "medicated-suture_2"
+		},
+		{
+			"name": "medicated-suture_3"
+		},
+		{
 			"name": "medicated-suture-inhand-left",
 			"directions": 4
 		},
@@ -84,6 +105,12 @@
 		},
 		{
 			"name": "regenerative-mesh"
+		},
+		{
+			"name": "regenerative-mesh_1"
+		},
+		{
+			"name": "regenerative-mesh_2"
 		},
         {
 			"name": "regenerative-mesh-inhand-right",
