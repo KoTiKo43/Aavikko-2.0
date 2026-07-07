@@ -3,7 +3,7 @@
   name: крипто-конструкт
   description: Крипто-конструкт с загруженным актуальным алгоритмом взлома
   id: GethEmag
-  suffix: Limited
+  suffix: Limited, Aavikko
   components:
   - type: Unremoveable
     deleteOnDrop: true
