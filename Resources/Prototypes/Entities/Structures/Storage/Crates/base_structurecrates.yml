@@ -134,3 +134,10 @@
     spread: 90
   - type: Paintable
     group: CrateSecure
+  # Aavikko-crate-sounds-start
+  - type: EntityStorage
+    closeSound:
+      path: /Audio/Aavikko/Machines/crate_close.ogg
+    openSound:
+      path: /Audio/Aavikko/Machines/crate_open.ogg
+  # Aavikko-crate-sounds-end
