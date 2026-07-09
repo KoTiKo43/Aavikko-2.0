@@ -36,6 +36,10 @@
   - type: Sprite
     layers:
     - state: default
+    - state: job_icon_top # aavikko icons resprite
+      color: &color-passenger-top "#777777"
+    - state: job_icon_bottom # aavikko icons resprite
+      color: &color-passenger-bottom "#505050"
     - sprite: &icon-rsi Interface/Misc/job_icons.rsi
       offset: &icon-offset -0.1875, 0 # 6 pixels left aavikko icons resprite #-0.09375, 0.0625 #3 pixels left, 2 pixels up
       state: Passenger
@@ -1083,6 +1087,10 @@
   - type: Sprite
     layers:
     - state: default
+    - state: job_icon_top # aavikko icons resprite
+      color: *color-passenger-top
+    - state: job_icon_bottom # aavikko icons resprite
+      color: *color-passenger-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Visitor
@@ -1238,13 +1246,13 @@
     layers:
     - state: ninja
     - state: stripe_top
-      color: &color-ninja-top "#25be25" # aavikko icons resprite
+      color: "#25be25" # aavikko icons resprite
     - state: stripe_bottom
-      color: &color-ninja-bottom "#187b18" # aavikko icons resprite
+      color: "#187b18" # aavikko icons resprite
     - state: job_icon_top # aavikko icons resprite
-      color: *color-ninja-top
+      color: "#141719"
     - state: job_icon_bottom # aavikko icons resprite
-      color: *color-ninja-bottom
+      color: "#0c0e0f"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Ninja
@@ -1538,10 +1546,14 @@
     sprite: Objects/Misc/id_cards.rsi
     layers:
     - state: admin
-    - state: job_icon_top # aavikko icons resprite
+    - state: stripe_top # aavikko icons resprite
       color: &color-admin-top "#449455"
-    - state: job_icon_bottom # aavikko icons resprite
+    - state: stripe_bottom # aavikko icons resprite
       color: &color-admin-bottom "#366f4e"
+    - state: job_icon_top # aavikko icons resprite
+      color: *color-admin-top
+    - state: job_icon_bottom # aavikko icons resprite
+      color: *color-admin-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Admin
