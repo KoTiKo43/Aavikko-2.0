@@ -1,0 +1,300 @@
+- type: emote
+  id: Buzzing
+  name: chat-emote-name-buzz
+  category: Vocal
+  icon: Interface/Emotes/buzz.png
+  chatMessages: [chat-emote-msg-buzz]
+
+# - type: emote
+#   id: Purrs
+#   name: Мурлыкать
+#   category: Vocal
+#   whitelist:
+#     components:
+#     - Vocal
+#   available: false
+#   icon: Aavikko/Interface/Emotes/purrring.png
+#   chatMessages: [мурлычет]
+#   chatTriggers:
+#     - мурчит
+#     - мурчит.
+#     - мурчит!
+#     - замурлыкала
+#     - замурлыкала.
+#     - замурлыкала!
+#     - замурлыкал
+#     - замурлыкал.
+#     - замурлыкал!
+#     - замурчала
+#     - замурчала.
+#     - замурчала!
+#     - замурчал
+#     - замурчал.
+#     - замурчал!
+#     - мурчание
+#     - мурчание.
+#     - мурчание!
+#     - мурлыкает
+#     - мурлыкает.
+#     - мурлыкает!
+#     - мурр
+#     - мурр.
+#     - мурр!
+#     - мур
+#     - мур.
+#     - мур!
+#     - purr
+#     - purrs
+#     - purrs.
+#     - purrs!
+#     - purring
+#     - purred
+
+- type: emote
+  id: Mrrp
+  name: Муркать
+  category: Vocal
+  whitelist:
+    components:
+    - Vocal
+  available: false
+  icon: Interface/Emotes/vocal.png # заглушка
+  chatMessages: [муркает]
+  chatTriggers:
+    - mrrp
+    - mrrp.
+    - mrrps.
+    - mrrps
+    - mrrps!
+    - муррк
+    - муррк.
+    - муррк!
+    - мурркает
+    - мурркает.
+    - мурркает!
+    - мррк
+    - мррк.
+
+- type: emote
+  id: WehUnathi
+  name: Вехать
+  category: Vocal
+  whitelist:
+    components:
+    - Vocal
+  available: false
+  icon: Interface/Emotes/weh.png
+  chatMessages: [издаёт вех!]
+  chatTriggers:
+    - weh
+    - weh.
+    - weh!
+    - wehs
+    - wehs.
+    - wehs!
+    - lets out a weh!
+    - вех
+    - вех.
+    - вех!
+    - вехает
+    - вехает.
+    - вехает!
+    - издаёт вех!
+
+- type: emote
+  id: Hisses
+  name: Шипеть
+  category: Vocal
+  whitelist:
+    components:
+    - Vocal
+  blacklist:
+    components:
+    - BorgChassis
+    - Ghost
+  available: false
+  icon: Interface/Emotes/vocal.png # заглушка
+  chatMessages: [шипит]
+  chatTriggers:
+    - шипит
+    - шипит.
+    - шипит!
+    - прошипела
+    - прошипела.
+    - прошипела!
+    - прошипел
+    - прошипел.
+    - прошипел!
+    - зашипела
+    - зашипела.
+    - зашипела!
+    - зашипел
+    - зашипел.
+    - зашипел!
+    - шипение
+    - шипение.
+    - шипение!
+    - hiss
+    - hisses
+    - hisses.
+    - hisses!
+    - hissing
+    - hissed
+
+- type: emote
+  id: HissesLong
+  name: Шипеть продолжительно
+  available: false
+  category: Vocal
+  whitelist:
+    components:
+    - Vocal
+  blacklist:
+    components:
+    - BorgChassis
+    - Ghost
+  icon: Interface/Emotes/vocal.png # заглушка
+  chatMessages: [продолжительно шипит]
+  chatTriggers:
+    - hisses long
+    - hisses long.
+    - hisses long!
+    - продолжительно шипит
+    - продолжительно шипит.
+    - продолжительно шипит!
+    - долго шипит
+    - долго шипит.
+    - долго шипит!
+
+- type: emote
+  id: Rumbling
+  name: Урчать
+  category: Vocal
+  whitelist:
+    components:
+    - Vocal
+  blacklist:
+    components:
+    - BorgChassis
+    - Ghost
+  available: false
+  icon: Interface/Emotes/vocal.png # заглушка
+  chatMessages: [урчит]
+  chatTriggers:
+  - rumbles
+  - rumbles.
+  - rumbles deeply
+  - rumbles deeply.
+  - урчит
+  - урчит.
+  - утробно урчит
+  - утробно урчит.
+
+# - type: emote
+#   id: Woof
+#   name: Гавкать
+#   category: Vocal
+#   whitelist:
+#     components:
+#     - Vocal
+#   available: false
+#   icon: Aavikko/Interface/Emotes/roar.png
+#   chatMessages: [гавкает!]
+#   chatTriggers:
+#   - woof
+#   - woof.
+#   - woof!
+#   - woofs
+#   - woofs.
+#   - woofs!
+#   - гав
+#   - гав.
+#   - гав!
+#   - гавкает
+#   - гавкает.
+#   - гавкает!
+#   - лает
+#   - лает.
+#   - лает!
+
+- type: emote
+  id: Meows
+  name: Мяукать
+  category: Vocal
+  whitelist:
+    components:
+    - Vocal
+  available: false
+  icon: Interface/Emotes/vocal.png # заглушка
+  chatMessages: [мяукает]
+  chatTriggers:
+    - мяу
+    - мяу.
+    - мяу!
+    - мяукает
+    - мяукает.
+    - мяукает!
+    - мяукнул
+    - мяукнул.
+    - мяукнул!
+    - мяукнула
+    - мяукнула.
+    - мяукнула!
+    - meow
+    - meows
+    - meows.
+    - meows!
+    - meowing
+    - meowed
+    - miau
+    - miaus
+    - miaus.
+    - miaus!
+
+- type: emote
+  id: Mews
+  name: Нявкать
+  category: Vocal
+  whitelist:
+    components:
+    - Vocal
+  available: false
+  icon: Interface/Emotes/vocal.png # заглушка
+  chatMessages: [няв!]
+  chatTriggers:
+    - няв
+    - няв.
+    - няв!
+    - нявкает
+    - нявкает.
+    - нявкает!
+    - mew
+    - mews
+    - mews.
+    - mews!
+    - mewing
+    - mewed
+    - nya
+    - nyas
+    - nyas.
+    - nyas!
+
+# - type: emote # может и не понадобится
+#   id: Squeal
+#   name: Пищать
+#   category: Vocal
+#   whitelist:
+#     components:
+#     - Vocal
+#   available: false
+#   icon: Interface/Emotes/vocal.png # заглушка
+#   chatMessages: [пищит!]
+#   chatTriggers: # Из-за кривоватой системы эмоций пришлось убрать "пищит", т.к. совпадало с другим триггером и выдавало ошибку
+#     - пищит.
+#     - пищит!
+#     - squeal
+#     - squeal.
+#     - squeal!
+#     - squeals
+#     - squeals.
+#     - squeals!
