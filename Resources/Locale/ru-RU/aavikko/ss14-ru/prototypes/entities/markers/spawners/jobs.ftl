@@ -1,2 +1,2 @@
-ent-SpawnPointCaptain = секретарь
+ent-SpawnPointSecretarian = секретарь
     .desc = { ent-SpawnPointJobBase.desc }
