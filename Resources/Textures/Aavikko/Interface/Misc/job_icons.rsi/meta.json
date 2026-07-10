@@ -1,0 +1,15 @@
+{
+    "version": 1,
+    "license": "CC-BY-NC-SA-3.0",
+    "copyright": "Secretarian icon by TheGypsyBaron (Discord: semkagamez)",
+
+    "size": {
+        "x": 8,
+        "y": 8
+    },
+    "states": [
+        {
+            "name": "Secretarian"
+        }
+    ]
+}

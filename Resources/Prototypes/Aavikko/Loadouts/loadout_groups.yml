@@ -234,12 +234,46 @@
   - ClothfootwrapsSilver # Aavikko
   - ClothfootwrapsYellow # Aavikko
 
-# Other
+# Секретарь мостика
 - type: loadoutGroup
-  id: GroupSpeciesBreathToolSecurityPilot
-  name: loadout-group-breath-tool
-  minLimit: 1
-  maxLimit: 1
-  hidden: true
+  id: SecretarianHead
+  name: loadout-group-secretarian-head
+  minLimit: 0
   loadouts:
-  - LoadoutSpeciesBreathToolSecurityPilot
+  - SecretarianHead
+
+- type: loadoutGroup
+  id: SecretarianJumpsuit
+  name: loadout-group-secretarian-jumpsuit
+  minLimit: 1
+  loadouts:
+  - SecretarianJumpsuit1
+  - SecretarianJumpskirt1
+  - SecretarianJumpsuit2
+  - SecretarianJumpskirt2
+  - SecretarianJumpsuit3
+  - SecretarianJumpskirt3
+  - SecretarianJumpskirtTactical
+
+- type: loadoutGroup
+  id: SecretarianGloves
+  name: loadout-group-secretarian-gloves
+  minLimit: 0
+  loadouts:
+  - SecretarianWhiteGloves
+
+- type: loadoutGroup
+  id: SecretarianShoes
+  name: Секретарь, обувь
+  loadouts:
+  - BlackShoes
+  - WhiteShoes
+  - BlueShoes
+  - RedShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko

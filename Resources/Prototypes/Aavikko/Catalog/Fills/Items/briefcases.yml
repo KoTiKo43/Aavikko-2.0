@@ -1,0 +1,19 @@
+- type: entity
+  id: BriefcaseSecretaryFilled #Aavikko
+  parent: BriefcaseBrown
+  suffix: Aavikko
+  components:
+    - type: StorageFill
+      contents:
+        - id: Paper
+        - id: Paper
+        - id: Paper
+        - id: LuxuryPen
+        - id: RubberStampSecretary
+        - id: RubberStampApproved
+        - id: RubberStampDenied
+        - id: BoxEnvelope
+        - id: BoxFolderRed
+        - id: BoxFolderBlack
+        - id: BoxFolderCentCom
+        - id: NewtonCradle

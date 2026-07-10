@@ -1,0 +1,21 @@
+- type: entity
+  parent: IDCardStandard
+  id: SecretarianIDCard
+  name: secretarian ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: &color-command-top "#404783"
+    - state: stripe_bottom
+      color: &color-command-bottom "#332f58"
+    - state: job_icon_top
+      color: *color-command-top
+    - state: job_icon_bottom
+      color: *color-command-bottom
+    - sprite: &icon-rsi Aavikko/Interface/Misc/job_icons.rsi
+      offset: &icon-offset -0.1875, 0 # 6 pixels left
+      state: Secretarian
+  - type: PresetIdCard
+    job: Secretarian
