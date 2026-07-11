@@ -18,6 +18,10 @@
       "directions": 4
     },
     {
+      "name": "equipped-MASK-orc",
+      "directions": 4
+    },
+    {
       "name": "up-equipped-MASK",
       "directions": 4
     },
