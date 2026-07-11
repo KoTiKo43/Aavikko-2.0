@@ -50,11 +50,15 @@
             "directions": 4
         },
         {
+            "name": "up-equipped-HELMET-vulpkanin",
+            "directions": 4
+        },
+        {
             "name": "equipped-HELMET-reptilian",
             "directions": 4
         },
         {
-            "name": "up-equipped-HELMET-vulpkanin",
+            "name": "up-equipped-HELMET-reptilian",
             "directions": 4
         }
     ]
