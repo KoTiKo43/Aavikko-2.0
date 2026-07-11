@@ -93,9 +93,9 @@
   description: Security pilot suit.
   components:
     - type: Sprite
-      sprite: Corvax/Clothing/Uniforms/Jumpsuit/pilot.rsi
+      sprite: Aavikko/Clothing/Uniforms/Jumpsuit/pilot.rsi # Aavikko resprite
     - type: Clothing
-      sprite: Corvax/Clothing/Uniforms/Jumpsuit/pilot.rsi
+      sprite: Aavikko/Clothing/Uniforms/Jumpsuit/pilot.rsi # Aavikko resprite
 
 - type: entity
   parent: ClothingUniformBase
