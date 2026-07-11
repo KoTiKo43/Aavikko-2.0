@@ -28,7 +28,15 @@
             "directions": 4
         },
         {
+            "name": "equipped-FEET-vulpkanin",
+            "directions": 4
+        },
+        {
             "name": "on-equipped-FEET-reptilian",
+            "directions": 4
+        },
+        {
+            "name": "on-equipped-FEET-vulpkanin",
             "directions": 4
         },
         {

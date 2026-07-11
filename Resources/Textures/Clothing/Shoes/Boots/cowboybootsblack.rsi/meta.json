@@ -1,24 +1,32 @@
 {
-  "version": 1,
-  "license": "CC-BY-SA-3.0",
-  "copyright": "Taken from /vg/station at https://github.com/tgstation/tgstation/commit/8703eac50de6379c26f7eadb47b4f016854d1dcd",
-  "size": {
-    "x": 32,
-    "y": 32
-  },
-  "states": [
-    {
-      "name": "icon"
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Taken from /vg/station at https://github.com/tgstation/tgstation/commit/8703eac50de6379c26f7eadb47b4f016854d1dcd; digi version by kotiko43 (discord)",
+    "size": {
+        "x": 32,
+        "y": 32
     },
-    {
-      "name": "equipped-FEET",
-      "directions": 4
-    },
-    {
-      "name": "equipped-FEET-orc",
-      "directions": 4
-    },
-    {
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "equipped-FEET",
+            "directions": 4
+        },
+        {
+            "name": "equipped-FEET-orc",
+            "directions": 4
+        },
+        {
+            "name": "equipped-FEET-reptilian",
+            "directions": 4
+        },
+        {
+            "name": "equipped-FEET-vulpkanin",
+            "directions": 4
+        },
+        {
             "name": "inhand-left",
             "directions": 4
         },
@@ -26,5 +34,5 @@
             "name": "inhand-right",
             "directions": 4
         }
-  ]
+    ]
 }
