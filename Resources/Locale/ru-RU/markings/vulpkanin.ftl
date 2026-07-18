@@ -3,12 +3,10 @@ marking-VulpEar-vulp = Уши вульпканина (Основа)
 marking-VulpEar-vulp-inner = Уши вульпканина (Внутренняя часть)
 marking-VulpEar = Вульпканин
 
-marking-VulpEarFade-vulp = Уши вульпканина (Основа)
 marking-VulpEarFade-vulp-fade = Уши вульпканина (Градиент)
 marking-VulpEarFade-vulp-inner = Уши вульпканина (Внутренняя часть)
-marking-VulpEarFade = Вульпканин (градиент)
+marking-VulpEarFade = Вульпканин (Градиент)
 
-marking-VulpEarSharp-vulp = Уши вульпканина (Основа)
 marking-VulpEarSharp-vulp-sharp = Уши вульпканина (Острые)
 marking-VulpEarSharp-vulp-inner = Уши вульпканина (Внутренняя часть)
 marking-VulpEarSharp = Вульпканин (Острые)
@@ -35,7 +33,7 @@ marking-VulpEarFox = Вульпканин Лиса
 
 marking-VulpEarOtie-otie = Короткие уши (Основа)
 marking-VulpEarOtie-otie-inner = Короткие уши (Внутренняя часть)
-marking-VulpEarOtie = Вульпканин Сближенные
+marking-VulpEarOtie = Вульпканин Короткие
 
 marking-VulpEarShock-shock = Сближенные уши (Основа)
 marking-VulpEarShock-shock-inner = Сближенные уши (Внутренняя часть)
@@ -50,23 +48,23 @@ marking-VulpSnout = Морда вульпканина
 marking-VulpSnoutNose-snout-nose = Нос
 marking-VulpSnoutNose = Нос вульпканина
 
-marking-VulpSnoutVulpine-vulpine = Лисья
-marking-VulpSnoutVulpine = Вульпканин (лисья морда)
+marking-VulpSnoutVulpine-vulpine = Лисья морда
+marking-VulpSnoutVulpine = Вульпканин (Лисья морда)
 
 marking-VulpSnoutVulpineLines-vulpine-lines = Лисьи полосы
-marking-VulpSnoutVulpineLines = Вульпканин (лисьи полосы)
+marking-VulpSnoutVulpineLines = Вульпканин (Лисьи полосы)
 
 marking-VulpSnoutBlaze-blaze = Отметина
 marking-VulpSnoutBlaze = Вульпканин (Отметина)
 
 marking-VulpSnoutMask-mask = Маска
-marking-VulpSnoutMask = Вульпканин (маска)
+marking-VulpSnoutMask = Вульпканин (Маска)
 
 marking-VulpSnoutTop-snout-top = Верх морды
-marking-VulpSnoutTop = Вульпканин (верх морды)
+marking-VulpSnoutTop = Вульпканин (Верх морды)
 
 marking-VulpSnoutPatch-patch = Пятно
-marking-VulpSnoutPatch = Вульпканин (пятно)
+marking-VulpSnoutPatch = Вульпканин (Пятно)
 
 
 # Head
@@ -89,8 +87,8 @@ marking-VulpStripes1 = Вульпканин (Полосы 1)
 marking-VulpStripes2-stripes_2 = Полосы 2
 marking-VulpStripes2 = Вульпканин (Полосы 2)
 
-marking-VulpVulpine-vulpine = Нос лисы
-marking-VulpVulpine = Вульпканин (Нос лисы)
+marking-VulpVulpine-vulpine = Лисья морды
+marking-VulpVulpine = Вульпканин (Лисья морда)
 
 
 # Tails

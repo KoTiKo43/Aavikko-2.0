@@ -21,7 +21,7 @@
   bodyPart: SnoutCover
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/snout_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/snout_markings.rsi # Aavikko resprite
       state: vulpine
 
 - type: marking
@@ -29,7 +29,7 @@
   bodyPart: SnoutCover
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/snout_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/snout_markings.rsi # Aavikko resprite
       state: vulpine-lines
 
 - type: marking
@@ -37,7 +37,7 @@
   bodyPart: SnoutCover
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/snout_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/snout_markings.rsi # Aavikko resprite
       state: blaze
 
 - type: marking
@@ -45,7 +45,7 @@
   bodyPart: SnoutCover
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/snout_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/snout_markings.rsi # Aavikko resprite
       state: mask
 
 - type: marking
@@ -63,3 +63,12 @@
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/snout_markings.rsi
       state: patch
+
+# Aavikko
+- type: marking
+  id: VulpSnoutTigerFace
+  bodyPart: SnoutCover
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/snout_markings.rsi
+      state: tiger-face

@@ -1,13 +1,12 @@
-
 # Ears Markings
 - type: marking
   id: VulpEar
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: vulp
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: vulp-inner
 
 - type: marking
@@ -15,11 +14,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
-      state: vulp
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: vulp-sharp
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: vulp-inner
 
 - type: marking
@@ -27,11 +24,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
-      state: vulp
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: vulp-fade
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: vulp-inner
 
 - type: marking
@@ -39,9 +34,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: jackal
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: jackal-inner
 
 - type: marking
@@ -49,9 +44,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: terrier
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: terrier-inner
 
 - type: marking
@@ -59,9 +54,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: fennec
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: fennec-inner
 
 - type: marking
@@ -69,9 +64,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: fox
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: fox-inner
 
 - type: marking
@@ -79,9 +74,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: otie
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: otie-inner
 
 - type: marking
@@ -89,9 +84,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: shock
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: shock-inner
 
 - type: marking
@@ -99,7 +94,18 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: coyote
-    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi # Aavikko resprite
       state: coyote-inner
+
+# Aavikko
+- type: marking
+  id: VulpEarWolf
+  bodyPart: HeadTop
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi
+      state: wolf
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/ear_markings.rsi
+      state: wolf-inner

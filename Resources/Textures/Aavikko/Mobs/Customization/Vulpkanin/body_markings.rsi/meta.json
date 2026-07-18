@@ -1,0 +1,32 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Taken from https://github.com/ParadiseSS13/Paradise edited by Floofers; belly_fox and claws edited by KoTiKo43",
+    "size": { "x": 32, "y": 32 },
+    "states": [
+        {
+            "name": "belly_fox",
+            "directions": 4
+        },
+        {
+            "name": "belly_full",
+            "directions": 4
+        },
+        {
+            "name": "claws_l_hand",
+            "directions": 4
+        },
+        {
+            "name": "claws_r_hand",
+            "directions": 4
+        },
+        {
+            "name": "claws_l_foot",
+            "directions": 4
+        },
+        {
+            "name": "claws_r_foot",
+            "directions": 4
+        }
+    ]
+}
