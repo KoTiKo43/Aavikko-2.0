@@ -25,7 +25,7 @@ marking-VulpEarTerrier = Вульпканин Терьер
 
 marking-VulpEarFennec-fennec = Уши фенека (Основа)
 marking-VulpEarFennec-fennec-inner = Уши фенека (Внутренняя часть)
-marking-VulpEarFennec = Вульпканин фенек
+marking-VulpEarFennec = Вульпканин Фенек
 
 marking-VulpEarFox-fox = Уши лисы (Основа)
 marking-VulpEarFox-fox-inner = Уши лисы (Внутренняя часть)
