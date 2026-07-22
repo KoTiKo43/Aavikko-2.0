@@ -60,6 +60,14 @@
         {
             "name": "up-equipped-HELMET-reptilian",
             "directions": 4
+        },
+        {
+            "name": "equipped-HELMET-orc",
+            "directions": 4
+        },
+        {
+            "name": "up-equipped-HELMET-orc",
+            "directions": 4
         }
     ]
 }
