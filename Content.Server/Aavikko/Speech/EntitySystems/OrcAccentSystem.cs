@@ -13,8 +13,9 @@ public sealed partial class OrcAccentSystem : EntitySystem
     private static readonly Regex Verb1B = new(@"ешь\b", RegexOptions.IgnoreCase);
     private static readonly Regex Verb1C = new(@"ет\b", RegexOptions.IgnoreCase);
     private static readonly Regex Verb1D = new(@"ем\b", RegexOptions.IgnoreCase);
-    private static readonly Regex Verb1E = new(@"ете\b", RegexOptions.IgnoreCase);
-    private static readonly Regex Verb1F = new(@"ют\b", RegexOptions.IgnoreCase);
+    private static readonly Regex Verb1E = new(@"аете\b", RegexOptions.IgnoreCase);
+    private static readonly Regex Verb1F = new(@"ете\b", RegexOptions.IgnoreCase);
+    private static readonly Regex Verb1G = new(@"ют\b", RegexOptions.IgnoreCase);
 
     private static readonly Regex Verb2A = new(@"ю\b", RegexOptions.IgnoreCase);
     private static readonly Regex Verb2B = new(@"ишь\b", RegexOptions.IgnoreCase);
@@ -41,6 +42,7 @@ public sealed partial class OrcAccentSystem : EntitySystem
         message = Verb1D.Replace(message, "ать");
         message = Verb1E.Replace(message, "ать");
         message = Verb1F.Replace(message, "ать");
+        message = Verb1G.Replace(message, "ать");
 
         message = Verb2A.Replace(message, "ить");
         message = Verb2B.Replace(message, "ить");
