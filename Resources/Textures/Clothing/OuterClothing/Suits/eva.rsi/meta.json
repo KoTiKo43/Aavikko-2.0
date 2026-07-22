@@ -20,11 +20,15 @@
             "directions": 4
         },
         {
+            "name": "equipped-OUTERCLOTHING-monkey",
+            "directions": 4
+        },
+        {
             "name": "equipped-OUTERCLOTHING-reptilian",
             "directions": 4
         },
         {
-            "name": "equipped-OUTERCLOTHING-monkey",
+            "name": "equipped-OUTERCLOTHING-vulpkanin",
             "directions": 4
         },
         {

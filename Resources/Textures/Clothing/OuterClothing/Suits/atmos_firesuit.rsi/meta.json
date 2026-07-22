@@ -20,6 +20,14 @@
             "directions": 4
         },
         {
+            "name": "equipped-OUTERCLOTHING-vulpkanin",
+            "directions": 4
+        },
+        {
+            "name": "equipped-OUTERCLOTHING-orc",
+            "directions": 4
+        },
+        {
             "name": "equipped-OUTERCLOTHING-vox",
             "directions": 4
         },
