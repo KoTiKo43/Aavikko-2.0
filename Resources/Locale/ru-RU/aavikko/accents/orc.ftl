@@ -17,6 +17,12 @@ aavikko-accent-orc-words-3-3 = нам
 aavikko-accent-orc-words-3-4 = нами
 aavikko-accent-orc-words-replace-3 = наше
 
+aavikko-accent-orc-words-44-1 = вы
+aavikko-accent-orc-words-44-2 = вас
+aavikko-accent-orc-words-44-3 = вам
+aavikko-accent-orc-words-44-4 = вами
+aavikko-accent-orc-words-replace-44 = ваше
+
 # Расы и Существа
 aavikko-accent-orc-words-4-1 = человек
 aavikko-accent-orc-words-4-2 = человека
