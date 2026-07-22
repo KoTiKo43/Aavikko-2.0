@@ -1,13 +1,14 @@
 <Document>
   # Расы
 
-  Нанотразен нанимает разнообразные разумные виды.
+  Нанотрейзен нанимает разнообразные разумные виды.
 
   <Box>
   <GuideEntityEmbed Entity="AppearanceArachnid" Caption="Арахнид"/>
   <GuideEntityEmbed Entity="AppearanceDiona" Caption="Диона"/>
   <GuideEntityEmbed Entity="AppearanceDwarf" Caption="Дворф"/>
   <GuideEntityEmbed Entity="AppearanceHuman" Caption="Человек"/>
+  <GuideEntityEmbed Entity="AppearanceOrc" Caption="Орк"/>
   </Box>
   <Box>
   <GuideEntityEmbed Entity="AppearanceMoth" Caption="Ниан"/>
@@ -16,7 +17,7 @@
   <GuideEntityEmbed Entity="AppearanceVox" Caption="Вокс"/>
   </Box>
   <Box>
-    <GuideEntityEmbed Entity="AppearanceVulpkanin" Caption="Вульпакин"/>
+    <GuideEntityEmbed Entity="AppearanceVulpkanin" Caption="Вульпканин"/>
   </Box>
 
 </Document>

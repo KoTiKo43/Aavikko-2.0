@@ -22,6 +22,7 @@
     - Vulpkanin
     - Tajaran
     #Corvax-Species-End
+    - Orc # Aavikko
 
 - type: loadoutEffectGroup
   id: EffectSpeciesVox

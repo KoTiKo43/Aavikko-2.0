@@ -3,3 +3,10 @@
   strategy: !type:ClampedHsvColoration
     saturation: [ 0, 0 ]
     value: [ 0.4, 1.0 ]
+
+- type: skinColoration
+  id: OrcGreen
+  strategy: !type:ClampedHsvColoration
+    hue: [ 0.2, 0.4 ]
+    saturation: [ 0.4, 0.8 ]
+    value: [ 0.25, 0.8 ]

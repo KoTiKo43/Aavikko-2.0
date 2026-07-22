@@ -1,0 +1,12 @@
+- type: species
+  id: Orc
+  name: species-name-orc
+  roundStart: true
+  prototype: MobOrc
+  defaultSkinTone: "#188f0f"
+  dollPrototype: AppearanceOrc
+  skinColoration: OrcGreen
+  maleFirstNames: NamesOrcFirstMale
+  naming: First
+  sexes:
+   - Male
