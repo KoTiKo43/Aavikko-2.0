@@ -15,10 +15,10 @@
     enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: true
-      default: [ TajaranOutears ]
+      default: [ TajaranEars ]
     enum.HumanoidVisualLayers.Snout:
-      limit: 1
-      required: true
+      limit: 2 # Aavikko tajaran
+      required: false # Aavikko tajaran
     enum.HumanoidVisualLayers.SnoutCover:
       limit: 3
       required: false
@@ -88,35 +88,35 @@
       Kidneys: OrganTajaranKidneys
   - type: HumanoidProfile
     species: Tajaran
-  - type: Inventory
-    speciesId: corvaxtajaran
-    femaleDisplacements:
-      jumpsuit:
-        sizeMaps:
-          32:
-            sprite: Corvax/Mobs/Species/displacement.rsi
-            state: jumpsuit-female
-      shoes:
-        sizeMaps:
-          32:
-            sprite: Corvax/Mobs/Species/displacement.rsi
-            state: shoes
-    displacements:
-      jumpsuit:
-        sizeMaps:
-          32:
-            sprite: Corvax/Mobs/Species/displacement.rsi
-            state: jumpsuit
-      shoes:
-        sizeMaps:
-          32:
-            sprite: Corvax/Mobs/Species/displacement.rsi
-            state: shoes
-      outerClothing:
-        sizeMaps:
-          32:
-            sprite: Corvax/Mobs/Species/displacement.rsi
-            state: outerclothing
+  # - type: Inventory # Aavikko tajaran transfer
+  #   speciesId: corvaxtajaran
+  #   femaleDisplacements:
+  #     jumpsuit:
+  #       sizeMaps:
+  #         32:
+  #           sprite: Corvax/Mobs/Species/displacement.rsi
+  #           state: jumpsuit-female
+  #     shoes:
+  #       sizeMaps:
+  #         32:
+  #           sprite: Corvax/Mobs/Species/displacement.rsi
+  #           state: shoes
+  #   displacements:
+  #     jumpsuit:
+  #       sizeMaps:
+  #         32:
+  #           sprite: Corvax/Mobs/Species/displacement.rsi
+  #           state: jumpsuit
+  #     shoes:
+  #       sizeMaps:
+  #         32:
+  #           sprite: Corvax/Mobs/Species/displacement.rsi
+  #           state: shoes
+  #     outerClothing:
+  #       sizeMaps:
+  #         32:
+  #           sprite: Corvax/Mobs/Species/displacement.rsi
+  #           state: outerclothing
 
 - type: entity
   save: false
@@ -156,6 +156,7 @@
       types:
         Asphyxiation: -2.0
   - type: Wagging
+    action: ActionToggleWaggingTajaran # Aavikko tajaran
 
 - type: entity
   parent: OrganBase
@@ -168,7 +169,19 @@
   abstract: true
   components:
   - type: Metabolizer
-    metabolizerTypes: [ Animal ]
+    metabolizerTypes: [ Tajaran, Animal ] # Aavikko
+
+# Aavikko start
+- type: entity
+  parent: Solution
+  id: SolutionStomachTajaran
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    id: stomach
+    solution:
+      maxVol: 50
+# Aavikko end
 
 - type: entity
   parent: OrganTajaran
@@ -184,7 +197,7 @@
   components:
   - type: VisualOrgan
     data:
-      sprite: Corvax/Mobs/Species/Tajaran/parts.rsi
+      sprite: Aavikko/Mobs/Species/Tajaran/parts.rsi # Aavikko tajaran transfer
   - type: VisualOrganMarkings
     markingData:
       group: Tajaran
@@ -195,7 +208,7 @@
   abstract: true
   components:
   - type: Sprite
-    sprite: Corvax/Mobs/Species/Tajaran/parts.rsi
+    sprite: Aavikko/Mobs/Species/Tajaran/parts.rsi # Aavikko tajaran transfer
 
 - type: entity
   parent: [ OrganBaseTorsoSexed, OrganBaseTorso, OrganTajaranExternal ]
@@ -279,22 +292,23 @@
 - type: entity
   parent: [ OrganBaseStomach, OrganTajaranInternal, OrganTajaranMetabolizer ]
   id: OrganTajaranStomach
-  components:  
-  - type: SolutionManager  
+  components:
+  - type: SolutionManager
     solutions:
-    - SolutionStomach      
-    - SolutionTajaranFood  
+    - SolutionStomachTajaran # Aavikko
+    - SolutionTajaranFood
 
-- type: entity  
+
+- type: entity
   parent: SolutionFood
-  id: SolutionTajaranFood  
-  categories: [ HideSpawnMenu ]  
-  components:  
-  - type: Solution  
-    solution:  
-      maxVol: 5  
-      reagents:  
-      - ReagentId: UncookedAnimalProteins  
+  id: SolutionTajaranFood
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Solution
+    solution:
+      maxVol: 5
+      reagents:
+      - ReagentId: UncookedAnimalProteins
         Quantity: 5
 
 - type: entity
