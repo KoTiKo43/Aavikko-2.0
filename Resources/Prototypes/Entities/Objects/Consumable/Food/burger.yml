@@ -22,8 +22,8 @@
   name: bottom bun
   description: It's time to start building the burger tower.
   components:
-  - type: Item
-    size: Normal #patch until there is an adequate resizing system in place
+#  - type: Item
+#    size: Normal #patch until there is an adequate resizing system in place # Why lol. Commented (Aavikko)
   - type: Sprite
     drawdepth: Mobs
     noRot: true
@@ -1037,6 +1037,9 @@
         Quantity: 8
       - ReagentId: Vitamin
         Quantity: 5
+  - type: Tag
+    tags:
+      - ReptilianFood
 # Tastes like bun, redditors.
 
 - type: entity
@@ -1061,6 +1064,9 @@
       - magical
   - type: Sprite
     state: spell
+  - type: Tag
+    tags:
+      - ReptilianFood
 # Tastes like bun, silver.
 
 - type: entity
@@ -1138,6 +1144,9 @@
         color: "#f0d8a1"
       - state: alpha-filling-inhand-right
         color: "#e5ad29"
+  - type: Tag
+    tags:
+      - ReptilianFood
 # Tastes like bun, tofu.
 
 - type: entity
@@ -1199,4 +1208,3 @@
   - type: Tag
     tags:
     - Meat
-

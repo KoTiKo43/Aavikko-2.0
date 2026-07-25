@@ -315,6 +315,9 @@
       - state: plain-inhand-right
       - state: alpha-filling-inhand-right
         color: "#ffffff"
+  - type: Tag
+    tags:
+      - ReptilianFood
 
 - type: entity
   name: slice of cheese cake
@@ -334,6 +337,9 @@
       - state: plain-inhand-right
       - state: alpha-slice-filling-inhand-right
         color: "#ffffff"
+  - type: Tag
+    tags:
+      - ReptilianFood
 # Tastes like sweetness, cream cheese.
 
 - type: entity
