@@ -1,0 +1,15 @@
+- type: entity
+  parent: ClothingHandsBase
+  id: ClothingHandsGlovesWhiteCaptain
+  name: белые перчатки капитана
+  description: Чище них только репутация их владельца.
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Hands/Gloves/white_captain_gloves.rsi
+  - type: Clothing
+    sprite: Aavikko/Clothing/Hands/Gloves/white_captain_gloves.rsi
+  - type: Insulated
+  - type: Fiber
+    fiberMaterial: fibers-durathread
+    fiberColor: fibers-white
+  - type: FingerprintMask

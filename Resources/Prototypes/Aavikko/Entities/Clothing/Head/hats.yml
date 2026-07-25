@@ -1,0 +1,12 @@
+- type: entity
+  parent: ClothingHeadHatCapcap
+  id: ClothingHeadHatCapcapWhite
+  name: белая фуражка капитана
+  description: Излучает слепящий свет профессионализма.
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Head/Hats/white_cap_hat.rsi
+  - type: Clothing
+    sprite: Aavikko/Clothing/Head/Hats/white_cap_hat.rsi
+  - type: Item
+    sprite: Aavikko/Clothing/Head/Hats/white_cap_hat.rsi

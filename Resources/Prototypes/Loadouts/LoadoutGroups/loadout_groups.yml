@@ -114,6 +114,16 @@
   - LoadoutSpeciesPocketDoubleOxygen
 
 # Command
+# Aavikko
+- type: loadoutGroup
+  id: CaptainGloves
+  name: loadout-group-captain-gloves
+  loadouts:
+  - CaptainGloves
+  #Aavikko-Loadouts-Start
+  - CaptainGlovesWhite
+  #Aavikko-Loadouts-End
+
 - type: loadoutGroup
   id: CaptainHead
   name: loadout-group-captain-head
@@ -121,6 +131,9 @@
   loadouts:
   - CaptainHead
   - CaptainCap
+  #Aavikko-Loadouts-Start
+  - CaptainCapWhite
+  #Aavikko-Loadouts-End
 
 - type: loadoutGroup
   id: CaptainJumpsuit
@@ -134,6 +147,10 @@
   - CaptainJumpsuitTurtleneck
   - CaptainJumpskirtTurtleneck
   # Corvax-Loadouts-End
+  # Aavikko-Loadouts-Start
+  - CaptainJumpsuitWhite
+  - CaptainJumpskirtWhite
+  # Aavikko-Loadouts-End
 
 - type: loadoutGroup
   id: CaptainNeck
@@ -143,6 +160,9 @@
   - CaptainCloak
   - CaptainCloakFormal
   - CaptainMantle
+  # Aavikko-Loadouts-Start
+  - CaptainCloakWhite
+  # Aavikko-Loadouts-End
 
 - type: loadoutGroup
   id: CaptainBackpack

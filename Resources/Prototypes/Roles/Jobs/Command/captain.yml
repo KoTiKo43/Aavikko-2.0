@@ -43,7 +43,6 @@
   id: CaptainGear
   equipment:
     eyes: ClothingEyesGlassesCommand
-    gloves: ClothingHandsGlovesCaptain
     id: CaptainPDA
     ears: ClothingHeadsetAltCommand
   storage:

@@ -1,0 +1,9 @@
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakCapWhite
+  name: белый торжественный плащ капитана
+  suffix: Aavikko
+  description: 
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Neck/Cloaks/cap_white.rsi

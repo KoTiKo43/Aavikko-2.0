@@ -9,3 +9,15 @@
     sprite: Aavikko/Clothing/Uniforms/Jumpsuit/centcom_intern.rsi
   - type: Clothing
     sprite: Aavikko/Clothing/Uniforms/Jumpsuit/centcom_intern.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitWhiteCaptain
+  name: белый комбинезон капитана
+  suffix: Aavikko
+  description: Одним своим видом заставляет остальных повиноваться Вашей воле.
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Uniforms/Jumpsuit/white_captain_jumpsuit.rsi
+  - type: Clothing
+    sprite: Aavikko/Clothing/Uniforms/Jumpsuit/white_captain_jumpsuit.rsi

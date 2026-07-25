@@ -28,6 +28,7 @@ loadout-group-captain-neck = Капитан, шея
 loadout-group-captain-backpack = Капитан, рюкзак
 loadout-group-captain-outerclothing = Капитан, верхняя одежда
 loadout-group-captain-shoes = Капитан, обувь
+loadout-group-captain-gloves = Капитан, перчатки # Aavikko
 
 loadout-group-hop-head = Глава персонала, голова
 loadout-group-hop-jumpsuit = Глава персонала, комбинезон
