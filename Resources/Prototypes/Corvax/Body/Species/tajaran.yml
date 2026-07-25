@@ -134,8 +134,9 @@
     baseDecayRate: 0.15
   - type: ContentEye
   - type: Speech
+    speechSounds: Alto # Aavikko, заглушка
     speechVerb: Feline
-    allowedEmotes: ['Purr']
+    allowedEmotes: ['Purr', 'Mrrp', 'Meows']
   - type: Vocal
     sounds:
       Male: MaleTajaran

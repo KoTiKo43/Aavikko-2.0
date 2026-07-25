@@ -147,7 +147,7 @@
   - type: Speech
     speechSounds: Lizard
     speechVerb: Reptilian
-    allowedEmotes: ['Thump']
+    allowedEmotes: ['Thump', 'WehUnathi', 'Hisses', 'HissesLong', 'Rumbling']
   - type: TypingIndicator
     proto: lizard
   - type: CreamPied

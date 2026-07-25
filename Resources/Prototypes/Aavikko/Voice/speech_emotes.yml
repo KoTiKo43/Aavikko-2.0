@@ -58,7 +58,7 @@
     components:
     - Vocal
   available: false
-  icon: Interface/Emotes/vocal.png # заглушка
+  icon: Corvax/Interface/Emotes/purr.png # Заглушка
   chatMessages: [муркает]
   chatTriggers:
     - mrrp
@@ -113,7 +113,7 @@
     - BorgChassis
     - Ghost
   available: false
-  icon: Interface/Emotes/vocal.png # заглушка
+  icon: Aavikko/Interface/Emotes/hiss.png
   chatMessages: [шипит]
   chatTriggers:
     - шипит
@@ -153,7 +153,7 @@
     components:
     - BorgChassis
     - Ghost
-  icon: Interface/Emotes/vocal.png # заглушка
+  icon: Aavikko/Interface/Emotes/hiss_long.png
   chatMessages: [продолжительно шипит]
   chatTriggers:
     - hisses long
@@ -187,8 +187,10 @@
   - rumbles deeply.
   - урчит
   - урчит.
+  - урчит!
   - утробно урчит
   - утробно урчит.
+  - утробно урчит!
 
 # - type: emote
 #   id: Woof
@@ -225,7 +227,7 @@
     components:
     - Vocal
   available: false
-  icon: Interface/Emotes/vocal.png # заглушка
+  icon: Corvax/Interface/Emotes/purr.png # Заглушка
   chatMessages: [мяукает]
   chatTriggers:
     - мяу
@@ -279,22 +281,22 @@
     - nyas.
     - nyas!
 
-# - type: emote # может и не понадобится
-#   id: Squeal
-#   name: Пищать
-#   category: Vocal
-#   whitelist:
-#     components:
-#     - Vocal
-#   available: false
-#   icon: Interface/Emotes/vocal.png # заглушка
-#   chatMessages: [пищит!]
-#   chatTriggers: # Из-за кривоватой системы эмоций пришлось убрать "пищит", т.к. совпадало с другим триггером и выдавало ошибку
-#     - пищит.
-#     - пищит!
-#     - squeal
-#     - squeal.
-#     - squeal!
-#     - squeals
-#     - squeals.
-#     - squeals!
+- type: emote # может и не понадобится
+  id: Squeal
+  name: Пищать
+  category: Vocal
+  whitelist:
+    components:
+    - Vocal
+  available: false
+  icon: Aavikko/Interface/Emotes/squeal.png
+  chatMessages: [пищит!]
+  chatTriggers: # Из-за кривоватой системы эмоций пришлось убрать "пищит", т.к. совпадало с другим триггером и выдавало ошибку
+    - пищит.
+    - пищит!
+    - squeal
+    - squeal.
+    - squeal!
+    - squeals
+    - squeals.
+    - squeals!

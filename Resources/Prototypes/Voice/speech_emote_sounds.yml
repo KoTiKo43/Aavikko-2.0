@@ -106,6 +106,20 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: DeathGasp
+    # Aavikko-emotes-start
+    WehUnathi:
+      collection: Weh
+    Hisses:
+      collection: UnathiHiss
+    HissesLong:
+      path: /Audio/Aavikko/Voice/Reptilian/hiss_long.ogg
+    Rumbling:
+      collection: UnathiPurr
+    Sneeze:
+      path: /Audio/Aavikko/Voice/Reptilian/m_u_sneeze.ogg
+    Sigh:
+      collection: MaleSigh
+    # Aavikko-emotes-end
 
 - type: emoteSounds
   id: FemaleReptilian
@@ -130,6 +144,20 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
+    # Aavikko-emotes-start
+    WehUnathi:
+      collection: Weh
+    Hisses:
+      collection: UnathiHiss
+    HissesLong:
+      path: /Audio/Aavikko/Voice/Reptilian/hiss_long.ogg
+    Rumbling:
+      collection: UnathiPurr
+    Sneeze:
+      path: /Audio/Aavikko/Voice/Reptilian/f_u_sneeze.ogg
+    Sigh:
+      collection: FemaleSigh
+    # Aavikko-emotes-end
 
 - type: emoteSounds
   id: MaleSlime
@@ -597,7 +625,7 @@
   id: ReptilianBodyEmotes
   sounds:
     Thump:
-      path: /Audio/Voice/Reptilian/reptilian_tailthump.ogg
+      path: /Audio/Aavikko/Voice/Reptilian/whip_short.ogg # Aavikko
       params:
         variation: 0.125
     Clap:
