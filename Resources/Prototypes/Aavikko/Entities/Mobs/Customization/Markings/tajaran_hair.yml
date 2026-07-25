@@ -3,7 +3,6 @@
   id: TajaranSpikey
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: spikey
@@ -12,7 +11,6 @@
   id: TajaranHairLadiesretro
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: ladiesretro
@@ -21,7 +19,6 @@
   id: TajaranHairBraid
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: braid
@@ -30,7 +27,6 @@
   id: TajaranHairEyebrows
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: eyebrows
@@ -39,7 +35,6 @@
   id: TajaranHairPigtail
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: pigtail
@@ -48,7 +43,6 @@
   id: TajaranHairCurly
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: curly
@@ -57,7 +51,6 @@
   id: TajaranHairBob
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: bob
@@ -66,7 +59,6 @@
   id: TajaranHairFingerwave
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: fingerwave
@@ -75,7 +67,6 @@
   id: TajaranHairPlait
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: plait
@@ -84,7 +75,6 @@
   id: TajaranHairPonytail
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: ponytail
@@ -93,7 +83,6 @@
   id: TajaranHairClean
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: clean
@@ -102,7 +91,6 @@
   id: TajaranHairRattail
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: rattail
@@ -111,7 +99,6 @@
   id: TajaranHairBedhead
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: bedhead
@@ -120,7 +107,6 @@
   id: TajaranHairVictory
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: victory
@@ -129,7 +115,6 @@
   id: TajaranHairShaggy
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: shaggy
@@ -138,7 +123,6 @@
   id: TajaranHairMohawk
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: mohawk
@@ -147,7 +131,6 @@
   id: TajaranHairBangs
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: bangs
@@ -156,7 +139,6 @@
   id: TajaranHairMessy
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: messy
@@ -165,7 +147,6 @@
   id: TajaranHairStraight
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: straight
@@ -174,7 +155,6 @@
   id: TajaranHairLong
   bodyPart: Hair
   groupWhitelist: [Tajaran]
-  sponsorOnly: false # Corvax-Sponsors
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: long
