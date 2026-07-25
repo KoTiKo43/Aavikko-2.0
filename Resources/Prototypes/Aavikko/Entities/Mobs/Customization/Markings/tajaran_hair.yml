@@ -178,3 +178,11 @@
   sprites:
     - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
       state: long
+
+- type: marking
+  id: TajaranHairMarmalade
+  bodyPart: Hair
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_hairs.rsi
+      state: marmalade

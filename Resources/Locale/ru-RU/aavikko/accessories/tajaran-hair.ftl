@@ -1,4 +1,4 @@
-marking-TajaranHairLadiesretro = Ретро, таяран
+marking-TajaranHairLadiesretro = Девичья ретро, таяран
 marking-TajaranHairLadiesretro-ladiesretro = Ретро
 marking-TajaranHairBraid = Косичка, таяран
 marking-TajaranHairBraid-braid = Косичка
@@ -38,3 +38,5 @@ marking-TajaranHairStraight = Прямые, таяран
 marking-TajaranHairStraight-straight = Прямые
 marking-TajaranHairLong = Длинные, таяран
 marking-TajaranHairLong-long = Длинные
+marking-TajaranHairMarmalade = Мармелад, таяран
+marking-TajaranHairMarmalade-marmalade = Мармелад
