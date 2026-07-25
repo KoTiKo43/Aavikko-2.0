@@ -5,3 +5,10 @@
   - К-урлык.
   - К-урлык! К-урлык!
   - К-урло...
+
+- type: speechVerb
+  id: Feline
+  name: chat-speech-verb-name-feline
+  speechVerbStrings:
+  - chat-speech-verb-feline-1
+  - chat-speech-verb-feline-2

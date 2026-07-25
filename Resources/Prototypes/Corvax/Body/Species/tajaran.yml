@@ -126,12 +126,15 @@
   - BaseSpeciesMobOrganic
   id: MobTajaran
   components:
+  - type: Sprite # Aavikko
+    scale: 0.95, 0.95
   - type: Hunger
     baseDecayRate: 0.02
   - type: Thirst
     baseDecayRate: 0.15
   - type: ContentEye
   - type: Speech
+    speechVerb: Feline
     allowedEmotes: ['Purr']
   - type: Vocal
     sounds:
