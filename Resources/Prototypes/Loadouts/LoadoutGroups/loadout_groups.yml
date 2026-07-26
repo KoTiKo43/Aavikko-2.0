@@ -1300,6 +1300,9 @@
   - SecurityHelmet
   - SecurityBeret
   - SecurityHat
+  # Aavikko-Loadouts-Start
+  - SecurityCap
+  # Aavikko-Loadouts-End
   - TrooperHat
 
 - type: loadoutGroup
@@ -1336,6 +1339,9 @@
   - ArmorVestSlim
   - SecurityOfficerOvercoat # Corvax
   - SecurityOfficerWintercoat
+  # Aavikko-Loadouts-Start
+  - SecurityOfficerTrenchcoat
+  # Aavikko-Loadouts-End
 
 - type: loadoutGroup
   id: SecurityShoes

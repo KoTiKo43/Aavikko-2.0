@@ -102,6 +102,8 @@
     ClothingShoesClothfootwrapsSilver: 3
     ClothingShoesClothfootwrapsYellow: 3
     # Aavikko cloth footwraps
+    ClothingOuterCoatTrenchBlack: 2
+    # Aavikko black trenchcoat
   contrabandInventory:
     ClothingMaskNeckGaiter: 2
     ClothingUniformJumpsuitTacticool: 1
@@ -111,3 +113,5 @@
     ClothingBackpackSatchelSmugglerUnanchored: 1
     ClothingHeadHatSolidHeadband: 2
   # DO NOT ADD MORE, USE UNIFORM DYING
+    ClothingOuterCoatTrenchMobster: 2
+    # Aavikko mobster trenchcoat

@@ -1,0 +1,21 @@
+- type: entity
+  parent: ClothingBackpackDuffel
+  id: ClothingBackpackDuffelRoboticist
+  name: вещмешок робототехника
+  description: Компактный, насколько это возможно, вещмешок с отделениями для хранения основных гаджетов, инструментов и виски.
+  suffix: Aavikko
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Back/Duffels/roboticist.rsi
+
+- type: entity
+  parent: ClothingBackpackDuffel
+  id: ClothingBackpackDuffelCentcom
+  suffix: Aavikko
+  name: вещмешок Центком
+  description: Сделан из лучшей взрывоустойчивой ткани. Способен вмещать действительно габаритные объекты...
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Back/Duffels/centcom.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.6

@@ -41,3 +41,26 @@
         Slash: 0.8
         Piercing: 0.8
         Heat: 0.8
+
+- type: entity
+  parent: ClothingHeadHardsuitBase
+  id: ClothingHeadHelmetHardsuitCentcom
+  name: шлем скафандра Центком
+  description: Специализированный шлем для скафандра Центком.
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Head/Hardsuits/centspace.rsi
+  - type: Clothing
+    sprite: Aavikko/Clothing/Head/Hardsuits/centspace.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.3
+    lowPressureMultiplier: 1000
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.95
+        Slash: 0.95
+        Piercing: 0.90
+        Heat: 0.8
+        Radiation: 0.90
+        Caustic: 0.90

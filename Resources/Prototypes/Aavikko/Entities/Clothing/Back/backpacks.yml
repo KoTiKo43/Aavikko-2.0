@@ -1,0 +1,21 @@
+- type: entity
+  parent: ClothingBackpack
+  id: ClothingBackpackRoboticist
+  name: рюкзак робототехника
+  description: Прочный рюкзак со множеством отделений для инструментов и запчастей, который сохранит их в порядке даже во время отключения гравитации!
+  suffix: Aavikko
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Back/Backpacks/roboticist.rsi
+
+- type: entity
+  parent: ClothingBackpack
+  id: ClothingBackpackCentcom
+  suffix: Aavikko
+  name: рюкзак Центком
+  description: Сделан из лучшей взрывоустойчивой ткани. Изнутри, зачем-то, обшит гидрофобной тканью.
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Back/Backpacks/centcom.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.6

@@ -1,0 +1,31 @@
+- type: entity
+  parent: [ClothingOuterHardsuitBase, BaseCentcommContraband]
+  id: ClothingOuterHardsuitCenctom
+  name: бронированный скафандр Центком
+  description: Специализированный укреплённый скафандр для выходящих в поле членов Центрального Командования.
+  suffix: Aavikko
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/OuterClothing/Hardsuits/centspace.rsi
+  - type: Clothing
+    sprite: Aavikko/Clothing/OuterClothing/Hardsuits/centspace.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.02
+    lowPressureMultiplier: 1000
+  - type: ExplosionResistance
+    damageCoefficient: 0.4
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.6
+        Heat: 0.4
+        Radiation: 0.50
+        Caustic: 0.35
+  - type: ClothingSpeedModifier
+    walkModifier: 1.0
+    sprintModifier: 1.0
+  - type: HeldSpeedModifier
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitCentcom
