@@ -20,5 +20,9 @@
        pda-secretarian
   - type: PdaBorderColor
     borderColor: "#22b3c9"
+  - type: Sprite
+    sprite: Aavikko/Objects/Devices/pda.rsi
+    state: pda-secretarian
   - type: Icon
+    path: Aavikko/Objects/Devices/pda.rsi
     state: pda-secretarian
