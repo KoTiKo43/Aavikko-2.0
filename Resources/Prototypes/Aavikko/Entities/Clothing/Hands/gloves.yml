@@ -3,6 +3,7 @@
   id: ClothingHandsGlovesWhiteCaptain
   name: белые перчатки капитана
   description: Чище них только репутация их владельца.
+  suffix: Aavikko
   components:
   - type: Sprite
     sprite: Aavikko/Clothing/Hands/Gloves/white_captain_gloves.rsi
