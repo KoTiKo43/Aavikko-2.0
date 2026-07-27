@@ -66,6 +66,8 @@
       Kidneys: OrganArachnidKidneys
   - type: HumanoidProfile
     species: Arachnid
+  - type: ScaleVisuals # Aavikko tweak
+    scale: 1.07, 1.07
 
 - type: entity
   parent:
@@ -121,6 +123,8 @@
       types:
         Piercing: 5
   # Aavikko start
+  - type: Sprite
+    scale: 1.07, 1.07
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: AavikkoArachnid
