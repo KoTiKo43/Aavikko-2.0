@@ -63,7 +63,7 @@
   - type: BasicStationEventScheduler
     minimumTimeUntilFirstEvent: 1200 # 20 mins Aavikko tweak # 10 min
     minMaxEventTiming:
-      min: 1500 # 25 min Corvax-MRP # 750 # 12.5 min
+      min: 1800 # 30 min Aavikko tweak # 25 min Corvax-MRP # 750 # 12.5 min
       max: 2700 # 45 min Corvax-MRP # 930 # 17.5 min
     scheduledGameRules: !type:NestedSelector
       tableId: BasicMeteorSwarmEventsTable
@@ -76,8 +76,8 @@
   - type: BasicStationEventScheduler
     minimumTimeUntilFirstEvent: 1200 # 20 mins Aavikko tweak # 10 min
     minMaxEventTiming:
-      min: 750 # 12.5 min
-      max: 930 # 17.5 min
+      min: 1200 # 20 min Aavikko tweak # 12.5 min
+      max: 1500 # 25 min Aavikko tweak # 17.5 min
     scheduledGameRules: !type:NestedSelector
       tableId: MeteorSwarmMildTable
 
@@ -112,7 +112,7 @@
   - type: StationEvent
     weight: 44
     earliestStart: 2
-    minimumPlayers: 15 # Aavikko tweak
+    minimumPlayers: 20 # Aavikko tweak
   - type: MeteorSwarm
     announcement: null
     announcementSound: null
@@ -132,7 +132,7 @@
   components:
   - type: StationEvent
     weight: 22
-    minimumPlayers: 20 # Aavikko tweak
+    minimumPlayers: 30 # Aavikko tweak
   - type: MeteorSwarm
     announcement: station-event-space-dust-start-announcement
     announcementSound: /Audio/Announcements/attention.ogg
@@ -152,7 +152,7 @@
   components:
   - type: StationEvent
     weight: 18
-    minimumPlayers: 15
+    minimumPlayers: 20
   - type: MeteorSwarm
     meteors:
       MeteorSmall: 7
