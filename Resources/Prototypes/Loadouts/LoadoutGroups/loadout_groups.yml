@@ -651,6 +651,15 @@
   - MimeJumpsuit
   - MimeJumpskirt
 
+# Aavikko start
+- type: loadoutGroup
+  id: MimeNeck
+  name: loadout-group-mime-neck
+  minLimit: 0
+  loadouts:
+  - MimeScarfStripedZebra
+# Aavikko end
+
 - type: loadoutGroup
   id: MimeBackpack
   name: loadout-group-mime-backpack
