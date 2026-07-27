@@ -501,6 +501,17 @@
     - стукнул своим хвостом
     - стукнула своим хвостом
     # Corvax-Localization-End
+    # Aavikko-Tweak-Start
+    - whips his tail
+    - whips his tail.
+    - whips his tail!
+    - бьёт хвостом
+    - бьёт хвостом.
+    - бьёт хвостом!
+    - бьёт своим хвостом
+    - бьёт своим хвостом.
+    - бьёт своим хвостом!
+    # Aavikko-Tweak-End
 
 - type: emote
   id: Salute
