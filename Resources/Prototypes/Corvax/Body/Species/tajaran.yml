@@ -161,8 +161,25 @@
     damageRecovery:
       types:
         Asphyxiation: -2.0
+  - type: TemperatureDamage
+    heatDamageThreshold: 320
+    coldDamageThreshold: 240
+    coldDamage:
+      types:
+        Cold: 0.07 # Per second, scales with temperature & other constants
+    heatDamage:
+      types:
+        Heat: 2.2 # Per second, scales with temperature & other constants
+  - type: TemperatureSpeed # Aavikko tajaran
+    thresholds:
+      273: 0.8
+      240: 0.6
+      200: 0.4
   - type: Wagging
     action: ActionToggleWaggingTajaran # Aavikko tajaran
+  - type: TemperatureProtection # Aavikko tajaran
+    heatingCoefficient: 1.1
+    coolingCoefficient: 0.4
   - type: CreamPied # Aavikko tajaran
     sprite:
       sprite: Aavikko/Effects/creampie.rsi
