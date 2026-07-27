@@ -17,3 +17,21 @@
     Heat: 0.7
     Cold: 0.7
     Caustic: 1
+
+- type: damageModifierSet
+  id: AavikkoTajaran # Because of fur is more flammable and more resistant to cold
+  coefficients:
+    Cold: 0.6
+    Heat: 1.3
+
+- type: damageModifierSet
+  id: AavikkoVulpkanin # Because of fur is more flammable and more resistant to cold; also vulps have thick fur, that's why they take less blunt damage
+  coefficients:
+    Cold: 0.6
+    Heat: 1.3
+    Blunt: 0.95
+
+- type: damageModifierSet
+  id: AavikkoArachnid # Spiders, you know.
+  coefficients:
+    Poison: 0.6

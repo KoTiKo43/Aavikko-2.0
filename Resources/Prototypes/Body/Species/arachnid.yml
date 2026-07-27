@@ -120,6 +120,21 @@
     damage:
       types:
         Piercing: 5
+  # Aavikko start
+  - type: Damageable
+    damageContainer: Biological
+    damageModifierSet: AavikkoArachnid
+  - type: PassiveDamage # Arachnids have poison regen
+    allowedStates:
+    - Alive
+    damageCap: 20
+    damage:
+      types:
+        Heat: -0.07
+        Poison: -0.15
+      groups:
+        Brute: -0.07
+  # Aavikko end
   - type: DamageVisuals
     damageOverlayGroups:
       Brute:

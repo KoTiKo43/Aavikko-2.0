@@ -36,7 +36,7 @@
   - type: HumanoidProfile
     species: Dwarf
   - type: ScaleVisuals
-    scale: 1, 0.8
+    scale: 0.8, 0.8 # Aavikko
 
 - type: entity
   parent:
@@ -67,6 +67,31 @@
     accent: scottish
   - type: Speech
     speechSounds: Bass
+  # Aavikko start
+  - type: Respirator
+    damage:
+      types:
+        Asphyxiation: 1.5 # Breath less, slower asphyxiation
+    damageRecovery:
+      types:
+        Asphyxiation: -1.0
+  - type: Sprite
+    scale: 0.8, 0.8
+  - type: MobThresholds # More robust
+    thresholds:
+      0: Alive
+      115: Critical
+      215: Dead
+  - type: MeleeWeapon # Beats faster, but weaker. Damage per second is 5,4 in total instead of 5
+    soundHit:
+      collection: Punch
+    angle: 30
+    animation: WeaponArcFist
+    attackRate: 1.2
+    damage:
+      types:
+        Blunt: 4.5
+  # Aavikko end
 
 - type: entity
   parent: OrganBaseOrganic

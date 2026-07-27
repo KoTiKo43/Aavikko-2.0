@@ -196,7 +196,7 @@
       Female: FemaleVulpkanin
       Unsexed: MaleVulpkanin
   - type: Damageable
-    damageModifierSet: Vulpkanin
+    damageModifierSet: AavikkoVulpkanin # Aavikko
   - type: MeleeWeapon
     soundHit:
       path: /Audio/Weapons/pierce.ogg
