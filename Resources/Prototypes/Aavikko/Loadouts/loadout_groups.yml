@@ -123,25 +123,9 @@
 
 - type: loadoutGroup
   id: JanitorShoes
-  name: Бармен, обувь
+  name: Уборщик, обувь
   loadouts:
   - Galoshes
-  - ClothfootwrapsWhite # Aavikko
-  - ClothfootwrapsBlack # Aavikko
-  - ClothfootwrapsBlue # Aavikko
-  - ClothfootwrapsBrown # Aavikko
-  - ClothfootwrapsRed # Aavikko
-  - ClothfootwrapsSilver # Aavikko
-  - ClothfootwrapsYellow # Aavikko
-
-- type: loadoutGroup
-  id: MaidShoes
-  name: Секретарь, обувь
-  loadouts:
-  - BlackShoes
-  - WhiteShoes
-  - BlueShoes
-  - RedShoes
   - ClothfootwrapsWhite # Aavikko
   - ClothfootwrapsBlack # Aavikko
   - ClothfootwrapsBlue # Aavikko
