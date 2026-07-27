@@ -415,9 +415,9 @@
           type: [Animal] # Applying damage to the mobs with lower metabolism capabilities
         damage:
           types:
-            Poison: 0.4
+            Poison: 0.05 # 0.4 -> 0.05 Aavikko tweak
       - !type:Vomit
-        probability: 0.04 #Scaled for time, not metabolismrate.
+        probability: 0.005 # 0.04 -> 0.005 Aavikko tweak #Scaled for time, not metabolismrate.
         conditions:
           - !type:MetabolizerTypeCondition
             type: [Animal]
