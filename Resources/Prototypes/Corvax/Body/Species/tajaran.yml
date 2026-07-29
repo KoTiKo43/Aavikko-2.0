@@ -151,7 +151,7 @@
       collection: AlienClaw
     damage:
       types:
-        Slash: 7
+        Piercing: 7 # Slash -> Piercing, Aavikko tajaran transfer
   - type: Damageable
     damageModifierSet: AavikkoTajaran # Aavikko tajaran transfer
   - type: Respirator
@@ -170,6 +170,9 @@
     heatDamage:
       types:
         Heat: 2.2 # Per second, scales with temperature & other constants
+  - type: MovementSpeedModifier # Aavikko tajaran transfer
+    baseWalkSpeed : 2.7
+    baseSprintSpeed : 4.6
   - type: TemperatureSpeed # Aavikko tajaran
     thresholds:
       273: 0.8
