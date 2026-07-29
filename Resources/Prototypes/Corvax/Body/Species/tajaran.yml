@@ -173,6 +173,10 @@
   - type: MovementSpeedModifier # Aavikko tajaran transfer
     baseWalkSpeed : 2.7
     baseSprintSpeed : 4.6
+  - type: SlowOnDamage # Aavikko tajaran transfer
+    speedModifierThresholds:
+      42: 0.7
+      60: 0.5
   - type: TemperatureSpeed # Aavikko tajaran
     thresholds:
       273: 0.8
