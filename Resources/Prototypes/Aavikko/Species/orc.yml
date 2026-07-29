@@ -10,3 +10,7 @@
   naming: First
   sexes:
    - Male
+  minAge: 20
+  youngAge: 1000
+  oldAge: 2000
+  maxAge: 3350

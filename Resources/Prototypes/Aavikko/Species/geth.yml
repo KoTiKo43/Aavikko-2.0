@@ -12,3 +12,5 @@
   femaleLastNames: NamesGethLast
   sexes:
    - Unsexed
+  minAge: 0
+  maxAge: 2

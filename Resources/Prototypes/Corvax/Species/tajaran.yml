@@ -11,3 +11,9 @@
   femaleFirstNames: NamesTajaranFirstFemale
   maleLastNames: NamesTajaranLast # Corvax-LastnameGender
   femaleLastNames: NamesTajaranLast # Corvax-LastnameGender
+  # Aavikko tajaran age
+  minAge: 14
+  youngAge: 18
+  oldAge: 35
+  maxAge: 55
+  # Aavikko tajaran age
