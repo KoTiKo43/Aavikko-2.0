@@ -62,7 +62,7 @@ public sealed partial class ItemOfferCursorOverlay : Overlay
             return;
 
         var screen = args.ScreenHandle;
-        var pos = mousePos.Position + new Vector2(16, -16);
+        var pos = mousePos.Position + new Vector2(12, -20);
         var size = new Vector2(32, 32);
         var box = UIBox2.FromDimensions(pos, size);
 

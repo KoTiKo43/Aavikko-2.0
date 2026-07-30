@@ -1,6 +1,5 @@
-using Robust.Shared.Serialization;
-using Content.Shared.Actions; // NetEntity is in Robust.Shared.GameObjects, no import needed
 using Robust.Shared.Map;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Aavikko.ItemOffer;
 
@@ -9,9 +8,6 @@ namespace Content.Shared.Aavikko.ItemOffer;
 /// Отправляется, когда игрок в режиме передачи (есть ItemOfferModeComponent)
 /// кликает ЛКМ по другому игроку. Сервер проверяет условия и показывает
 /// alert цели + попап обоим.
-///
-/// Это простое NetSerializable-событие (не action-event) — мы сами
-/// контролируем отправку из клиентской системы.
 /// </summary>
 [Serializable, NetSerializable]
 public sealed class ItemOfferRequestEvent : EntityEventArgs

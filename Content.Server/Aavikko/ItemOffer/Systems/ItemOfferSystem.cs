@@ -13,20 +13,16 @@ namespace Content.Server.Aavikko.ItemOffer;
 
 /// <summary>
 /// Серверная логика передачи предмета.
-/// Архитектура: keybind-toggle mode + alert-подтверждение.
 ///
-/// Сценарий:
-/// 1. Игрок нажимает клавишу ToggleItemOffer (по умолчанию F) — на нём
-///    появляется ItemOfferModeComponent. Курсор с иконкой подарка (клиент).
-/// 2. Игрок кликает ЛКМ по другому игроку — клиент отправляет
-///    ItemOfferRequestEvent(target). Сервер проверяет условия и показывает
-///    alert цели + попап обоим.
-/// 3. Цель кликает по alert'у — сервер выполняет передачу предмета.
-/// 4. Повторное нажатие клавиши — выход из режима.
-///
-/// Keybind регистрируется через CommandBinds.Builder — это shared API,
-/// но в Server-сборке он сработает только на сервере. Клиентская часть
-/// (перехват ЛКМ, иконка курсора) — в ItemOfferClientSystem.
+/// Архитектура:
+/// - Keybind ToggleItemOffer (F) регистрируется на сервере. Движок отправляет
+///   InputCmdMessage с клиента, сервер делает EnsureComp/RemComp (авторитет),
+///   state-sync подтверждает предсказание клиента.
+/// - Перехват ЛКМ: клиент через PointerInputCmdHandler на EngineKeyFunctions.Use
+///   перехватывает клик (handle: true — обычные системы не срабатывают) и
+///   отправляет ItemOfferRequestEvent. Сервер обрабатывает через SubscribeNetworkEvent.
+/// - Это гарантирует, что при активном режиме НИКАКИЕ другие взаимодействия
+///   (атака, кормление, использование предмета) не запускаются.
 /// </summary>
 public sealed partial class ItemOfferSystem : EntitySystem
 {
@@ -37,6 +33,7 @@ public sealed partial class ItemOfferSystem : EntitySystem
     private const string PopupSuccessToGiver = "{0} принял ваш предмет ({1})";
     private const string PopupSuccessToTarget = "{0} передал вам {1}";
     private const string PopupFailNoItem = "В активной руке нет предмета";
+    private const string PopupFailNoHands = "У вас нет рук";
     private const string PopupFailNoFreeHand = "У {0} заняты руки";
     private const string PopupFailOutOfRange = "{0} слишком далеко";
     private const string PopupFailSelf = "Нельзя передать предмет самому себе";
@@ -50,22 +47,22 @@ public sealed partial class ItemOfferSystem : EntitySystem
     [Dependency] private HandsSystem _hands = default!;
     [Dependency] private PopupSystem _popup = default!;
     [Dependency] private SharedInteractionSystem _interaction = default!;
-    [Dependency] private SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        // Регистрируем keybind-обработчик для переключения режима.
-        // Вызывается при нажатии клавиши ToggleItemOffer.
+        // Keybind на сервере. Движок отправляет InputCmdMessage с клиента
+        // при нажатии F, сервер делает EnsureComp/RemComp (авторитет),
+        // state-sync подтверждает предсказание клиента.
         CommandBinds.Builder
             .Bind(ItemOfferKeyFunctions.ToggleItemOffer,
-                  InputCmdHandler.FromDelegate(HandleToggleItemOffer, handle: true))
+                  InputCmdHandler.FromDelegate(HandleToggleItemOffer, handle: false))
             .Register<ItemOfferSystem>();
 
         // Сетевой запрос от клиента: клик ЛКМ по цели в режиме передачи.
-        // Используем SubscribeNetworkEvent с EntitySessionEventArgs, чтобы
-        // получить отправителя (session.AttachedEntity).
+        // Клиент перехватил ЛКМ через PointerInputCmdHandler (handle: true),
+        // поэтому обычные системы (атака, кормление) не сработали.
         SubscribeNetworkEvent<ItemOfferRequestEvent>(OnOfferRequest);
 
         // Клик по alert'у — принимает предмет
@@ -94,7 +91,6 @@ public sealed partial class ItemOfferSystem : EntitySystem
         if (playerSession.AttachedEntity is not { Valid: true } playerEnt || !Exists(playerEnt))
             return;
 
-        // Toggle: если компонент есть — снимаем, нет — вешаем
         if (HasComp<ItemOfferModeComponent>(playerEnt))
             RemComp<ItemOfferModeComponent>(playerEnt);
         else
@@ -115,9 +111,9 @@ public sealed partial class ItemOfferSystem : EntitySystem
 
     private void OnModeShutdown(EntityUid uid, ItemOfferModeComponent comp, ComponentShutdown args)
     {
-        // Если в момент выхода из режима есть активное предложение — снимаем
-        if (TryComp<ItemOfferComponent>(uid, out _))
-            RemComp<ItemOfferComponent>(uid);
+        // Если в момент выхода из режима есть активное предложение — снимаем.
+        // RemComp безопасно вызывать даже если компонента нет.
+        RemComp<ItemOfferComponent>(uid);
     }
 
     /// <summary>
@@ -142,7 +138,7 @@ public sealed partial class ItemOfferSystem : EntitySystem
         // 3. У дающего должна быть активная рука с предметом
         if (!TryComp<HandsComponent>(giver, out var giverHands))
         {
-            _popup.PopupEntity(PopupFailNoItem, giver, giver, PopupType.Small);
+            _popup.PopupEntity(PopupFailNoHands, giver, giver, PopupType.Small);
             return;
         }
 
