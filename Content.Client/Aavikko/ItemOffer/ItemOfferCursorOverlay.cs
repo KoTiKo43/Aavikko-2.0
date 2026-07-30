@@ -13,7 +13,7 @@ namespace Content.Client.Aavikko.ItemOffer;
 /// Overlay, рисующий иконку подарка рядом с курсором, пока игрок находится
 /// в режиме передачи предмета. Иконка берётся из RSI-файла проекта.
 ///
-/// Позиция мыши читается прямо в Draw — это канонический паттерн апстрима
+/// Позиция мыши читается прямо в Draw - это канонический паттерн апстрима
 /// (см. CombatModeIndicatorsOverlay). Задержка ≤1 кадр неустранима и
 /// одинакова для всех screen-space overlay.
 /// </summary>
@@ -31,7 +31,7 @@ public sealed partial class ItemOfferCursorOverlay : Overlay
 
         var cache = IoCManager.Resolve<IResourceCache>();
 
-        // Пробуем несколько путей — если основного RSI ещё нет, берём
+        // Пробуем несколько путей - если основного RSI ещё нет, берём
         // стандартный прицел из движка.
         _icon = TryLoadIcon(cache,
             new ResPath("/Textures/Aavikko/Actions/item_offer.rsi"), "cursor_on")
@@ -50,7 +50,7 @@ public sealed partial class ItemOfferCursorOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
-        // Если ни одной текстуры не нашли — не рисуем (overlay виден, но пустой)
+        // Если ни одной текстуры не нашли - не рисуем (overlay виден, но пустой)
         if (_icon == null)
             return;
 

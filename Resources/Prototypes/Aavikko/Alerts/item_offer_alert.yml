@@ -4,5 +4,5 @@
   - sprite: /Textures/Aavikko/Alerts/item_offer_alert.rsi
     state: item_offer_alert
   clickEvent: !type:ItemOfferAlertClickedEvent
-  name: Передача предмета
-  description: Вам хотят передать предмет
+  name: alerts-item-offer-name
+  description: alerts-item-offer-desc

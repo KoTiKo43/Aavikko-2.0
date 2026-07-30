@@ -3,75 +3,106 @@ using Content.Server.Popups;
 using Content.Shared.Aavikko.ItemOffer;
 using Content.Shared.Alert;
 using Content.Shared.Hands.Components;
+using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
+// using Robust.Shared.Audio; // Функционал звука при передаче предмета пока выключен
+// using Robust.Shared.Audio.Systems;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Aavikko.ItemOffer;
 
 /// <summary>
-/// Серверная логика передачи предмета.
+/// Серверная логика передачи предмета от одного игрока другому.
 ///
-/// Архитектура:
-/// - Keybind ToggleItemOffer (F) регистрируется на сервере. Движок отправляет
-///   InputCmdMessage с клиента, сервер делает EnsureComp/RemComp (авторитет),
-///   state-sync подтверждает предсказание клиента.
-/// - Перехват ЛКМ: клиент через PointerInputCmdHandler на EngineKeyFunctions.Use
-///   перехватывает клик (handle: true — обычные системы не срабатывают) и
-///   отправляет ItemOfferRequestEvent. Сервер обрабатывает через SubscribeNetworkEvent.
-/// - Это гарантирует, что при активном режиме НИКАКИЕ другие взаимодействия
-///   (атака, кормление, использование предмета) не запускаются.
+/// Сценарий использования:
+/// 1. Игрок нажимает клавишу ToggleItemOffer (по умолчанию F) - на нём
+///    появляется ItemOfferModeComponent, у курсора рисуется иконка подарка.
+/// 2. Игрок кликает ЛКМ по другому игроку - клиент отправляет
+///    ItemOfferRequestEvent. Сервер проверяет условия и показывает
+///    принимающему alert-иконку с предложением принять предмет.
+/// 3. Принимающий кликает по alert'у - сервер выполняет фактическую
+///    передачу предмета из руки дающего в руку принимающего.
+///
+/// Гарантия изоляции режима: клиент перехватывает ЛКМ через
+/// PointerInputCmdHandler на EngineKeyFunctions.Use с handle=true, поэтому
+/// при активном режиме обычные взаимодействия (атака, кормление, использование
+/// предмета) не запускаются - работает только передача.
+///
+/// Сервер авторитетно хранит состояние через NetworkedComponent:
+/// - ItemOfferModeComponent (режим передачи у дающего)
+/// - ItemOfferComponent (активное предложение у принимающего)
 /// </summary>
 public sealed partial class ItemOfferSystem : EntitySystem
 {
     private static readonly ProtoId<AlertPrototype> ItemOfferAlert = "ItemOffer";
 
-    private const string PopupOfferToGiver = "Вы передаёте предмет игроку {0}";
-    private const string PopupOfferToTarget = "{0} хочет передать вам предмет. Нажмите на иконку подарка, чтобы принять.";
-    private const string PopupSuccessToGiver = "{0} принял ваш предмет ({1})";
-    private const string PopupSuccessToTarget = "{0} передал вам {1}";
-    private const string PopupFailNoItem = "В активной руке нет предмета";
-    private const string PopupFailNoHands = "У вас нет рук";
-    private const string PopupFailNoFreeHand = "У {0} заняты руки";
-    private const string PopupFailOutOfRange = "{0} слишком далеко";
-    private const string PopupFailSelf = "Нельзя передать предмет самому себе";
-    private const string PopupFailItemLost = "Передача отменена: предмет больше не у вас в руках";
-    private const string PopupFailTargetLost = "Передача отменена: цель слишком далеко";
-    private const string PopupFailNoMode = "Сначала войдите в режим передачи (клавиша F)";
+    /// <summary>
+    /// Сколько секунд предложение остаётся валидным, прежде чем будет
+    /// автоматически снято. Предотвращает «зависание» alert'ов, если
+    /// принимающий не реагирует.
+    /// </summary>
+    private const float OfferTimeoutSeconds = 15f;
 
+    /// <summary>
+    /// Звук, проигрываемый при предложении предмета (клик ЛКМ по цели).
+    /// Слышен всем игрокам в PVS-радиусе цели.
+    /// </summary>
+    // private static readonly SoundSpecifier OfferSound =
+    //     new SoundPathSpecifier("/Audio/Aavikko/Items/offer.ogg",
+    //         AudioParams.Default.WithVolume(-3f).WithVariation(0.1f));
+
+    /// <summary>
+    /// Звук, проигрываемый при успешном приёме предмета (клик по alert'у).
+    /// Слышен всем игрокам в PVS-радиусе принимающего.
+    /// </summary>
+    // private static readonly SoundSpecifier ReceiveSound =
+    //     new SoundPathSpecifier("/Audio/Aavikko/Items/receive.ogg",
+    //         AudioParams.Default.WithVolume(-3f).WithVariation(0.1f));
+
+    /// <summary>
+    /// Максимальное расстояние (в тайлах) между дающим и принимающим,
+    /// при котором предложение остаётся валидным. Учитывает стены и стекло
+    /// через InRangeUnobstructed.
+    /// </summary>
     private const float MaxRange = 1.5f;
 
     [Dependency] private AlertsSystem _alerts = default!;
     [Dependency] private HandsSystem _hands = default!;
     [Dependency] private PopupSystem _popup = default!;
     [Dependency] private SharedInteractionSystem _interaction = default!;
+    // [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        // Keybind на сервере. Движок отправляет InputCmdMessage с клиента
-        // при нажатии F, сервер делает EnsureComp/RemComp (авторитет),
-        // state-sync подтверждает предсказание клиента.
+        // Регистрация клавиши toggle режима на сервере. Движок автоматически
+        // отправляет InputCmdMessage с клиента при нажатии F, сервер
+        // авторитетно добавляет/удаляет ItemOfferModeComponent, state-sync
+        // подтверждает предсказание клиента.
         CommandBinds.Builder
             .Bind(ItemOfferKeyFunctions.ToggleItemOffer,
                   InputCmdHandler.FromDelegate(HandleToggleItemOffer, handle: false))
             .Register<ItemOfferSystem>();
 
-        // Сетевой запрос от клиента: клик ЛКМ по цели в режиме передачи.
-        // Клиент перехватил ЛКМ через PointerInputCmdHandler (handle: true),
-        // поэтому обычные системы (атака, кормление) не сработали.
+        // Обработка клика ЛКМ по цели: клиент перехватил клик и отправил
+        // сетевое событие с указанием цели.
         SubscribeNetworkEvent<ItemOfferRequestEvent>(OnOfferRequest);
 
-        // Клик по alert'у — принимает предмет
+        // Обработка клика по alert-иконке: принимающий подтверждает приём.
         SubscribeLocalEvent<ItemOfferAlertClickedEvent>(OnAlertClicked);
 
-        // Снятие alert при удалении компонента предложения
+        // Гарантированное снятие alert при удалении компонента предложения
+        // (любой причиной: таймаут, выход из радиуса, потеря предмета и т.д.).
         SubscribeLocalEvent<ItemOfferComponent, ComponentShutdown>(OnOfferShutdown);
 
-        // При выходе из режима — снимаем активное предложение
+        // При выходе дающего из режима передачи - снимаем все его активные
+        // предложения, чтобы alert'ы не оставались висеть у целей.
         SubscribeLocalEvent<ItemOfferModeComponent, ComponentShutdown>(OnModeShutdown);
     }
 
@@ -82,7 +113,8 @@ public sealed partial class ItemOfferSystem : EntitySystem
     }
 
     /// <summary>
-    /// Игрок нажал клавишу ToggleItemOffer. Входим или выходим из режима.
+    /// Обработчик нажатия клавиши ToggleItemOffer. Переключает состояние
+    /// режима передачи на текущем персонаже игрока.
     /// </summary>
     private void HandleToggleItemOffer(ICommonSession? session)
     {
@@ -98,7 +130,8 @@ public sealed partial class ItemOfferSystem : EntitySystem
     }
 
     /// <summary>
-    /// Клиент в режиме передачи кликнул ЛКМ по цели.
+    /// Обработчик сетевого запроса от клиента: дающий кликнул ЛКМ по цели.
+    /// Извлекает дающего из сессии отправителя и делегирует в TryOfferItem.
     /// </summary>
     private void OnOfferRequest(ItemOfferRequestEvent msg, EntitySessionEventArgs args)
     {
@@ -109,83 +142,118 @@ public sealed partial class ItemOfferSystem : EntitySystem
         TryOfferItem(giver, target);
     }
 
+    /// <summary>
+    /// При выходе дающего из режима передачи - снимаем все его активные
+    /// предложения. Без этого alert'ы оставались бы у целей бессрочно.
+    /// </summary>
     private void OnModeShutdown(EntityUid uid, ItemOfferModeComponent comp, ComponentShutdown args)
     {
-        // Если в момент выхода из режима есть активное предложение — снимаем.
-        // RemComp безопасно вызывать даже если компонента нет.
         RemComp<ItemOfferComponent>(uid);
     }
 
     /// <summary>
-    /// Пытается предложить предмет цели: проверяет условия, показывает alert.
+    /// Пытается предложить предмет цели. Проверяет все предусловия, и если
+    /// всё ок - создаёт ItemOfferComponent на цели, показывает alert, играет
+    /// звук и показывает попапы обоим сторонам.
+    ///
+    /// Если на цели уже есть предложение от другого дающего - первое
+    /// предложение перезаписывается, а старому дающему показывается уведомление.
     /// </summary>
     public void TryOfferItem(EntityUid giver, EntityUid target)
     {
-        // 1. Должен быть в режиме передачи
+        // Режим передачи должен быть активен. Это защита от подделанного
+        // сетевого запроса - клиент не может отправить запрос без режима.
         if (!HasComp<ItemOfferModeComponent>(giver))
         {
-            _popup.PopupEntity(PopupFailNoMode, giver, giver, PopupType.Small);
+            _popup.PopupEntity(Loc.GetString("item-offer-fail-no-mode"), giver, giver, PopupType.Small);
             return;
         }
 
-        // 2. Не передаём самому себе
+        // Нельзя передавать предметы самому себе - это бессмысленно.
         if (giver == target)
         {
-            _popup.PopupEntity(PopupFailSelf, giver, giver, PopupType.Small);
+            _popup.PopupEntity(Loc.GetString("item-offer-fail-self"), giver, giver, PopupType.Small);
             return;
         }
 
-        // 3. У дающего должна быть активная рука с предметом
+        // У дающего должны быть руки - без них передача невозможна.
         if (!TryComp<HandsComponent>(giver, out var giverHands))
         {
-            _popup.PopupEntity(PopupFailNoHands, giver, giver, PopupType.Small);
+            _popup.PopupEntity(Loc.GetString("item-offer-fail-no-hands"), giver, giver, PopupType.Small);
             return;
         }
 
+        // В активной руке дающего должен быть предмет.
         var heldItem = _hands.GetHeldItem(giver, giverHands.ActiveHandId);
         if (heldItem is not { } item)
         {
-            _popup.PopupEntity(PopupFailNoItem, giver, giver, PopupType.Small);
+            _popup.PopupEntity(Loc.GetString("item-offer-fail-no-item"), giver, giver, PopupType.Small);
             return;
         }
 
-        // 4. У цели должны быть руки и свободная рука
+        // У цели должны быть руки и хотя бы одна свободная рука для приёма.
         if (!TryComp<HandsComponent>(target, out var targetHands) ||
             _hands.CountFreeHands((target, targetHands)) == 0)
         {
-            _popup.PopupEntity(string.Format(PopupFailNoFreeHand, Name(target)), giver, giver, PopupType.Small);
+            var targetName = Identity.Entity(target, EntityManager);
+            _popup.PopupEntity(
+                Loc.GetString("item-offer-fail-no-free-hand", ("target", targetName)),
+                giver, giver, PopupType.Small);
             return;
         }
 
-        // 5. Проверка радиуса и препятствий
+        // Дающий и цель должны быть в пределах MaxRange тайлов друг от друга,
+        // без стен и препятствий между ними.
         if (!_interaction.InRangeUnobstructed(giver, target, MaxRange))
         {
-            _popup.PopupEntity(string.Format(PopupFailOutOfRange, Name(target)), giver, giver, PopupType.Small);
+            var targetName = Identity.Entity(target, EntityManager);
+            _popup.PopupEntity(
+                Loc.GetString("item-offer-fail-out-of-range", ("target", targetName)),
+                giver, giver, PopupType.Small);
             return;
         }
 
-        // 6. Создаём компонент предложения на цели
+        // Если на цели уже есть предложение от другого дающего - уведомляем
+        // старого дающего, что его предложение перезаписано.
+        if (TryComp<ItemOfferComponent>(target, out var existingOffer) && existingOffer.Giver != giver)
+        {
+            var oldItemName = existingOffer.Item is { } oldItem
+                ? Identity.Name(oldItem, EntityManager)
+                : Loc.GetString("item-offer-unknown-item");
+            _popup.PopupEntity(
+                Loc.GetString("item-offer-superseded", ("item", oldItemName)),
+                existingOffer.Giver, existingOffer.Giver, PopupType.Small);
+        }
+
+        // Создаём или обновляем компонент предложения на цели.
         var offer = EnsureComp<ItemOfferComponent>(target);
         offer.Giver = giver;
         offer.Item = item;
         offer.MaxRange = MaxRange;
+        offer.Deadline = _timing.CurTime + TimeSpan.FromSeconds(OfferTimeoutSeconds);
 
-        // 7. Показываем alert цели
+        // Показываем alert принимающему - иконка появится справа под здоровьем.
         _alerts.ShowAlert(target, ItemOfferAlert);
 
-        // 8. Попап дающему
+        // Звук предложения - слышен всем в PVS-радиусе цели.
+        // _audio.PlayPvs(OfferSound, target);
+
+        // Попап дающему: подтверждение, что предложение отправлено.
+        var targetNameForGiver = Identity.Entity(target, EntityManager);
         _popup.PopupEntity(
-            string.Format(PopupOfferToGiver, Name(target)),
+            Loc.GetString("item-offer-to-giver", ("target", targetNameForGiver)),
             giver, giver, PopupType.Medium);
 
-        // 9. Попап цели
+        // Попап принимающему: уведомление о входящем предложении.
+        var giverNameForTarget = Identity.Entity(giver, EntityManager);
         _popup.PopupEntity(
-            string.Format(PopupOfferToTarget, Name(giver)),
+            Loc.GetString("item-offer-to-target", ("giver", giverNameForTarget)),
             target, target, PopupType.Medium);
     }
 
     /// <summary>
-    /// Цель кликнула по alert-иконке. Выполняем передачу.
+    /// Обработчик клика по alert-иконке: принимающий подтверждает приём
+    /// предмета. Делегирует в TransferItem для фактической передачи.
     /// </summary>
     private void OnAlertClicked(ItemOfferAlertClickedEvent ev)
     {
@@ -197,57 +265,99 @@ public sealed partial class ItemOfferSystem : EntitySystem
     }
 
     /// <summary>
-    /// Фактическая передача предмета.
+    /// Фактическая передача предмета от дающего принимающему.
+    ///
+    /// Проверки в момент приёма (могут измениться между предложением и кликом
+    /// по alert'у):
+    /// - Предмет всё ещё существует
+    /// - Дающий и принимающий всё ещё в радиусе
+    /// - У принимающего всё ещё есть свободная рука
+    ///
+    /// При любой неудаче предмет возвращается дающему, не падает на пол.
     /// </summary>
     public void TransferItem(EntityUid receiver, ItemOfferComponent offer)
     {
+        // Предмет мог быть удалён за время между предложением и приёмом.
         if (offer.Item is not { } item)
         {
-            _popup.PopupEntity(PopupFailItemLost, offer.Giver, receiver, PopupType.Small);
+            _popup.PopupEntity(Loc.GetString("item-offer-fail-item-lost"), offer.Giver, receiver, PopupType.Small);
             RemComp<ItemOfferComponent>(receiver);
             return;
         }
 
-        // Снимаем предмет с дающего
+        // Дающий и принимающий могли разойтись. Проверяем радиус - иначе
+        // предмет после PickupOrDrop упал бы на пол между ними.
+        if (!_interaction.InRangeUnobstructed(offer.Giver, receiver, offer.MaxRange))
+        {
+            _popup.PopupEntity(
+                Loc.GetString("item-offer-fail-target-lost"),
+                offer.Giver, offer.Giver, PopupType.Small);
+            _popup.PopupEntity(
+                Loc.GetString("item-offer-fail-target-lost"),
+                receiver, receiver, PopupType.Small);
+            RemComp<ItemOfferComponent>(receiver);
+            return;
+        }
+
+        // Снимаем предмет с дающего (drop, если он в руках).
         _hands.PickupOrDrop(offer.Giver, item);
 
-        // Проверяем свободную руку у цели
+        // У принимающего могла появиться занятая рука за время ожидания.
         if (!TryComp<HandsComponent>(receiver, out var targetHands) ||
             _hands.CountFreeHands((receiver, targetHands)) == 0)
         {
+            // Возвращаем предмет дающему, не оставляем на полу.
             if (TryComp<HandsComponent>(offer.Giver, out var giverHands))
                 _hands.TryPickupAnyHand(offer.Giver, item, handsComp: giverHands);
 
+            var receiverName = Identity.Entity(receiver, EntityManager);
             _popup.PopupEntity(
-                string.Format(PopupFailNoFreeHand, Name(receiver)),
+                Loc.GetString("item-offer-fail-no-free-hand", ("target", receiverName)),
                 offer.Giver, offer.Giver, PopupType.Small);
             return;
         }
 
+        // Пытаемся положить предмет в любую свободную руку принимающего.
         if (_hands.TryPickupAnyHand(receiver, item, handsComp: targetHands))
         {
+            // Успех - играем звук и показываем попапы обеим сторонам.
+            // _audio.PlayPvs(ReceiveSound, receiver);
+
+            var receiverName = Identity.Entity(receiver, EntityManager);
+            var itemName = Identity.Entity(item, EntityManager);
+            var giverName = Identity.Entity(offer.Giver, EntityManager);
+
             _popup.PopupEntity(
-                string.Format(PopupSuccessToGiver, Name(receiver), Name(item)),
+                Loc.GetString("item-offer-success-to-giver",
+                    ("receiver", receiverName), ("item", itemName)),
                 offer.Giver, offer.Giver, PopupType.Medium);
             _popup.PopupEntity(
-                string.Format(PopupSuccessToTarget, Name(offer.Giver), Name(item)),
+                Loc.GetString("item-offer-success-to-target",
+                    ("giver", giverName), ("item", itemName)),
                 receiver, receiver, PopupType.Medium);
 
+            // Удаляем компонент предложения - OnOfferShutdown снимет alert.
             RemComp<ItemOfferComponent>(receiver);
         }
         else
         {
+            // TryPickupAnyHand может провалиться даже при свободной руке
+            // (например, whitelist предмета не позволяет). Возвращаем дающему.
             if (TryComp<HandsComponent>(offer.Giver, out var giverHands))
                 _hands.TryPickupAnyHand(offer.Giver, item, handsComp: giverHands);
 
+            var receiverName = Identity.Entity(receiver, EntityManager);
             _popup.PopupEntity(
-                string.Format(PopupFailNoFreeHand, Name(receiver)),
+                Loc.GetString("item-offer-fail-no-free-hand", ("target", receiverName)),
                 offer.Giver, offer.Giver, PopupType.Small);
         }
     }
 
     /// <summary>
-    /// При удалении компонента предложения — снимаем alert.
+    /// При удалении компонента предложения - гарантированно снимаем alert.
+    /// Это вызывает, когда предложение снимается по любой причине: таймаут,
+    /// выход из радиуса, потеря предмета, успешная передача, выход дающего
+    /// из режима и т.д.
     /// </summary>
     private void OnOfferShutdown(EntityUid uid, ItemOfferComponent comp, ComponentShutdown args)
     {
@@ -255,7 +365,14 @@ public sealed partial class ItemOfferSystem : EntitySystem
     }
 
     /// <summary>
-    /// Периодически снимает невалидные предложения.
+    /// Периодически проверяет все активные предложения и снимает невалидные:
+    /// - Дающий или предмет были удалены (death, deletion)
+    /// - Принимающий вышел из радиуса
+    /// - Дающий выкинул или убрал предмет из руки
+    /// - Истёк таймаут предложения (OfferTimeoutSeconds)
+    ///
+    /// Это предотвращает «зависание» alert'ов у принимающего, когда дающий
+    /// изменил состояние, но не нажимал F повторно.
     /// </summary>
     public override void Update(float frameTime)
     {
@@ -264,6 +381,7 @@ public sealed partial class ItemOfferSystem : EntitySystem
         var enumerator = EntityQueryEnumerator<ItemOfferComponent>();
         while (enumerator.MoveNext(out var uid, out var offer))
         {
+            // Дающий или предмет были удалены - предложение больше не имеет смысла.
             if (TerminatingOrDeleted(offer.Giver) ||
                 offer.Item is null || TerminatingOrDeleted(offer.Item.Value))
             {
@@ -271,15 +389,30 @@ public sealed partial class ItemOfferSystem : EntitySystem
                 continue;
             }
 
+            // Принимающий вышел из радиуса - дающий не сможет передать предмет.
             if (!_interaction.InRangeUnobstructed(uid, offer.Giver, offer.MaxRange))
             {
-                _popup.PopupEntity(PopupFailTargetLost, uid, uid, PopupType.Small);
+                _popup.PopupEntity(Loc.GetString("item-offer-fail-target-lost"), uid, uid, PopupType.Small);
                 RemCompDeferred<ItemOfferComponent>(uid);
                 continue;
             }
 
+            // Дающий выкинул или убрал предмет из руки - передавать нечего.
             if (!_hands.IsHolding(offer.Giver, offer.Item.Value))
             {
+                RemCompDeferred<ItemOfferComponent>(uid);
+                continue;
+            }
+
+            // Истёк таймаут - принимающий слишком долго не реагировал.
+            if (_timing.CurTime > offer.Deadline)
+            {
+                _popup.PopupEntity(
+                    Loc.GetString("item-offer-fail-timeout"),
+                    offer.Giver, offer.Giver, PopupType.Small);
+                _popup.PopupEntity(
+                    Loc.GetString("item-offer-fail-timeout"),
+                    uid, uid, PopupType.Small);
                 RemCompDeferred<ItemOfferComponent>(uid);
             }
         }

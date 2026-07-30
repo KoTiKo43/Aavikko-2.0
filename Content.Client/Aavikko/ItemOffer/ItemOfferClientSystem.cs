@@ -1,4 +1,5 @@
 using Content.Shared.Aavikko.ItemOffer;
+using Content.Shared.Hands.Components;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Shared.Input;
@@ -10,16 +11,18 @@ namespace Content.Client.Aavikko.ItemOffer;
 /// <summary>
 /// Клиентская часть системы передачи предмета.
 ///
-/// Архитектура:
-/// - Keybind ToggleItemOffer (F) переключает ItemOfferModeComponent напрямую.
-///   NetworkedComponent + серверный keybind синхронизируют состояние.
-/// - Когда режим активен, ЛКМ по другому игроку перехватывается через
-///   PointerInputCmdHandler на EngineKeyFunctions.Use. Клиент отправляет
-///   ItemOfferRequestEvent на сервер, который выполняет передачу.
-///   handle: true гарантирует, что обычные взаимодействия (атака, кормление)
-///   не запускаются.
-/// - Overlay (иконка подарка у курсора) управляется через ComponentInit/
-///   ComponentShutdown и смену персонажа.
+/// Ответственности:
+/// 1. Обработка клавиши ToggleItemOffer (по умолчанию F) - переключает
+///    режим передачи. Компонент ItemOfferModeComponent сетевой, поэтому
+///    состояние автоматически синхронизируется с сервером.
+/// 2. Перехват ЛКМ при активном режиме - вместо обычной атаки/кормления
+///    отправляет на сервер запрос на передачу предмета.
+/// 3. Управление overlay (иконка подарка у курсора) - показывается, пока
+///    режим активен на текущем персонаже игрока.
+///
+/// Перехват ЛКМ использует handle=true, поэтому при активном режиме
+/// обычные системы взаимодействия (атака, кормление, использование предмета)
+/// не запускаются - работает только передача.
 /// </summary>
 public sealed partial class ItemOfferClientSystem : EntitySystem
 {
@@ -32,27 +35,31 @@ public sealed partial class ItemOfferClientSystem : EntitySystem
     {
         base.Initialize();
 
-        // Подписка на изменение состояния компонента-режима.
+        // Подписка на изменение состояния компонента-режима для управления
+        // overlay. ComponentInit срабатывает при добавлении (локально или
+        // через state-sync с сервера), ComponentShutdown - при удалении.
         SubscribeLocalEvent<ItemOfferModeComponent, ComponentInit>(OnModeInit);
         SubscribeLocalEvent<ItemOfferModeComponent, ComponentShutdown>(OnModeShutdown);
 
-        // Подписки на смену персонажа игроком — overlay следует за текущим мобом.
+        // Подписки на смену персонажа игроком (aghost, admin-переселение и т.д.)
+        // - overlay должен следовать за текущим мобом, а не зависать на старом.
         SubscribeLocalEvent<LocalPlayerAttachedEvent>(OnPlayerAttached);
         SubscribeLocalEvent<LocalPlayerDetachedEvent>(OnPlayerDetached);
 
-        // Keybind ToggleItemOffer (F). Toggle режима напрямую на клиенте.
-        // Сервер тоже регистрирует keybind — state-sync подтверждает предсказание.
+        // Регистрация клавиши toggle режима. handle=false, потому что
+        // событие не должно «поглощаться» - сервер тоже получит его через
+        // InputCmdMessage и подтвердит состояние.
         CommandBinds.Builder
             .Bind(ItemOfferKeyFunctions.ToggleItemOffer,
                   InputCmdHandler.FromDelegate(HandleToggleItemOffer, handle: false))
             .Register<ItemOfferClientSystem>();
 
-        // Перехват ЛКМ. EngineKeyFunctions.Use — это стандартная функция
-        // "использовать/атаковать" в SS14. Когда игрок в режиме передачи,
-        // перехватываем клик, отправляем запрос на сервер и не даём обычным
-        // системам (атака, кормление, использование предмета) сработать.
-        // handle: true означает "событие обработано" — движок не передаёт
-        // его дальше по цепочке обработчиков.
+        // Перехват ЛКМ. EngineKeyFunctions.Use - стандартная функция
+        // "использовать/атаковать" в SS14. Когда режим передачи активен,
+        // клик по другому игроку отправляет запрос на сервер вместо обычного
+        // взаимодействия. handle=true (возврат true из обработчика) означает,
+        // что событие обработано - движок не передаёт его дальше по цепочке,
+        // поэтому атака/кормление/использование предмета не срабатывают.
         CommandBinds.Builder
             .Bind(EngineKeyFunctions.Use,
                   new PointerInputCmdHandler(HandleUseClick))
@@ -67,7 +74,9 @@ public sealed partial class ItemOfferClientSystem : EntitySystem
     }
 
     /// <summary>
-    /// Клавиша F нажата. Toggle режима.
+    /// Обработчик нажатия клавиши ToggleItemOffer. Переключает состояние
+    /// режима передачи на текущем персонаже игрока. Сервер тоже получит
+    /// keybind-событие и подтвердит состояние через state-sync.
     /// </summary>
     private void HandleToggleItemOffer(ICommonSession? session)
     {
@@ -83,45 +92,66 @@ public sealed partial class ItemOfferClientSystem : EntitySystem
     }
 
     /// <summary>
-    /// Перехват ЛКМ. Если игрок в режиме передачи — отправляем запрос на сервер.
-    /// Возвращаем true только если событие обработано (режим активен и клик
-    /// был по валидной сущности). false — пропускаем дальше (обычное взаимодействие).
+    /// Перехват ЛКМ. Если режим передачи активен и клик был по валидной
+    /// цели (сущность с руками, не сам игрок) - отправляем запрос на сервер
+    /// и возвращаем true (событие обработано, обычные системы не сработают).
+    ///
+    /// Клик по сущности без HandsComponent пропускается как обычное
+    /// взаимодействие - это позволяет, например, атаковать стены или
+    /// взаимодействовать с предметами на полу, даже будучи в режиме передачи.
     /// </summary>
     private bool HandleUseClick(in PointerInputCmdHandler.PointerInputCmdArgs args)
     {
-        // Только на нажатие (Down), не на отпускание (Up)
+        // Только на нажатие (Down), не на отпускание (Up).
         if (args.State != BoundKeyState.Down)
             return false;
 
         var player = _playerManager.LocalEntity;
         if (player == null || !HasComp<ItemOfferModeComponent>(player.Value))
-            return false; // не в режиме — пропускаем обычное взаимодействие
+            return false; // не в режиме - пропускаем обычное взаимодействие
 
-        // Получаем сущность под курсором
         var target = args.EntityUid;
         if (!target.IsValid() || target == player.Value)
-            return false; // нет цели или клик по себе — пропускаем
+            return false; // нет цели или клик по себе - пропускаем
 
-        // Отправляем запрос на сервер
+        // Только сущности с руками могут принимать предметы. Клик по сущности
+        // без рук (стена, предмет на полу, животное) пропускаем как обычное
+        // взаимодействие - не отправляем запрос на сервер.
+        if (!HasComp<HandsComponent>(target))
+            return false;
+
+        // Отправляем запрос на сервер - он проверит условия и покажет alert.
         RaiseNetworkEvent(new ItemOfferRequestEvent(GetNetEntity(target)));
 
-        // Возвращаем true — событие обработано, обычные системы (атака,
-        // кормление, использование предмета) НЕ сработают.
+        // Событие обработано - обычные системы (атака, кормление) не сработают.
         return true;
     }
 
+    /// <summary>
+    /// При добавлении компонента-режима на сущность: если это текущий
+    /// персонаж игрока - показываем overlay с иконкой подарка у курсора.
+    /// </summary>
     private void OnModeInit(EntityUid uid, ItemOfferModeComponent comp, ComponentInit args)
     {
         if (_playerManager.LocalEntity == uid)
             AddOverlay();
     }
 
+    /// <summary>
+    /// При удалении компонента-режима: если это текущий персонаж - убираем
+    /// overlay. Событие срабатывает и при локальном удалении, и при
+    /// state-sync с сервера.
+    /// </summary>
     private void OnModeShutdown(EntityUid uid, ItemOfferModeComponent comp, ComponentShutdown args)
     {
         if (_playerManager.LocalEntity == uid)
             RemoveOverlay();
     }
 
+    /// <summary>
+    /// При вселении в нового персонажа: проверяем, есть ли у него режим
+    /// передачи, и показываем/скрываем overlay соответственно.
+    /// </summary>
     private void OnPlayerAttached(LocalPlayerAttachedEvent ev)
     {
         if (HasComp<ItemOfferModeComponent>(ev.Entity))
@@ -130,6 +160,10 @@ public sealed partial class ItemOfferClientSystem : EntitySystem
             RemoveOverlay();
     }
 
+    /// <summary>
+    /// При покидании персонажа: убираем overlay. Компонент остаётся на
+    /// старом мобе, но overlay привязан к текущей сессии игрока.
+    /// </summary>
     private void OnPlayerDetached(LocalPlayerDetachedEvent ev)
     {
         RemoveOverlay();
