@@ -223,6 +223,11 @@ binds:
   type: State
   key: Q
   mod1: Control
+# Aavikko item offer
+- function: ToggleItemOffer
+  type: Toggle
+  key: F
+# Aavikko item offer
 - function: TryPullObject
   type: State
   canFocus: true
