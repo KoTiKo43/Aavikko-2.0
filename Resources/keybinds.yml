@@ -225,7 +225,7 @@ binds:
   mod1: Control
 # Aavikko item offer
 - function: ToggleItemOffer
-  type: Toggle
+  type: State
   key: F
 # Aavikko item offer
 - function: TryPullObject
