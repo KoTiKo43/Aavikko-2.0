@@ -16,6 +16,7 @@ namespace Content.Client.Aavikko.ItemOffer;
 public sealed partial class ItemOfferCursorOverlay : Overlay
 {
     [Dependency] private IInputManager _inputManager = default!;
+    [Dependency] private IEntityManager _entityManager = default!;
 
     public override OverlaySpace Space => OverlaySpace.ScreenSpace;
 
@@ -25,6 +26,7 @@ public sealed partial class ItemOfferCursorOverlay : Overlay
     {
         IoCManager.InjectDependencies(this);
 
+        // Загружаем иконку из RSI. Путь — относительный от /Resources/Textures/
         var cache = IoCManager.Resolve<IResourceCache>();
         var rsiPath = new ResPath("/Textures/Aavikko/Actions/item_offer.rsi");
         if (cache.TryGetResource<RSIResource>(rsiPath, out var rsi))
@@ -33,10 +35,8 @@ public sealed partial class ItemOfferCursorOverlay : Overlay
         }
         else
         {
-            // Фоллбэк — берём стандартную текстуру курсора из движка,
-            // чтобы overlay не падал, пока кастомный RSI ещё не нарисован.
-            _icon = cache.GetResource<TextureResource>(
-                new ResPath("/Textures/Interface/Default.rsi/cursor.png"));
+            // Фоллбэк — стандартная иконка из движка
+            _icon = cache.GetResource<TextureResource>(new ResPath("/Textures/Interface/Default.rsi/cursor.png"));
         }
     }
 
@@ -49,13 +49,11 @@ public sealed partial class ItemOfferCursorOverlay : Overlay
         if (!mousePos.IsValid)
             return;
 
-        // args.ScreenHandle имеет тип DrawingHandleScreen, у которого есть
-        // метод DrawTextureRect(Texture, UIBox2, Color?).
         var screen = args.ScreenHandle;
-        var pos = mousePos.Position + new Vector2(16, -16);
+        var pos = mousePos.Position + new Vector2(16, -16); // правее и ниже курсора
         var size = new Vector2(32, 32);
         var box = UIBox2.FromDimensions(pos, size);
 
-        screen.DrawTextureRect(_icon, box, Color.White.WithAlpha(0.85f));
+        screen.DrawTexture(_icon, box, Color.White.WithAlpha(0.85f));
     }
 }
