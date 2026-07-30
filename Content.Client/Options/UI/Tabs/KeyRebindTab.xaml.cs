@@ -25,7 +25,6 @@ namespace Content.Client.Options.UI.Tabs
         {
             EngineKeyFunctions.ShowDebugMonitors,
             EngineKeyFunctions.HideUI,
-            ItemOfferKeyFunctions.ToggleItemOffer, // Aavikko item offer
         };
 
         [Dependency] private IInputManager _inputManager = default!;
