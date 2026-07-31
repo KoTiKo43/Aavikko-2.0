@@ -1,0 +1,36 @@
+- type: entity
+  parent: ClothingHeadHatCapcap
+  id: ClothingHeadHatCapcapWhite
+  name: белая фуражка капитана
+  description: Излучает слепящий свет профессионализма.
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Head/Hats/white_cap_hat.rsi
+  - type: Clothing
+    sprite: Aavikko/Clothing/Head/Hats/white_cap_hat.rsi
+  - type: Item
+    sprite: Aavikko/Clothing/Head/Hats/white_cap_hat.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatCapSecurity
+  suffix: Aavikko
+  name: фуражка службы безопасности
+  description: Если хотите выглядеть значимее, чем обычно. Великолепно смотрится вместе с тренчем.
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Head/Hats/seccap.rsi
+  - type: Clothing
+    sprite: Aavikko/Clothing/Head/Hats/seccap.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatCapInspector
+  suffix: Aavikko
+  name: фуражка инспектора
+  description: Одним только внешним видом способна заставить пошатнуться.
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Head/Hats/inspectorcap.rsi
+  - type: Clothing
+    sprite: Aavikko/Clothing/Head/Hats/inspectorcap.rsi

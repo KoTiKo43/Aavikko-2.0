@@ -9,6 +9,7 @@
     - Vocal
     tags:
     - Ipc # Corvax-Species
+    - Geth # Aavikko-Species
   blacklist:
     tags:
     - SiliconEmotes
@@ -136,6 +137,7 @@
     tags:
     - SiliconEmotes
     - Ipc # Corvax-Species
+    - Geth # Aavikko-Species
   chatMessages: ["chat-emote-msg-whistle"]
   chatTriggers:
     - whistle
@@ -158,6 +160,7 @@
   blacklist:
     tags:
     - SiliconEmotes
+    - Geth # Aavikko-Species
   chatMessages: ["chat-emote-msg-crying"]
   chatTriggers:
     - cry
@@ -498,6 +501,17 @@
     - стукнул своим хвостом
     - стукнула своим хвостом
     # Corvax-Localization-End
+    # Aavikko-Tweak-Start
+    - whips his tail
+    - whips his tail.
+    - whips his tail!
+    - бьёт хвостом
+    - бьёт хвостом.
+    - бьёт хвостом!
+    - бьёт своим хвостом
+    - бьёт своим хвостом.
+    - бьёт своим хвостом!
+    # Aavikko-Tweak-End
 
 - type: emote
   id: Salute

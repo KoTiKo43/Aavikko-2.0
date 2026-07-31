@@ -19,7 +19,7 @@
     enum.HumanoidVisualLayers.Snout:
       limit: 1
       required: true
-      default: [ FoxSnout ] # Corvax-Vulp_Port VulpSnout
+      default: [ VulpSnout ] # Aavikko
     enum.HumanoidVisualLayers.SnoutCover:
       limit: 3
       required: false
@@ -196,7 +196,7 @@
       Female: FemaleVulpkanin
       Unsexed: MaleVulpkanin
   - type: Damageable
-    damageModifierSet: Vulpkanin
+    damageModifierSet: AavikkoVulpkanin # Aavikko
   - type: MeleeWeapon
     soundHit:
       path: /Audio/Weapons/pierce.ogg
@@ -250,6 +250,11 @@
       types:
         Asphyxiation: -2.0
   # Corvax-Vulp_Port end
+  - type: TemperatureSpeed # Aavikko tweak
+    thresholds:
+      263: 0.8
+      230: 0.6
+      200: 0.4
 
 - type: entity
   parent: OrganBaseOrganic

@@ -1,0 +1,240 @@
+- type: markingsGroup
+  parent: Undergarments
+  id: Orc
+  onlyGroupWhitelisted: true
+  limits:
+    enum.HumanoidVisualLayers.Hair:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.FacialHair:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.Snout:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.HeadSide:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.Head:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.Chest:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.LLeg:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.RLeg:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.LArm:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.RArm:
+      limit: 2
+      required: false
+
+- type: entity
+  parent: BaseSpeciesAppearance
+  id: AppearanceOrc
+  categories: [ HideSpawnMenu ]
+  name: orc appearance
+  components:
+  - type: InitialBody
+    organs:
+      Torso: OrganOrcTorso
+      Head: OrganOrcHead
+      ArmLeft: OrganOrcArmLeft
+      ArmRight: OrganOrcArmRight
+      HandRight: OrganOrcHandRight
+      HandLeft: OrganOrcHandLeft
+      LegLeft: OrganOrcLegLeft
+      LegRight: OrganOrcLegRight
+      FootLeft: OrganOrcFootLeft
+      FootRight: OrganOrcFootRight
+      Brain: OrganHumanBrain
+      Eyes: OrganOrcEyes
+      Heart: OrganAnimalHeart
+      Lungs: OrganHumanLungs
+      Stomach: OrganOrcStomach
+      Liver: OrganAnimalLiver
+      Kidneys: OrganHumanKidneys
+  - type: HumanoidProfile
+    species: Orc
+  - type: Inventory
+    speciesId: orc
+
+- type: entity
+  parent:
+  - AppearanceOrc
+  - BaseSpeciesMobOrganic
+  id: MobOrc
+  name: Urist McHands The Orc
+  save: false
+  components:
+  - type: OrcAccent
+  - type: Icon
+    sprite: Aavikko/Mobs/Species/Orc/parts.rsi
+    state: full
+  - type: Sprite
+    scale: 1.2, 1.2
+  - type: Barotrauma
+    damage:
+      types:
+        Blunt: 0.0001
+  - type: ThermalRegulator
+    metabolismHeat: 800
+    radiatedHeat: 100
+    implicitHeatRegulation: 250
+    sweatHeatRegulation: 500
+    shiveringHeatRegulation: 500
+    normalBodyTemperature: 310.15
+    thermalRegulationTemperatureThreshold: 25
+  - type: TemperatureDamage
+    heatDamageThreshold: 325
+    coldDamageThreshold: 0
+    currentTemperature: 310.15
+    specificHeat: 42
+    coldDamage:
+      types:
+        Cold: 1
+    heatDamage:
+      types:
+        Heat: 1.5
+  - type: PassiveDamage # Orcs have more intense regen and radiation regen
+    allowedStates:
+    - Alive
+    damageCap: 40
+    damage:
+      types:
+        Heat: -0.1
+        Radiation: -0.15
+        Blunt: -0.05
+        Piercing: -0.05
+        Slash: -0.05
+  - type: Respirator
+    damage:
+      types:
+        Asphyxiation: 2
+    damageRecovery:
+      types:
+        Asphyxiation: -1.0
+  - type: MeleeWeapon # Orcs have massive, but more slow attacks
+    hidden: true
+    attackRate: 0.8
+    damage:
+      types:
+        Blunt: 10
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      120: Critical
+      200: Dead
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatHuman
+      amount: 5
+  - type: Vocal
+    sounds:
+      Male: UnisexOrc
+      Female: FemaleOrc
+      Unsexed: UnisexOrc
+  - type: Speech
+    speechSounds: Bass
+
+- type: entity
+  parent: OrganBaseOrganic
+  id: OrganOrc
+  abstract: true
+  suffix: Orc
+
+- type: entity
+  id: OrganOrcMetabolizer
+  abstract: true
+  components:
+  - type: Metabolizer
+    maxReagents: 3
+    metabolizerTypes: [Orc]
+    groups:
+    - id: Food
+    - id: Drink
+
+- type: entity
+  parent: OrganOrc
+  id: OrganOrcInternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/organs.rsi # Человеческая текстура пока что
+
+- type: entity
+  parent: OrganOrc
+  id: OrganOrcExternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: Aavikko/Mobs/Species/Orc/parts.rsi
+  - type: VisualOrgan
+    data:
+      sprite: Aavikko/Mobs/Species/Orc/parts.rsi
+  - type: VisualOrganMarkings
+    markingData:
+      group: Orc
+
+- type: entity
+  parent: [ OrganBaseTorsoSexed, OrganBaseTorso, OrganOrcExternal ]
+  id: OrganOrcTorso
+
+- type: entity
+  parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganOrcExternal ]
+  id: OrganOrcHead
+  components:
+  - type: VisualOrganMarkings
+    hideableLayers:
+    - enum.HumanoidVisualLayers.Hair
+    - enum.HumanoidVisualLayers.Snout
+
+- type: entity
+  parent: [ OrganBaseArmLeft, OrganOrcExternal ]
+  id: OrganOrcArmLeft
+
+- type: entity
+  parent: [ OrganBaseArmRight, OrganOrcExternal ]
+  id: OrganOrcArmRight
+
+- type: entity
+  parent: [ OrganBaseHandLeft, OrganOrcExternal ]
+  id: OrganOrcHandLeft
+
+- type: entity
+  parent: [ OrganBaseHandRight, OrganOrcExternal ]
+  id: OrganOrcHandRight
+
+- type: entity
+  parent: [ OrganBaseLegLeft, OrganOrcExternal ]
+  id: OrganOrcLegLeft
+
+- type: entity
+  parent: [ OrganBaseLegRight, OrganOrcExternal ]
+  id: OrganOrcLegRight
+
+- type: entity
+  parent: [ OrganBaseFootLeft, OrganOrcExternal ]
+  id: OrganOrcFootLeft
+
+- type: entity
+  parent: [ OrganBaseFootRight, OrganOrcExternal ]
+  id: OrganOrcFootRight
+
+- type: entity
+  parent: [ OrganBaseStomach, OrganOrcInternal, OrganOrcMetabolizer ]
+  id: OrganOrcStomach
+  categories: [ HideSpawnMenu ]
+
+- type: entity
+  parent: [ OrganBaseEyes, OrganOrcInternal, OrganOrcExternal ]
+  id: OrganOrcEyes
+  components:
+  - type: VisualOrgan
+    data:
+      offset: "0, 0.03125" # 1px вверх

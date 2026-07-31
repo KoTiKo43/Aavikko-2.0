@@ -1,0 +1,18 @@
+# Aavikko tajaran transfer
+- type: localizedDataset
+  id: NamesTajaranFirstMale
+  values:
+    prefix: aavikko-names-tajar-first-male-dataset-
+    count: 629
+
+- type: localizedDataset
+  id: NamesTajaranFirstFemale
+  values:
+    prefix: aavikko-names-tajar-first-female-dataset-
+    count: 567
+
+- type: localizedDataset
+  id: NamesTajaranLast
+  values:
+    prefix: aavikko-names-tajar-last-dataset-
+    count: 6045

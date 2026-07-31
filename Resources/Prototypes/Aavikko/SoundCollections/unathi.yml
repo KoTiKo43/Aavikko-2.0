@@ -1,0 +1,10 @@
+- type: soundCollection
+  id: UnathiHiss
+  files:
+    - /Audio/Aavikko/Voice/Reptilian/hiss1.ogg
+    - /Audio/Aavikko/Voice/Reptilian/hiss2.ogg
+
+- type: soundCollection
+  id: UnathiPurr
+  files:
+    - /Audio/Aavikko/Voice/Reptilian/raptor_purr.ogg

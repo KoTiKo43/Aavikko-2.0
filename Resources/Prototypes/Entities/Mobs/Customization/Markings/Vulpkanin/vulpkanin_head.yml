@@ -4,7 +4,7 @@
   bodyPart: Head
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/head_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/head_markings.rsi # Aavikko resprite
       state: blaze
 
 - type: marking
@@ -12,7 +12,7 @@
   bodyPart: Head
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/head_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/head_markings.rsi # Aavikko resprite
       state: mask
 
 - type: marking
@@ -20,7 +20,7 @@
   bodyPart: Head
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/head_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/head_markings.rsi # Aavikko resprite
       state: patch
 
 - type: marking
@@ -28,7 +28,7 @@
   bodyPart: Head
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/head_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/head_markings.rsi # Aavikko resprite
       state: slash
 
 - type: marking
@@ -54,3 +54,12 @@
   sprites:
     - sprite: Mobs/Customization/Vulpkanin/head_markings.rsi
       state: vulpine
+
+# Aavikko
+- type: marking
+  id: VulpTigerHead
+  bodyPart: Head
+  groupWhitelist: [ Vulpkanin ]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/head_markings.rsi
+      state: tiger-head

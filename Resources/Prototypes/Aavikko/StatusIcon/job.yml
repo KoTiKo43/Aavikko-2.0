@@ -1,0 +1,8 @@
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconSecretarian
+  icon:
+    sprite: /Textures/Aavikko/Interface/Misc/job_icons.rsi
+    state: Secretarian
+  jobName: job-name-secretarian
+  isCrewJob: false # Отключён пока не замапплен

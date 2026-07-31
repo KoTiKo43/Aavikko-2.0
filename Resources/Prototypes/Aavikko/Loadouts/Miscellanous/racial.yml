@@ -1,0 +1,70 @@
+# Cloth footwraps
+- type: loadout
+  id: ClothfootwrapsWhite
+  equipment:
+    shoes: ClothingShoesClothfootwrapsWhite
+
+- type: startingGear
+  id: ClothfootwrapsWhite
+  equipment:
+    shoes: ClothingShoesClothfootwrapsWhite
+
+- type: loadout
+  id: ClothfootwrapsBlack
+  equipment:
+    shoes: ClothingShoesClothfootwrapsBlack
+
+- type: startingGear
+  id: ClothfootwrapsBlack
+  equipment:
+    shoes: ClothingShoesClothfootwrapsBlack
+
+- type: loadout
+  id: ClothfootwrapsBlue
+  equipment:
+    shoes: ClothingShoesClothfootwrapsBlue
+
+- type: startingGear
+  id: ClothfootwrapsBlue
+  equipment:
+    shoes: ClothingShoesClothfootwrapsBlue
+
+- type: loadout
+  id: ClothfootwrapsBrown
+  equipment:
+    shoes: ClothingShoesClothfootwrapsBrown
+
+- type: startingGear
+  id: ClothfootwrapsBrown
+  equipment:
+    shoes: ClothingShoesClothfootwrapsBrown
+
+- type: loadout
+  id: ClothfootwrapsRed
+  equipment:
+    shoes: ClothingShoesClothfootwrapsRed
+
+- type: startingGear
+  id: ClothfootwrapsRed
+  equipment:
+    shoes: ClothingShoesClothfootwrapsRed
+
+- type: loadout
+  id: ClothfootwrapsSilver
+  equipment:
+    shoes: ClothingShoesClothfootwrapsSilver
+
+- type: startingGear
+  id: ClothfootwrapsSilver
+  equipment:
+    shoes: ClothingShoesClothfootwrapsSilver
+
+- type: loadout
+  id: ClothfootwrapsYellow
+  equipment:
+    shoes: ClothingShoesClothfootwrapsYellow
+
+- type: startingGear
+  id: ClothfootwrapsYellow
+  equipment:
+    shoes: ClothingShoesClothfootwrapsYellow

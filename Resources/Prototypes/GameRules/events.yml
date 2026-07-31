@@ -561,10 +561,10 @@
     reoccurrenceDelay: 30
   - type: MassHallucinationsRule
     minTimeBetweenIncidents: 0.1
-    maxTimeBetweenIncidents: 300
+    maxTimeBetweenIncidents: 100
     maxSoundDistance: 7
     sounds:
-      collection: Paracusia
+      collection: AavikkoNewHallucinations
 
 - type: entity
   parent: BaseGameRule

@@ -114,6 +114,16 @@
   - LoadoutSpeciesPocketDoubleOxygen
 
 # Command
+# Aavikko
+- type: loadoutGroup
+  id: CaptainGloves
+  name: loadout-group-captain-gloves
+  loadouts:
+  - CaptainGloves
+  #Aavikko-Loadouts-Start
+  - CaptainGlovesWhite
+  #Aavikko-Loadouts-End
+
 - type: loadoutGroup
   id: CaptainHead
   name: loadout-group-captain-head
@@ -121,6 +131,9 @@
   loadouts:
   - CaptainHead
   - CaptainCap
+  #Aavikko-Loadouts-Start
+  - CaptainCapWhite
+  #Aavikko-Loadouts-End
 
 - type: loadoutGroup
   id: CaptainJumpsuit
@@ -134,6 +147,10 @@
   - CaptainJumpsuitTurtleneck
   - CaptainJumpskirtTurtleneck
   # Corvax-Loadouts-End
+  # Aavikko-Loadouts-Start
+  - CaptainJumpsuitWhite
+  - CaptainJumpskirtWhite
+  # Aavikko-Loadouts-End
 
 - type: loadoutGroup
   id: CaptainNeck
@@ -143,6 +160,9 @@
   - CaptainCloak
   - CaptainCloakFormal
   - CaptainMantle
+  # Aavikko-Loadouts-Start
+  - CaptainCloakWhite
+  # Aavikko-Loadouts-End
 
 - type: loadoutGroup
   id: CaptainBackpack
@@ -158,6 +178,21 @@
   loadouts:
   - CaptainOuterClothing
   - CaptainWintercoat
+
+# Aavikko
+- type: loadoutGroup
+  id: CaptainShoes
+  name: loadout-group-captain-shoes
+  loadouts:
+  - LaceupShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+# Aavikko
 
 #- type: loadoutGroup
 #  id: CaptainJobTrinkets
@@ -266,6 +301,13 @@
   loadouts:
   - BlackShoes
   - WinterBoots
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
 
 #- type: loadoutGroup
 #  id: PassengerJobTrinkets
@@ -609,6 +651,15 @@
   - MimeJumpsuit
   - MimeJumpskirt
 
+# Aavikko start
+- type: loadoutGroup
+  id: MimeNeck
+  name: loadout-group-mime-neck
+  minLimit: 0
+  loadouts:
+  - MimeScarfStripedZebra
+# Aavikko end
+
 - type: loadoutGroup
   id: MimeBackpack
   name: loadout-group-mime-backpack
@@ -743,6 +794,13 @@
   loadouts:
   - BrownShoes
   - CargoWinterBoots
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
 
 #- type: loadoutGroup
 #  id: QuartermasterJobTrinkets
@@ -785,13 +843,19 @@
   loadouts:
   - BlackShoes
   - CargoWinterBoots
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
 
 - type: loadoutGroup
   id: CargoTechnicianID
   name: loadout-group-cargo-technician-id
   loadouts:
   - CargoTechnicianPDA
-  - SeniorCourierPDA
 
 #- type: loadoutGroup
 #  id: CargoTechnicianJobTrinkets
@@ -820,6 +884,13 @@
   loadouts:
   - SalvageBoots
   - CargoWinterBoots
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
 
 #- type: loadoutGroup
 #  id: SalvageSpecialistJobTrinkets
@@ -866,6 +937,13 @@
   loadouts:
   - BrownShoes
   - EngineeringWinterBoots
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
 
 #- type: loadoutGroup
 #  id: ChiefEngineerJobTrinkets
@@ -894,7 +972,6 @@
   - StationEngineerHardhatYellow
   - StationEngineerHardhatOrange
   - StationEngineerHardhatRed
-  - SeniorEngineerBeret
 
 - type: loadoutGroup
   id: StationEngineerJumpsuit
@@ -903,8 +980,6 @@
   - StationEngineerJumpsuit
   - StationEngineerJumpskirt
   - StationEngineerHazardsuit
-  - SeniorEngineerJumpsuit
-  - SeniorEngineerJumpskirt
 
 - type: loadoutGroup
   id: StationEngineerBackpack
@@ -928,13 +1003,19 @@
   loadouts:
   - WorkBoots
   - EngineeringWinterBoots
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
 
 - type: loadoutGroup
   id: StationEngineerID
   name: loadout-group-station-engineer-id
   loadouts:
   - StationEngineerPDA
-  - SeniorEngineerPDA
 
 #- type: loadoutGroup
 #  id: StationEngineerJobTrinkets
@@ -972,6 +1053,13 @@
   loadouts:
   - WhiteShoes
   - EngineeringWinterBoots
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
 
 #- type: loadoutGroup
 #  id: AtmosphericTechnicianJobTrinkets
@@ -1030,6 +1118,13 @@
   loadouts:
   - BrownShoes
   - ScienceWinterBoots
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
 
 #- type: loadoutGroup
 #  id: ResearchDirectorJobTrinkets
@@ -1061,8 +1156,6 @@
   - ScientistJumpskirt
   - RoboticistJumpsuit
   - RoboticistJumpskirt
-  - SeniorResearcherJumpsuit
-  - SeniorResearcherJumpskirt
 
 - type: loadoutGroup
   id: ScientistBackpack
@@ -1082,7 +1175,6 @@
   - ScienceWintercoat
   - RoboticistLabCoat
   - RoboticistWintercoat
-  - SeniorResearcherLabCoat
 
 - type: loadoutGroup
   id: ScientistShoes
@@ -1091,6 +1183,13 @@
   - WhiteShoes
   - BlackShoes
   - ScienceWinterBoots
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
 
 - type: loadoutGroup
   id: ScientistGloves
@@ -1106,7 +1205,6 @@
   name: loadout-group-scientist-id
   loadouts:
   - ScientistPDA
-  - SeniorResearcherPDA
 
 #- type: loadoutGroup
 #  id: ScientistJobTrinkets
@@ -1211,6 +1309,9 @@
   - SecurityHelmet
   - SecurityBeret
   - SecurityHat
+  # Aavikko-Loadouts-Start
+  - SecurityCap
+  # Aavikko-Loadouts-End
   - TrooperHat
 
 - type: loadoutGroup
@@ -1221,8 +1322,6 @@
   - SecurityJumpskirt
   - SecurityJumpsuitGrey
   - SecurityJumpskirtGrey
-  - SeniorOfficerJumpsuit
-  - SeniorOfficerJumpskirt
   - TrooperUniform
 
 - type: loadoutGroup
@@ -1249,6 +1348,9 @@
   - ArmorVestSlim
   - SecurityOfficerOvercoat # Corvax
   - SecurityOfficerWintercoat
+  # Aavikko-Loadouts-Start
+  - SecurityOfficerTrenchcoat
+  # Aavikko-Loadouts-End
 
 - type: loadoutGroup
   id: SecurityShoes
@@ -1257,13 +1359,19 @@
   - JackSecBoots # Corvax
   - JackBoots
   - SecurityWinterBoots
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
 
 - type: loadoutGroup
   id: SecurityPDA
   name: loadout-group-security-id
   loadouts:
   - SecurityPDA
-  - SeniorOfficerPDA
 
 - type: loadoutGroup
   id: SecurityJobTrinkets

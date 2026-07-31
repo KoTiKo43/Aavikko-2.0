@@ -398,6 +398,9 @@
         Quantity: 15
       - ReagentId: Omnizine
         Quantity: 5
+  - type: Tag
+    types:
+    - ReptilianFood
 
 # Rice
 
@@ -568,6 +571,9 @@
     layers:
     - state: bowl
     - state: spacelibertyduff
+  - type: Tag
+    types:
+    - ReptilianFood
 
 - type: entity
   parent: FoodInjectableBase
@@ -594,6 +600,9 @@
         Quantity: 15
       - ReagentId: Vodka
         Quantity: 5
+  - type: Tag
+    types:
+    - ReptilianFood
 
 # Soup
 
@@ -643,6 +652,9 @@
     layers:
     - state: bowl
     - state: slime
+  - type: Tag
+    types:
+    - ReptilianFood
 
 - type: entity
   name: tomato soup
@@ -693,6 +705,9 @@
         Quantity: 10
       - ReagentId: Soysauce
         Quantity: 10
+  - type: Tag
+    tags:
+      - Meat
 
 - type: entity
   name: clown's tears
@@ -722,6 +737,9 @@
         Quantity: 5
       - ReagentId: Razorium
         Quantity: 1 # silly
+  - type: Tag
+    types:
+    - ReptilianFood
 
 - type: entity
   name: vegetable soup
@@ -789,6 +807,9 @@
     layers:
     - state: bowl
     - state: mystery
+  - type: Tag
+    types:
+    - ReptilianFood
 
 - type: entity
   name: bowl of hot chili
@@ -1132,6 +1153,9 @@
         Quantity: 10
       - ReagentId: Water
         Quantity: 5
+  - type: Tag
+    tags:
+      - Meat
 # Tastes like crab.
 
 - type: entity
@@ -1160,6 +1184,9 @@
           Quantity: 25
         - ReagentId: Licoxide
           Quantity: 10
+  - type: Tag
+    types:
+    - ReptilianFood
 
 - type: entity
   name: bungo curry

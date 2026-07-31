@@ -1,30 +1,42 @@
 {
-  "version": 1,
-  "license": "CC-BY-SA-3.0",
-  "copyright": "Made by brainfood1183 (Github) for ss14, monkey made by brainfood1183 (github) for ss14",
-  "size": {
-    "x": 32,
-    "y": 32
-  },
-  "states": [
-    {
-      "name": "icon"
+    "version": 1,
+    "copyright": "especially for the Aavikko Avaruus server; Sprited by TheGypsyBaron https://github.com/SemkaGamez",
+    "license": "CC-BY-NC-SA-4.0",
+    "size": {
+        "x": 32,
+        "y": 32
     },
-    {
-      "name": "equipped-INNERCLOTHING",
-      "directions": 4
-    },
-    {
-      "name": "equipped-INNERCLOTHING-monkey",
-      "directions": 4
-    },
-    {
-      "name": "inhand-left",
-      "directions": 4
-    },
-    {
-      "name": "inhand-right",
-      "directions": 4
-    }
-  ]
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "equipped-INNERCLOTHING",
+            "directions": 4
+        },
+        {
+            "name": "equipped-INNERCLOTHING-monkey",
+            "directions": 4
+        },
+        {
+            "name": "equipped-INNERCLOTHING-reptilian",
+            "directions": 4
+        },
+        {
+            "name": "equipped-INNERCLOTHING-vulpkanin",
+            "directions": 4
+        },
+        {
+            "name": "equipped-INNERCLOTHING-orc",
+            "directions": 4
+        },
+        {
+            "name": "inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right",
+            "directions": 4
+        }
+    ]
 }

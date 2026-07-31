@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "license": "CC-BY-SA-3.0",
-  "copyright": "Taken/modified from cev-eris at https://github.com/discordia-space/CEV-Eris/raw/b1d5664161441b32f599a986e4fb8393cfd87324/icons/obj/guns/projectile/artwork_revolver.dmi",
+  "copyright": "especially for the Aavikko Avaruus server; Sprited by TheGypsyBaron https://github.com/SemkaGamez",
+  "license": "CC-BY-NC-SA-4.0",
   "size": {
     "x": 32,
     "y": 32
@@ -25,7 +25,7 @@
             "name": "equipped-BELT",
             "directions": 4
         },
-		{
+	{
             "name": "equipped-SUITSTORAGE",
             "directions": 4
         }

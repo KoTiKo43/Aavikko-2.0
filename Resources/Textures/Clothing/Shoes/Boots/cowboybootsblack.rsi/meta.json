@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Taken from /vg/station at https://github.com/vgstation-coders/vgstation13/commit/2fec32f59c692e78efcadb19d1aae89a3b389b02, modified by K-Dynamic (github). inhand-left, inhand-right by K-Dynamic (github).",
+    "copyright": "Taken from /vg/station at https://github.com/tgstation/tgstation/commit/8703eac50de6379c26f7eadb47b4f016854d1dcd; digi version by kotiko43 (discord)",
     "size": {
         "x": 32,
         "y": 32
@@ -12,6 +12,18 @@
         },
         {
             "name": "equipped-FEET",
+            "directions": 4
+        },
+        {
+            "name": "equipped-FEET-orc",
+            "directions": 4
+        },
+        {
+            "name": "equipped-FEET-reptilian",
+            "directions": 4
+        },
+        {
+            "name": "equipped-FEET-vulpkanin",
             "directions": 4
         },
         {

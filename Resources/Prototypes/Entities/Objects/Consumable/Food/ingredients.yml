@@ -693,6 +693,9 @@
     refineResult:
     - id: FoodButterSlice
       amount: 12
+  - type: Tag
+    tags:
+      - ReptilianFood
 
 - type: entity
   parent: [SolutionVeryTiny, FoodBakingMixableBase]
@@ -713,6 +716,7 @@
   - type: Tag
     tags:
     - Slice
+    - ReptilianFood
 
 - type: entity
   name: stick of cannabis butter
@@ -755,6 +759,9 @@
       reagents:
       - ReagentId: Nutriment
         Quantity: 60
+  - type: Tag
+    tags:
+      - ReptilianFood
 
 - type: entity
   parent: [SolutionTiny, FoodBakingBase]
@@ -775,6 +782,7 @@
   - type: Tag
     tags:
     - Slice
+    - ReptilianFood
   - type: FoodSequenceElement
     entries:
       Taco: CheeseTaco
@@ -815,6 +823,9 @@
         Quantity: 24
       - ReagentId: Vitamin
         Quantity: 6
+  - type: Tag
+    tags:
+      - ReptilianFood
 
 - type: entity
   parent: [SolutionTiny, FoodBakingBase]
@@ -841,6 +852,7 @@
   - type: Tag
     tags:
     - Slice
+    - ReptilianFood
 
 - type: entity
   parent: [SolutionNormal, FoodBakingBase, BaseSlicingRefinableFood]
@@ -866,6 +878,9 @@
     refineResult:
     - id: FoodTofuSlice
       amount: 5
+  - type: Tag
+    tags:
+      - ReptilianFood
 
 - type: entity
   parent: [SolutionTiny, FoodBakingBase]
@@ -890,6 +905,7 @@
   - type: Tag
     tags:
     - Slice
+    - ReptilianFood
 
 - type: entity
   name: burned mess
@@ -914,6 +930,7 @@
   - type: Tag
     tags:
     - Trash
+    - ReptilianFood
 
 - type: entity
   name: cocoa beans

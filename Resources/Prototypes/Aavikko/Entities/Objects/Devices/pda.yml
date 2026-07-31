@@ -1,0 +1,28 @@
+- type: entity
+  parent: BasePDA
+  id: SecretarianPDA
+  name: secretary PDA
+  description: Suitable for starting with a clean slate.
+  suffix: Aavikko
+  components:
+  - type: Pda
+    id: SecretarianIDCard
+    penSlot:
+      startingItem: LuxuryPen
+      priority: -1
+      whitelist:
+        tags:
+        - Write
+  - type: Appearance
+    appearanceDataInit:
+     enum.PdaVisuals.PdaType:
+       !type:String
+       pda-secretarian
+  - type: PdaBorderColor
+    borderColor: "#22b3c9"
+  - type: Sprite
+    sprite: Aavikko/Objects/Devices/pda.rsi
+    state: pda-secretarian
+  - type: Icon
+    path: Aavikko/Objects/Devices/pda.rsi
+    state: pda-secretarian

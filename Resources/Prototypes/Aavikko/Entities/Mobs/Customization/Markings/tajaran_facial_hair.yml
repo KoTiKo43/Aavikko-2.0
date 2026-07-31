@@ -1,0 +1,48 @@
+# Aavikko tajaran transfer
+- type: marking
+  id: TajaranBeard
+  bodyPart: FacialHair
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_facial_hairs.rsi
+      state: beard
+
+- type: marking
+  id: TajaranMustache
+  bodyPart: FacialHair
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_facial_hairs.rsi
+      state: mustache
+
+- type: marking
+  id: TajaranMustache2
+  bodyPart: FacialHair
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_facial_hairs.rsi
+      state: mustache_2
+
+- type: marking
+  id: TajaranMustache3
+  bodyPart: FacialHair
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_facial_hairs.rsi
+      state: mustache_3
+
+- type: marking
+  id: TajaranCheeks
+  bodyPart: FacialHair
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_facial_hairs.rsi
+      state: cheeks
+
+- type: marking
+  id: TajaranCheeksShort
+  bodyPart: FacialHair
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_facial_hairs.rsi
+      state: cheeks_short

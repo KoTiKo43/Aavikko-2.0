@@ -1,0 +1,16 @@
+- type: soundCollection
+  id: FootstepGeth
+  files:
+  - /Audio/Aavikko/Effects/Footsteps/geth_step1.ogg
+  - /Audio/Aavikko/Effects/Footsteps/geth_step2.ogg
+  - /Audio/Aavikko/Effects/Footsteps/geth_step3.ogg
+
+- type: soundCollection
+  id: FootstepClothfootwraps
+  files:
+  - /Audio/Effects/Footsteps/carpetbarefoot1.ogg
+  - /Audio/Effects/Footsteps/carpetbarefoot2.ogg
+  - /Audio/Effects/Footsteps/carpetbarefoot3.ogg
+  - /Audio/Effects/Footsteps/carpetbarefoot4.ogg
+  - /Audio/Effects/Footsteps/carpetbarefoot5.ogg
+

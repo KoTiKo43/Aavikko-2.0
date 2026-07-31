@@ -1,0 +1,23 @@
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitCentcomIntern
+  name: CentCom intern jumpsuit
+  description: It's a jumpsuit worn by CentCom's intern.
+  suffix: Aavikko
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Uniforms/Jumpsuit/centcom_intern.rsi
+  - type: Clothing
+    sprite: Aavikko/Clothing/Uniforms/Jumpsuit/centcom_intern.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitWhiteCaptain
+  name: белый комбинезон капитана
+  suffix: Aavikko
+  description: Одним своим видом заставляет остальных повиноваться Вашей воле.
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Uniforms/Jumpsuit/white_captain_jumpsuit.rsi
+  - type: Clothing
+    sprite: Aavikko/Clothing/Uniforms/Jumpsuit/white_captain_jumpsuit.rsi

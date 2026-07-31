@@ -27,6 +27,8 @@ loadout-group-captain-jumpsuit = Капитан, комбинезон
 loadout-group-captain-neck = Капитан, шея
 loadout-group-captain-backpack = Капитан, рюкзак
 loadout-group-captain-outerclothing = Капитан, верхняя одежда
+loadout-group-captain-shoes = Капитан, обувь
+loadout-group-captain-gloves = Капитан, перчатки # Aavikko
 
 loadout-group-hop-head = Глава персонала, голова
 loadout-group-hop-jumpsuit = Глава персонала, комбинезон
@@ -54,8 +56,8 @@ loadout-group-chef-outerclothing = Шеф-повар, верхняя одежд�
 
 loadout-group-librarian-jumpsuit = Библиотекарь, комбинезон
 
-loadout-group-lawyer-jumpsuit = Адвокат, комбинезон
-loadout-group-lawyer-neck = Адвокат, шея
+loadout-group-lawyer-jumpsuit = Юрист, комбинезон
+loadout-group-lawyer-neck = Юрист, шея
 
 loadout-group-chaplain-head = Священник, голова
 loadout-group-chaplain-mask = Священник, маска

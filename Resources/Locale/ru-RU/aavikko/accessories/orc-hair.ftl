@@ -1,0 +1,10 @@
+marking-OrcHairDread = Дреды
+marking-OrcHairFather = Отец
+marking-OrcHairMeganefor = Пышная
+marking-OrcHairMohawk = Могавк
+marking-OrcHairNefor = Наполовину выбритая
+marking-OrcHairPolnoref = Французская
+marking-OrcHairRonin = Ронин
+marking-OrcHairVicing = Викинг
+marking-OrcHairVip = Важная персона
+marking-OrcHairWisdom = Мудрец

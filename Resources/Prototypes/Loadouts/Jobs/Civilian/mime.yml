@@ -41,6 +41,14 @@
   equipment:
     jumpsuit: ClothingUniformJumpskirtMime
 
+# Neck
+# Aavikko
+- type: loadout
+  id: MimeScarfStripedZebra
+  equipment:
+    neck: ClothingNeckScarfStripedZebra
+# Aavikko
+
 # Back
 - type: loadout
   id: MimeBackpack

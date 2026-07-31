@@ -3,7 +3,7 @@
   bodyPart: LHand
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/body_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/body_markings.rsi # Aavikko sprite fix
       state: claws_l_hand
   coloring:
     default:
@@ -16,7 +16,7 @@
   bodyPart: RHand
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/body_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/body_markings.rsi # Aavikko sprite fix
       state: claws_r_hand
   coloring:
     default:
@@ -29,7 +29,7 @@
   bodyPart: LFoot
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/body_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/body_markings.rsi # Aavikko sprite fix
       state: claws_l_foot
   coloring:
     default:
@@ -42,7 +42,7 @@
   bodyPart: RFoot
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: Mobs/Customization/Vulpkanin/body_markings.rsi
+    - sprite: Aavikko/Mobs/Customization/Vulpkanin/body_markings.rsi # Aavikko sprite fix
       state: claws_r_foot
   coloring:
     default:
@@ -161,7 +161,7 @@
 
 # Fade
 
-## Left Side 
+## Left Side
 
 - type: marking
   id: VulpPointsFadeLegLeft

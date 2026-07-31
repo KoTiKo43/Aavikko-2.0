@@ -630,6 +630,11 @@
 - type: Tag
   id: GeigerCounter # Storage whitelist: BaseClothingBeltEngineering
 
+# Aavikko-Species-Start
+- type: Tag
+  id: Geth
+# Aavikko-Species-End
+
 # Used for warps
 - type: Tag
   id: GhostOnlyWarp

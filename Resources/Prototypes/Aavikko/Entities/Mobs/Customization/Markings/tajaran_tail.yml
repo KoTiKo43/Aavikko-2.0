@@ -1,0 +1,175 @@
+# Aavikko tajaran transfer
+- type: marking
+  id: TajaranTailM
+  bodyPart: Tail
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_m
+
+- type: marking
+  id: TajaranTailFluffy
+  bodyPart: Tail
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_fluffy
+
+- type: marking
+  id: TajaranTailRing
+  bodyPart: Tail
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_m
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_ring
+
+- type: marking
+  id: TajaranTailSkeleton
+  bodyPart: Tail
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_m
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_skeleton
+
+- type: marking
+  id: TajaranTailTip
+  bodyPart: Tail
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_m
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_tip
+
+- type: marking
+  id: TajaranTailFluffySkeleton
+  bodyPart: Tail
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_fluffy
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_skeleton
+
+
+- type: marking
+  id: TajaranTailWingler1
+  bodyPart: Tail
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_fluffy
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: wingler_1
+
+- type: marking
+  id: TajaranTailWingler2
+  bodyPart: Tail
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_fluffy
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: wingler_2
+
+- type: marking
+  id: TajaranTailWingler3
+  bodyPart: Tail
+  groupWhitelist: [Tajaran]
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_fluffy
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: wingler_3
+
+# Animated
+- type: marking
+  id: TajaranTailFluffyAnimated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_fluffy_wagging
+
+- type: marking
+  id: TajaranTailWingler1Animated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_fluffy_wagging
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: wingler_1_wagging
+
+- type: marking
+  id: TajaranTailWingler2Animated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_fluffy_wagging
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: wingler_2_wagging
+
+- type: marking
+  id: TajaranTailWingler3Animated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_fluffy_wagging
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: wingler_3_wagging
+
+- type: marking
+  id: TajaranTailFluffySkeletonAnimated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_fluffy_wagging
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_skeleton_wagging
+
+- type: marking
+  id: TajaranTailTipAnimated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_m_wagging
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_tip_wagging
+
+
+- type: marking
+  id: TajaranTailMAnimated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_m_wagging
+
+- type: marking
+  id: TajaranTailRingAnimated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_m_wagging
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_ring_wagging
+
+- type: marking
+  id: TajaranTailSkeletonAnimated
+  bodyPart: Tail
+  groupWhitelist: []
+  sprites:
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_m_wagging
+    - sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+      state: tail_skeleton_wagging

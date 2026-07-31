@@ -30,6 +30,12 @@
       path: /Audio/Corvax/Effects/Tajaran/gasp.ogg
     DefaultDeathgasp:
       collection: MaleDeathGasp
+    # Aavikko-emotes-start
+    Mrrp:
+      collection: TajaranMrrp
+    Meows:
+      collection: TajaranMeows
+    # Aavikko-emotes-end
 
 - type: emoteSounds
   id: FemaleTajaran
@@ -62,6 +68,12 @@
       path: /Audio/Corvax/Effects/Tajaran/gasp.ogg
     DefaultDeathgasp:
       collection: FemaleDeathGasp
+    # Aavikko-emotes-start
+    Mrrp:
+      collection: TajaranMrrp
+    Meows:
+      collection: TajaranMeows
+    # Aavikko-emotes-end
 
 # species
 - type: emoteSounds

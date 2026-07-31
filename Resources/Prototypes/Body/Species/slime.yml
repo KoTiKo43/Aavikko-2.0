@@ -138,6 +138,28 @@
         color: "#2cf274"
       Burn:
         sprite: Mobs/Effects/burn_damage.rsi
+  # Aavikko start
+  - type: Hunger # 1.5x as faster
+    baseDecayRate: 0.024
+  - type: Thirst # Twice as slowly, have much higher threshold
+    thresholds:
+      OverHydrated: 650
+      Okay: 500
+      Thirsty: 100
+      Parched: 30
+      Dead: 0
+    baseDecayRate: 0.05
+  - type: MeleeWeapon # Not so strong, but caustic strikes
+    soundHit:
+      collection: Punch
+    angle: 30
+    animation: WeaponArcFist
+    attackRate: 1
+    damage:
+      types:
+        Blunt: 3
+        Caustic: 1
+  # Aavikko end
   - type: Bloodstream
     bloodReferenceSolution: # TODO Color slime blood based on their slime color or smth
       reagents:
