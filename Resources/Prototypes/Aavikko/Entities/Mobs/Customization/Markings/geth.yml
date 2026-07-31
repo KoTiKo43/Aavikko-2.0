@@ -1,7 +1,6 @@
 - type: marking
   id: GethArmorHead
   bodyPart: Head
-  markingCategory: Head
   groupWhitelist: [Geth]
   sprites:
   - sprite: Aavikko/Mobs/Customization/Geth/geth_frame.rsi
@@ -20,7 +19,6 @@
 - type: marking
   id: GethArmorChest
   bodyPart: Chest
-  markingCategory: Chest
   groupWhitelist: [Geth]
   sprites:
   - sprite: Aavikko/Mobs/Customization/Geth/geth_frame.rsi
@@ -36,7 +34,6 @@
 - type: marking
   id: GethArmorLArm
   bodyPart: LArm
-  markingCategory: LArm
   groupWhitelist: [Geth]
   sprites:
   - sprite: Aavikko/Mobs/Customization/Geth/geth_frame.rsi
@@ -52,7 +49,6 @@
 - type: marking
   id: GethArmorRArm
   bodyPart: RArm
-  markingCategory: RArm
   groupWhitelist: [Geth]
   sprites:
   - sprite: Aavikko/Mobs/Customization/Geth/geth_frame.rsi
@@ -68,7 +64,6 @@
 - type: marking
   id: GethArmorLLeg
   bodyPart: LLeg
-  markingCategory: LLeg
   groupWhitelist: [Geth]
   sprites:
   - sprite: Aavikko/Mobs/Customization/Geth/geth_frame.rsi
@@ -84,7 +79,6 @@
 - type: marking
   id: GethArmorRLeg
   bodyPart: RLeg
-  markingCategory: RLeg
   groupWhitelist: [Geth]
   sprites:
   - sprite: Aavikko/Mobs/Customization/Geth/geth_frame.rsi

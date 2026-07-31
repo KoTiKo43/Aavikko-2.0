@@ -96,7 +96,6 @@
     showOverlays: false
     allowRevives: true
   - type: Damageable
-    damageContainer: Silicon
     damageModifierSet: GethDamageSet
   - type: DamageVisuals
     damageOverlayGroups:

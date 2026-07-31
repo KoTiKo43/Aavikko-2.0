@@ -90,7 +90,7 @@
     shiveringHeatRegulation: 500
     normalBodyTemperature: 310.15
     thermalRegulationTemperatureThreshold: 25
-  - type: Temperature
+  - type: TemperatureDamage
     heatDamageThreshold: 325
     coldDamageThreshold: 0
     currentTemperature: 310.15
@@ -109,8 +109,9 @@
       types:
         Heat: -0.1
         Radiation: -0.15
-      groups:
-        Brute: -0.1
+        Blunt: -0.05
+        Piercing: -0.05
+        Slash: -0.05
   - type: Respirator
     damage:
       types:
@@ -130,7 +131,6 @@
       120: Critical
       200: Dead
   - type: Butcherable
-    butcheringType: Spike
     spawned:
     - id: FoodMeatHuman
       amount: 5

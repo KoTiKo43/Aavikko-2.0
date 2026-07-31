@@ -142,11 +142,12 @@
   - type: Hunger # 1.5x as faster
     baseDecayRate: 0.024
   - type: Thirst # Twice as slowly, have much higher threshold
-    OverHydrated: 650
-    Okay: 500
-    Thirsty: 100
-    Parched: 30
-    Dead: 0
+    thresholds:
+      OverHydrated: 650
+      Okay: 500
+      Thirsty: 100
+      Parched: 30
+      Dead: 0
     baseDecayRate: 0.05
   - type: MeleeWeapon # Not so strong, but caustic strikes
     soundHit:
