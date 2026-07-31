@@ -115,7 +115,7 @@
   - type: IntrinsicRadioReceiver
   - type: IntrinsicRadioTransmitter
     channels:
-    - GethRadio
+    - Geth
     - Binary
     - Common
     - Command
@@ -127,7 +127,7 @@
     - Supply
   - type: ActiveRadio
     channels:
-    - GethRadio
+    - Geth
     - Binary
     - Common
     - Command
