@@ -106,7 +106,6 @@
   - type: PassiveDamage # Orcs have more intense regen and radiation regen
     allowedStates:
     - Alive
-    damageCap: 40
     damage:
       types:
         Heat: -0.1
