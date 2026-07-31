@@ -46,21 +46,19 @@ public sealed partial class ItemOfferClientSystem : EntitySystem
         SubscribeLocalEvent<LocalPlayerAttachedEvent>(OnPlayerAttached);
         SubscribeLocalEvent<LocalPlayerDetachedEvent>(OnPlayerDetached);
 
-        // Регистрация клавиши toggle режима. handle=false, потому что
-        // событие не должно «поглощаться» - сервер тоже получит его через
-        // InputCmdMessage и подтвердит состояние.
+        // Регистрация всех keybind-обработчиков одним Builder-ом.
         CommandBinds.Builder
+        // Toggle режима передачи (клавиша F). handle=false, потому что
+        // событие не должно «поглощаться» — сервер тоже получит его
+        // через InputCmdMessage и подтвердит состояние.
             .Bind(ItemOfferKeyFunctions.ToggleItemOffer,
                   InputCmdHandler.FromDelegate(HandleToggleItemOffer, handle: false))
-            .Register<ItemOfferClientSystem>();
-
-        // Перехват ЛКМ. EngineKeyFunctions.Use - стандартная функция
+        // Перехват ЛКМ. EngineKeyFunctions.Use — стандартная функция
         // "использовать/атаковать" в SS14. Когда режим передачи активен,
         // клик по другому игроку отправляет запрос на сервер вместо обычного
         // взаимодействия. handle=true (возврат true из обработчика) означает,
-        // что событие обработано - движок не передаёт его дальше по цепочке,
+        // что событие обработано — движок не передаёт его дальше по цепочке,
         // поэтому атака/кормление/использование предмета не срабатывают.
-        CommandBinds.Builder
             .Bind(EngineKeyFunctions.Use,
                   new PointerInputCmdHandler(HandleUseClick))
             .Register<ItemOfferClientSystem>();
