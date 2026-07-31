@@ -90,11 +90,13 @@
     shiveringHeatRegulation: 500
     normalBodyTemperature: 310.15
     thermalRegulationTemperatureThreshold: 25
+  - type: Temperature
+    currentTemperature: 310.15
+    specificHeat: 42
   - type: TemperatureDamage
     heatDamageThreshold: 325
     coldDamageThreshold: 0
     currentTemperature: 310.15
-    specificHeat: 42
     coldDamage:
       types:
         Cold: 1
@@ -104,7 +106,6 @@
   - type: PassiveDamage # Orcs have more intense regen and radiation regen
     allowedStates:
     - Alive
-    damageCap: 40
     damage:
       types:
         Heat: -0.1
