@@ -151,8 +151,7 @@
     footstepSoundCollection:
       collection: FootstepGeth
   - type: Vocal
-    sounds:
-      Unsexed: UnisexGeth
+    emoteSounds: UnisexGeth
   - type: Tag
     tags:
     - CanPilot

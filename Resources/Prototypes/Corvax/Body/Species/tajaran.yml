@@ -140,10 +140,7 @@
     speechVerb: Feline
     allowedEmotes: ['Purr', 'Mrrp', 'Meows']
   - type: Vocal
-    sounds:
-      Male: MaleTajaran
-      Female: FemaleTajaran
-      Unsexed: MaleTajaran
+    emoteSounds: MaleTajaran
   - type: GrowlingAccent
   - type: MeleeWeapon
     animation: WeaponArcClaw
@@ -331,7 +328,6 @@
     solutions:
     - SolutionStomachTajaran # Aavikko
     - SolutionTajaranFood
-
 
 - type: entity
   parent: SolutionFood

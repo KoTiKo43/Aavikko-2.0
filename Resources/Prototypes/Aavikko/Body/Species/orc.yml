@@ -136,10 +136,7 @@
     - id: FoodMeatHuman
       amount: 5
   - type: Vocal
-    sounds:
-      Male: UnisexOrc
-      Female: FemaleOrc
-      Unsexed: UnisexOrc
+    emoteSounds: UnisexOrc
   - type: Speech
     speechSounds: Bass
 

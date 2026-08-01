@@ -11,6 +11,13 @@
   femaleFirstNames: NamesTajaranFirstFemale
   maleLastNames: NamesTajaranLast # Corvax-LastnameGender
   femaleLastNames: NamesTajaranLast # Corvax-LastnameGender
+  defaultSoundsBySex:
+  - MaleTajaran
+  - FemaleTajaran
+  - MaleTajaran
+  voices:
+  - MaleTajaran
+  - FemaleTajaran
   # Aavikko tajaran age
   minAge: 14
   youngAge: 18
