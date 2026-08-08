@@ -1,5 +1,11 @@
 - type: localizedDataset
-  id: NamesOrcFirstMale
+  id: NamesOrcFirst
   values:
     prefix: names-orc-first-dataset-
-    count: 51
+    count: 50
+
+- type: localizedDataset
+  id: NamesOrcLast
+  values:
+    prefix: names-orc-last-dataset-
+    count: 50

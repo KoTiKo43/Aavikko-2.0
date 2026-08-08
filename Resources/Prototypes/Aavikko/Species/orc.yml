@@ -6,8 +6,8 @@
   defaultSkinTone: "#188f0f"
   dollPrototype: AppearanceOrc
   skinColoration: OrcGreen
-  maleFirstNames: NamesOrcFirstMale
-  naming: First
+  maleFirstNames: NamesOrcFirst
+  maleLastNames: NamesOrcLast
   sexes:
    - Male
   minAge: 20
