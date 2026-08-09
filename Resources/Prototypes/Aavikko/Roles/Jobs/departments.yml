@@ -1,0 +1,10 @@
+- type: department
+  id: DIA
+  name: department-DIA
+  description: department-DIA-description
+  color: '#309620'
+  roles:
+  - Secretarian # Aavikko-Secretarian
+  - IAA # Corvax-IAA
+  - Lawyer
+  weight: 90
