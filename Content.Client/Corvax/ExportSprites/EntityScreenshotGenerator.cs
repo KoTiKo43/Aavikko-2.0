@@ -13,6 +13,7 @@ using Robust.Client.Timing;
 using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Serialization.Markdown;
@@ -25,6 +26,7 @@ namespace Content.Client.Corvax.ExportSprites;
 public sealed partial class EntityScreenshotGenerator
 {
     [Dependency] private IConfigurationManager _cfg = default!;
+        [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private IBaseClient _baseClient = default!;
     [Dependency] private IEntityManager _entityManager = default!;
     [Dependency] private IEntitySystemManager _entitySystemManager = default!;
@@ -32,7 +34,6 @@ public sealed partial class EntityScreenshotGenerator
     [Dependency] private IGameController _gameController = default!;
     [Dependency] private IClientGameTiming _gameTiming = default!;
     [Dependency] private ILogManager _logManager = default!;
-    [Dependency] private IMapManager _mapManager = default!;
     [Dependency] private IPrototypeManager _prototypeManager = default!;
     [Dependency] private IResourceManager _resourceManager = default!;
     [Dependency] private ISerializationManager _serialization = default!;
@@ -132,7 +133,7 @@ public sealed partial class EntityScreenshotGenerator
                 .OrderBy(proto => proto.ID)
                 .ToList();
             var previewMap = mapSystem.CreateMap(out var mapId);
-            var previewGrid = _mapManager.CreateGridEntity(mapId);
+            var previewGrid = _map.CreateGridEntity(mapId);
 
             if (!_resourceManager.UserData.IsDir(outputDir))
                 _resourceManager.UserData.CreateDir(outputDir);
@@ -290,7 +291,7 @@ public sealed partial class EntityScreenshotGenerator
 
         foreach (var (_, entry) in prototype.Components)
         {
-            if (TryExtractSpriteSpecifier(entry.Component.GetType(), entry.Mapping, out icon))
+            if (TryExtractSpriteSpecifier(entry.Component.GetType(), _serialization.WriteValue(entry.Component.GetType(), entry.Component), out icon))
                 return true;
         }
 
