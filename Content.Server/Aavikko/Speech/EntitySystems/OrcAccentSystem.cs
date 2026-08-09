@@ -1,12 +1,13 @@
 using System.Text.RegularExpressions;
 using Content.Server.Aavikko.Speech.Components;
-using Content.Server.Speech.EntitySystems;
+using Content.Shared.Speech.EntitySystems;
 using Content.Shared.Speech;
 
 namespace Content.Server.Aavikko.Speech.EntitySystems;
 
 public sealed partial class OrcAccentSystem : EntitySystem
 {
+    [Dependency] private ReplacementAccentSystem _replacement = default!;
 
     private static readonly Regex Verb1A = new(@"аю\b", RegexOptions.IgnoreCase);
     private static readonly Regex Verb1B = new(@"ешь\b", RegexOptions.IgnoreCase);
@@ -34,6 +35,8 @@ public sealed partial class OrcAccentSystem : EntitySystem
         var message = args.Message;
 
         
+
+        message = _replacement.ApplyReplacements(message, "orc");
 
         message = Verb1A.Replace(message, "ать");
         message = Verb1B.Replace(message, "ать");
