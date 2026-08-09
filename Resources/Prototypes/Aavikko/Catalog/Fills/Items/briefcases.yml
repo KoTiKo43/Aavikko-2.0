@@ -1,5 +1,5 @@
 - type: entity
-  id: BriefcaseSecretaryFilled #Aavikko
+  id: BriefcaseSecretarianFilled #Aavikko
   parent: BriefcaseBrown
   suffix: Aavikko
   components:

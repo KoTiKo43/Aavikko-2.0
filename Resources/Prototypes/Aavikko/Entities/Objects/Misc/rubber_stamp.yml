@@ -1,5 +1,5 @@
 - type: entity
-  name: secretary's rubber stamp
+  name: secretarian's rubber stamp
   parent: RubberStampBase
   id: RubberStampSecretarian
   suffix: DO NOT MAP, Aavikko
