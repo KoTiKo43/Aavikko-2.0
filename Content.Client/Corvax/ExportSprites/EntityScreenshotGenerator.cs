@@ -26,7 +26,6 @@ namespace Content.Client.Corvax.ExportSprites;
 public sealed partial class EntityScreenshotGenerator
 {
     [Dependency] private IConfigurationManager _cfg = default!;
-        [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private IBaseClient _baseClient = default!;
     [Dependency] private IEntityManager _entityManager = default!;
     [Dependency] private IEntitySystemManager _entitySystemManager = default!;
@@ -133,7 +132,7 @@ public sealed partial class EntityScreenshotGenerator
                 .OrderBy(proto => proto.ID)
                 .ToList();
             var previewMap = mapSystem.CreateMap(out var mapId);
-            var previewGrid = _map.CreateGridEntity(mapId);
+            var previewGrid = _entitySystemManager.GetEntitySystem<SharedMapSystem>().CreateGridEntity(mapId);
 
             if (!_resourceManager.UserData.IsDir(outputDir))
                 _resourceManager.UserData.CreateDir(outputDir);
