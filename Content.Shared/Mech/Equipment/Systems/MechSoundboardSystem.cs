@@ -24,16 +24,18 @@ public sealed partial class MechSoundboardSystem : EntitySystem
 
     private void OnUiStateReady(EntityUid uid, MechSoundboardComponent comp, MechEquipmentUiStateReadyEvent args)
     {
-        // you have to specify a collection so it must exist probably
+        // TODO: Allocs
         var state = new MechSoundboardUiState
         {
             Sounds = new List<ProtoId<SoundCollectionPrototype>>(comp.Sounds.Count)
         };
+
         foreach (var sound in comp.Sounds)
         {
             if (sound.Collection is { } collection)
                 state.Sounds.Add(collection);
         }
+
         args.States.Add(GetNetEntity(uid), state);
     }
 

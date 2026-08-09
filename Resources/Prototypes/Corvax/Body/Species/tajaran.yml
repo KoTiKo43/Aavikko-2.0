@@ -15,10 +15,10 @@
     enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: true
-      default: [ TajaranEars ]
+      default: [ TajaranOutears ]
     enum.HumanoidVisualLayers.Snout:
-      limit: 2 # Aavikko tajaran
-      required: false # Aavikko tajaran
+      limit: 1
+      required: true
     enum.HumanoidVisualLayers.SnoutCover:
       limit: 3
       required: false
@@ -88,37 +88,35 @@
       Kidneys: OrganTajaranKidneys
   - type: HumanoidProfile
     species: Tajaran
-  - type: ScaleVisuals # Aavikko tajaran transfer
-    scale: 0.95, 0.95
-  - type: Inventory # Aavikko tajaran transfer
-    speciesId: tajaran
-  #   femaleDisplacements:
-  #     jumpsuit:
-  #       sizeMaps:
-  #         32:
-  #           sprite: Corvax/Mobs/Species/displacement.rsi
-  #           state: jumpsuit-female
-  #     shoes:
-  #       sizeMaps:
-  #         32:
-  #           sprite: Corvax/Mobs/Species/displacement.rsi
-  #           state: shoes
-  #   displacements:
-  #     jumpsuit:
-  #       sizeMaps:
-  #         32:
-  #           sprite: Corvax/Mobs/Species/displacement.rsi
-  #           state: jumpsuit
-  #     shoes:
-  #       sizeMaps:
-  #         32:
-  #           sprite: Corvax/Mobs/Species/displacement.rsi
-  #           state: shoes
-  #     outerClothing:
-  #       sizeMaps:
-  #         32:
-  #           sprite: Corvax/Mobs/Species/displacement.rsi
-  #           state: outerclothing
+  - type: Inventory
+    speciesId: corvaxtajaran
+    femaleDisplacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: Corvax/Mobs/Species/displacement.rsi
+            state: jumpsuit-female
+      shoes:
+        sizeMaps:
+          32:
+            sprite: Corvax/Mobs/Species/displacement.rsi
+            state: shoes
+    displacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: Corvax/Mobs/Species/displacement.rsi
+            state: jumpsuit
+      shoes:
+        sizeMaps:
+          32:
+            sprite: Corvax/Mobs/Species/displacement.rsi
+            state: shoes
+      outerClothing:
+        sizeMaps:
+          32:
+            sprite: Corvax/Mobs/Species/displacement.rsi
+            state: outerclothing
 
 - type: entity
   save: false
@@ -128,22 +126,15 @@
   - BaseSpeciesMobOrganic
   id: MobTajaran
   components:
-  - type: Sprite # Aavikko tajaran transfer
-    scale: 0.95, 0.95
   - type: Hunger
     baseDecayRate: 0.02
   - type: Thirst
     baseDecayRate: 0.15
   - type: ContentEye
   - type: Speech
-    speechSounds: Alto # Aavikko, заглушка
-    speechVerb: Feline
-    allowedEmotes: ['Purr', 'Mrrp', 'Meows']
+    allowedEmotes: ['Purr']
   - type: Vocal
-    sounds:
-      Male: MaleTajaran
-      Female: FemaleTajaran
-      Unsexed: MaleTajaran
+    emoteSounds: MaleTajaran
   - type: GrowlingAccent
   - type: MeleeWeapon
     animation: WeaponArcClaw
@@ -151,9 +142,9 @@
       collection: AlienClaw
     damage:
       types:
-        Piercing: 7 # Slash -> Piercing, Aavikko tajaran transfer
+        Slash: 7
   - type: Damageable
-    damageModifierSet: AavikkoTajaran # Aavikko tajaran transfer
+    damageModifierSet: Tajaran
   - type: Respirator
     damage:
       types:
@@ -161,36 +152,7 @@
     damageRecovery:
       types:
         Asphyxiation: -2.0
-  - type: TemperatureDamage
-    heatDamageThreshold: 320
-    coldDamageThreshold: 240
-    coldDamage:
-      types:
-        Cold: 0.07 # Per second, scales with temperature & other constants
-    heatDamage:
-      types:
-        Heat: 2.2 # Per second, scales with temperature & other constants
-  - type: MovementSpeedModifier # Aavikko tajaran transfer
-    baseWalkSpeed : 2.7
-    baseSprintSpeed : 4.6
-  - type: SlowOnDamage # Aavikko tajaran transfer
-    speedModifierThresholds:
-      42: 0.7
-      60: 0.5
-  - type: TemperatureSpeed # Aavikko tajaran
-    thresholds:
-      273: 0.8
-      240: 0.6
-      200: 0.4
   - type: Wagging
-    action: ActionToggleWaggingTajaran # Aavikko tajaran
-  - type: TemperatureProtection # Aavikko tajaran
-    heatingCoefficient: 1.1
-    coolingCoefficient: 0.4
-  - type: CreamPied # Aavikko tajaran
-    sprite:
-      sprite: Aavikko/Effects/creampie.rsi
-      state: creampie_tajaran
 
 - type: entity
   parent: OrganBase
@@ -203,19 +165,7 @@
   abstract: true
   components:
   - type: Metabolizer
-    metabolizerTypes: [ Tajaran, Animal ] # Aavikko
-
-# Aavikko tajaran transfer start
-- type: entity
-  parent: Solution
-  id: SolutionStomachTajaran
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: Solution
-    id: stomach
-    solution:
-      maxVol: 50
-# Aavikko tajaran transfer end
+    metabolizerTypes: [ Animal ]
 
 - type: entity
   parent: OrganTajaran
@@ -231,7 +181,7 @@
   components:
   - type: VisualOrgan
     data:
-      sprite: Aavikko/Mobs/Species/Tajaran/parts.rsi # Aavikko tajaran transfer
+      sprite: Corvax/Mobs/Species/Tajaran/parts.rsi
   - type: VisualOrganMarkings
     markingData:
       group: Tajaran
@@ -242,7 +192,7 @@
   abstract: true
   components:
   - type: Sprite
-    sprite: Aavikko/Mobs/Species/Tajaran/parts.rsi # Aavikko tajaran transfer
+    sprite: Corvax/Mobs/Species/Tajaran/parts.rsi
 
 - type: entity
   parent: [ OrganBaseTorsoSexed, OrganBaseTorso, OrganTajaranExternal ]
@@ -329,9 +279,8 @@
   components:
   - type: SolutionManager
     solutions:
-    - SolutionStomachTajaran # Aavikko
+    - SolutionStomach
     - SolutionTajaranFood
-
 
 - type: entity
   parent: SolutionFood

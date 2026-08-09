@@ -18,7 +18,6 @@ using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Robust.Server.GameStates;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Configuration;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map.Components;
@@ -37,7 +36,6 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
     [Dependency] private IAdminLogManager _logger = default!;
     [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private IGameTiming _gameTiming = default!;
-    [Dependency] private IPrototypeManager _protoManager = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private BiomeSystem _biomes = default!;
     [Dependency] private GibbingSystem _gibbing = default!;

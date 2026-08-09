@@ -60,9 +60,8 @@
                         Access="Public"
                         Text="{Loc 'main-menu-quit-button'}"
                         TextAlign="Center"
-                        StyleIdentifier="mainMenu" StyleClasses="negative OpenRight">
-                    
-                </Button>
+                        StyleIdentifier="mainMenu"
+                        StyleClasses="negative OpenRight" />
             </BoxContainer>
         </PanelContainer>
     </BoxContainer>

@@ -118,8 +118,8 @@
                             Text="✖"
                             SetSize="38 32"
                             HorizontalAlignment="Right"
-                            ToolTip="{Loc 'lathe-menu-delete-fabricating-tooltip'}" StyleClasses="negative OpenLeft">
-                        </Button>
+                            ToolTip="{Loc 'lathe-menu-delete-fabricating-tooltip'}"
+                            StyleClasses="negative OpenLeft" />
                     </PanelContainer>
                 </BoxContainer>
                 <ScrollContainer VerticalExpand="True" HScrollEnabled="False">

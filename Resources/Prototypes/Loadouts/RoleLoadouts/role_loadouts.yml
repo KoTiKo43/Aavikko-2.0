@@ -8,7 +8,7 @@
   - CaptainJumpsuit
   - CaptainBackpack
   - CaptainOuterClothing
-  - CaptainShoes # Aavikko-Loadouts
+  - AssistiveItems
   - Survival
   - Trinkets
   #- CaptainJobTrinkets
@@ -24,8 +24,8 @@
   - HoPJumpsuit
   - HoPBackpack
   - HoPOuterClothing
-  - HoPShoes # Aavikko-Loadouts
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- HoPJobTrinkets
@@ -56,6 +56,7 @@
   - PassengerOuterClothing
   - PassengerShoes
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- PassengerJobTrinkets
@@ -70,8 +71,8 @@
   - BartenderJumpsuit
   - CommonBackpack
   - BartenderOuterClothing
-  - BartenderShoes # Aavikko-Loadouts
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   - BartenderJobTrinkets
@@ -84,8 +85,8 @@
   - GroupTankHarness
   - BartenderJumpsuit
   - CommonBackpack
-  - ServiceShoes # Aavikko-Loadouts
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- ServiceWorkerJobTrinkets
@@ -101,8 +102,8 @@
   - ChefJumpsuit
   - CommonBackpack
   - ChefOuterClothing
-  - ChefShoes # Aavikko-Loadouts
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- ChefJobTrinkets
@@ -115,8 +116,8 @@
   - GroupTankHarness
   - LibrarianJumpsuit
   - CommonBackpack
-  - LibrarianShoes # Aavikko-Loadouts
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- LibrarianJobTrinkets
@@ -130,8 +131,8 @@
   - LawyerNeck
   - LawyerJumpsuit
   - CommonBackpack
-  - LawyerShoes # Aavikko-Loadouts
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- LawyerJobTrinkets
@@ -149,9 +150,9 @@
   - ChaplainJumpsuit
   - CommonBackpack
   - ChaplainOuterClothing
-  - ChaplainShoes # Aavikko-Loadouts
   - ChaplainBible
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- ChaplainJobTrinkets
@@ -167,8 +168,8 @@
   - JanitorGloves
   - CommonBackpack
   - JanitorOuterClothing
-  - JanitorShoes # Aavikko-Loadouts
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   - JanitorJobTrinkets
@@ -183,8 +184,8 @@
   - BotanistJumpsuit
   - BotanistBackpack
   - BotanistOuterClothing
-  - BotanistShoes # Aavikko-Loadouts
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- BotanistJobTrinkets
@@ -202,6 +203,7 @@
   - ClownOuterClothing
   - ClownShoes
   - Glasses
+  - AssistiveItems
   - SurvivalClown
   - Trinkets
   - ClownJobTrinkets
@@ -215,13 +217,12 @@
   - MimeHead
   - MimeMask
   - MimeJumpsuit
-  - MimeNeck # Aavikko-Loadouts
   - MimeBackpack
   - MimeOuterClothing
-  - MimeShoes # Aavikko-Loadouts
   - MimeBelt
   - Glasses
-  - SurvivalMime
+  - AssistiveItems
+  - Survival
   - Trinkets
   #- MimeJobTrinkets
 
@@ -234,12 +235,12 @@
   - MusicianJumpsuit
   - CommonBackpack
   - MusicianOuterClothing
-  - MusicianShoes # Aavikko-Loadouts
+  - Instruments
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- MusicianJobTrinkets
-  - Instruments
   - GroupSpeciesBreathTool
 
 # Cargo
@@ -255,6 +256,7 @@
   - QuartermasterOuterClothing
   - QuartermasterShoes
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- QuartermasterJobTrinkets
@@ -272,6 +274,7 @@
   - CargoTechnicianShoes
   - CargoTechnicianID
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- CargoTechnicianJobTrinkets
@@ -286,6 +289,7 @@
   - SalvageSpecialistOuterClothing
   - SalvageSpecialistShoes
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- SalvageSpecialistJobTrinkets
@@ -303,6 +307,7 @@
   - ChiefEngineerNeck
   - ChiefEngineerOuterClothing
   - ChiefEngineerShoes
+  - AssistiveItems
   - SurvivalExtended
   - Trinkets
   #- ChiefEngineerJobTrinkets
@@ -315,7 +320,7 @@
   - GroupTankHarness
   - TechnicalAssistantJumpsuit
   - StationEngineerBackpack
-  - StationEngineerShoes # Aavikko-Loadouts
+  - AssistiveItems
   - SurvivalExtended
   - Trinkets
   #- TechnicalAssistantJobTrinkets
@@ -332,6 +337,7 @@
   - StationEngineerOuterClothing
   - StationEngineerShoes
   - StationEngineerID
+  - AssistiveItems
   - SurvivalExtended
   - Trinkets
   #- StationEngineerJobTrinkets
@@ -346,6 +352,7 @@
   - AtmosphericTechnicianBackpack
   - AtmosphericTechnicianOuterClothing
   - AtmosphericTechnicianShoes
+  - AssistiveItems
   - SurvivalExtended
   - Trinkets
   #- AtmosphericTechnicianJobTrinkets
@@ -365,6 +372,7 @@
   - ScientistGloves
   - ResearchDirectorShoes
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- ResearchDirectorJobTrinkets
@@ -384,6 +392,7 @@
   - ScientistShoes
   - ScientistPDA
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- ScientistJobTrinkets
@@ -396,8 +405,8 @@
   - GroupTankHarness
   - ResearchAssistantJumpsuit
   - ScientistBackpack
-  - ScientistShoes # Aavikko-Loadouts
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- ResearchAssistantJobTrinkets
@@ -415,6 +424,7 @@
   - SecurityBelt
   - HeadofSecurityOuterClothing
   - SecurityShoes
+  - AssistiveItems
   - SurvivalSecurity
   - Trinkets
   - HeadofSecurityJobTrinkets
@@ -430,6 +440,7 @@
   - SecurityBelt
   - WardenOuterClothing
   - SecurityShoes
+  - AssistiveItems
   - SurvivalSecurity
   - Trinkets
   - WardenJobTrinkets
@@ -446,6 +457,7 @@
   - SecurityShoes
   - SecurityPDA
   - SecurityBelt
+  - AssistiveItems
   - SurvivalSecurity
   - Trinkets
   - SecurityJobTrinkets
@@ -461,6 +473,7 @@
   - SecurityBackpack
   - DetectiveOuterClothing
   - SecurityShoes
+  - AssistiveItems
   - SurvivalSecurity
   - Trinkets
   - DetectiveJobTrinkets
@@ -472,6 +485,7 @@
   - Inventory # Corvax-Loadouts
   - SecurityCadetJumpsuit
   - SecurityBackpack
+  - AssistiveItems
   - SurvivalSecurity
   - Trinkets
   #- SecurityCadetJobTrinkets
@@ -487,8 +501,8 @@
   - ReporterHead
   - ReporterOuterClothing
   - CommonBackpack
-  - ReporterShoes # Aavikko-Loadouts
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- ReporterJobTrinkets
@@ -501,11 +515,26 @@
   - GroupTankHarness
   - PsychologistJumpsuit
   - MedicalBackpack
-  - PsychologistShoes # Aavikko-Loadouts
   - Glasses
+  - AssistiveItems
   - Survival
   - Trinkets
   #- PsychologistJobTrinkets
+  - GroupSpeciesBreathTool
+
+- type: roleLoadout
+  id: JobTramDriver
+  groups:
+  - GroupTankHarness
+  - CommonBackpack
+  - TramDriverJumpsuit
+  - TramDriverOuterClothing #Vest and such
+  - TramDriverHat
+  - TramDriverGloves
+  - Glasses
+  - Survival
+  - Trinkets
+  #- TramDriverJobTrinkets
   - GroupSpeciesBreathTool
 
 # These loadouts are used for non-crew spawns, like off-station antags and event mobs
@@ -547,6 +576,13 @@
   - GroupTankHarness
 
 - type: roleLoadout
+  id: RoleSurvivalExtendedAntag # Used by antagonists that spawn off-station (e.g wizards)
+  groups:
+  - SurvivalExtendedAntag
+  - GroupSpeciesBreathTool
+  - GroupTankHarness
+
+- type: roleLoadout
   id: RoleSurvivalMedical
   groups:
   - SurvivalMedical
@@ -584,6 +620,12 @@
   groups:
   - GroupEVATank
   - SurvivalExtended
+
+- type: roleLoadout
+  id: RoleSurvivalEVAAntag # Used by antagonists that spawn off-station AND in space (e.g ninjas)
+  groups:
+  - GroupEVATank
+  - SurvivalExtendedAntag
 
 - type: roleLoadout
   id: RoleSurvivalSpaceNinja

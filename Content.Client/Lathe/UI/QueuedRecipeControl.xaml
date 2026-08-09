@@ -25,7 +25,12 @@
             Name="Delete"
             Margin="0"
             Text="✖"
+<<<<<<< HEAD
             ToolTip="{Loc 'lathe-menu-delete-item-tooltip'}" StyleClasses="negative OpenLeft">
         </Button>
+=======
+            ToolTip="{Loc 'lathe-menu-delete-item-tooltip'}"
+            StyleClasses="negative OpenLeft" />
+>>>>>>> corvax/master
     </BoxContainer>
 </Control>
