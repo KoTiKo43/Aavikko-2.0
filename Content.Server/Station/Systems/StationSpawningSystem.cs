@@ -155,7 +155,6 @@ public sealed partial class StationSpawningSystem : SharedStationSpawningSystem
                 // Aavikko: Also set BarkVoiceComponent with pitch offset
                 var bark = EnsureComp<BarkVoiceComponent>(entity.Value);
                 bark.PitchOffset = profile.BarkPitch;
-                Dirty(entity.Value, bark);
             }
         }
 
