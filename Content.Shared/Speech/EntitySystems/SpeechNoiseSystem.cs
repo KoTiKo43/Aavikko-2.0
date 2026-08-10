@@ -19,9 +19,9 @@ public sealed partial class SpeechSoundSystem : EntitySystem
     [Dependency] private readonly IRobustRandom _random = default!; // Aavikko: bark pitch variation
 
     // Aavikko: Bark playback constants
-    private const int BarkCharsPerBark = 8; // Aavikko: bark every ~8 chars
-    private const float BarkMinDelay = 0.3f;
-    private const int BarkMaxCount = 5;
+    private const int BarkCharsPerBark = 2; // Aavikko: 1 bark per 2 chars
+    private const float BarkMinDelay = 0.12f; // Aavikko: delay between barks
+    private const int BarkMaxCount = 8; // Aavikko: max barks per message
     private const float BarkNormalizedVolume = -3f;
     private const float BarkRandomPitchSpread = 0.04f;
 
