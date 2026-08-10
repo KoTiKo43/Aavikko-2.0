@@ -19,7 +19,7 @@ public sealed partial class SpeechSoundSystem : EntitySystem
     [Dependency] private readonly IRobustRandom _random = default!; // Aavikko: bark pitch variation
 
     // Aavikko: Bark playback constants
-    private const int BarkCharsPerBark = 20;
+    private const int BarkCharsPerBark = 12; // Aavikko: bark every ~12 chars
     private const float BarkMinDelay = 0.3f;
     private const int BarkMaxCount = 5;
     private const float BarkNormalizedVolume = -3f;
@@ -57,7 +57,8 @@ public sealed partial class SpeechSoundSystem : EntitySystem
         if (string.IsNullOrEmpty(message))
             return;
 
-        var barkCount = Math.Clamp(message.Length / BarkCharsPerBark, 1, BarkMaxCount);
+        // Aavikko: Ceiling division so even short messages get 2+ barks
+        var barkCount = Math.Clamp((message.Length + BarkCharsPerBark - 1) / BarkCharsPerBark, 1, BarkMaxCount);
         var sound = GetBarkSound(proto, message);
         if (sound == null)
             return;
