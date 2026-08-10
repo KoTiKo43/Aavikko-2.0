@@ -8,7 +8,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Aavikko.Speech;
+namespace Content.Server.Aavikko.Speech.EntitySystems;
 
 /// <summary>
 /// Aavikko: Plays bark voice sounds multiple times based on message length.

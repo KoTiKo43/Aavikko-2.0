@@ -62,8 +62,7 @@
   - OwOAccent
   - ParrotAccent
   - PirateAccent
-  - ReplacementAccent
-  # AddAccentClothingComponent was removed in v288, ReplacementAccent works fine now.
+  - ReplacementAccent  # Aavikko: restored (AddAccentClothing removed in v288)
   # TODO: AddAccentClothingComponent should use an inventory relay event.
   # Also ZombieComponent overwrites the old replacement accent, because you can only have one at a time.
   - RussianAccent
