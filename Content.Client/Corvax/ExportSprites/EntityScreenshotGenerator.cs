@@ -1,3 +1,4 @@
+// Aavikko fix: use EntitySystemManager for SharedMapSystem (v286 IoC strict)
 using System.Linq;
 using System.Threading.Tasks;
 using Content.Client.Gameplay;

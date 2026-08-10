@@ -1,3 +1,4 @@
+// Aavikko: Orc accent system — verb conjugation + word replacements
 using System.Text.RegularExpressions;
 using Content.Server.Aavikko.Speech.Components;
 using Content.Shared.Speech.EntitySystems;

@@ -1,3 +1,4 @@
+// Aavikko fix: OccluderComponent.BoundingBox -> LocalBounds for v288 API
 using System.Linq;
 using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Ghost.Components;
