@@ -17,16 +17,17 @@ namespace Content.Server.Aavikko.Speech.EntitySystems;
 /// </summary>
 public sealed class BarkVoiceSystem : EntitySystem
 {
-    [Dependency] private IGameTiming _gameTiming = default!;
-    [Dependency] private INetManager _net = default!;
-    [Dependency] private SharedAudioSystem _audio = default!;
-    [Dependency] private IPrototypeManager _proto = default!;
-    [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly IRobustRandom _random = default!;
 
-    // Play bark every N characters of message
+    // Aavikko: Play bark every N characters of message
     private const int CharsPerBark = 20;
-    // Minimum delay between barks (seconds)
+    // Aavikko: Minimum delay between barks (seconds)
     private const float MinBarkDelay = 0.3f;
+    // Aavikko: Max barks per message
+    private const int MaxBarks = 5;
 
     [SubscribeLocalEvent]
     private void OnEntitySpoke(Entity<SpeechComponent> ent, ref EntitySpokeEvent args)
@@ -35,7 +36,7 @@ public sealed class BarkVoiceSystem : EntitySystem
         if (ent.Comp.SpeechSounds == null)
             return;
 
-        // Check if this is a bark voice (ID starts with "Bark_")
+        // Aavikko: Check if this is a bark voice (ID starts with "Bark_")
         if (!_proto.TryIndex<SpeechSoundsPrototype>(ent.Comp.SpeechSounds.Value, out var proto))
             return;
 
@@ -46,34 +47,38 @@ public sealed class BarkVoiceSystem : EntitySystem
         if (string.IsNullOrEmpty(message))
             return;
 
-        // Calculate how many barks to play based on message length
-        var barkCount = Math.Max(1, message.Length / CharsPerBark);
-        barkCount = Math.Min(barkCount, 5); // Cap at 5 barks
+        // Aavikko: Calculate how many barks to play based on message length
+        var barkCount = Math.Clamp(message.Length / CharsPerBark, 1, MaxBarks);
 
-        // Get the sound to play
+        // Aavikko: Pick the correct sound variant (say/ask/exclaim)
         var sound = GetBarkSound(proto, message);
+        if (sound == null)
+            return;
 
+        // Aavikko: Server-only playback (PVS-based, replicated to clients)
         if (!_net.IsServer)
             return;
 
-        // Play first bark immediately
-        _audio.PlayPvs(sound, ent);
+        // Aavikko: Play first bark immediately with pitch variation
+        var pitch = (float) _random.NextGaussian(1, proto.Variation);
+        _audio.PlayPvs(sound, ent, AudioParams.Default.WithPitchScale(pitch));
 
-        // Play additional barks with delay
+        // Aavikko: Play additional barks with delay (gives "stuttering" animal-crossing style)
         for (var i = 1; i < barkCount; i++)
         {
             var delay = i * MinBarkDelay;
+            var pitchN = (float) _random.NextGaussian(1, proto.Variation);
             Timer.Spawn(TimeSpan.FromSeconds(delay), () =>
             {
                 if (!TerminatingOrDeleted(ent))
-                    _audio.PlayPvs(sound, ent);
+                    _audio.PlayPvs(sound, ent, AudioParams.Default.WithPitchScale(pitchN));
             });
         }
     }
 
-    private SoundSpecifier GetBarkSound(SpeechSoundsPrototype proto, string message)
+    private SoundSpecifier? GetBarkSound(SpeechSoundsPrototype proto, string message)
     {
-        // Use ask/exclaim sounds based on message punctuation
+        // Aavikko: Use ask/exclaim sounds based on message punctuation
         var sound = message[^1] switch
         {
             '?' => proto.AskSound,
@@ -81,7 +86,10 @@ public sealed class BarkVoiceSystem : EntitySystem
             _ => proto.SaySound
         };
 
-        // Use exclaim if mostly uppercase
+        if (sound == null)
+            return proto.SaySound ?? proto.AskSound ?? proto.ExclaimSound;
+
+        // Aavikko: Use exclaim if mostly uppercase (shouting)
         var uppercaseCount = 0;
         foreach (var t in message)
         {
@@ -89,12 +97,9 @@ public sealed class BarkVoiceSystem : EntitySystem
                 uppercaseCount++;
         }
 
-        if (uppercaseCount > message.Length / 2)
+        if (uppercaseCount > message.Length / 2 && proto.ExclaimSound != null)
             sound = proto.ExclaimSound;
 
-        // Add pitch variation
-        var scale = (float)_random.NextGaussian(1, proto.Variation);
-        sound.Params = sound.Params.WithPitchScale(scale);
         return sound;
     }
 }

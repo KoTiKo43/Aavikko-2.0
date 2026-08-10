@@ -99,6 +99,7 @@ namespace Content.Shared.Preferences
         [DataField]
         public ProtoId<EmoteSoundsPrototype> Voice { get; set; } = DefaultVoice;
 
+        [DataField] // Aavikko: serialized bark voice selection
         // Aavikko: Bark voice (speech sounds for say/ask/exclaim)
         public ProtoId<SpeechSoundsPrototype>? BarkVoice { get; set; } = null;
 
@@ -205,6 +206,7 @@ namespace Content.Shared.Preferences
                 new HashSet<ProtoId<TraitPrototype>>(other.TraitPreferences),
                 new Dictionary<string, RoleLoadout>(other.Loadouts))
         {
+            BarkVoice = other.BarkVoice; // Aavikko: preserve bark voice in copy constructor
         }
 
         /// <summary>

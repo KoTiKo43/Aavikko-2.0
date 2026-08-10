@@ -181,6 +181,9 @@ namespace Content.Client.Lobby.UI
                 SetBarkVoice(args.Id);
             };
 
+            // Aavikko: Preview bark voice sound
+            BarkVoicePreviewButton.OnPressed += _ => PreviewBarkVoice();
+
             #endregion
 
             #region Age

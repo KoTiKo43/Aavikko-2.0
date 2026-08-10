@@ -11,6 +11,10 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using static Content.Client.Corvax.SponsorOnlyHelpers; // Corvax-Sponsors
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Random;
+using Robust.Shared.Player;
 
 namespace Content.Client.Lobby.UI;
 
@@ -22,6 +26,8 @@ public sealed partial class HumanoidProfileEditor
     private List<SpeciesPrototype> _species = new();
     private List<EmoteSoundsPrototype> _voices = new();
     private List<SpeechSoundsPrototype> _barkVoices = new(); // Aavikko: bark voices
+    [Dependency] private readonly SharedAudioSystem _audio = default!; // Aavikko: bark preview
+    [Dependency] private readonly IRobustRandom _random = default!; // Aavikko: bark preview variation
     private static readonly ProtoId<GuideEntryPrototype> DefaultSpeciesGuidebook = "Species";
 
     public void UpdateSpeciesGuidebookIcon()
@@ -396,4 +402,29 @@ public sealed partial class HumanoidProfileEditor
 
         ReloadProfilePreview();
     }
+
+    // Aavikko: Play a preview of the currently selected bark voice
+    private void PreviewBarkVoice()
+    {
+        if (_barkVoices.Count == 0)
+            return;
+
+        var selectedId = BarkVoiceButton.SelectedId;
+        if (selectedId <= 0 || selectedId >= _barkVoices.Count)
+            return; // 0 = "Default" (no preview)
+
+        var proto = _barkVoices[selectedId]; // _barkVoices[0] is placeholder for "Default"
+        if (proto == null)
+            return;
+
+        // Pick a sound to play (say by default, exclaim if message ends with !)
+        var sound = proto.SaySound ?? proto.AskSound ?? proto.ExclaimSound;
+        if (sound == null)
+            return;
+
+        // Apply pitch variation for a more authentic preview
+        var pitch = (float) _random.NextGaussian(1, proto.Variation);
+        _audio.PlayGlobal(sound, Filter.Local(), false, AudioParams.Default.WithVolume(-2f).WithPitchScale(pitch));
+    }
+
 }
