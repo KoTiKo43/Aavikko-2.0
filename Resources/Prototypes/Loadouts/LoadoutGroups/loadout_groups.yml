@@ -1390,6 +1390,7 @@
   minLimit: 0
   loadouts:
   - DetectiveTie
+  - DetectiveTieHorrific
 
 - type: loadoutGroup
   id: DetectiveJumpsuit
@@ -1399,6 +1400,7 @@
   - DetectiveJumpskirt
   - NoirJumpsuit
   - NoirJumpskirt
+  - SuperstarCopJumpsuit
 
 - type: loadoutGroup
   id: DetectiveOuterClothing
@@ -1408,6 +1410,25 @@
   - DetectiveCoat
   - DetectiveCoatGrey
   - SecurityOfficerWintercoat
+  - DetectiveDiscoAssBlazer
+
+# Aavikko
+- type: loadoutGroup
+  id: DetectiveShoes
+  name: Детектив, обувь
+  loadouts:
+  - JackSecBoots # Corvax
+  - JackBoots
+  - SecurityWinterBoots
+  - ShoesGreenLizardskin # Aavikko
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+# Aavikko
 
 - type: loadoutGroup
   id: DetectiveJobTrinkets
