@@ -97,3 +97,10 @@
 - Flags: ADMINCHAT
   Commands:
     - achatwindow
+
+# Aavikko
+- Flags: ADDROLEPLAYTIME
+  Commands:
+  - addroleplaytime
+  - addgeneralplaytime
+  - adddepartmentplaytime
