@@ -82,7 +82,7 @@
   save: false
   components:
   - type: Icon
-    sprite: Aavikko/Mobs/Species/Get/parts.rsi
+    sprite: Aavikko/Mobs/Species/Geth/parts.rsi
     state: full
   - type: MobThresholds
     thresholds:
@@ -201,18 +201,10 @@
 - type: entity
   parent: [ OrganBaseTorso, OrganGethExternal ]
   id: OrganGethTorso
-  components:
-  - type: VisualOrganMarkings
-    hideableLayers:
-    - enum.HumanoidVisualLayers.Chest
 
 - type: entity
   parent: [ OrganBaseHead, OrganGethExternal ]
   id: OrganGethHead
-  components:
-  - type: VisualOrganMarkings
-    hideableLayers:
-    - enum.HumanoidVisualLayers.Head
 
 - type: entity
   parent: [ OrganBaseArmLeft, OrganGethExternal ]

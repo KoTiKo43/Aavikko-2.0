@@ -98091,14 +98091,12 @@ entities:
     - type: Transform
       pos: -5.5,22.5
       parent: 2
-    - type: Gateway
       enabled: True
   - uid: 21210
     components:
     - type: Transform
       pos: 0.5,26.5
       parent: 18382
-    - type: Gateway
       enabled: True
 - proto: Gauze
   entities:
