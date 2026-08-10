@@ -479,7 +479,7 @@ namespace Content.Shared.Preferences
         // Aavikko: Set bark pitch offset (clamped to [-0.2, +0.2])
         public HumanoidCharacterProfile WithBarkPitch(float pitch)
         {
-            return new(this) { BarkPitch = Math.Clamp(pitch, -0.2f, 0.2f) };
+            return new(this) { BarkPitch = Math.Clamp(pitch, -0.5f, 0.5f) };
         }
 
 
@@ -742,7 +742,7 @@ namespace Content.Shared.Preferences
             var barkVoice = BarkVoice;
             if (!prototypeManager.HasIndex<SpeechSoundsPrototype>(barkVoice))
                 barkVoice = DefaultBarkVoice; // Aavikko: always fall back to default bark
-            BarkPitch = Math.Clamp(BarkPitch, -0.2f, 0.2f); // Aavikko: clamp pitch
+            BarkPitch = Math.Clamp(BarkPitch, -0.5f, 0.5f); // Aavikko: clamp pitch
 
             // ensure the species can be that sex and their age fits the founds
             if (!speciesPrototype.Sexes.Contains(sex))

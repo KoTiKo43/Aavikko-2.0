@@ -109,10 +109,11 @@
                                 <BoxContainer HorizontalExpand="True">
 
                                     <Label Text="{Loc 'bark-voice-pitch-label'}" />
+                                    <Label Name="BarkPitchValueLabel" Text="0" MinSize="40 0" Align="Right" />
 
                                     <Control HorizontalExpand="True" />
 
-                                    <Slider Name="BarkPitchSlider" HorizontalAlignment="Right" MinValue="-200" MaxValue="200" Rounded="True"  MinWidth="120" />
+                                <Slider Name="BarkPitchSlider" HorizontalAlignment="Right" MinValue="-500" MaxValue="500" Rounded="True" MinWidth="150" />
 
                                 </BoxContainer>
 

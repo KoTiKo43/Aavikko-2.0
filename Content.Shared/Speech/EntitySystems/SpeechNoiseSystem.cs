@@ -93,7 +93,7 @@ public sealed partial class SpeechSoundSystem : EntitySystem
     {
         var spread = Math.Min(protoVariation, BarkRandomPitchSpread);
         var randomPitch = (float) _random.NextGaussian(1, spread);
-        return Math.Clamp(randomPitch + pitchOffset, 0.5f, 2.0f);
+        return Math.Clamp(randomPitch + pitchOffset, 0.3f, 2.5f);
     }
 
     // Aavikko: Build AudioParams with normalized volume + limiter

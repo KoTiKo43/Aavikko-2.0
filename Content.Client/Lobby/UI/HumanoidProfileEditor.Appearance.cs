@@ -415,6 +415,7 @@ public sealed partial class HumanoidProfileEditor
         if (Profile == null)
             return;
         Profile = Profile.WithBarkPitch(pitch);
+        BarkPitchValueLabel.Text = pitch.ToString("+0.00;-0.00;0.00"); // Aavikko: show pitch value
         SetDirty();
     }
 
@@ -425,6 +426,7 @@ public sealed partial class HumanoidProfileEditor
             return;
         // Slider works with int values (×1000), pitch is float [-0.2, +0.2]
         BarkPitchSlider.Value = (int) Math.Round(Profile.BarkPitch * 1000f);
+        BarkPitchValueLabel.Text = Profile.BarkPitch.ToString("+0.00;-0.00;0.00"); // Aavikko: show current pitch
         // Aavikko: Disable pitch slider when bark voice is locked
         var barkUnlocked = (RandomizeLockButton.RandomizeCfg & HumanoidCharacterProfile.RandomizeCfg.BarkVoice) != 0;
         BarkPitchSlider.Disabled = !barkUnlocked;
