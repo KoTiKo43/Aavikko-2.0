@@ -23,7 +23,7 @@ public sealed partial class SpeechSoundSystem : EntitySystem
     private const float BarkMinDelay = 0.12f; // Aavikko: delay between barks
     private const int BarkMaxCount = 8; // Aavikko: max barks per message
     private const float BarkNormalizedVolume = -3f;
-    private const float BarkRandomPitchSpread = 0.04f;
+    private const float BarkRandomPitchSpread = 0.03f; // Aavikko: very small but noticeable
 
     [SubscribeLocalEvent]
     private void OnEntitySpoke(Entity<SpeechComponent> ent, ref EntitySpokeEvent args)

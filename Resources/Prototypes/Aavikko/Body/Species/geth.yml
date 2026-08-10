@@ -247,11 +247,21 @@
   id: OrganGethFootRight
 
 - type: entity
-  parent: [ OrganBase ]  # Aavikko: revert to original (no eyeball sprite)
+  parent: [ OrganBase, OrganBaseChildInternal ]  # Aavikko: ChildOrgan for Relate, no eyeball-l/r sprite layers
   id: OrganGethEyes
   components:
-  - type: ChildOrgan  # Aavikko: required by OrganRelationSystem.Relate
-  - type: InternalChildOrgan  # Aavikko: required for internal organs
+  - type: GibbableOrgan
+  - type: Organ
+    category: Eyes
   - type: Sprite
     sprite: Objects/Misc/proximity_sensor.rsi
     state: icon
+  - type: VisualOrgan  # Aavikko: render eyes on humanoid body
+    layer: enum.HumanoidVisualLayers.Eyes
+    data:
+      sprite: Mobs/Customization/eyes.rsi
+      state: eyes
+  - type: VisualOrganMarkings
+    markingData:
+      layers:
+      - Eyes

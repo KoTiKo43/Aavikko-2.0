@@ -434,7 +434,7 @@ public sealed partial class HumanoidProfileEditor
 
     private void PreviewBarkVoice()
     {
-        if (_barkVoices.Count == 0)
+        if (_barkVoices.Count == 0 || Profile == null)
             return;
 
         var selectedId = BarkVoiceButton.SelectedId;
@@ -445,16 +445,21 @@ public sealed partial class HumanoidProfileEditor
         if (proto == null)
             return;
 
-        // Aavikko: Pick a sound to play (say by default, exclaim if available)
         var sound = proto.SaySound ?? proto.AskSound ?? proto.ExclaimSound;
         if (sound == null)
             return;
 
-        // Aavikko: Apply pitch variation for a more authentic preview
+        // Aavikko: Use reduced random spread (0.03 — very small but noticeable)
+        // + apply BarkPitch from profile (the slider value)
         var random = IoCManager.Resolve<IRobustRandom>();
-        var pitch = (float) random.NextGaussian(1, proto.Variation);
+        var randomPitch = (float) random.NextGaussian(1, 0.03);
+        var pitchOffset = Profile.BarkPitch;
+        var finalPitch = Math.Clamp(randomPitch + pitchOffset, 0.3f, 2.5f);
+
+        // Aavikko: Same volume normalization as in-game (-3dB target, 0dB limiter)
         var audio = _entManager.System<Robust.Shared.Audio.Systems.SharedAudioSystem>();
-        audio.PlayGlobal(sound, Filter.Local(), false, AudioParams.Default.WithVolume(-2f).WithPitchScale(pitch));
+        audio.PlayGlobal(sound, Filter.Local(), false,
+            AudioParams.Default.WithVolume(-3f).WithPitchScale(finalPitch));
     }
 
 }
