@@ -136,10 +136,12 @@
     - Security
     - Service
     - Supply
+  - type: Geth
+    entityProduced: GethEmag
+    action: GethEmagCreate
   - type: Repairable
     doAfterDelay: 15
   - type: ZombieImmune
-  - type: Geth
     entityProduced: GethEmag
     action: GethEmagCreate
   - type: Insulated
