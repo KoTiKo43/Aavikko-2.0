@@ -318,6 +318,7 @@ public sealed partial class HumanoidProfileEditor
         UpdateGenderControls();
         UpdateVoiceControls();
         UpdateBarkVoiceControls(); // Aavikko
+            UpdateBarkPitchControls(); // Aavikko
         UpdateTTSVoicesControls(); // Corvax-TTS
         _markingsModel.SetOrganSexes(newSex);
         ReloadPreview();
@@ -408,6 +409,27 @@ public sealed partial class HumanoidProfileEditor
     }
 
     // Aavikko: Play a preview of the currently selected bark voice
+    // Aavikko: Set bark pitch offset (slider value / 1000 -> -0.2..+0.2)
+    private void SetBarkPitch(float pitch)
+    {
+        if (Profile == null)
+            return;
+        Profile = Profile.WithBarkPitch(pitch);
+        SetDirty();
+    }
+
+    // Aavikko: Update pitch slider from profile
+    private void UpdateBarkPitchControls()
+    {
+        if (Profile == null)
+            return;
+        // Slider works with int values (×1000), pitch is float [-0.2, +0.2]
+        BarkPitchSlider.Value = (int) Math.Round(Profile.BarkPitch * 1000f);
+        // Aavikko: Disable pitch slider when bark voice is locked
+        var barkUnlocked = (RandomizeLockButton.RandomizeCfg & HumanoidCharacterProfile.RandomizeCfg.BarkVoice) != 0;
+        BarkPitchSlider.Disabled = !barkUnlocked;
+    }
+
     private void PreviewBarkVoice()
     {
         if (_barkVoices.Count == 0)

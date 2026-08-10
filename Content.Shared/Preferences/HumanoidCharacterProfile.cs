@@ -104,6 +104,10 @@ namespace Content.Shared.Preferences
         // Aavikko: Bark voice (speech sounds for say/ask/exclaim)
         public ProtoId<SpeechSoundsPrototype> BarkVoice { get; set; } = DefaultBarkVoice; // Aavikko: bark voice (always set)
 
+        // Aavikko: Manual pitch offset for bark voice [-0.2, +0.2]
+        [DataField]
+        public float BarkPitch { get; set; } = 0f;
+
         [DataField]
         public Gender Gender { get; private set; } = Gender.Male;
 
@@ -208,6 +212,7 @@ namespace Content.Shared.Preferences
                 new Dictionary<string, RoleLoadout>(other.Loadouts))
         {
             BarkVoice = other.BarkVoice; // Aavikko: preserve bark voice in copy constructor
+            BarkPitch = other.BarkPitch; // Aavikko: preserve pitch
         }
 
         /// <summary>
@@ -418,6 +423,7 @@ namespace Content.Shared.Preferences
             profile.Age = (randomizeCfg & RandomizeCfg.Age) != 0 ? RandomAge(speciesProto) : baseProfile.Age;
             profile.TTSVoice = (randomizeCfg & RandomizeCfg.Age) != 0 ? RandomTTS(profile.Voice) : baseProfile.TTSVoice; // Corvax-TTS
             profile.BarkVoice = (randomizeCfg & RandomizeCfg.BarkVoice) != 0 ? RandomBarkVoice() : baseProfile.BarkVoice; // Aavikko
+            // Aavikko: pitch offset is part of bark voice randomization
 
             profile.Appearance = HumanoidCharacterAppearance.Random(speciesProto, profile.Sex, randomizeCfg, baseProfile.Appearance);
 
@@ -469,6 +475,13 @@ namespace Content.Shared.Preferences
         {
             return new(this) { BarkVoice = barkVoice };
         }
+
+        // Aavikko: Set bark pitch offset (clamped to [-0.2, +0.2])
+        public HumanoidCharacterProfile WithBarkPitch(float pitch)
+        {
+            return new(this) { BarkPitch = Math.Clamp(pitch, -0.2f, 0.2f) };
+        }
+
 
         public HumanoidCharacterProfile WithGender(Gender gender)
         {
@@ -690,6 +703,7 @@ namespace Content.Shared.Preferences
             if (FlavorText != other.FlavorText) return false;
             if (TTSVoice != other.TTSVoice) return false; // Corvax-TTS
             if (BarkVoice != other.BarkVoice) return false; // Aavikko
+            if (Math.Abs(BarkPitch - other.BarkPitch) > 0.001f) return false; // Aavikko
             return Appearance.Equals(other.Appearance);
         }
 
@@ -728,6 +742,7 @@ namespace Content.Shared.Preferences
             var barkVoice = BarkVoice;
             if (!prototypeManager.HasIndex<SpeechSoundsPrototype>(barkVoice))
                 barkVoice = DefaultBarkVoice; // Aavikko: always fall back to default bark
+            BarkPitch = Math.Clamp(BarkPitch, -0.2f, 0.2f); // Aavikko: clamp pitch
 
             // ensure the species can be that sex and their age fits the founds
             if (!speciesPrototype.Sexes.Contains(sex))

@@ -3,6 +3,7 @@ using Content.Server.Humanoid;
 using Content.Server.Mind;
 using Content.Server.PDA;
 using Content.Server.Station.Components;
+using Content.Server.Aavikko.Speech.Components; // Aavikko
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Body;
@@ -149,6 +150,12 @@ public sealed partial class StationSpawningSystem : SharedStationSpawningSystem
             if (TryComp<SpeechComponent>(entity.Value, out var speech))
             {
                 speech.SpeechSounds = profile.BarkVoice;
+                Dirty(entity.Value, speech); // Aavikko: replicate to clients
+
+                // Aavikko: Also set BarkVoiceComponent with pitch offset
+                var bark = EnsureComp<BarkVoiceComponent>(entity.Value);
+                bark.PitchOffset = profile.BarkPitch;
+                Dirty(entity.Value, bark);
             }
         }
 

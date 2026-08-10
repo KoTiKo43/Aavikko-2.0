@@ -146,3 +146,5 @@ bark-voice-name-bloop = Bloop
 bark-voice-name-merp = Merp
 bark-voice-name-weh = Weh
 bark-voice-name-noise_bark = Noise Bark
+
+bark-voice-pitch-label = Bark pitch

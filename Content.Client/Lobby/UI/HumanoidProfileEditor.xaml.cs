@@ -184,6 +184,9 @@ namespace Content.Client.Lobby.UI
             // Aavikko: Preview bark voice sound
             BarkVoicePreviewButton.OnPressed += _ => PreviewBarkVoice();
 
+            // Aavikko: Bark pitch slider
+            BarkPitchSlider.OnValueChanged += args => SetBarkPitch(args.Value / 1000f);
+
             #endregion
 
             #region Age

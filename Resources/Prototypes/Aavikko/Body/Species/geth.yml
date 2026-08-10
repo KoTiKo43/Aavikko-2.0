@@ -247,7 +247,7 @@
   id: OrganGethFootRight
 
 - type: entity
-  parent: [ OrganBase ]
+  parent: [ OrganBaseEyes, OrganGethExternal ]  # Aavikko: fix ChildOrganComponent
   id: OrganGethEyes
   components:
   - type: Sprite

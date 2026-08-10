@@ -104,6 +104,18 @@
                                         <Button Name="BarkVoicePreviewButton" Text="▶" ToolTip="{Loc 'bark-voice-preview-tooltip'}" Margin="4 0 0 0" />
                                     </BoxContainer>
                                 </BoxContainer>
+                                <!-- Bark Pitch (Aavikko) -->
+
+                                <BoxContainer HorizontalExpand="True">
+
+                                    <Label Text="{Loc 'bark-voice-pitch-label'}" />
+
+                                    <Control HorizontalExpand="True" />
+
+                                    <Slider Name="BarkPitchSlider" HorizontalAlignment="Right" MinValue="-200" MaxValue="200" Rounded="True" />
+
+                                </BoxContainer>
+
                                 <!-- Pronouns -->
                                 <BoxContainer HorizontalExpand="True">
                                     <Label Text="{Loc 'humanoid-profile-editor-pronouns-label'}" />

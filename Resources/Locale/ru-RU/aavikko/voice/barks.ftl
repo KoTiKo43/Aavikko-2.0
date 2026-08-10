@@ -146,3 +146,5 @@ bark-voice-name-bloop = Блуп
 bark-voice-name-merp = Мерп
 bark-voice-name-weh = Веех
 bark-voice-name-noise_bark = Шумовой гав
+
+bark-voice-pitch-label = Питч барка
