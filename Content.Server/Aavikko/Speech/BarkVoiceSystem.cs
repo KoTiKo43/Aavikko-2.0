@@ -1,7 +1,6 @@
 // Aavikko start: Bark voice system — plays bark sounds multiple times based on message length
 using Content.Shared.Chat;
-using Content.Shared.Speech.Components;
-using Content.Shared.Speech.EntitySystems;
+using Content.Shared.Speech;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
