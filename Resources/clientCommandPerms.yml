@@ -101,3 +101,10 @@
 - Flags: ADMIN
   Commands:
     - admin_overlay
+
+# Aavikko
+- Flags: ADDROLEPLAYTIME
+  Commands:
+  - addroleplaytime
+  - addgeneralplaytime
+  - adddepartmentplaytime
