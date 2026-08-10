@@ -261,7 +261,3 @@
     data:
       sprite: Mobs/Customization/eyes.rsi
       state: eyes
-  - type: VisualOrganMarkings
-    markingData:
-      layers:
-      - Eyes
