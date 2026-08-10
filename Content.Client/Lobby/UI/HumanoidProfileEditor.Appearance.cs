@@ -26,8 +26,6 @@ public sealed partial class HumanoidProfileEditor
     private List<SpeciesPrototype> _species = new();
     private List<EmoteSoundsPrototype> _voices = new();
     private List<SpeechSoundsPrototype> _barkVoices = new(); // Aavikko: bark voices
-    [Dependency] private readonly SharedAudioSystem _audio = default!; // Aavikko: bark preview
-    [Dependency] private readonly IRobustRandom _random = default!; // Aavikko: bark preview variation
     private static readonly ProtoId<GuideEntryPrototype> DefaultSpeciesGuidebook = "Species";
 
     public void UpdateSpeciesGuidebookIcon()
@@ -423,8 +421,8 @@ public sealed partial class HumanoidProfileEditor
             return;
 
         // Apply pitch variation for a more authentic preview
-        var pitch = (float) _random.NextGaussian(1, proto.Variation);
-        _audio.PlayGlobal(sound, Filter.Local(), false, AudioParams.Default.WithVolume(-2f).WithPitchScale(pitch));
+        var pitch = (float) IoCManager.Resolve<IRobustRandom>().NextGaussian(1, proto.Variation);
+        IoCManager.Resolve<SharedAudioSystem>().PlayGlobal(sound, Filter.Local(), false, AudioParams.Default.WithVolume(-2f).WithPitchScale(pitch));
     }
 
 }
