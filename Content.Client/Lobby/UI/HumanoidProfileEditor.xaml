@@ -112,7 +112,7 @@
 
                                     <Control HorizontalExpand="True" />
 
-                                    <Slider Name="BarkPitchSlider" HorizontalAlignment="Right" MinValue="-200" MaxValue="200" Rounded="True" />
+                                    <Slider Name="BarkPitchSlider" HorizontalAlignment="Right" MinValue="-200" MaxValue="200" Rounded="True"  MinWidth="120" />
 
                                 </BoxContainer>
 
