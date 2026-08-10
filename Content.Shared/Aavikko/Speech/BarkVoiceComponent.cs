@@ -1,11 +1,10 @@
-// Aavikko: Component holding bark voice parameters on an entity (set from profile on spawn).
-// Server-only: BarkVoiceSystem runs server-side, no need to network this component.
+// Aavikko: Component holding bark voice pitch offset (set from profile on spawn).
 using Robust.Shared.GameObjects;
 
-namespace Content.Server.Aavikko.Speech.Components;
+namespace Content.Shared.Aavikko.Speech;
 
 /// <summary>
-/// Aavikko: Stores bark voice parameters applied from the player's character profile.
+/// Aavikko: Stores bark voice pitch offset applied from the player's character profile.
 /// Pitch offset is added on top of the random per-bark variation.
 /// </summary>
 [RegisterComponent]
