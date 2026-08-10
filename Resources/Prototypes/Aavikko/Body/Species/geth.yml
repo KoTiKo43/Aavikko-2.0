@@ -247,9 +247,11 @@
   id: OrganGethFootRight
 
 - type: entity
-  parent: [ OrganBase, OrganBaseChildInternal, OrganGethExternal ]  # Aavikko: ChildOrganComponent without eyeball sprite
+  parent: [ OrganBase ]  # Aavikko: revert to original (no eyeball sprite)
   id: OrganGethEyes
   components:
+  - type: ChildOrgan  # Aavikko: required by OrganRelationSystem.Relate
+  - type: InternalChildOrgan  # Aavikko: required for internal organs
   - type: Sprite
     sprite: Objects/Misc/proximity_sensor.rsi
     state: icon
