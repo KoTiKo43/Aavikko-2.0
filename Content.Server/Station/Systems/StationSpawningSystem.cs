@@ -145,10 +145,10 @@ public sealed partial class StationSpawningSystem : SharedStationSpawningSystem
             }
 
             // Aavikko: Apply bark voice from profile
-            if (profile.BarkVoice != null && TryComp<SpeechComponent>(entity.Value, out var speech))
+            // Aavikko: Apply bark voice from profile (always set)
+            if (TryComp<SpeechComponent>(entity.Value, out var speech))
             {
                 speech.SpeechSounds = profile.BarkVoice;
-                Dirty(entity.Value, speech);
             }
         }
 

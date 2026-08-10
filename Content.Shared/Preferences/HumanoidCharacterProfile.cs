@@ -38,6 +38,7 @@ namespace Content.Shared.Preferences
     {
         public static readonly ProtoId<SpeciesPrototype> DefaultSpecies = "Human";
         public static readonly ProtoId<EmoteSoundsPrototype> DefaultVoice = "MaleHuman";
+        public static readonly ProtoId<SpeechSoundsPrototype> DefaultBarkVoice = "Bark_human_1"; // Aavikko: default bark voice
         private static readonly Regex RestrictedNameRegex = new("[^А-Яа-яёЁ0-9' -]"); // Corvax-Localization
         private static readonly Regex ICNameCaseRegex = new(@"^(?<word>\w)|\b(?<word>\w)(?=\w*$)");
 
@@ -101,7 +102,7 @@ namespace Content.Shared.Preferences
 
         [DataField] // Aavikko: serialized bark voice selection
         // Aavikko: Bark voice (speech sounds for say/ask/exclaim)
-        public ProtoId<SpeechSoundsPrototype>? BarkVoice { get; set; } = null;
+        public ProtoId<SpeechSoundsPrototype> BarkVoice { get; set; } = DefaultBarkVoice; // Aavikko: bark voice (always set)
 
         [DataField]
         public Gender Gender { get; private set; } = Gender.Male;
@@ -254,6 +255,7 @@ namespace Content.Shared.Preferences
             Eyes = 1 << 5,
             Skin = 1 << 6,
             Markings = 1 << 7,
+            BarkVoice = 1 << 8, // Aavikko
         }
 
         /// <summary>
@@ -267,7 +269,8 @@ namespace Content.Shared.Preferences
             | RandomizeCfg.Gender
             | RandomizeCfg.Eyes
             | RandomizeCfg.Skin
-            | RandomizeCfg.Markings;
+            | RandomizeCfg.Markings
+            | RandomizeCfg.BarkVoice; // Aavikko
 
         /// <summary>
         /// Picks a random species from roundstart species.
@@ -328,6 +331,24 @@ namespace Content.Shared.Preferences
             ).ID;
             return voiceId;
         }
+
+        // Aavikko: Picks a random bark voice from all Bark_* prototypes.
+        private static ProtoId<SpeechSoundsPrototype> RandomBarkVoice()
+        {
+            var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
+            var random = IoCManager.Resolve<IRobustRandom>();
+
+            var pool = prototypeManager.EnumeratePrototypes<SpeechSoundsPrototype>()
+                .Where(p => p.ID.StartsWith("Bark_"))
+                .Select(p => (ProtoId<SpeechSoundsPrototype>) p.ID)
+                .ToArray();
+
+            if (pool.Length == 0)
+                return DefaultBarkVoice;
+
+            return random.Pick(pool);
+        }
+
         // Corvax-TTS-End
 
         /// <summary>
@@ -396,6 +417,7 @@ namespace Content.Shared.Preferences
             profile.Name = (randomizeCfg & RandomizeCfg.Name) != 0 ? RandomName(speciesProto, profile.Gender) : baseProfile.Name;
             profile.Age = (randomizeCfg & RandomizeCfg.Age) != 0 ? RandomAge(speciesProto) : baseProfile.Age;
             profile.TTSVoice = (randomizeCfg & RandomizeCfg.Age) != 0 ? RandomTTS(profile.Voice) : baseProfile.TTSVoice; // Corvax-TTS
+            profile.BarkVoice = (randomizeCfg & RandomizeCfg.BarkVoice) != 0 ? RandomBarkVoice() : baseProfile.BarkVoice; // Aavikko
 
             profile.Appearance = HumanoidCharacterAppearance.Random(speciesProto, profile.Sex, randomizeCfg, baseProfile.Appearance);
 
@@ -443,7 +465,7 @@ namespace Content.Shared.Preferences
         }
 
         // Aavikko: Bark voice selection
-        public HumanoidCharacterProfile WithBarkVoice(ProtoId<SpeechSoundsPrototype>? barkVoice)
+        public HumanoidCharacterProfile WithBarkVoice(ProtoId<SpeechSoundsPrototype> barkVoice)
         {
             return new(this) { BarkVoice = barkVoice };
         }
@@ -704,8 +726,8 @@ namespace Content.Shared.Preferences
 
             // Aavikko: validate bark voice
             var barkVoice = BarkVoice;
-            if (barkVoice != null && !prototypeManager.HasIndex<SpeechSoundsPrototype>(barkVoice.Value))
-                barkVoice = null;
+            if (!prototypeManager.HasIndex<SpeechSoundsPrototype>(barkVoice))
+                barkVoice = DefaultBarkVoice; // Aavikko: always fall back to default bark
 
             // ensure the species can be that sex and their age fits the founds
             if (!speciesPrototype.Sexes.Contains(sex))

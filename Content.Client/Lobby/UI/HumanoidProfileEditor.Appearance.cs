@@ -144,26 +144,29 @@ public sealed partial class HumanoidProfileEditor
         BarkVoiceButton?.Clear();
         _barkVoices.Clear();
 
-        // Add "Default" option (null = use species default)
-        BarkVoiceButton?.AddItem(Loc.GetString("bark-voice-name-none"), 0);
-        _barkVoices.Add(null!); // placeholder for "default"
-
-        // Add all Bark* speech sounds prototypes
+        // Aavikko: Add all Bark* speech sounds prototypes (no "Default" option — every character must have a bark)
         var barkProtos = _prototypeManager.EnumeratePrototypes<SpeechSoundsPrototype>()
             .Where(p => p.ID.StartsWith("Bark_"))
             .OrderBy(p => p.ID)
             .ToList();
 
-        var selectedIdx = 0; // Default
+        var selectedIdx = 0;
 
         for (var i = 0; i < barkProtos.Count; i++)
         {
             _barkVoices.Add(barkProtos[i]);
             var name = Loc.GetString($"bark-voice-name-{barkProtos[i].ID.Substring(5).ToLowerInvariant()}");
-            BarkVoiceButton?.AddItem(name, i + 1);
+            BarkVoiceButton?.AddItem(name, i);
 
-            if (Profile?.BarkVoice != null && Profile.BarkVoice.Value.Equals(barkProtos[i].ID))
-                selectedIdx = i + 1;
+            if (Profile?.BarkVoice.Equals(barkProtos[i].ID) == true)
+                selectedIdx = i;
+        }
+
+        // Aavikko: If no match, select first bark
+        if (selectedIdx == 0 && barkProtos.Count > 0)
+        {
+            Profile = Profile!.WithBarkVoice(barkProtos[0].ID);
+            SetDirty();
         }
 
         BarkVoiceButton?.SelectId(selectedIdx);
@@ -175,7 +178,10 @@ public sealed partial class HumanoidProfileEditor
             return;
 
         var proto = _barkVoices[index];
-        Profile = Profile.WithBarkVoice(proto?.ID);
+        if (proto == null)
+            return;
+
+        Profile = Profile.WithBarkVoice(proto.ID);
         SetDirty();
     }
 
@@ -408,21 +414,23 @@ public sealed partial class HumanoidProfileEditor
             return;
 
         var selectedId = BarkVoiceButton.SelectedId;
-        if (selectedId <= 0 || selectedId >= _barkVoices.Count)
-            return; // 0 = "Default" (no preview)
+        if (selectedId < 0 || selectedId >= _barkVoices.Count)
+            return;
 
-        var proto = _barkVoices[selectedId]; // _barkVoices[0] is placeholder for "Default"
+        var proto = _barkVoices[selectedId];
         if (proto == null)
             return;
 
-        // Pick a sound to play (say by default, exclaim if message ends with !)
+        // Aavikko: Pick a sound to play (say by default, exclaim if available)
         var sound = proto.SaySound ?? proto.AskSound ?? proto.ExclaimSound;
         if (sound == null)
             return;
 
-        // Apply pitch variation for a more authentic preview
-        var pitch = (float) IoCManager.Resolve<IRobustRandom>().NextGaussian(1, proto.Variation);
-        IoCManager.Resolve<SharedAudioSystem>().PlayGlobal(sound, Filter.Local(), false, AudioParams.Default.WithVolume(-2f).WithPitchScale(pitch));
+        // Aavikko: Apply pitch variation for a more authentic preview
+        var random = IoCManager.Resolve<IRobustRandom>();
+        var pitch = (float) random.NextGaussian(1, proto.Variation);
+        var audio = _entManager.System<Robust.Shared.Audio.Systems.SharedAudioSystem>();
+        audio.PlayGlobal(sound, Filter.Local(), false, AudioParams.Default.WithVolume(-2f).WithPitchScale(pitch));
     }
 
 }
