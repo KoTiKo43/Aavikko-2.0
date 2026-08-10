@@ -8,6 +8,7 @@ using Content.Shared.Access.Systems;
 using Content.Shared.Body;
 using Content.Shared.CCVar;
 using Content.Shared.Clothing;
+using Content.Shared.Speech;
 using Content.Shared.DetailExaminable;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
@@ -141,6 +142,13 @@ public sealed partial class StationSpawningSystem : SharedStationSpawningSystem
             if (profile.FlavorText != "" && _configurationManager.GetCVar(CCVars.FlavorText))
             {
                 AddComp<DetailExaminableComponent>(entity.Value).Content = profile.FlavorText;
+            }
+
+            // Aavikko: Apply bark voice from profile
+            if (profile.BarkVoice != null && TryComp<SpeechComponent>(entity.Value, out var speech))
+            {
+                speech.SpeechSounds = profile.BarkVoice;
+                Dirty(entity.Value, speech);
             }
         }
 

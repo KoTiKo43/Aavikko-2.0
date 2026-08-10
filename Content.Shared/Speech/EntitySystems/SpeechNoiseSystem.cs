@@ -17,6 +17,9 @@ public sealed partial class SpeechSoundSystem : EntitySystem
     [SubscribeLocalEvent]
     private void OnEntitySpoke(Entity<SpeechComponent> ent, ref EntitySpokeEvent args)
     {
+        // Aavikko: Skip bark voices (handled by BarkVoiceSystem)
+        if (ent.Comp.SpeechSounds != null && ProtoMan.TryIndex<SpeechSoundsPrototype>(ent.Comp.SpeechSounds.Value, out var barkProto) && barkProto.ID.StartsWith("Bark_"))
+            return;
         if (ent.Comp.SpeechSounds == null)
             return;
 
@@ -38,6 +41,9 @@ public sealed partial class SpeechSoundSystem : EntitySystem
     /// </summary>
     public SoundSpecifier? GetSpeechSound(Entity<SpeechComponent> ent, string message)
     {
+        // Aavikko: Skip bark voices (handled by BarkVoiceSystem)
+        if (ent.Comp.SpeechSounds != null && ProtoMan.TryIndex<SpeechSoundsPrototype>(ent.Comp.SpeechSounds.Value, out var barkProto) && barkProto.ID.StartsWith("Bark_"))
+            return null;
         if (ent.Comp.SpeechSounds == null)
             return null;
 

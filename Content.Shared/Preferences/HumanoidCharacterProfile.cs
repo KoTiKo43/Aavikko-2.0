@@ -11,6 +11,7 @@ using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences.Loadouts;
 using Content.Shared.Roles;
 using Content.Shared.Speech.Components;
+using Content.Shared.Speech;
 using Content.Shared.Traits;
 using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
@@ -97,6 +98,9 @@ namespace Content.Shared.Preferences
 
         [DataField]
         public ProtoId<EmoteSoundsPrototype> Voice { get; set; } = DefaultVoice;
+
+        // Aavikko: Bark voice (speech sounds for say/ask/exclaim)
+        public ProtoId<SpeechSoundsPrototype>? BarkVoice { get; set; } = null;
 
         [DataField]
         public Gender Gender { get; private set; } = Gender.Male;
@@ -436,6 +440,12 @@ namespace Content.Shared.Preferences
             return new(this) { Voice = voice };
         }
 
+        // Aavikko: Bark voice selection
+        public HumanoidCharacterProfile WithBarkVoice(ProtoId<SpeechSoundsPrototype>? barkVoice)
+        {
+            return new(this) { BarkVoice = barkVoice };
+        }
+
         public HumanoidCharacterProfile WithGender(Gender gender)
         {
             return new(this) { Gender = gender };
@@ -655,6 +665,7 @@ namespace Content.Shared.Preferences
             if (!Loadouts.SequenceEqual(other.Loadouts)) return false;
             if (FlavorText != other.FlavorText) return false;
             if (TTSVoice != other.TTSVoice) return false; // Corvax-TTS
+            if (BarkVoice != other.BarkVoice) return false; // Aavikko
             return Appearance.Equals(other.Appearance);
         }
 
@@ -688,6 +699,11 @@ namespace Content.Shared.Preferences
             var voice = Voice;
             if (!speciesPrototype.Voices.Contains(voice))
                 voice = speciesPrototype.DefaultSoundsBySex[(int)sex];
+
+            // Aavikko: validate bark voice
+            var barkVoice = BarkVoice;
+            if (barkVoice != null && !prototypeManager.HasIndex<SpeechSoundsPrototype>(barkVoice.Value))
+                barkVoice = null;
 
             // ensure the species can be that sex and their age fits the founds
             if (!speciesPrototype.Sexes.Contains(sex))
@@ -799,6 +815,7 @@ namespace Content.Shared.Preferences
             Age = age;
             Sex = sex;
             Voice = voice;
+            BarkVoice = barkVoice;
             Gender = gender;
             Appearance = appearance;
             SpawnPriority = spawnPriority;

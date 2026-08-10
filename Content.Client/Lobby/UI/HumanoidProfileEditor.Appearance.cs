@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared.Speech;
 using Content.Client.UserInterface.Systems.Guidebook;
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Guidebook;
@@ -20,6 +21,7 @@ public sealed partial class HumanoidProfileEditor
     private ColorSelectorSliders _rgbSkinColorSelector;
     private List<SpeciesPrototype> _species = new();
     private List<EmoteSoundsPrototype> _voices = new();
+    private List<SpeechSoundsPrototype> _barkVoices = new(); // Aavikko: bark voices
     private static readonly ProtoId<GuideEntryPrototype> DefaultSpeciesGuidebook = "Species";
 
     public void UpdateSpeciesGuidebookIcon()
@@ -127,6 +129,50 @@ public sealed partial class HumanoidProfileEditor
                 VoiceButton.SelectId(i);
             }
         }
+    }
+
+    // Aavikko: Bark voice dropdown
+    private void UpdateBarkVoiceControls()
+    {
+        if (Profile == null)
+            return;
+
+        BarkVoiceButton?.Clear();
+        _barkVoices.Clear();
+
+        // Add "Default" option (null = use species default)
+        BarkVoiceButton?.AddItem(Loc.GetString("bark-voice-name-none"), 0);
+        _barkVoices.Add(null!); // placeholder for "default"
+
+        // Add all Bark* speech sounds prototypes
+        var barkProtos = _prototypeManager.EnumeratePrototypes<SpeechSoundsPrototype>()
+            .Where(p => p.ID.StartsWith("Bark_"))
+            .OrderBy(p => p.ID)
+            .ToList();
+
+        var selectedIdx = 0; // Default
+
+        for (var i = 0; i < barkProtos.Count; i++)
+        {
+            _barkVoices.Add(barkProtos[i]);
+            var name = Loc.GetString($"bark-voice-name-{barkProtos[i].ID.Substring(5).ToLowerInvariant()}");
+            BarkVoiceButton?.AddItem(name, i + 1);
+
+            if (Profile?.BarkVoice != null && Profile.BarkVoice.Value.Equals(barkProtos[i].ID))
+                selectedIdx = i + 1;
+        }
+
+        BarkVoiceButton?.SelectId(selectedIdx);
+    }
+
+    private void SetBarkVoice(int index)
+    {
+        if (Profile == null || index < 0 || index >= _barkVoices.Count)
+            return;
+
+        var proto = _barkVoices[index];
+        Profile = Profile.WithBarkVoice(proto?.ID);
+        SetDirty();
     }
 
     private void UpdateSkinColor()
@@ -261,6 +307,7 @@ public sealed partial class HumanoidProfileEditor
 
         UpdateGenderControls();
         UpdateVoiceControls();
+        UpdateBarkVoiceControls(); // Aavikko
         UpdateTTSVoicesControls(); // Corvax-TTS
         _markingsModel.SetOrganSexes(newSex);
         ReloadPreview();

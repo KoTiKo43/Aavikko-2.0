@@ -173,6 +173,16 @@ namespace Content.Client.Lobby.UI
 
             #endregion
 
+            #region Bark Voice (Aavikko)
+
+            BarkVoiceButton.OnItemSelected += args =>
+            {
+                BarkVoiceButton.SelectId(args.Id);
+                SetBarkVoice(args.Id);
+            };
+
+            #endregion
+
             #region Age
 
             AgeEdit.OnTextChanged += args =>
@@ -383,6 +393,7 @@ namespace Content.Client.Lobby.UI
             UpdateFlavorTextEdit();
             UpdateSexControls();
             UpdateVoiceControls();
+UpdateBarkVoiceControls(); // Aavikko
             UpdateGenderControls();
             UpdateSkinColor();
             UpdateSpawnPriorityControls();
