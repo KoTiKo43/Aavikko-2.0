@@ -212,8 +212,7 @@ namespace Content.Server.Database
             profile.CharacterName = humanoid.Name;
             profile.FlavorText = humanoid.FlavorText;
             profile.Species = humanoid.Species;
-            profile.TTSVoice = humanoid.TTSVoice; // Corvax-TTS
-            profile.BarkVoice = humanoid.BarkVoice.ToString(); // Aavikko
+            profile.BarkVoice = humanoid.BarkVoice.ToString(); // Aavikko (replaces Corvax TTS)
             profile.BarkPitch = humanoid.BarkPitch; // Aavikko
             profile.Age = humanoid.Age;
             profile.Sex = humanoid.Sex.ToString();

@@ -335,7 +335,6 @@ namespace Content.Server.Database
         public string? Voice { get; set; } = null!; // If null, the voice gets defaulted to the sex associated value
         public string Gender { get; set; } = null!;
         public string Species { get; set; } = null!;
-        [Column("ttsvoice")] public string TTSVoice { get; set; } = null!; // Corvax-TTS
         [Column("bark_voice")] public string BarkVoice { get; set; } = "Bark_human_1"; // Aavikko
         [Column("bark_pitch")] public float BarkPitch { get; set; } = 0f; // Aavikko
         [Column(TypeName = "jsonb")] public JsonDocument? OrganMarkings { get; set; } = null!;
