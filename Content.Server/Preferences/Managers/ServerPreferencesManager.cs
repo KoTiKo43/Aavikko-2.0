@@ -184,7 +184,7 @@ namespace Content.Server.Preferences.Managers
                 loadouts[role.RoleName] = loadout;
             }
 
-            return new HumanoidCharacterProfile(
+            var humanoidProfile = new HumanoidCharacterProfile(
                 profile.CharacterName,
                 profile.FlavorText,
                 species,
@@ -206,6 +206,11 @@ namespace Content.Server.Preferences.Managers
                 traits.ToHashSet(),
                 loadouts
             );
+
+            // Aavikko: restore bark voice and pitch from DB
+            humanoidProfile.BarkVoice = profile.BarkVoice ?? "Bark_human_1";
+            humanoidProfile.BarkPitch = profile.BarkPitch;
+            return humanoidProfile;
         }
 
         private async void HandleSelectCharacterMessage(MsgSelectCharacter message)
