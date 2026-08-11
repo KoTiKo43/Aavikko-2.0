@@ -15,7 +15,7 @@
     enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: true
-      default: [ TajaranOutears ]
+      default: [ TajaranEars ] # Aavikko fix: TajaranOutears prototype does not exist
     enum.HumanoidVisualLayers.Snout:
       limit: 1
       required: true

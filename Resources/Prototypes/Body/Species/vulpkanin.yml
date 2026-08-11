@@ -15,7 +15,7 @@
     enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: true
-      default: [ FoxEar ] # Corvax-Vulp_Port VulpEar
+      default: [ VulpEar ] # Aavikko fix: FoxEar prototype does not exist
     enum.HumanoidVisualLayers.Snout:
       limit: 1
       required: true
@@ -26,7 +26,7 @@
     enum.HumanoidVisualLayers.Tail:
       limit: 1
       required: true
-      default: [ FoxTail ] # Corvax-Vulp_Port VulpTailVulp
+      default: [ VulpTailVulp ] # Aavikko fix: FoxTail prototype does not exist
     enum.HumanoidVisualLayers.LArm:
       limit: 2
       required: false
