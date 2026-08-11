@@ -400,6 +400,7 @@ namespace Content.Client.Lobby.UI
             UpdateSexControls();
             UpdateVoiceControls();
 UpdateBarkVoiceControls(); // Aavikko
+            UpdateBarkPitchControls(); // Aavikko
             UpdateGenderControls();
             UpdateSkinColor();
             UpdateSpawnPriorityControls();
