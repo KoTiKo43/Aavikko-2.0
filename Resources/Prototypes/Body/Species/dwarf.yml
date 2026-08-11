@@ -95,61 +95,51 @@
 - type: entity
   parent: [ OrganHumanTorso, OrganDwarfAppearance ]
   id: OrganDwarfTorso
-  components:
 
 
 - type: entity
   parent: [ OrganHumanHead, OrganDwarfAppearance ]
   id: OrganDwarfHead
-  components:
 
 
 - type: entity
   parent: [ OrganHumanArmLeft, OrganDwarfAppearance ]
   id: OrganDwarfArmLeft
-  components:
 
 
 - type: entity
   parent: [ OrganHumanArmRight, OrganDwarfAppearance ]
   id: OrganDwarfArmRight
-  components:
 
 
 - type: entity
   parent: [ OrganHumanHandRight, OrganDwarfAppearance ]
   id: OrganDwarfHandRight
-  components:
 
 
 - type: entity
   parent: [ OrganHumanHandLeft, OrganDwarfAppearance ]
   id: OrganDwarfHandLeft
-  components:
 
 
 - type: entity
   parent: [ OrganHumanLegLeft, OrganDwarfAppearance ]
   id: OrganDwarfLegLeft
-  components:
 
 
 - type: entity
   parent: [ OrganHumanLegRight, OrganDwarfAppearance ]
   id: OrganDwarfLegRight
-  components:
 
 
 - type: entity
   parent: [ OrganHumanFootLeft, OrganDwarfAppearance ]
   id: OrganDwarfFootLeft
-  components:
 
 
 - type: entity
   parent: [ OrganHumanFootRight, OrganDwarfAppearance ]
   id: OrganDwarfFootRight
-  components:
 
 
 - type: entity
