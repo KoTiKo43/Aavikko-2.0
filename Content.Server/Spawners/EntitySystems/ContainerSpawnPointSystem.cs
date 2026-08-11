@@ -27,12 +27,27 @@ public sealed partial class ContainerSpawnPointSystem : EntitySystem
         if (args.SpawnResult != null)
             return;
 
+        var isCryoPref = args.HumanoidCharacterProfile?.SpawnPriority == SpawnPriorityPreference.Cryosleep;
+        var isJobEntity = ProtoMan.Resolve(args.Job, out var jobProto) && jobProto.JobEntity != null;
+
+        // Aavikko start: cryo fallback for latejoin when no SpawnPointLatejoin exists on station.
+        // Some Aavikko maps (paper, awesome, pearl, silly) have no SpawnPointLatejoin entities,
+        // so latejoiners would otherwise fall back to a random first spawn point (often medbay).
+        // When this fallback fires we treat the spawn as if the player had Cryosleep preference.
+        var useCryoFallback = _gameTicker.RunLevel == GameRunLevel.InRound
+            && !isCryoPref
+            && !isJobEntity
+            && args.HumanoidCharacterProfile?.SpawnPriority != SpawnPriorityPreference.Arrivals
+            && !HasLateJoinSpawnPoint(args.Station);
+        // Aavikko end
+
         // If it's just a spawn pref check if it's for cryo (silly).
-        if (args.HumanoidCharacterProfile?.SpawnPriority != SpawnPriorityPreference.Cryosleep &&
-            (!ProtoMan.Resolve(args.Job, out var jobProto) || jobProto.JobEntity == null))
-        {
+        if (!isCryoPref && !isJobEntity && !useCryoFallback)
             return;
-        }
+
+        // Aavikko: log why we are using container/cryo spawn
+        if (useCryoFallback)
+            Log.Info($"Aavikko cryo fallback: latejoin with no SpawnPointLatejoin on station={ToPrettyString(args.Station)} job={args.Job}, using cryo containers");
 
         var query = EntityQueryEnumerator<ContainerSpawnPointComponent, ContainerManagerComponent, TransformComponent>();
         var possibleContainers = new List<Entity<ContainerSpawnPointComponent, ContainerManagerComponent, TransformComponent>>();
@@ -65,7 +80,11 @@ public sealed partial class ContainerSpawnPointSystem : EntitySystem
         }
 
         if (possibleContainers.Count == 0)
+        {
+            if (useCryoFallback)
+                Log.Info($"Aavikko cryo fallback: no cryo containers found on station={ToPrettyString(args.Station)} job={args.Job}, falling through to SpawnPointSystem");
             return;
+        }
         // we just need some default coords so we can spawn the player entity.
         var baseCoords = possibleContainers[0].Comp3.Coordinates;
 
@@ -87,12 +106,30 @@ public sealed partial class ContainerSpawnPointSystem : EntitySystem
             var ev = new ContainerSpawnEvent(args.SpawnResult.Value);
             RaiseLocalEvent(uid, ref ev);
 
+            // Aavikko: log successful cryo spawn
+            if (useCryoFallback)
+                Log.Info($"Aavikko cryo fallback: spawned player entity={ToPrettyString(args.SpawnResult)} in container={ToPrettyString(uid)} job={args.Job}");
             return;
         }
 
         Del(args.SpawnResult);
         args.SpawnResult = null;
     }
+
+    // Aavikko start: helper for cryo fallback (see HandlePlayerSpawning).
+    private bool HasLateJoinSpawnPoint(EntityUid? station)
+    {
+        var query = EntityQueryEnumerator<SpawnPointComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var spawnPoint, out var xform))
+        {
+            if (station != null && _station.GetOwningStation(uid, xform) != station)
+                continue;
+            if (spawnPoint.SpawnType == SpawnPointType.LateJoin)
+                return true;
+        }
+        return false;
+    }
+    // Aavikko end
 }
 
 /// <summary>
@@ -100,3 +137,4 @@ public sealed partial class ContainerSpawnPointSystem : EntitySystem
 /// </summary>
 [ByRefEvent]
 public record struct ContainerSpawnEvent(EntityUid Player);
+

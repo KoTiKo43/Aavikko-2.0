@@ -1,4 +1,4 @@
-using Content.Server.GameTicking;
+﻿using Content.Server.GameTicking;
 using Content.Server.Spawners.Components;
 using Content.Server.Station.Systems;
 using Robust.Shared.Map;
@@ -32,14 +32,12 @@ public sealed partial class SpawnPointSystem : EntitySystem
             if (args.Station != null && _stationSystem.GetOwningStation(uid, xform) != args.Station)
                 continue;
 
-            // Aavikko fix: use LateJoin flag instead of RunLevel to distinguish
-            // round start from latejoin (RunLevel is already InRound during initial spawn)
-            if (args.LateJoin && spawnPoint.SpawnType == SpawnPointType.LateJoin)
+            if (_gameTicker.RunLevel == GameRunLevel.InRound && spawnPoint.SpawnType == SpawnPointType.LateJoin)
             {
                 possiblePositions.Add(xform.Coordinates);
             }
 
-            if (!args.LateJoin &&
+            if (_gameTicker.RunLevel != GameRunLevel.InRound &&
                 spawnPoint.SpawnType == SpawnPointType.Job &&
                 (args.Job == null || spawnPoint.Job == null || spawnPoint.Job == args.Job))
             {
