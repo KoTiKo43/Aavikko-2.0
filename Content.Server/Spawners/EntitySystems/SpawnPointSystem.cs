@@ -1,4 +1,4 @@
-﻿using Content.Server.GameTicking;
+using Content.Server.GameTicking;
 using Content.Server.Spawners.Components;
 using Content.Server.Station.Systems;
 using Robust.Shared.Map;
@@ -37,8 +37,9 @@ public sealed partial class SpawnPointSystem : EntitySystem
                 possiblePositions.Add(xform.Coordinates);
             }
 
-            if (_gameTicker.RunLevel != GameRunLevel.InRound &&
-                spawnPoint.SpawnType == SpawnPointType.Job &&
+            // Aavikko fix: also allow Job spawn points during InRound for initial round start
+            // (RunLevel is already InRound when players spawn at round start, not just latejoin)
+            if (spawnPoint.SpawnType == SpawnPointType.Job &&
                 (args.Job == null || spawnPoint.Job == null || spawnPoint.Job == args.Job))
             {
                 possiblePositions.Add(xform.Coordinates);
