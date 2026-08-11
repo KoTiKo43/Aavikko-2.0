@@ -39,7 +39,8 @@
         - part-container
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
-  - type: DamagedSiliconAccent
+  - type: DamagedSiliconAccent  # Aavikko: disable charge corruption for species without battery
+    enableChargeCorruption: false
   - type: Reflect
     reflectProb: 0.05
   - type: SlowOnDamage
