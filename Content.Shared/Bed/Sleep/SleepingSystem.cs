@@ -1,4 +1,5 @@
 using Content.Shared.Actions;
+using Content.Shared.Standing;
 using Content.Shared.Actions.Components;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Damage;
@@ -72,6 +73,7 @@ public sealed partial class SleepingSystem : EntitySystem
         SubscribeLocalEvent<SleepingComponent, InteractHandEvent>(OnInteractHand);
         SubscribeLocalEvent<SleepingComponent, StunEndAttemptEvent>(OnStunEndAttempt);
         SubscribeLocalEvent<SleepingComponent, StandUpAttemptEvent>(OnStandUpAttempt);
+        SubscribeLocalEvent<SleepingComponent, StandAttemptEvent>(OnStandAttempt); // Aavikko
 
         SubscribeLocalEvent<ForcedSleepingStatusEffectComponent, StatusEffectRelayedEvent<MobStateChangedEvent>>(OnStatusMobStateChanged);
         SubscribeLocalEvent<ForcedSleepingStatusEffectComponent, StatusEffectAppliedEvent>(OnStatusEffectApplied);
@@ -203,6 +205,12 @@ public sealed partial class SleepingSystem : EntitySystem
     {
         // Shh the Urist McHands is sleeping...
         args.Cancelled = true;
+    }
+
+    // Aavikko: Also cancel StandAttemptEvent (from StandingStateSystem.Stand)
+    private void OnStandAttempt(Entity<SleepingComponent> ent, ref StandAttemptEvent args)
+    {
+        args.Cancel();
     }
 
     private void OnExamined(Entity<SleepingComponent> ent, ref ExaminedEvent args)
