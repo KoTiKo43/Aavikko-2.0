@@ -1112,6 +1112,15 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("integer")
                         .HasColumnName("age");
 
+                    b.Property<float>("BarkPitch")
+                        .HasColumnType("real")
+                        .HasColumnName("bark_pitch");
+
+                    b.Property<string>("BarkVoice")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("bark_voice");
+
                     b.Property<string>("CharacterName")
                         .IsRequired()
                         .HasColumnType("text")
@@ -1191,19 +1200,10 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("species");
 
-                    b.Property<string>("TTSVoice")  // Corvax-TTS
+                    b.Property<string>("TTSVoice")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("ttsvoice");
-
-                    b.Property<string>("BarkVoice")  // Aavikko
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("bark_voice");
-
-                    b.Property<float>("BarkPitch")  // Aavikko
-                        .HasColumnType("real")
-                        .HasColumnName("bark_pitch");
 
                     b.Property<string>("Voice")
                         .HasColumnType("text")
