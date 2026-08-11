@@ -32,14 +32,15 @@ public sealed partial class SpawnPointSystem : EntitySystem
             if (args.Station != null && _stationSystem.GetOwningStation(uid, xform) != args.Station)
                 continue;
 
-            if (_gameTicker.RunLevel == GameRunLevel.InRound && spawnPoint.SpawnType == SpawnPointType.LateJoin)
+            // Aavikko fix: use LateJoin flag instead of RunLevel to distinguish
+            // round start from latejoin (RunLevel is already InRound during initial spawn)
+            if (args.LateJoin && spawnPoint.SpawnType == SpawnPointType.LateJoin)
             {
                 possiblePositions.Add(xform.Coordinates);
             }
 
-            // Aavikko fix: also allow Job spawn points during InRound for initial round start
-            // (RunLevel is already InRound when players spawn at round start, not just latejoin)
-            if (spawnPoint.SpawnType == SpawnPointType.Job &&
+            if (!args.LateJoin &&
+                spawnPoint.SpawnType == SpawnPointType.Job &&
                 (args.Job == null || spawnPoint.Job == null || spawnPoint.Job == args.Job))
             {
                 possiblePositions.Add(xform.Coordinates);

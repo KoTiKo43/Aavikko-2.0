@@ -352,7 +352,7 @@ namespace Content.Server.GameTicking
 
             jobPrototype = ProtoMan.Index<JobPrototype>(jobId);
 
-            var mobMaybe = _stationSpawning.SpawnPlayerCharacterOnStation(station, jobId, character);
+            var mobMaybe = _stationSpawning.SpawnPlayerCharacterOnStation(station, jobId, character, lateJoin: false); // Aavikko: DoSpawn is always initial spawn
             DebugTools.AssertNotNull(mobMaybe);
             mob = mobMaybe!.Value;
 
