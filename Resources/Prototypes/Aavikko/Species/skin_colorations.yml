@@ -8,5 +8,5 @@
   id: OrcGreen
   strategy: !type:ClampedHsvColoration
     hue: [ 0.2, 0.4 ]
-    saturation: [ 0.4, 0.8 ]
+    saturation: [ 0.42, 0.78 ]  # Aavikko: slightly inside range to avoid floating point boundary
     value: [ 0.25, 0.8 ]
