@@ -1131,6 +1131,15 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("ttsvoice");
 
+                    b.Property<string>("BarkVoice")  // Aavikko
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("bark_voice");
+
+                    b.Property<float>("BarkPitch")  // Aavikko
+                        .HasColumnType("REAL")
+                        .HasColumnName("bark_pitch");
+
                     b.Property<string>("Voice")
                         .HasColumnType("TEXT")
                         .HasColumnName("voice");

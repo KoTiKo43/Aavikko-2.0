@@ -1196,6 +1196,15 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("ttsvoice");
 
+                    b.Property<string>("BarkVoice")  // Aavikko
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("bark_voice");
+
+                    b.Property<float>("BarkPitch")  // Aavikko
+                        .HasColumnType("real")
+                        .HasColumnName("bark_pitch");
+
                     b.Property<string>("Voice")
                         .HasColumnType("text")
                         .HasColumnName("voice");
