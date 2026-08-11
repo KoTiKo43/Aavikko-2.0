@@ -13,6 +13,7 @@
 - type: startingGear
   id: LibrarianGear
   equipment:
+    shoes: ClothingShoesBootsLaceup  # Aavikko: restored (was removed in v288 migration, loadout missing)
     id: LibrarianPDA
     ears: ClothingHeadsetService
     pocket1: d20Dice

@@ -28,6 +28,7 @@
 - type: startingGear
   id: DetectiveGear
   equipment:
+    shoes: ClothingShoesColorBlack  # Aavikko: restored (was removed in v288 migration, loadout missing)
     eyes: ClothingEyesGlassesSecurity
     id: DetectivePDA
     ears: ClothingHeadsetSecurity

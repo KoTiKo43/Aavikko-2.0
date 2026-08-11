@@ -41,6 +41,7 @@
 - type: startingGear
   id: CaptainGear
   equipment:
+    shoes: ClothingShoesBootsLaceup  # Aavikko: restored (was removed in v288 migration, loadout missing)
     eyes: ClothingEyesGlassesCommand
     id: CaptainPDA
     ears: ClothingHeadsetAltCommand

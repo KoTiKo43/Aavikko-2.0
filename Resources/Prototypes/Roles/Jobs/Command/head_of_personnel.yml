@@ -67,6 +67,7 @@
 - type: startingGear
   id: HoPGear
   equipment:
+    shoes: ClothingShoesColorBrown  # Aavikko: restored (was removed in v288 migration, loadout missing)
     id: HoPPDA
     gloves: ClothingHandsGlovesHop
     ears: ClothingHeadsetAltCommand

@@ -22,6 +22,7 @@
 - type: startingGear
   id: MimeGear
   equipment:
+    shoes: ClothingShoesColorWhite  # Aavikko: restored (was removed in v288 migration, loadout missing)
     gloves: ClothingHandsGlovesColorWhite
     id: MimePDA
     pocket1: CrayonMime
