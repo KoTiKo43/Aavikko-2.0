@@ -113,7 +113,9 @@
       path: /Audio/Corvax/Announcements/flux.ogg # Corvax-Announcements
       params:
         volume: -4
-    weight: 8
+    weight: 4 # 8 -> 4 Aavikko tweak
+    reoccurrenceDelay: 60 # Aavikko tweak
+    maxOccurrences: 2 # Aavikko tweak
     duration: 35
   - type: AnomalySpawnRule
 
@@ -329,7 +331,9 @@
       params:
         volume: -4
     endAnnouncement: station-event-gas-leak-end-announcement
-    weight: 8
+    weight: 4 # 8 -> 4 Aavikko tweak
+    reoccurrenceDelay: 60 # Aavikko tweak
+    maxOccurrences: 2 # Aavikko tweak
     endAudio:
       path: /Audio/Announcements/gasleak_end.ogg # Corvax-Announcements
       params:
@@ -352,7 +356,9 @@
   parent: BaseStationEventShortDelay
   components:
   - type: StationEvent
-    weight: 5
+    weight: 2 # 5 -> 2 Aavikko tweak
+    reoccurrenceDelay: 50 # Aavikko tweak
+    maxOccurrences: 2 # Aavikko tweak
     startAnnouncement: station-event-power-grid-check-start-announcement
     endAnnouncement: station-event-power-grid-check-end-announcement
     startAudio:
@@ -368,7 +374,9 @@
   id: SolarFlare
   components:
   - type: StationEvent
-    weight: 8
+    weight: 4 # 8 -> 4 Aavikko tweak
+    reoccurrenceDelay: 60 # Aavikko tweak
+    maxOccurrences: 2 # Aavikko tweak
     startAnnouncement: station-event-solar-flare-start-announcement
     endAnnouncement: station-event-solar-flare-end-announcement
     startAudio: # Corvax-Announcements
