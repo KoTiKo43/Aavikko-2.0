@@ -4,6 +4,8 @@
   description: department-DIA-description
   color: '#309620'
   roles:
+  - Magistrate # Corva-Magistrate
   - Secretarian # Aavikko-Secretarian
   - IAA # Corvax-IAA
+  - Lawyer
   weight: 90

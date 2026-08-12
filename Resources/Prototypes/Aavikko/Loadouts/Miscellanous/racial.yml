@@ -3,6 +3,7 @@
   id: ClothfootwrapsWhite
   equipment:
     shoes: ClothingShoesClothfootwrapsWhite
+  groupBy: "Clothfootwraps"
 
 - type: startingGear
   id: ClothfootwrapsWhite
@@ -13,6 +14,7 @@
   id: ClothfootwrapsBlack
   equipment:
     shoes: ClothingShoesClothfootwrapsBlack
+  groupBy: "Clothfootwraps"
 
 - type: startingGear
   id: ClothfootwrapsBlack
@@ -23,6 +25,7 @@
   id: ClothfootwrapsBlue
   equipment:
     shoes: ClothingShoesClothfootwrapsBlue
+  groupBy: "Clothfootwraps"
 
 - type: startingGear
   id: ClothfootwrapsBlue
@@ -33,6 +36,7 @@
   id: ClothfootwrapsBrown
   equipment:
     shoes: ClothingShoesClothfootwrapsBrown
+  groupBy: "Clothfootwraps"
 
 - type: startingGear
   id: ClothfootwrapsBrown
@@ -43,6 +47,7 @@
   id: ClothfootwrapsRed
   equipment:
     shoes: ClothingShoesClothfootwrapsRed
+  groupBy: "Clothfootwraps"
 
 - type: startingGear
   id: ClothfootwrapsRed
@@ -53,6 +58,7 @@
   id: ClothfootwrapsSilver
   equipment:
     shoes: ClothingShoesClothfootwrapsSilver
+  groupBy: "Clothfootwraps"
 
 - type: startingGear
   id: ClothfootwrapsSilver
@@ -63,6 +69,7 @@
   id: ClothfootwrapsYellow
   equipment:
     shoes: ClothingShoesClothfootwrapsYellow
+  groupBy: "Clothfootwraps"
 
 - type: startingGear
   id: ClothfootwrapsYellow

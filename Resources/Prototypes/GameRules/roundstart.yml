@@ -419,8 +419,8 @@
       tableId: BasicGameRulesTable
     # Corvax-MRP-start
     minMaxEventTiming:
-      min: 300 # 5 mins # C# const- 3
-      max: 900 # 15 mins # C# const- 10
+      min: 600 # 10 mins Aavikko tweak # 5 mins # C# const- 3
+      max: 1200 # 20 mins Aavikko tweak # 15 mins # C# const- 10
     # Corvax-MRP-end
 
 - type: entity

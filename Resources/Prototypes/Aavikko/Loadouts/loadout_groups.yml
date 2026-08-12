@@ -218,6 +218,19 @@
   - ClothfootwrapsSilver # Aavikko
   - ClothfootwrapsYellow # Aavikko
 
+- type: loadoutGroup
+  id: TramDriverShoes
+  name: Водитель трамвая, обувь
+  loadouts:
+  - LaceupShoes
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
+
 # Секретарь мостика
 - type: loadoutGroup
   id: SecretarianHead

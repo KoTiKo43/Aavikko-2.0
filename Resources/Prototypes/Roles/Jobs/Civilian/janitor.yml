@@ -18,7 +18,6 @@
 - type: startingGear
   id: JanitorGear
   equipment:
-    shoes: ClothingShoesGaloshes  # Aavikko: restored (was removed in v288 migration, loadout missing)
     id: JanitorPDA
     ears: ClothingHeadsetService
     belt: ClothingBeltJanitorFilled
