@@ -77,6 +77,12 @@
     ClothingHeadHatBlacksoft: 2
     ClothingHeadHatPurplesoft: 2
     ClothingHeadHatCorpsoft: 2
+    # Aavikko clothesmate cowboy hats
+    ClothingHeadHatCowboyBrown: 2
+    ClothingHeadHatCowboyBlack: 2
+    ClothingHeadHatCowboyWhite: 2
+    ClothingHeadHatCowboyGrey: 2
+    # Aavikko clothesmate cowboy hats
     ClothingHeadFishCap: 2
     ClothingHeadRastaHat: 2
     ClothingHeadPropellerHat: 2
@@ -115,3 +121,5 @@
   # DO NOT ADD MORE, USE UNIFORM DYING
     ClothingOuterCoatTrenchMobster: 2
     # Aavikko mobster trenchcoat
+    ClothingHeadHatCowboyBountyHunter: 1
+    # Aavikko clothesmate cowboy hats
