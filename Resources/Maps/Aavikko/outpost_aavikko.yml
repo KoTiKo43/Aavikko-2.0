@@ -74778,7 +74778,6 @@ entities:
     - type: Transform
       pos: -11.5,41.5
       parent: 2
-    - type: Gateway
       enabled: True
 - proto: Gauze1
   entities:

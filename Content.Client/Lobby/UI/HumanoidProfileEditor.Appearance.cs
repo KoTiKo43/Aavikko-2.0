@@ -1,13 +1,20 @@
 using System.Linq;
+using Content.Shared.Speech;
 using Content.Client.UserInterface.Systems.Guidebook;
+using Content.Shared.Chat.Prototypes;
 using Content.Shared.Guidebook;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
+using Content.Shared.Speech.Components;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
-using static Content.Client.Corvax.SponsorOnlyHelpers;
+using static Content.Client.Corvax.SponsorOnlyHelpers; // Corvax-Sponsors
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Random;
+using Robust.Shared.Player;
 
 namespace Content.Client.Lobby.UI;
 
@@ -17,6 +24,8 @@ public sealed partial class HumanoidProfileEditor
 
     private ColorSelectorSliders _rgbSkinColorSelector;
     private List<SpeciesPrototype> _species = new();
+    private List<EmoteSoundsPrototype> _voices = new();
+    private List<SpeechSoundsPrototype> _barkVoices = new(); // Aavikko: bark voices
     private static readonly ProtoId<GuideEntryPrototype> DefaultSpeciesGuidebook = "Species";
 
     public void UpdateSpeciesGuidebookIcon()
@@ -98,6 +107,84 @@ public sealed partial class HumanoidProfileEditor
         EyeColorPicker.SetData(Profile.Appearance.EyeColor);
     }
 
+    private void UpdateVoiceControls()
+    {
+        if (Profile == null)
+            return;
+
+        VoiceButton.Clear();
+        _voices.Clear();
+
+        var speciesPrototype = _prototypeManager.Index(Profile.Species);
+        var availableVoices = speciesPrototype.Voices;
+
+        _voices.AddRange(availableVoices.Select(protoId => _prototypeManager.Index(protoId)));
+
+        if (_voices.All(proto => Profile?.Voice != proto.ID))
+            SetVoice(speciesPrototype.DefaultSoundsBySex[(int)Profile.Sex]);
+
+        for (var i = 0; i < availableVoices.Count; i++)
+        {
+            var name = Loc.GetString(_voices[i].VoiceSelectorName);
+            VoiceButton.AddItem(name, i);
+
+            if (Profile?.Voice.Equals(_voices[i].ID) == true)
+            {
+                VoiceButton.SelectId(i);
+            }
+        }
+    }
+
+    // Aavikko: Bark voice dropdown
+    private void UpdateBarkVoiceControls()
+    {
+        if (Profile == null)
+            return;
+
+        BarkVoiceButton?.Clear();
+        _barkVoices.Clear();
+
+        // Aavikko: Add all Bark* speech sounds prototypes (no "Default" option — every character must have a bark)
+        var barkProtos = _prototypeManager.EnumeratePrototypes<SpeechSoundsPrototype>()
+            .Where(p => p.ID.StartsWith("Bark_"))
+            .OrderBy(p => p.ID)
+            .ToList();
+
+        var selectedIdx = 0;
+
+        for (var i = 0; i < barkProtos.Count; i++)
+        {
+            _barkVoices.Add(barkProtos[i]);
+            var name = Loc.GetString($"bark-voice-name-{barkProtos[i].ID.Substring(5).ToLowerInvariant()}");
+            BarkVoiceButton?.AddItem(name, i);
+
+            if (Profile?.BarkVoice.Equals(barkProtos[i].ID) == true)
+                selectedIdx = i;
+        }
+
+        // Aavikko: If no match, select first bark
+        if (selectedIdx == 0 && barkProtos.Count > 0)
+        {
+            Profile = Profile!.WithBarkVoice(barkProtos[0].ID);
+            SetDirty();
+        }
+
+        BarkVoiceButton?.SelectId(selectedIdx);
+    }
+
+    private void SetBarkVoice(int index)
+    {
+        if (Profile == null || index < 0 || index >= _barkVoices.Count)
+            return;
+
+        var proto = _barkVoices[index];
+        if (proto == null)
+            return;
+
+        Profile = Profile.WithBarkVoice(proto.ID);
+        SetDirty();
+    }
+
     private void UpdateSkinColor()
     {
         if (Profile == null)
@@ -161,8 +248,10 @@ public sealed partial class HumanoidProfileEditor
         {
             var name = Loc.GetString(_species[i].Name);
 
-            if (_species[i].SponsorOnly) // Corvax-Sponsors
-                name += GetSponsorOnlySuffix();
+            // Corvax-Sponsors-start
+            if (_species[i].SponsorOnly)
+                name += GetSponsorOnlySuffix(_species[i].ID);
+            // Corvax-Sponsors-end
 
             SpeciesButton.AddItem(name, i);
 
@@ -193,6 +282,8 @@ public sealed partial class HumanoidProfileEditor
         // In case there's species restrictions for loadouts
         RefreshLoadouts();
         UpdateSexControls(); // update sex for new species
+        UpdateVoiceControls();
+        UpdateTTSVoicesControls(); // Corvax-TTS
         UpdateSpeciesGuidebookIcon();
         ReloadPreview();
     }
@@ -220,10 +311,24 @@ public sealed partial class HumanoidProfileEditor
                 break;
         }
 
+        // this does the same as above but for voice
+        if (_prototypeManager.TryIndex(Profile?.Species, out var prototype))
+            SetVoice(prototype.DefaultSoundsBySex[(int)newSex]);
+
         UpdateGenderControls();
+        UpdateVoiceControls();
+        UpdateBarkVoiceControls(); // Aavikko
+            UpdateBarkPitchControls(); // Aavikko
         UpdateTTSVoicesControls(); // Corvax-TTS
         _markingsModel.SetOrganSexes(newSex);
         ReloadPreview();
+    }
+
+    private void SetVoice(ProtoId<EmoteSoundsPrototype> newVoice)
+    {
+        Profile = Profile?.WithVoice(newVoice);
+        UpdateTTSVoicesControls(); // Corvax-TTS
+        SetDirty();
     }
 
     private void SetGender(Gender newGender)
@@ -302,4 +407,59 @@ public sealed partial class HumanoidProfileEditor
 
         ReloadProfilePreview();
     }
+
+    // Aavikko: Play a preview of the currently selected bark voice
+    // Aavikko: Set bark pitch offset (slider value / 1000 -> -0.2..+0.2)
+    private void SetBarkPitch(float pitch)
+    {
+        if (Profile == null)
+            return;
+        Profile = Profile.WithBarkPitch(pitch);
+        BarkPitchValueLabel.Text = pitch.ToString("+0.00;-0.00;0.00"); // Aavikko: show pitch value
+        SetDirty();
+    }
+
+    // Aavikko: Update pitch slider from profile
+    private void UpdateBarkPitchControls()
+    {
+        if (Profile == null)
+            return;
+        // Slider works with int values (×1000), pitch is float [-0.2, +0.2]
+        BarkPitchSlider.Value = (int) Math.Round(Profile.BarkPitch * 1000f);
+        BarkPitchValueLabel.Text = Profile.BarkPitch.ToString("+0.00;-0.00;0.00"); // Aavikko: show current pitch
+        // Aavikko: Disable pitch slider when bark voice is locked
+        var barkUnlocked = (RandomizeLockButton.RandomizeCfg & HumanoidCharacterProfile.RandomizeCfg.BarkVoice) != 0;
+        BarkPitchSlider.Disabled = !barkUnlocked;
+    }
+
+    private void PreviewBarkVoice()
+    {
+        if (_barkVoices.Count == 0 || Profile == null)
+            return;
+
+        var selectedId = BarkVoiceButton.SelectedId;
+        if (selectedId < 0 || selectedId >= _barkVoices.Count)
+            return;
+
+        var proto = _barkVoices[selectedId];
+        if (proto == null)
+            return;
+
+        var sound = proto.SaySound ?? proto.AskSound ?? proto.ExclaimSound;
+        if (sound == null)
+            return;
+
+        // Aavikko: Use reduced random spread (0.03 — very small but noticeable)
+        // + apply BarkPitch from profile (the slider value)
+        var random = IoCManager.Resolve<IRobustRandom>();
+        var randomPitch = (float) random.NextGaussian(1, 0.03);
+        var pitchOffset = Profile.BarkPitch;
+        var finalPitch = Math.Clamp(randomPitch + pitchOffset, 0.3f, 2.5f);
+
+        // Aavikko: Same volume normalization as in-game (-3dB target, 0dB limiter)
+        var audio = _entManager.System<Robust.Shared.Audio.Systems.SharedAudioSystem>();
+        audio.PlayGlobal(sound, Filter.Local(), false,
+            AudioParams.Default.WithVolume(-3f).WithPitchScale(finalPitch));
+    }
+
 }

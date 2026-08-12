@@ -144,8 +144,7 @@ namespace Content.Client.Lobby.UI
 
             NameEdit.OnTextChanged += args => { SetName(args.Text); };
             NameEdit.IsValid = args => args.Length <= _maxNameLength;
-            NameRandomize.OnPressed += args => RandomizeName();
-            RandomizeEverythingButton.OnPressed += args => { RandomizeEverything(); };
+            RandomizeUnlockedButton.OnPressed += args => { RandomizeProfile(); };
             WarningLabel.SetMarkup($"[color=red]{Loc.GetString("humanoid-profile-editor-naming-rules-warning")}[/color]");
 
             #endregion Name
@@ -163,6 +162,32 @@ namespace Content.Client.Lobby.UI
             };
 
             #endregion Sex
+
+            #region Voice
+
+            VoiceButton.OnItemSelected += args =>
+            {
+                VoiceButton.SelectId(args.Id);
+                SetVoice(_voices[args.Id]);
+            };
+
+            #endregion
+
+            #region Bark Voice (Aavikko)
+
+            BarkVoiceButton.OnItemSelected += args =>
+            {
+                BarkVoiceButton.SelectId(args.Id);
+                SetBarkVoice(args.Id);
+            };
+
+            // Aavikko: Preview bark voice sound
+            BarkVoicePreviewButton.OnPressed += _ => PreviewBarkVoice();
+
+            // Aavikko: Bark pitch slider
+            BarkPitchSlider.OnValueChanged += args => SetBarkPitch(args.Value / 1000f);
+
+            #endregion
 
             #region Age
 
@@ -373,6 +398,9 @@ namespace Content.Client.Lobby.UI
             UpdateNameEdit();
             UpdateFlavorTextEdit();
             UpdateSexControls();
+            UpdateVoiceControls();
+UpdateBarkVoiceControls(); // Aavikko
+            UpdateBarkPitchControls(); // Aavikko
             UpdateGenderControls();
             UpdateSkinColor();
             UpdateSpawnPriorityControls();

@@ -121,5 +121,3 @@
         reagents:
         - ReagentId: Fiber
           Quantity: 20
-  - type: AddAccentClothing
-    accent: MobsterAccent

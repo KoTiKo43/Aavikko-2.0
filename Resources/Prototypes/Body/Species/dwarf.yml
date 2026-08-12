@@ -13,18 +13,18 @@
             state: jumpsuit-female
   - type: InitialBody
     organs:
-      Torso: OrganHumanTorso
-      Head: OrganHumanHead
-      ArmLeft: OrganHumanArmLeft
-      ArmRight: OrganHumanArmRight
-      HandRight: OrganHumanHandRight
-      HandLeft: OrganHumanHandLeft
-      LegLeft: OrganHumanLegLeft
-      LegRight: OrganHumanLegRight
-      FootLeft: OrganHumanFootLeft
-      FootRight: OrganHumanFootRight
+      Torso: OrganDwarfTorso
+      Head: OrganDwarfHead
+      ArmLeft: OrganDwarfArmLeft
+      ArmRight: OrganDwarfArmRight
+      HandRight: OrganDwarfHandRight
+      HandLeft: OrganDwarfHandLeft
+      LegLeft: OrganDwarfLegLeft
+      LegRight: OrganDwarfLegRight
+      FootLeft: OrganDwarfFootLeft
+      FootRight: OrganDwarfFootRight
       Brain: OrganHumanBrain
-      Eyes: OrganHumanEyes
+      Eyes: OrganDwarfEyes
       Tongue: OrganHumanTongue
       Appendix: OrganHumanAppendix
       Ears: OrganHumanEars
@@ -35,9 +35,8 @@
       Kidneys: OrganHumanKidneys
   - type: HumanoidProfile
     species: Dwarf
-  - type: ScaleVisuals
-    scale: 0.8, 0.8 # Aavikko
-
+  - type: ScaleVisuals  # Aavikko: use scale instead of displacement maps
+    scale: 1, 0.8
 - type: entity
   parent:
   - AppearanceDwarf
@@ -59,39 +58,15 @@
         layer:
         - MobLayer
   - type: Vocal
-    sounds:
-      Male: UnisexDwarf
-      Female: FemaleDwarf
-      Unsexed: UnisexDwarf
+    emoteSounds: UnisexDwarf
   - type: ReplacementAccent
     accent: scottish
   - type: Speech
     speechSounds: Bass
-  # Aavikko start
-  - type: Respirator
-    damage:
-      types:
-        Asphyxiation: 1.5 # Breath less, slower asphyxiation
-    damageRecovery:
-      types:
-        Asphyxiation: -1.0
-  - type: Sprite
-    scale: 0.8, 0.8
-  - type: MobThresholds # More robust
-    thresholds:
-      0: Alive
-      115: Critical
-      215: Dead
-  - type: MeleeWeapon # Beats faster, but weaker. Damage per second is 5,4 in total instead of 5
-    soundHit:
-      collection: Punch
-    angle: 30
-    animation: WeaponArcFist
-    attackRate: 1.2
-    damage:
-      types:
-        Blunt: 4.5
-  # Aavikko end
+  - type: CreamPied
+  - type: Damageable
+  - type: Flammable
+  - type: InnerBodyAnomalyVisuals
 
 - type: entity
   parent: OrganBaseOrganic
@@ -100,11 +75,81 @@
   suffix: Dwarf
 
 - type: entity
+  parent: OrganDwarf
+  id: OrganDwarfAppearance
+  abstract: true
+  suffix: Dwarf
+  components:
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Species/Human/parts.rsi
+
+- type: entity
+  parent: OrganDwarf
   id: OrganDwarfMetabolizer
   abstract: true
   components:
   - type: Metabolizer
     metabolizerTypes: [ Dwarf ]
+
+- type: entity
+  parent: [ OrganHumanTorso, OrganDwarfAppearance ]
+  id: OrganDwarfTorso
+
+
+- type: entity
+  parent: [ OrganHumanHead, OrganDwarfAppearance ]
+  id: OrganDwarfHead
+
+
+- type: entity
+  parent: [ OrganHumanArmLeft, OrganDwarfAppearance ]
+  id: OrganDwarfArmLeft
+
+
+- type: entity
+  parent: [ OrganHumanArmRight, OrganDwarfAppearance ]
+  id: OrganDwarfArmRight
+
+
+- type: entity
+  parent: [ OrganHumanHandRight, OrganDwarfAppearance ]
+  id: OrganDwarfHandRight
+
+
+- type: entity
+  parent: [ OrganHumanHandLeft, OrganDwarfAppearance ]
+  id: OrganDwarfHandLeft
+
+
+- type: entity
+  parent: [ OrganHumanLegLeft, OrganDwarfAppearance ]
+  id: OrganDwarfLegLeft
+
+
+- type: entity
+  parent: [ OrganHumanLegRight, OrganDwarfAppearance ]
+  id: OrganDwarfLegRight
+
+
+- type: entity
+  parent: [ OrganHumanFootLeft, OrganDwarfAppearance ]
+  id: OrganDwarfFootLeft
+
+
+- type: entity
+  parent: [ OrganHumanFootRight, OrganDwarfAppearance ]
+  id: OrganDwarfFootRight
+
+
+- type: entity
+  parent: [ OrganHumanEyes, OrganDwarfAppearance ]
+  id: OrganDwarfEyes
+  components:
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Customization/eyes.rsi
+
 
 - type: entity
   parent: [ OrganDwarfMetabolizer, OrganHumanStomach ]

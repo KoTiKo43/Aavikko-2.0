@@ -21,6 +21,7 @@
 - type: startingGear
   id: BotanistGear
   equipment:
+    shoes: ClothingShoesColorBrown  # Aavikko: restored (was removed in v288 migration, loadout missing)
     id: BotanistPDA
     ears: ClothingHeadsetService
     belt: ClothingBeltPlantFilled

@@ -22,6 +22,7 @@
 - type: startingGear
   id: MimeGear
   equipment:
+    shoes: ClothingShoesColorWhite  # Aavikko: restored (was removed in v288 migration, loadout missing)
     gloves: ClothingHandsGlovesColorWhite
     id: MimePDA
     pocket1: CrayonMime
@@ -39,9 +40,10 @@
   - type: Action
     priority: -1
     useDelay: 30
-    icon:
-      sprite: Structures/Walls/solid.rsi
-      state: full
+  - type: Sprite
+    sprite: Structures/Walls/solid.rsi
+    layers:
+    - state: full
   - type: InstantAction
     event: !type:InvisibleWallActionEvent
 

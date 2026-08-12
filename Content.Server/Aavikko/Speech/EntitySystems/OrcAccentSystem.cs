@@ -1,6 +1,7 @@
+// Aavikko: Orc accent system — verb conjugation + word replacements
 using System.Text.RegularExpressions;
 using Content.Server.Aavikko.Speech.Components;
-using Content.Server.Speech.EntitySystems;
+using Content.Shared.Speech.EntitySystems;
 using Content.Shared.Speech;
 
 namespace Content.Server.Aavikko.Speech.EntitySystems;
@@ -33,6 +34,8 @@ public sealed partial class OrcAccentSystem : EntitySystem
     private void OnAccent(EntityUid uid, OrcAccentComponent component, AccentGetEvent args)
     {
         var message = args.Message;
+
+        
 
         message = _replacement.ApplyReplacements(message, "orc");
 
