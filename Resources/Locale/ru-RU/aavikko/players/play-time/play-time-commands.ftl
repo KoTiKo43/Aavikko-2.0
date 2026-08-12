@@ -15,9 +15,7 @@ cmd-addroleplaytime-error-args = Ожидается ровно три аргум
 cmd-adddepartmentplaytime-desc = Добавляет указанное количество минут ко всем ролям указанного отдела
 cmd-adddepartmentplaytime-help = Использование: { $command } <department> <user name> <minutes>
 cmd-adddepartmentplaytime-succeed = Игровое время для { $username } в отделе '{ $department }' увеличено на { $minutes } минут.
-# Aavikko start: offline variant
 cmd-adddepartmentplaytime-succeed-offline = Игрок { $username } не в сети — обновлено напрямую в БД. В отделе '{ $department }' всем ролям добавлено { $minutes } минут.
-# Aavikko end
 cmd-adddepartmentplaytime-arg-department = <department>
 cmd-adddepartmentplaytime-arg-user = <user name>
 cmd-adddepartmentplaytime-arg-minutes = <minutes>
@@ -37,7 +35,7 @@ cmd-addgeneralplaytime-error-args = Ожидается ровно два арг�
 
 # - unlockeveryfuckingrole
 
-cmd-unlockEveryRole-desc = Добавляет 1000 минут ко всем ролям для указанного игрока.
+cmd-unlockEveryRole-desc = Добавляет 6000 минут ко всем ролям для указанного игрока.
 cmd-unlockEveryRole-help = Использование: { $command } <user name>
 cmd-unlockEveryRole-error-args = Ожидается ровно один аргумент: <user name>
 cmd-unlockEveryRole-succeed = Игровое время для всех ролей игрока { $username } увеличено на { $minutes } минут.

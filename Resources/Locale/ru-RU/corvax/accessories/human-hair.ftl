@@ -70,6 +70,7 @@ marking-HumanHairViper = Гадюка
 marking-HumanHairWife = Жена
 marking-HumanHairZiegler = Циглер
 marking-Spikey = Колючая причёска
+
 # Aavikko tajaran transfer disable
 #marking-TajaranHairLadiesretro = Ретро причёска
 #marking-TajaranHairBraid = Косичка

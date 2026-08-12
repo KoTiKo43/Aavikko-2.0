@@ -29,7 +29,9 @@ loadout-group-captain-neck = Captain neck
 loadout-group-captain-backpack = Captain backpack
 loadout-group-captain-outerclothing = Captain outer clothing
 loadout-group-captain-shoes = Captain shoes
-loadout-group-captain-gloves = Captain gloves # Aavikko
+
+# Aavikko
+loadout-group-captain-gloves = Captain gloves
 
 loadout-group-hop-head = Head of Personnel head
 loadout-group-hop-jumpsuit = Head of Personnel jumpsuit
