@@ -1,4 +1,6 @@
+# Aavikko: Geth action — synthesize emag card
 - type: entity
+  parent: BaseAction  # Aavikko: inherit Sprite/Appearance/GenericVisualizer for icon rendering
   id: GethEmagCreate
   name: Синтез карты
   description: Синтезировать карту в руке
@@ -13,5 +15,10 @@
       state: geth
     itemIconStyle: NoItem
     useDelay: 0.5
+  - type: Sprite  # Aavikko: explicit Sprite component for icon rendering
+    sprite: Aavikko/Interface/Actions/geth.rsi
+    layers:
+    - map: ["enum.ActionVisuals.Icon"]
+      state: geth
   - type: InstantAction
     event: !type:GethCreateItemEvent

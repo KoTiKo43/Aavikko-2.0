@@ -8,5 +8,5 @@
   id: OrcGreen
   strategy: !type:ClampedHsvColoration
     hue: [ 0.2, 0.4 ]
-    saturation: [ 0.4, 0.8 ]
+    saturation: [ 0.4, 0.85 ]  # Aavikko: widened to avoid HSV roundtrip precision loss
     value: [ 0.25, 0.8 ]

@@ -66,6 +66,8 @@ namespace Content.Client.Administration.UI.Tabs.AdminbusTab
             }
 
             if (currentMap != MapId.Nullspace)
+            // Aavikko fix: guard against empty OptionButton (upstream v288 bug)
+            if (MapOptions.ItemCount > 0)
                 MapOptions.Select((int) currentMap);
 
             XCoordinate.Value = (int) position.X;

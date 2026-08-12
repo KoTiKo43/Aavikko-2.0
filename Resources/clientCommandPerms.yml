@@ -98,6 +98,10 @@
   Commands:
     - achatwindow
 
+- Flags: ADMIN
+  Commands:
+    - admin_overlay
+
 # Aavikko
 - Flags: ADDROLEPLAYTIME
   Commands:
