@@ -12,11 +12,11 @@ namespace Content.Shared.Speech.EntitySystems;
 
 public sealed partial class SpeechSoundSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IRobustRandom _random = default!; // Aavikko: bark pitch variation
+    [Dependency] private IGameTiming _gameTiming = default!;
+    [Dependency] private INetManager _net = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private IPrototypeManager _protoMan = default!;
+    [Dependency] private IRobustRandom _random = default!; // Aavikko: bark pitch variation
 
     // Aavikko: Bark playback constants
     private const int BarkCharsPerBark = 2; // Aavikko: 1 bark per 2 chars
