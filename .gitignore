@@ -303,6 +303,10 @@ ehthumbs.db
 # Merge driver stuff
 Content.Tools/test/out.yml
 
+# Local changelog Discord debug files.
+Resources/Changelog/Old.yml
+Resources/Changelog/DiscordDebug.md
+
 # Windows
 desktop.ini
 
@@ -315,6 +319,9 @@ Resources/MapImages
 
 *.bak
 
+# Shader error output
+error.glsl
+
 # Direnv stuff
 .direnv/
 
@@ -326,3 +333,6 @@ server_config.toml
 /Resources/ConfigPresets/Build/server_config.toml
 /Resources/ConfigPresets/Build/development.toml
 /Resources/ConfigPresets/Build/production.toml
+# Sandbox Server V3 AI patches (managed by deploy_patch, not git)
+/Content.Server/AiApi/
+/Content.Client/AiVision/

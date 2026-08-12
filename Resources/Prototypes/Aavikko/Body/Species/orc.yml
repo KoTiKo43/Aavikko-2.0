@@ -78,6 +78,18 @@
     state: full
   - type: Sprite
     scale: 1.2, 1.2
+  - type: Fixtures  # Aavikko: larger hitbox for orc (scale 1.2)
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.42  # Aavikko: bigger than human (0.35), fits through doors
+        density: 250  # Aavikko: heavier than human (185)
+        restitution: 0.0
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
   - type: Barotrauma
     damage:
       types:

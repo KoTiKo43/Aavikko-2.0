@@ -19,6 +19,7 @@
 - type: startingGear
   id: LawyerGear
   equipment:
+    shoes: ClothingShoesBootsLaceup  # Aavikko: restored (was removed in v288 migration, loadout missing)
     id: LawyerPDA
     ears: ClothingHeadsetSecurity
   inhand:

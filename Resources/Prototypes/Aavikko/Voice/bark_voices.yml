@@ -1,0 +1,1203 @@
+# Aavikko Vocal Barks — individual speech sounds for player voice selection.
+# Each bark is a single audio file used for say/ask/exclaim.
+# Players select their bark voice in the character profile editor.
+
+- type: speechSounds
+  id: Bark_Banjo_Cn3
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Banjo-Cn3.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Banjo-Cn3.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Banjo-Cn3.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_Banjo_Cn4
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Banjo-Cn4.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Banjo-Cn4.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Banjo-Cn4.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_Guitar_C2
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Guitar-C2.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Guitar-C2.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Guitar-C2.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_Guitar_C3
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Guitar-C3.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Guitar-C3.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Guitar-C3.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_Guitar_C4
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Guitar-C4.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Guitar-C4.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/Guitar-C4.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_1
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-1.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-1.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-1.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_10
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-10.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-10.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-10.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_11
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-11.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-11.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-11.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_12
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-12.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-12.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-12.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_13
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-13.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-13.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-13.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_14
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-14.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-14.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-14.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_15
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-15.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-15.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-15.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_16
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-16.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-16.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-16.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_2
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-2.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-2.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-2.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_3
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-3.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-3.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-3.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_4
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-4.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-4.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-4.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_5
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-5.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-5.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-5.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_6
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-6.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-6.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-6.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_7
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-7.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-7.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-7.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_8
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-8.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-8.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-8.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_animal_9
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-9.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-9.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/animal-9.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_bark_bark
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/bark-bark.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/bark-bark.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/bark-bark.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_bark_meow
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/bark-meow.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/bark-meow.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/bark-meow.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_bloop
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/bloop.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/bloop.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/bloop.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_deltarune_berdly
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-berdly.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-berdly.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-berdly.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_deltarune_jevil
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-jevil.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-jevil.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-jevil.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_deltarune_lancer
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-lancer.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-lancer.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-lancer.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_deltarune_noelle
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-noelle.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-noelle.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-noelle.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_deltarune_queen
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-queen.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-queen.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-queen.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_deltarune_ralsei
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-ralsei.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-ralsei.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-ralsei.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_deltarune_roxlscaard
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-roxlscaard.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-roxlscaard.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-roxlscaard.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_deltarune_rudolph
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-rudolph.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-rudolph.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-rudolph.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_deltarune_spamton
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-spamton.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-spamton.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-spamton.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_deltarune_susie
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-susie.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-susie.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/deltarune-susie.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_1
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-1.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-1.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-1.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_10
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-10.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-10.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-10.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_11
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-11.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-11.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-11.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_12
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-12.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-12.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-12.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_13
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-13.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-13.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-13.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_14
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-14.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-14.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-14.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_15
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-15.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-15.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-15.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_16
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-16.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-16.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-16.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_17
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-17.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-17.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-17.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_18
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-18.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-18.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-18.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_19
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-19.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-19.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-19.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_2
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-2.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-2.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-2.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_20
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-20.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-20.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-20.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_21
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-21.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-21.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-21.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_22
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-22.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-22.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-22.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_23
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-23.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-23.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-23.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_24
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-24.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-24.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-24.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_25
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-25.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-25.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-25.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_26
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-26.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-26.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-26.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_27
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-27.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-27.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-27.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_28
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-28.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-28.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-28.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_29
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-29.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-29.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-29.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_3
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-3.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-3.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-3.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_30
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-30.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-30.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-30.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_4
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-4.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-4.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-4.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_5
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-5.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-5.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-5.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_6
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-6.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-6.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-6.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_7
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-7.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-7.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-7.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_8
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-8.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-8.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-8.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_human_9
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-9.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-9.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/human-9.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_merp
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/merp.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/merp.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/merp.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_noise_bark
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/noise-bark.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/noise-bark.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/noise-bark.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_oneshot_robot
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/oneshot-robot.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/oneshot-robot.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/oneshot-robot.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_oneshot_text
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/oneshot-text.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/oneshot-text.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/oneshot-text.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_robot_1
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-1.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-1.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-1.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_robot_10
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-10.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-10.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-10.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_robot_2
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-2.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-2.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-2.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_robot_3
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-3.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-3.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-3.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_robot_4
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-4.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-4.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-4.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_robot_5
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-5.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-5.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-5.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_robot_6
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-6.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-6.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-6.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_robot_7
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-7.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-7.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-7.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_robot_8
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-8.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-8.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-8.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_robot_9
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-9.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-9.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/robot-9.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_skeleton_bark_1
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-1.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-1.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-1.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_skeleton_bark_10
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-10.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-10.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-10.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_skeleton_bark_2
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-2.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-2.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-2.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_skeleton_bark_3
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-3.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-3.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-3.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_skeleton_bark_4
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-4.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-4.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-4.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_skeleton_bark_5
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-5.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-5.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-5.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_skeleton_bark_6
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-6.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-6.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-6.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_skeleton_bark_7
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-7.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-7.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-7.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_skeleton_bark_8
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-8.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-8.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-8.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_skeleton_bark_9
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-9.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-9.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/skeleton-bark-9.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_synth_2
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/synth-2.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/synth-2.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/synth-2.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_underswap_sans
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/underswap-sans.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/underswap-sans.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/underswap-sans.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_alphy
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-alphy.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-alphy.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-alphy.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_asgore
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-asgore.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-asgore.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-asgore.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_chrip_1
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-chrip-1.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-chrip-1.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-chrip-1.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_chrip_2
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-chrip-2.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-chrip-2.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-chrip-2.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_default
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-default.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-default.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-default.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_flowey_angry
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-flowey-angry.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-flowey-angry.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-flowey-angry.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_flowey
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-flowey.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-flowey.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-flowey.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_metta
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-metta.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-metta.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-metta.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_papyrus
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-papyrus.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-papyrus.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-papyrus.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_sans
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-sans.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-sans.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-sans.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_stats
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-stats.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-stats.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-stats.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_synth_1
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-synth-1.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-synth-1.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-synth-1.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_synth_2
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-synth-2.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-synth-2.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-synth-2.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_toriel
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-toriel.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-toriel.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-toriel.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_undyne
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-undyne.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-undyne.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-undyne.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_yellow_ace
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-ace.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-ace.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-ace.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_yellow_axis
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-axis.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-axis.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-axis.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_yellow_ceroba
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-ceroba.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-ceroba.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-ceroba.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_yellow_chujin
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-chujin.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-chujin.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-chujin.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_yellow_davl
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-davl.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-davl.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-davl.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_yellow_ed
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-ed.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-ed.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-ed.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_yellow_martlet
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-martlet.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-martlet.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-martlet.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_yellow_moray
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-moray.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-moray.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-moray.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_undertale_yellow_starlo
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-starlo.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-starlo.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/undertale-yellow-starlo.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_weh
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/weh.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/weh.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/weh.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_wilson_blooper
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/wilson_blooper.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/wilson_blooper.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/wilson_blooper.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_wolfgang_blooper
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/wolfgang_blooper.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/wolfgang_blooper.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/wolfgang_blooper.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_woodie_blooper
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/woodie_blooper.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/woodie_blooper.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/woodie_blooper.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_wurt_blooper
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/wurt_blooper.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/wurt_blooper.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/wurt_blooper.ogg
+  variation: 0.12
+
+- type: speechSounds
+  id: Bark_wx78_blooper
+  saySound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/wx78_blooper.ogg
+  askSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/wx78_blooper.ogg
+  exclaimSound:
+    path: /Audio/Aavikko/Voice/Vocal-Barks/wx78_blooper.ogg
+  variation: 0.12

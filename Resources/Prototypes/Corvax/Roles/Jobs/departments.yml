@@ -1,10 +1,8 @@
-# Aavikko DIA
-# - type: department
-#   id: Legal
-#   name: department-Legal
-#   description: department-Legal-description
-#   color: "#0c344d"
-#   roles:
-#   - Magistrate
-#   - IAA
-#   weight: 90
+- type: department
+  id: Legal
+  name: department-Legal
+  description: department-Legal-description
+  color: "#0c344d"
+  roles:
+  - Magistrate
+  - IAA
