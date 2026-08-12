@@ -320,3 +320,9 @@ Resources/MapImages
 
 # C# Dev Kit cache file
 *.lscache
+
+# Server configs
+server_config.toml
+/Resources/ConfigPresets/Build/server_config.toml
+/Resources/ConfigPresets/Build/development.toml
+/Resources/ConfigPresets/Build/production.toml
