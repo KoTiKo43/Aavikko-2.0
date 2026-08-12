@@ -2,8 +2,7 @@
   parent: ActionToggleWagging
   id: ActionToggleWaggingTajaran
   components:
-  - type: Action
-    icon: { sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi, state: tail-wag-icon }
-    iconOn: { sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi, state: tail-wag-icon }
-    itemIconStyle: NoItem
-    useDelay: 1 # Prevents Emote Spam
+  - type: Sprite
+    sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+    layers:
+    - state: tail-wag-icon
