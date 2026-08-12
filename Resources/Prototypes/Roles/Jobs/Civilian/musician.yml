@@ -17,7 +17,6 @@
 - type: startingGear
   id: MusicianGear
   equipment:
-    shoes: ClothingShoesBootsLaceup  # Aavikko: restored (was removed in v288 migration, loadout missing)
     eyes: ClothingEyesGlassesSunglasses
     id: MusicianPDA
     ears: ClothingHeadsetService

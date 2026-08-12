@@ -21,7 +21,6 @@
 - type: startingGear
   id: BartenderGear
   equipment:
-    shoes: ClothingShoesColorBlack  # Aavikko: restored (was removed in v288 migration, loadout missing)
     id: BartenderPDA
     ears: ClothingHeadsetService
   #storage:
