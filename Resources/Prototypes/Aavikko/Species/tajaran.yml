@@ -1,0 +1,26 @@
+- type: species
+  id: Tajaran
+  name: species-name-tajaran
+  roundStart: true
+  sponsorOnly: false # Corvax-Sponsors
+  prototype: MobTajaran
+  defaultSkinTone: "#eb943d"
+  dollPrototype: AppearanceTajaran
+  skinColoration: Hues
+  maleFirstNames: NamesTajaranFirstMale
+  femaleFirstNames: NamesTajaranFirstFemale
+  maleLastNames: NamesTajaranLast # Corvax-LastnameGender
+  femaleLastNames: NamesTajaranLast # Corvax-LastnameGender
+  defaultSoundsBySex:
+  - MaleTajaran
+  - FemaleTajaran
+  - MaleTajaran
+  voices:
+  - MaleTajaran
+  - FemaleTajaran
+  # Aavikko tajaran age
+  minAge: 14
+  youngAge: 18
+  oldAge: 35
+  maxAge: 55
+  # Aavikko tajaran age
