@@ -95,11 +95,11 @@
       types:
         Blunt: 0.0001
   - type: ThermalRegulator
-    metabolismHeat: 800
+    metabolismHeat: 600
     radiatedHeat: 100
-    implicitHeatRegulation: 250
-    sweatHeatRegulation: 500
-    shiveringHeatRegulation: 500
+    implicitHeatRegulation: 5000
+    sweatHeatRegulation: 5000
+    shiveringHeatRegulation: 1000
     normalBodyTemperature: 310.15
     thermalRegulationTemperatureThreshold: 25
   - type: Temperature
