@@ -11,11 +11,11 @@ public sealed partial class OrcAccentSystem : EntitySystem
     [Dependency] private ReplacementAccentSystem _replacement = default!;
 
     private static readonly Regex Verb1A = new(@"аю\b", RegexOptions.IgnoreCase);
-    private static readonly Regex Verb1B = new(@"ешь\b", RegexOptions.IgnoreCase);
-    private static readonly Regex Verb1C = new(@"ет\b", RegexOptions.IgnoreCase);
-    private static readonly Regex Verb1D = new(@"ем\b", RegexOptions.IgnoreCase);
+    private static readonly Regex Verb1B = new(@"аешь\b", RegexOptions.IgnoreCase);
+    private static readonly Regex Verb1C = new(@"ает\b", RegexOptions.IgnoreCase);
+    private static readonly Regex Verb1D = new(@"аем\b", RegexOptions.IgnoreCase);
     private static readonly Regex Verb1E = new(@"аете\b", RegexOptions.IgnoreCase);
-    private static readonly Regex Verb1F = new(@"ете\b", RegexOptions.IgnoreCase);
+    private static readonly Regex Verb1F = new(@"аете\b", RegexOptions.IgnoreCase);
     private static readonly Regex Verb1G = new(@"ют\b", RegexOptions.IgnoreCase);
 
     private static readonly Regex Verb2A = new(@"ю\b", RegexOptions.IgnoreCase);
@@ -31,11 +31,9 @@ public sealed partial class OrcAccentSystem : EntitySystem
         SubscribeLocalEvent<OrcAccentComponent, AccentGetEvent>(OnAccent);
     }
 
-    private void OnAccent(EntityUid uid, OrcAccentComponent component, AccentGetEvent args)
+    private void OnAccent(Entity<OrcAccentComponent> ent, ref AccentGetEvent args)
     {
         var message = args.Message;
-
-        
 
         message = _replacement.ApplyReplacements(message, "orc");
 
