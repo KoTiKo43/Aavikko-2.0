@@ -2,7 +2,7 @@
   id: AavikkoSnowball
   mapName: 'Snowball Station'
   mapPath: /Maps/Aavikko/snowball_aavikko.yml
-  minPlayers: 15
+  minPlayers: 5 # 15
   maxPlayers: 50
   stations:
     AavikkoSnowball:

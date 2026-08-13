@@ -2,10 +2,8 @@
   id: AavikkoMarathon
   mapName: 'Marathon Station'
   mapPath: /Maps/Aavikko/marathon_aavikko.yml
-  # Corvax-start
-  minPlayers: 25
+  minPlayers: 5 # 25
   maxPlayers: 55
-  # Corvax-end
   stations:
     AavikkoMarathon:
       stationProto: StandardNanotrasenStation

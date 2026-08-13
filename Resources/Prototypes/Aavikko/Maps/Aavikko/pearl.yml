@@ -4,7 +4,7 @@
   mapPath: /Maps/Aavikko/pearl_aavikko.yml
   maxRandomOffset: 0
   randomRotation: false
-  minPlayers: 25
+  minPlayers: 5 # 25
   maxPlayers: 55
   stations:
     AavikkoPearl:
