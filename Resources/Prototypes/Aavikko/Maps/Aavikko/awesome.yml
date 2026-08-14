@@ -2,7 +2,7 @@
   id: AavikkoAwesome
   mapName: 'Awesome Station'
   mapPath: /Maps/Aavikko/awesome_aavikko.yml
-  minPlayers: 25
+  minPlayers: 5 # 25
   maxPlayers: 55
   stations:
     AavikkoAwesome:

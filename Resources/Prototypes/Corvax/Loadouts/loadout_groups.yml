@@ -125,6 +125,13 @@
   - WhiteShoes
   - BlackShoes
   - ScienceWinterBoots
+  - ClothfootwrapsWhite # Aavikko
+  - ClothfootwrapsBlack # Aavikko
+  - ClothfootwrapsBlue # Aavikko
+  - ClothfootwrapsBrown # Aavikko
+  - ClothfootwrapsRed # Aavikko
+  - ClothfootwrapsSilver # Aavikko
+  - ClothfootwrapsYellow # Aavikko
 
 - type: loadoutGroup
   id: SeniorResearcherGloves
