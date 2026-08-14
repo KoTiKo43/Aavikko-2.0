@@ -1,0 +1,21 @@
+- type: entity
+  parent: ClothingMaskGas
+  id: ClothingMaskGasBRL
+  name: BRL gas mask
+  description: Gas mask for special operations in conditions of biological hazard.
+  suffix: Aavikko, BRL
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Mask/gasbrl.rsi
+  - type: Clothing
+    sprite: Aavikko/Clothing/Mask/gasbrl.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.90
+        Slash: 0.90
+        Piercing: 0.95
+        Heat: 0.95
+        Caustic: 0.95
+  - type: ExplosionResistance
+    damageCoefficient: 0.90
