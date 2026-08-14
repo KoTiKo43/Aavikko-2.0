@@ -2,6 +2,7 @@
   parent: IDCardStandard
   id: SecretarianIDCard
   name: secretarian ID card
+  suffix: Aavikko
   components:
   - type: Sprite
     layers:
@@ -19,3 +20,107 @@
       state: Secretarian
   - type: PresetIdCard
     job: Secretarian
+
+- type: entity
+  parent: IDCardStandard
+  id: BRLCapIDCard
+  name: BRL Captain ID card
+  suffix: Aavikko, BRL
+  components:
+  - type: Sprite
+    sprite: Aavikko/Objects/Misc/id_cards.rsi
+    layers:
+    - state: brl
+    - state: stripe_top
+      color: &color-centcomm-top "#332f58"
+    - state: stripe_bottom
+      color: &color-centcomm-bottom "#272545"
+    - state: job_icon_top
+      color: *color-centcomm-top
+    - state: job_icon_bottom
+      color: *color-centcomm-bottom
+    - sprite: *icon-rsi
+      offset: *icon-offset
+      state: BRLCaptain
+  - type: Item
+    heldPrefix: brl
+  - type: PresetIdCard
+    job: BRLCaptain
+
+- type: entity
+  parent: IDCardStandard
+  id: BRLMedIDCard
+  name: BRL Medic ID card
+  suffix: Aavikko, BRL
+  components:
+  - type: Sprite
+    sprite: Aavikko/Objects/Misc/id_cards.rsi
+    layers:
+    - state: brl
+    - state: stripe_top
+      color: *color-centcomm-top
+    - state: stripe_bottom
+      color: *color-centcomm-bottom
+    - state: job_icon_top
+      color: *color-centcomm-top
+    - state: job_icon_bottom
+      color: *color-centcomm-bottom
+    - sprite: *icon-rsi
+      offset: *icon-offset
+      state: BRLMedic
+  - type: Item
+    heldPrefix: brl
+  - type: PresetIdCard
+    job: BRLMedic
+
+- type: entity
+  parent: IDCardStandard
+  id: BRLOperIDCard
+  name: BRL Operative ID card
+  suffix: Aavikko, BRL
+  components:
+  - type: Sprite
+    sprite: Aavikko/Objects/Misc/id_cards.rsi
+    layers:
+    - state: brl
+    - state: stripe_top
+      color: *color-centcomm-top
+    - state: stripe_bottom
+      color: *color-centcomm-bottom
+    - state: job_icon_top
+      color: *color-centcomm-top
+    - state: job_icon_bottom
+      color: *color-centcomm-bottom
+    - sprite: *icon-rsi
+      offset: *icon-offset
+      state: BRLOperative
+  - type: Item
+    heldPrefix: brl
+  - type: PresetIdCard
+    job: BRLOperative
+
+- type: entity
+  parent: IDCardStandard
+  id: BRLOperBioIDCard
+  name: BRL Biological Operative ID card
+  suffix: Aavikko, BRL
+  components:
+  - type: Sprite
+    sprite: Aavikko/Objects/Misc/id_cards.rsi
+    layers:
+    - state: brl
+    - state: stripe_top
+      color: *color-centcomm-top
+    - state: stripe_bottom
+      color: *color-centcomm-bottom
+    - state: job_icon_top
+      color: *color-centcomm-top
+    - state: job_icon_bottom
+      color: *color-centcomm-bottom
+    - sprite: *icon-rsi
+      offset: *icon-offset
+      state: BRLOperativeBio
+  - type: Item
+    heldPrefix: brl
+  - type: PresetIdCard
+    job: BRLOperativeBio
