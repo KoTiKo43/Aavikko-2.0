@@ -32,15 +32,17 @@
     layers:
     - state: brl
     - state: stripe_top
-      color: &color-centcomm-top "#332f58"
+      color: "#3D5572"
     - state: stripe_bottom
-      color: &color-centcomm-bottom "#272545"
+      color: "#313340"
     - state: job_icon_top
-      color: *color-centcomm-top
+      offset: &icon-job-offset-brl -0.03125, 0 # 1 pixel left
+      color: "#3D5572"
     - state: job_icon_bottom
-      color: *color-centcomm-bottom
+      offset: *icon-job-offset-brl
+      color: "#313340"
     - sprite: *icon-rsi
-      offset: *icon-offset
+      offset: &icon-offset-brl -0.21875, 0 # 7 pixels left
       state: BRLCaptain
   - type: Item
     heldPrefix: brl
@@ -58,15 +60,17 @@
     layers:
     - state: brl
     - state: stripe_top
-      color: *color-centcomm-top
+      color: "#4a88be"
     - state: stripe_bottom
-      color: *color-centcomm-bottom
+      color: "#394876"
     - state: job_icon_top
-      color: *color-centcomm-top
+      offset: *icon-job-offset-brl
+      color: "#4a88be"
     - state: job_icon_bottom
-      color: *color-centcomm-bottom
+      offset: *icon-job-offset-brl
+      color: "#394876"
     - sprite: *icon-rsi
-      offset: *icon-offset
+      offset: *icon-offset-brl
       state: BRLMedic
   - type: Item
     heldPrefix: brl
@@ -84,15 +88,17 @@
     layers:
     - state: brl
     - state: stripe_top
-      color: *color-centcomm-top
+      color: "#c64e3c"
     - state: stripe_bottom
-      color: *color-centcomm-bottom
+      color: "#6b353c"
     - state: job_icon_top
-      color: *color-centcomm-top
+      offset: *icon-job-offset-brl
+      color: "#c64e3c"
     - state: job_icon_bottom
-      color: *color-centcomm-bottom
+      offset: *icon-job-offset-brl
+      color: "#6b353c"
     - sprite: *icon-rsi
-      offset: *icon-offset
+      offset: *icon-offset-brl
       state: BRLOperative
   - type: Item
     heldPrefix: brl
@@ -110,15 +116,17 @@
     layers:
     - state: brl
     - state: stripe_top
-      color: *color-centcomm-top
+      color: "#820a16"
     - state: stripe_bottom
-      color: *color-centcomm-bottom
+      color: "#3f010d"
     - state: job_icon_top
-      color: *color-centcomm-top
+      offset: *icon-job-offset-brl
+      color: "#820a16"
     - state: job_icon_bottom
-      color: *color-centcomm-bottom
+      offset: *icon-job-offset-brl
+      color: "#3f010d"
     - sprite: *icon-rsi
-      offset: *icon-offset
+      offset: *icon-offset-brl
       state: BRLOperativeBio
   - type: Item
     heldPrefix: brl
