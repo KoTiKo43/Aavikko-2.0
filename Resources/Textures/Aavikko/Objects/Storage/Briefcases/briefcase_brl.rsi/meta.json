@@ -19,15 +19,7 @@
             "name": "icon"
         },
         {
-            "name": "open"
-        },
-        {
-            "name": "open-inhand-left",
-            "directions": 4
-        },
-        {
-            "name": "open-inhand-right",
-            "directions": 4
+            "name": "icon-open"
         }
     ]
 }
