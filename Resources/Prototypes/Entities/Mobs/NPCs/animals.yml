@@ -425,6 +425,17 @@
     damage:
       types:
         Piercing: 0
+  # Aavikko cockroach organs start
+  - type: EntityTableContainerFill
+    containers:
+      body_organs: !type:AllSelector
+        children:
+        - id: OrganCockroachLungs
+        - id: OrganCockroachHeart
+        - id: OrganCockroachStomach
+        - id: OrganCockroachLiver
+        - id: OrganCockroachKidneys
+  # Aavikko cockroach organs end
 
 - type: entity
   parent: BaseCockroach
