@@ -9,3 +9,15 @@
   ckey: "Blizzard0"
   items:
   - id: ClothingHeadHatBeretVet
+
+- type: personalLoadout
+  id: PersonalLoadoutCrazyPony
+  ckey: "CrazyPony"
+  items:
+  - id: ClothingHeadHatCowboyWhite
+
+- type: personalLoadout
+  id: PersonalLoadoutKoTiKo43
+  ckey: "KoTiKo43"
+  items:
+  - id: DrinkHotCoffee
