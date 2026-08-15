@@ -116,6 +116,7 @@
     weight: 4 # 8 -> 4 Aavikko tweak
     reoccurrenceDelay: 60 # Aavikko tweak
     maxOccurrences: 2 # Aavikko tweak
+    minimumPlayers: 10 # Aavikko tweak
     duration: 35
   - type: AnomalySpawnRule
 
