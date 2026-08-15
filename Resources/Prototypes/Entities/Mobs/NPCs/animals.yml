@@ -425,12 +425,6 @@
     damage:
       types:
         Piercing: 0
-  # Aavikko start
-  - type: EntityTableContainerFill
-    containers:
-      body_organs: !type:AllSelector
-        children: []
-  # Aavikko end
 
 - type: entity
   parent: BaseCockroach
@@ -2095,12 +2089,6 @@
       behaviors:
       - !type:GibBehavior
         recursive: false
-  # Aavikko start
-  - type: EntityTableContainerFill
-    containers:
-      body_organs: !type:AllSelector
-        children: []
-  # Aavikko end
 
 - type: entity
   abstract: true
@@ -3795,12 +3783,6 @@
       behaviors:
       - !type:GibBehavior
         recursive: false
-  # Aavikko start
-  - type: EntityTableContainerFill
-    containers:
-      body_organs: !type:AllSelector
-        children: []
-  # Aavikko end
 
 - type: entity
   name: pig
