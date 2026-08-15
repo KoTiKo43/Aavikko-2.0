@@ -425,12 +425,17 @@
     damage:
       types:
         Piercing: 0
-  # Aavikko start
+  # Aavikko cockroach organs start
   - type: EntityTableContainerFill
     containers:
       body_organs: !type:AllSelector
-        children: []
-  # Aavikko end
+        children:
+        - id: OrganCockroachLungs
+        - id: OrganCockroachHeart
+        - id: OrganCockroachStomach
+        - id: OrganCockroachLiver
+        - id: OrganCockroachKidneys
+  # Aavikko cockroach organs end
 
 - type: entity
   parent: BaseCockroach
@@ -2095,12 +2100,6 @@
       behaviors:
       - !type:GibBehavior
         recursive: false
-  # Aavikko start
-  - type: EntityTableContainerFill
-    containers:
-      body_organs: !type:AllSelector
-        children: []
-  # Aavikko end
 
 - type: entity
   abstract: true
@@ -3795,12 +3794,6 @@
       behaviors:
       - !type:GibBehavior
         recursive: false
-  # Aavikko start
-  - type: EntityTableContainerFill
-    containers:
-      body_organs: !type:AllSelector
-        children: []
-  # Aavikko end
 
 - type: entity
   name: pig

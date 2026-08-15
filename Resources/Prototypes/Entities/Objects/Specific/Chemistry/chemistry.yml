@@ -172,7 +172,7 @@
     materialComposition:
       Glass: 50
   - type: SolutionContainerVisuals
-    maxFillLevels: 6
+    maxFillLevels: 9
     fillBaseName: beaker
     inHandsMaxFillLevels: 3
     inHandsFillBaseName: -fill-
@@ -288,7 +288,7 @@
     sprite: Objects/Specific/Chemistry/beaker_large.rsi
   - type: Appearance
   - type: SolutionContainerVisuals
-    maxFillLevels: 6
+    maxFillLevels: 9
     fillBaseName: beakerlarge
     inHandsMaxFillLevels: 4
     inHandsFillBaseName: -fill-

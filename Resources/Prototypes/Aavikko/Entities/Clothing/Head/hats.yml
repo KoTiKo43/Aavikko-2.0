@@ -34,3 +34,22 @@
     sprite: Aavikko/Clothing/Head/Hats/inspectorcap.rsi
   - type: Clothing
     sprite: Aavikko/Clothing/Head/Hats/inspectorcap.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatBeretVet
+  name: берет ветерана
+  description: Довольно потасканый берет бойца специальных операций. С ним наверняка связано много историй.
+  suffix: Aavikko, Personal
+  components:
+  - type: Sprite
+    sprite: Aavikko/Clothing/Head/Hats/beret_vet.rsi
+  - type: Clothing
+    sprite: Aavikko/Clothing/Head/Hats/beret_vet.rsi
+  - type: Tag
+    tags:
+    - PetWearable
+    - CorgiWearable
+    - ClothMade
+    - Recyclable
+    - WhitelistChameleon

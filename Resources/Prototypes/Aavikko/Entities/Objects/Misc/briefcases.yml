@@ -1,0 +1,28 @@
+- type: entity
+  parent: BriefcaseBase
+  id: BriefcaseBRL
+  name: BRL briefcase
+  description: Briefcase for safe storaging of pneumo-syringe and mini bottles for it.
+  suffix: Aavikko, BRL, Empty
+  components:
+  - type: Sprite
+    sprite: Aavikko/Objects/Storage/Briefcases/briefcase_brl.rsi
+    state: icon
+  - type: Item
+    sprite: Aavikko/Objects/Storage/Briefcases/briefcase_brl.rsi
+  - type: Storage
+    grid:
+    - 0,0,1,1
+    - 3,0,3,1
+    - 5,0,5,1
+    maxItemSize: normal
+    whitelist:
+      tags:
+        - Bottle
+        - Syringe
+  - type: GenericVisualizer
+    visuals:
+      enum.StorageVisuals.Open:
+        base:
+          True: { state: icon-open }
+          False: { state: icon }
