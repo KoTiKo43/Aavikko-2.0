@@ -1,0 +1,11 @@
+- type: personalLoadout
+  id: PersonalLoadoutAkari
+  ckey: "Akari"
+  items:
+  - id: ClothingNeckScarfStripedGreen
+
+- type: personalLoadout
+  id: PersonalLoadoutBlizzard0
+  ckey: "Blizzard0"
+  items:
+  - id: ClothingHeadHatBeretVet
