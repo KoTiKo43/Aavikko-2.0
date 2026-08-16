@@ -623,8 +623,6 @@
   id: Fruit # SpecialDigestible: OrganReptilianStomach. CargoBounty: BountyFruit
 
 ## G ##
-- type: Tag
-  id: Geth # Aavikko: Geth radio channel
 
 - type: Tag
   id: Galaxythistle # CargoBounty: BountyGalaxyThistle

@@ -77,12 +77,6 @@
     ClothingHeadHatBlacksoft: 2
     ClothingHeadHatPurplesoft: 2
     ClothingHeadHatCorpsoft: 2
-    # Aavikko clothesmate cowboy hats
-    ClothingHeadHatCowboyBrown: 2
-    ClothingHeadHatCowboyBlack: 2
-    ClothingHeadHatCowboyWhite: 2
-    ClothingHeadHatCowboyGrey: 2
-    # Aavikko clothesmate cowboy hats
     ClothingHeadFishCap: 2
     ClothingHeadRastaHat: 2
     ClothingHeadPropellerHat: 2
@@ -100,16 +94,6 @@
     ClothingHandsGlovesColorPurple: 2
     ClothingEyesGlassesCheapSunglasses: 3
     # DO NOT ADD MORE, USE UNIFORM DYING
-    ClothingShoesClothfootwrapsWhite: 3
-    ClothingShoesClothfootwrapsBlack: 3
-    ClothingShoesClothfootwrapsBlue: 3
-    ClothingShoesClothfootwrapsBrown: 3
-    ClothingShoesClothfootwrapsRed: 3
-    ClothingShoesClothfootwrapsSilver: 3
-    ClothingShoesClothfootwrapsYellow: 3
-    # Aavikko cloth footwraps
-    ClothingOuterCoatTrenchBlack: 2
-    # Aavikko black trenchcoat
   contrabandInventory:
     ClothingMaskNeckGaiter: 2
     ClothingUniformJumpsuitTacticool: 1
@@ -119,7 +103,3 @@
     ClothingBackpackSatchelSmugglerUnanchored: 1
     ClothingHeadHatSolidHeadband: 2
   # DO NOT ADD MORE, USE UNIFORM DYING
-    ClothingOuterCoatTrenchMobster: 2
-    # Aavikko mobster trenchcoat
-    ClothingHeadHatCowboyBountyHunter: 1
-    # Aavikko clothesmate cowboy hats

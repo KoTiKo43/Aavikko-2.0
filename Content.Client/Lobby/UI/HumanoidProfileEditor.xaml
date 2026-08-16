@@ -37,7 +37,6 @@
                                 <ui:RandomizeLockButton For="Skin" LabelText="{Loc 'humanoid-profile-editor-randomize-skin-button'}"/>
                                 <ui:RandomizeLockButton For="Eyes" LabelText="{Loc 'humanoid-profile-editor-randomize-eye-button'}"/>
                                 <ui:RandomizeLockButton For="Markings" LabelText="{Loc 'humanoid-profile-editor-randomize-markings-button'}"/>
-                                <ui:RandomizeLockButton For="BarkVoice" LabelText="{Loc 'humanoid-profile-editor-randomize-bark-button'}"/>
                             </GridContainer>
                             <Button
                                 Name="RandomizeUnlockedButton"
@@ -95,28 +94,6 @@
                                     <Control HorizontalExpand="True" />
                                     <OptionButton Name="VoiceButton" HorizontalAlignment="Right" />
                                 </BoxContainer>
-                                <!-- Bark Voice (Aavikko) -->
-                                <BoxContainer HorizontalExpand="True">
-                                    <Label Text="{Loc 'bark-voice-editor-label'}" />
-                                    <Control HorizontalExpand="True" />
-                                    <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <OptionButton Name="BarkVoiceButton" />
-                                        <Button Name="BarkVoicePreviewButton" Text="▶" ToolTip="{Loc 'bark-voice-preview-tooltip'}" Margin="4 0 0 0" />
-                                    </BoxContainer>
-                                </BoxContainer>
-                                <!-- Bark Pitch (Aavikko) -->
-
-                                <BoxContainer HorizontalExpand="True">
-
-                                    <Label Text="{Loc 'bark-voice-pitch-label'}" />
-                                    <Label Name="BarkPitchValueLabel" Text="0" MinSize="40 0" Align="Right" />
-
-                                    <Control HorizontalExpand="True" />
-
-                                <Slider Name="BarkPitchSlider" HorizontalAlignment="Right" MinValue="-500" MaxValue="500" Rounded="True" MinWidth="150" />
-
-                                </BoxContainer>
-
                                 <!-- Pronouns -->
                                 <BoxContainer HorizontalExpand="True">
                                     <Label Text="{Loc 'humanoid-profile-editor-pronouns-label'}" />

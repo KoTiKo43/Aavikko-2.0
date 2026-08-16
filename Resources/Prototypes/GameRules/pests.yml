@@ -24,8 +24,8 @@
   components:
   - type: StationEvent
     earliestStart: 15
-    weight: 4
-    duration: 20 # 50 -> 20 Aavikko tweak
+    weight: 6
+    duration: 50
   - type: VentCrittersRule
     entries:
     - id: MobMouse
@@ -67,8 +67,8 @@
   parent: BaseStationEventShortDelay
   components:
   - type: StationEvent
-    weight: 4
-    duration: 20 # 50 -> 20 Aavikko tweak
+    weight: 6
+    duration: 50
   - type: VentCrittersRule
     entries:
     - id: MobCockroach
@@ -83,8 +83,8 @@
   parent: BaseStationEventShortDelay
   components:
   - type: StationEvent
-    weight: 4
-    duration: 20 # 50 -> 20 Aavikko tweak
+    weight: 6
+    duration: 50
   - type: VentCrittersRule
     entries:
     - id: MobSnail
@@ -123,7 +123,7 @@
     startAudio:
       path: /Audio/Announcements/attention.ogg
     earliestStart: 15
-    weight: 3 # Aavikko tweak 6 # Slightly more common than other hordes
+    weight: 6 # Slightly more common than other hordes
     duration: 5
     maxDuration: 20
     reoccurrenceDelay: 15 # Shorter because this event is basically a nat zero on the round. It only exists to potentially confuse security or the crew

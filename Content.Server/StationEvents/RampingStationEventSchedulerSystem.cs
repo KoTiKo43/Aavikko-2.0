@@ -70,6 +70,6 @@ public sealed partial class RampingStationEventSchedulerSystem : GameRuleSystem<
         var mod = GetChaosModifier(uid, component);
 
         // 4-12 minutes baseline. Will get faster over time as the chaos mod increases.
-        component.TimeUntilNextEvent = _random.NextFloat(600f / mod, 840f / mod); // 10-14 minutes Aavikko tweak
+        component.TimeUntilNextEvent = _random.NextFloat(240f / mod, 720f / mod);
     }
 }

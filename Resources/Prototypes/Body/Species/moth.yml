@@ -132,8 +132,6 @@
       Kidneys: OrganMothKidneys
   - type: HumanoidProfile
     species: Moth
-  - type: ScaleVisuals # Aavikko tweak
-    scale: 0.93, 0.93
 
 - type: entity
   parent:
@@ -194,8 +192,6 @@
       289: 0.9
       275: 0.8
       250: 0.7
-  - type: Sprite # Aavikko tweak
-    scale: 0.93, 0.93
 
 - type: entity
   parent: OrganBaseOrganic

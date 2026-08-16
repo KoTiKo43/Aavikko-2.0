@@ -24,8 +24,6 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using System.Text.RegularExpressions; // Aavikko
-using System.Text; // Aavikko
 
 namespace Content.Server.GameTicking
 {
@@ -55,8 +53,6 @@ namespace Content.Server.GameTicking
         private GameRunLevel _runLevel;
 
         private RoundEndMessageEvent.RoundEndPlayerInfo[]? _replayRoundPlayerInfo;
-
-        private static readonly Regex BBCodeRegex = new Regex(@"\[.*?\]", RegexOptions.Compiled); // Aavikko
 
         private string? _replayRoundText;
 
@@ -480,68 +476,6 @@ namespace Content.Server.GameTicking
             DisallowLateJoin = refresh.DisallowLateJoin;
         }
 
-        // Aavikko start
-        /// <summary>
-        /// Конвертирует BBCode-разметку [b]...[/b] в Markdown **...**.
-        /// </summary>
-        private string ConvertBBCodeToMarkdown(string text)
-        {
-            text = BBCodeRegex.Replace(text, "**");
-            return text;
-        }
-
-        /// <summary>
-        /// Формирует детальную текстовую сводку конца раунда:
-        /// режим, информация, список игроков с ролями.
-        /// Отправляется в Discord как обычные текстовые сообщения (разбитые по 1900 символов).
-        /// </summary>
-        private List<string> GenerateRoundEndSummaryChunks(string roundEndText, RoundEndMessageEvent.RoundEndPlayerInfo[] playerInfoArray)
-        {
-            var chunks = new List<string>();
-            var sb = new StringBuilder();
-
-            // Группируем игроков по OOC+IC имени (могут быть дубли)
-            var groupedPlayers = playerInfoArray
-                .GroupBy(p => new { p.PlayerOOCName, p.PlayerICName })
-                .Select(g => new
-                {
-                    g.Key.PlayerOOCName,
-                    g.Key.PlayerICName,
-                    Roles = string.Join(", ", g.Select(p => Loc.GetString(p.Role)).Distinct())
-                })
-                .ToList();
-
-            int totalPlayers = groupedPlayers.Count;
-            sb.AppendLine($"**Всего было игроков**: {totalPlayers}\n");
-            sb.AppendLine("**Игроки**:\n");
-
-            // Заголовок — отдельным чанком
-            chunks.Add(sb.ToString());
-            sb.Clear();
-
-            // Каждый игрок — отдельная строка. Разбиваем по ~1900 символов.
-            foreach (var playerInfo in groupedPlayers)
-            {
-                var line = $"*{playerInfo.PlayerOOCName}* — **{playerInfo.PlayerICName}** ({playerInfo.Roles})\n";
-
-                // Если добавление строки превысит лимит — начинаем новый чанк
-                if (sb.Length + line.Length > 1900)
-                {
-                    chunks.Add(sb.ToString());
-                    sb.Clear();
-                }
-
-                sb.Append(line);
-            }
-
-            // Последний чанк
-            if (sb.Length > 0)
-                chunks.Add(sb.ToString());
-
-            return chunks;
-        }
-        // Aavikko end
-
         public void EndRound(string text = "")
         {
             // If this game ticker is a dummy, do nothing!
@@ -680,31 +614,15 @@ namespace Content.Server.GameTicking
                 if (_webhookIdentifier == null)
                     return;
 
-                // Aavikko start
-                if (CurrentPreset == null)
-                    return;
-
                 var duration = RoundDuration();
-                var content = $"**Раунд {RoundId} завершен!**\n" +
-                             $"**Продолжительность:** {Math.Truncate(duration.TotalHours)} часов {duration.Minutes} минут {duration.Seconds} секунд\n" +
-                             $"**Режим:** {Loc.GetString(CurrentPreset.ModeTitle)}";
-
+                var content = Loc.GetString("discord-round-notifications-end",
+                    ("id", RoundId),
+                    ("hours", Math.Truncate(duration.TotalHours)),
+                    ("minutes", duration.Minutes),
+                    ("seconds", duration.Seconds));
                 var payload = new WebhookPayload { Content = content };
+
                 await _discord.CreateMessage(_webhookIdentifier.Value, payload);
-
-                if (_replayRoundPlayerInfo != null)
-                {
-                    var summaryChunks = GenerateRoundEndSummaryChunks(
-                        _replayRoundText ?? string.Empty,
-                        _replayRoundPlayerInfo);
-
-                    foreach (var chunk in summaryChunks)
-                    {
-                        payload = new WebhookPayload { Content = chunk };
-                        await _discord.CreateMessage(_webhookIdentifier.Value, payload);
-                    }
-                }
-                // Aavikko end
 
                 if (DiscordRoundEndRole == null)
                     return;

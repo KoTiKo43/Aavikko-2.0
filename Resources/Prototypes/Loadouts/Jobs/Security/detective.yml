@@ -1,13 +1,3 @@
-# Aavikko disco-cop time
-- type: loadoutEffectGroup
-  id: DiscoCop
-  effects:
-  - !type:JobRequirementLoadoutEffect
-    requirement:
-      !type:RoleTimeRequirement
-      role: JobDetective
-      time: 158400 #44 hrs # cause Harry is 44 years old
-
 # Head
 - type: loadout
   id: DetectiveFedora
@@ -24,19 +14,6 @@
   id: DetectiveTie
   equipment:
     neck: ClothingNeckTieDet
-
-- type: loadout
-  id: DetectiveTieHorrific
-  equipment:
-    neck: ClothingNeckHorrific
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: DiscoCop
-
-- type: startingGear
-  id: DetectiveTieHorrific
-  equipment:
-    neck: ClothingNeckHorrific
 
 # Jumpsuit
 - type: loadout
@@ -59,19 +36,6 @@
   equipment:
     jumpsuit: ClothingUniformJumpskirtDetectiveGrey
 
-- type: loadout
-  id: SuperstarCopJumpsuit
-  equipment:
-    jumpsuit: ClothingUniformJumpsuitSuperstarCop
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: DiscoCop
-
-- type: startingGear
-  id: SuperstarCopJumpsuit
-  equipment:
-    jumpsuit: ClothingUniformJumpsuitSuperstarCop
-
 # OuterClothing
 - type: loadout
   id: DetectiveArmorVest
@@ -87,32 +51,3 @@
   id: DetectiveCoatGrey
   equipment:
     outerClothing: ClothingOuterCoatDetectiveLoadoutGrey
-
-- type: loadout
-  id: DetectiveDiscoAssBlazer
-  equipment:
-    outerClothing: ClothingOuterDiscoAssBlazer
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: DiscoCop
-
-- type: startingGear
-  id: DetectiveDiscoAssBlazer
-  equipment:
-    outerClothing: ClothingOuterDiscoAssBlazer
-
-# Shoes
-# Aavikko
-- type: loadout
-  id: ShoesGreenLizardskin
-  equipment:
-    shoes: ClothingShoesGreenLizardskin
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: DiscoCop
-
-- type: startingGear
-  id: ShoesGreenLizardskin
-  equipment:
-    shoes: ClothingShoesGreenLizardskin
-# Aavikko

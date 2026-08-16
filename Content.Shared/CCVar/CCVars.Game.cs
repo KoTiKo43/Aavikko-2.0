@@ -477,12 +477,4 @@ public sealed partial class CCVars
     /// </summary>
     public static readonly CVarDef<bool> WallMountFade =
         CVarDef.Create("game.wallmount_fade", true, CVar.SERVER | CVar.REPLICATED);
-
-    // Aavikko start
-    /// <summary>
-    /// Automatically start a map vote when the pre-round lobby opens.
-    /// </summary>
-    public static readonly CVarDef<bool> AutoMapVote =
-        CVarDef.Create("game.auto_map_vote", false, CVar.SERVERONLY);
-    // Aavikko end
 }

@@ -6,7 +6,6 @@
     ClothingBackpackDuffelSecurity: 3
     ClothingUniformJumpsuitSec: 3
     ClothingShoesBootsJack: 3
-    ClothingHeadHatCapSecurity: 3 # Aavikko
     ClothingHeadHatBeretSecurity: 3
     ClothingHeadHatSecsoft: 3
     ClothingHeadBandRed: 3
@@ -18,7 +17,6 @@
     ClothingUniformJumpskirtSecGrey: 3
     ClothingUniformJumpsuitSecBlue: 3
     ClothingHeadsetSecurity: 3
-    ClothingOuterCoatTrenchSecurity: 2 # Aavikko
     ClothingOuterWinterSec: 2
     ClothingOuterArmorBasic: 2
     ClothingNeckScarfStripedRed: 3

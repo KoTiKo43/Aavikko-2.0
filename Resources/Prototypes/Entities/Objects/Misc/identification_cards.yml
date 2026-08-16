@@ -36,12 +36,8 @@
   - type: Sprite
     layers:
     - state: default
-    - state: job_icon_top # aavikko icons resprite
-      color: &color-passenger-top "#777777"
-    - state: job_icon_bottom # aavikko icons resprite
-      color: &color-passenger-bottom "#505050"
     - sprite: &icon-rsi Interface/Misc/job_icons.rsi
-      offset: &icon-offset -0.1875, 0 # 6 pixels left aavikko icons resprite #-0.09375, 0.0625 #3 pixels left, 2 pixels up
+      offset: &icon-offset -0.09375, 0.0625 #3 pixels left, 2 pixels up
       state: Passenger
   - type: PresetIdCard
     job: Passenger
@@ -57,13 +53,9 @@
     layers:
     - state: gold
     - state: stripe_top
-      color: &color-command-top "#404783" # aavikko icons resprite
+      color: "#1b67a5"
     - state: stripe_bottom
-      color: &color-command-bottom "#332f58" # aavikko icons resprite
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-command-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-command-bottom
+      color: "#0e4069"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Captain
@@ -89,13 +81,9 @@
     layers:
     - state: silver
     - state: stripe_top
-      color: &color-service-top "#6abe30" # aavikko icons resprite
+      color: &color-service-top "#639137"
     - state: stripe_bottom
-      color: &color-service-bottom "#348c24" # aavikko icons resprite
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-command-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-command-bottom
+      color: &color-service-bottom "#446326"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: HeadOfPersonnel
@@ -113,13 +101,9 @@
     layers:
     - state: silver
     - state: stripe_top
-      color: &color-engineering-top "#ffa62b" # aavikko icons resprite
+      color: &color-engineering-top "#ffa62b"
     - state: stripe_bottom
-      color: &color-engineering-bottom "#bc5b00" # aavikko icons resprite
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-command-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-command-bottom
+      color: &color-engineering-bottom "#bc5b00"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: ChiefEngineer
@@ -137,13 +121,9 @@
     layers:
     - state: silver
     - state: stripe_top
-      color: &color-medical-top "#479194" # aavikko icons resprite
+      color: &color-medical-top "#68aed6"
     - state: stripe_bottom
-      color: &color-medical-bottom "#28615c" # aavikko icons resprite
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-command-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-command-bottom
+      color: &color-medical-bottom "#325f7a"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: ChiefMedicalOfficer
@@ -161,13 +141,9 @@
     layers:
     - state: silver
     - state: stripe_top
-      color: &color-science-top "#902ea3" # aavikko icons resprite
+      color: &color-science-top "#a53aaa"
     - state: stripe_bottom
-      color: &color-science-bottom "#6d0c80" # aavikko icons resprite
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-command-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-command-bottom
+      color: &color-science-bottom "#652368"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: ResearchDirector
@@ -185,13 +161,9 @@
     layers:
     - state: silver
     - state: stripe_top
-      color: &color-security-top "#88242d" # aavikko icons resprite
+      color: &color-security-top "#cb0000"
     - state: stripe_bottom
-      color: &color-security-bottom "#501726" # aavikko icons resprite
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-command-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-command-bottom
+      color: &color-security-bottom "#830000"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: HeadOfSecurity
@@ -209,13 +181,9 @@
     layers:
     - state: silver
     - state: stripe_top
-      color: &color-supply-top "#9a724d" # aavikko icons resprite
+      color: &color-supply-top "#b18644"
     - state: stripe_bottom
-      color: &color-supply-bottom "#6a462c" # aavikko icons resprite
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-command-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-command-bottom
+      color: &color-supply-bottom "#5b4523"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: QuarterMaster
@@ -238,10 +206,6 @@
       color: *color-engineering-top
     - state: stripe_bottom
       color: *color-engineering-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-engineering-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-engineering-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: TechnicalAssistant
@@ -259,10 +223,6 @@
     - state: stripe_top
       color: *color-engineering-top
     - state: stripe_bottom
-      color: *color-engineering-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-engineering-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-engineering-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -282,10 +242,6 @@
       color: *color-engineering-top
     - state: stripe_bottom
       color: *color-engineering-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-engineering-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-engineering-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: AtmosphericTechnician
@@ -303,10 +259,6 @@
     - state: stripe_top
       color: *color-engineering-top
     - state: stripe_bottom
-      color: *color-engineering-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-engineering-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-engineering-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -326,10 +278,6 @@
       color: *color-medical-top
     - state: stripe_bottom
       color: *color-medical-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-medical-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-medical-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: MedicalIntern
@@ -347,10 +295,6 @@
     - state: stripe_top
       color: *color-medical-top
     - state: stripe_bottom
-      color: *color-medical-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-medical-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-medical-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -370,10 +314,6 @@
       color: *color-medical-top
     - state: stripe_bottom
       color: *color-medical-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-medical-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-medical-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Paramedic
@@ -391,10 +331,6 @@
     - state: stripe_top
       color: *color-medical-top
     - state: stripe_bottom
-      color: *color-medical-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-medical-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-medical-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -414,10 +350,6 @@
       color: *color-medical-top
     - state: stripe_bottom
       color: *color-medical-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-medical-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-medical-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Psychologist
@@ -435,10 +367,6 @@
     - state: stripe_top
       color: *color-medical-top
     - state: stripe_bottom
-      color: *color-medical-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-medical-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-medical-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -458,10 +386,6 @@
       color: *color-science-top
     - state: stripe_bottom
       color: *color-science-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-science-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-science-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: ResearchAssistant
@@ -479,10 +403,6 @@
     - state: stripe_top
       color: *color-science-top
     - state: stripe_bottom
-      color: *color-science-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-science-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-science-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -502,10 +422,6 @@
       color: *color-science-top
     - state: stripe_bottom
       color: *color-science-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-science-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-science-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: SeniorResearcher
@@ -523,10 +439,6 @@
     - state: stripe_top
       color: *color-security-top
     - state: stripe_bottom
-      color: *color-security-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-security-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-security-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -546,10 +458,6 @@
       color: *color-security-top
     - state: stripe_bottom
       color: *color-security-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-security-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-security-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: SecurityOfficer
@@ -567,10 +475,6 @@
     - state: stripe_top
       color: *color-security-top
     - state: stripe_bottom
-      color: *color-security-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-security-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-security-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -590,10 +494,6 @@
       color: *color-security-top
     - state: stripe_bottom
       color: *color-security-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-security-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-security-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Detective
@@ -612,10 +512,6 @@
       color: *color-security-top
     - state: stripe_bottom
       color: *color-security-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-security-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-security-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Brigmedic
@@ -631,10 +527,6 @@
     - state: stripe_top
       color: *color-security-top
     - state: stripe_bottom
-      color: *color-security-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-security-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-security-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -654,10 +546,6 @@
       color: *color-service-top
     - state: stripe_bottom
       color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: ServiceWorker
@@ -673,10 +561,6 @@
     layers:
     - state: default
     - state: stripe_clown
-    - state: job_icon_top # aavikko icons resprite
-      color: "#ca2cb6"
-    - state: job_icon_bottom # aavikko icons resprite
-      color: "#911189"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Clown
@@ -692,13 +576,9 @@
     layers:
     - state: default
     - state: stripe_top
-      color: &color-mime-top "#666666" # aavikko icons resprite
+      color: "#2d2d2d"
     - state: stripe_bottom
-      color: &color-mime-bottom "#505050" # aavikko icons resprite
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-mime-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-mime-bottom
+      color: "#1d1d1d"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Mime
@@ -714,13 +594,9 @@
     layers:
     - state: default
     - state: stripe_top
-      color: &color-musician-top "#6f56b8"
+      color: "#6f56b8"
     - state: stripe_bottom
-      color: &color-musician-bottom "#524089"
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-musician-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-musician-bottom
+      color: "#524089"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Musician
@@ -738,10 +614,6 @@
     - state: stripe_top
       color: *color-service-top
     - state: stripe_bottom
-      color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -761,10 +633,6 @@
       color: *color-service-top
     - state: stripe_bottom
       color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Janitor
@@ -783,10 +651,6 @@
       color: *color-service-top
     - state: stripe_bottom
       color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Bartender
@@ -804,10 +668,6 @@
     - state: stripe_top
       color: *color-service-top
     - state: stripe_bottom
-      color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -831,10 +691,6 @@
       color: *color-service-top
     - state: stripe_bottom
       color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Chef
@@ -852,10 +708,6 @@
     - state: stripe_top
       color: *color-service-top
     - state: stripe_bottom
-      color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -875,10 +727,6 @@
       color: *color-service-top
     - state: stripe_bottom
       color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Librarian
@@ -896,10 +744,6 @@
     - state: stripe_top
       color: *color-service-top
     - state: stripe_bottom
-      color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -919,10 +763,6 @@
       color: *color-service-top
     - state: stripe_bottom
       color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Reporter
@@ -941,10 +781,6 @@
       color: *color-service-top
     - state: stripe_bottom
       color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Boxer
@@ -960,10 +796,6 @@
     - state: stripe_top
       color: *color-service-top
     - state: stripe_bottom
-      color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -981,10 +813,6 @@
       color: "#ffc500"
     - state: stripe_bottom
       color: "#454a50"
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-service-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-service-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: TramDriver
@@ -1004,10 +832,6 @@
     - state: stripe_top
       color: *color-supply-top
     - state: stripe_bottom
-      color: *color-supply-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-supply-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-supply-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -1042,10 +866,6 @@
     - state: stripe_top
       color: *color-supply-top
     - state: stripe_bottom
-      color: *color-supply-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-supply-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-supply-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -1102,13 +922,9 @@
     layers:
     - state: default
     - state: stripe_top
-      color: &color-cluwne-top "#3f9b53" # aavikko icons resprite
+      color: "#5dc574"
     - state: stripe_bottom
-      color: &color-cluwne-bottom "#337e44" # aavikko icons resprite
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-cluwne-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-cluwne-bottom
+      color: "#3f9b53"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Cluwne
@@ -1125,10 +941,6 @@
   - type: Sprite
     layers:
     - state: default
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-passenger-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-passenger-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Visitor
@@ -1202,13 +1014,9 @@
     layers:
     - state: black
     - state: stripe_top
-      color: &color-syndicate-top "#9b0721" # aavikko icons resprite
+      color: &color-syndicate-top "#e80c0c"
     - state: stripe_bottom
-      color: &color-syndicate-bottom "#620303" # aavikko icons resprite
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-syndicate-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-syndicate-bottom
+      color: &color-syndicate-bottom "#960606"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Syndicate
@@ -1233,10 +1041,6 @@
       color: *color-syndicate-top
     - state: stripe_bottom
       color: *color-syndicate-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-syndicate-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-syndicate-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: SyndicateOperative
@@ -1256,10 +1060,6 @@
       color: *color-syndicate-top
     - state: stripe_bottom
       color: *color-syndicate-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-syndicate-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-syndicate-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: SyndicateCorpsman
@@ -1278,10 +1078,6 @@
       color: *color-syndicate-top
     - state: stripe_bottom
       color: *color-syndicate-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-syndicate-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-syndicate-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: SyndicateCommander
@@ -1298,13 +1094,9 @@
     layers:
     - state: ninja
     - state: stripe_top
-      color: "#25be25" # aavikko icons resprite
+      color: "#38D848"
     - state: stripe_bottom
-      color: "#187b18" # aavikko icons resprite
-    - state: job_icon_top # aavikko icons resprite
-      color: "#141719"
-    - state: job_icon_bottom # aavikko icons resprite
-      color: "#0c0e0f"
+      color: "#309000"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Ninja
@@ -1353,10 +1145,6 @@
   - type: Sprite
     layers:
     - state: wizard
-    - state: job_icon_top # aavikko icons resprite
-      color: &color-wizard-top "#312aa7"
-    - state: job_icon_bottom # aavikko icons resprite
-      color: &color-wizard-bottom "#25207e"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Wizard
@@ -1381,13 +1169,9 @@
     layers:
     - state: centcom
     - state: stripe_top
-      color: &color-centcomm-top "#332f58" # aavikko icons resprite
+      color: &color-centcomm-top "#134975"
     - state: stripe_bottom
-      color: &color-centcomm-bottom "#272545" # aavikko icons resprite
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-centcomm-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-centcomm-bottom
+      color: &color-centcomm-bottom "#0d304d"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Nanotrasen
@@ -1407,10 +1191,6 @@
     - state: stripe_top
       color: *color-centcomm-top
     - state: stripe_bottom
-      color: *color-centcomm-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-centcomm-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-centcomm-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -1432,10 +1212,6 @@
       color: *color-service-top
     - state: stripe_bottom
       color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-centcomm-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-centcomm-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: ERTChaplain
@@ -1456,10 +1232,6 @@
       color: *color-engineering-top
     - state: stripe_bottom
       color: *color-engineering-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-centcomm-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-centcomm-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: ERTEngineer
@@ -1480,10 +1252,6 @@
       color: *color-service-top
     - state: stripe_bottom
       color: *color-service-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-centcomm-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-centcomm-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: ERTJanitor
@@ -1504,10 +1272,6 @@
       color: *color-medical-top
     - state: stripe_bottom
       color: *color-medical-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-centcomm-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-centcomm-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: ERTMedical
@@ -1528,10 +1292,6 @@
       color: *color-security-top
     - state: stripe_bottom
       color: *color-security-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-centcomm-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-centcomm-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: ERTSecurity
@@ -1552,10 +1312,6 @@
       color: *color-centcomm-top
     - state: stripe_bottom
       color: *color-centcomm-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-centcomm-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-centcomm-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: DeathSquad
@@ -1574,10 +1330,6 @@
     - state: stripe_top
       color: *color-centcomm-top
     - state: stripe_bottom
-      color: *color-centcomm-bottom
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-centcomm-top
-    - state: job_icon_bottom # aavikko icons resprite
       color: *color-centcomm-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
@@ -1598,14 +1350,6 @@
     sprite: Objects/Misc/id_cards.rsi
     layers:
     - state: admin
-    - state: stripe_top # aavikko icons resprite
-      color: &color-admin-top "#449455"
-    - state: stripe_bottom # aavikko icons resprite
-      color: &color-admin-bottom "#366f4e"
-    - state: job_icon_top # aavikko icons resprite
-      color: *color-admin-top
-    - state: job_icon_bottom # aavikko icons resprite
-      color: *color-admin-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Admin

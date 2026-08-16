@@ -29,22 +29,12 @@ public sealed partial class MobCollisionSystem : SharedMobCollisionSystem
         base.Update(frameTime);
     }
 
-    private const int ThrottleTicks = 2; // Aavikko
-    private GameTick _lastSentTick = GameTick.Zero; // Aavikko
-
     protected override void RaiseCollisionEvent(EntityUid uid, Vector2 direction, float speedMod)
     {
-        var curTick = _timing.CurTick; // Aavikko
-        var tickDiff = curTick.Value - _lastSentTick.Value; // Aavikko
-
-        if (_lastSentTick == GameTick.Zero || tickDiff >= ThrottleTicks)
+        RaisePredictiveEvent(new MobCollisionMessage()
         {
-            RaisePredictiveEvent(new MobCollisionMessage()
-            {
-                Direction = direction,
-                SpeedModifier = speedMod,
-            });
-            _lastSentTick = curTick; // Aavikko
-        }
+            Direction = direction,
+            SpeedModifier = speedMod,
+        });
     }
 }

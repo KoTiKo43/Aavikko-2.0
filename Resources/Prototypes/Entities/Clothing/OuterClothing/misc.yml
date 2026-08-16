@@ -73,7 +73,7 @@
     sprite: Clothing/OuterClothing/Misc/chef.rsi
 
 - type: entity
-  parent: [ ClothingOuterBase, ClothingOuterFoldableBase ]
+  parent: ClothingOuterBase
   id: ClothingOuterHoodieBlack
   name: black hoodie
   description: Oh my God, it's a black hoodie!
@@ -84,12 +84,7 @@
     sprite: Clothing/OuterClothing/Misc/black_hoodie.rsi
 
 - type: entity
-  parent: [ClothingOuterFoldableBaseOpened, ClothingOuterHoodieBlack]
-  id: ClothingOuterHoodieBlackOpened
-  name: black hoodie
-
-- type: entity
-  parent: [ ClothingOuterBase, ClothingOuterFoldableBase ]
+  parent: ClothingOuterBase
   id: ClothingOuterHoodieGrey
   name: grey hoodie
   description: A grey hoodie.
@@ -98,11 +93,6 @@
     sprite: Clothing/OuterClothing/Misc/grey_hoodie.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Misc/grey_hoodie.rsi
-
-- type: entity
-  parent: [ClothingOuterFoldableBaseOpened, ClothingOuterHoodieGrey]
-  id: ClothingOuterHoodieGreyOpened
-  name: grey hoodie
 
 - type: entity
   parent: ClothingOuterBase

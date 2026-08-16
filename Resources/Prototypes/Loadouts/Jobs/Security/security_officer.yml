@@ -44,13 +44,6 @@
   equipment:
     head: ClothingHeadHatSecurityTrooper
 
-# Aavikko
-- type: loadout
-  id: SecurityCap
-  equipment:
-    head: ClothingHeadHatCapSecurity
-# Aavikko
-
 # Jumpsuit
 - type: loadout
   id: SecurityJumpsuit
@@ -142,13 +135,6 @@
   id: SecurityOfficerWintercoat
   equipment:
     outerClothing: ClothingOuterWinterSec
-
-# Aavikko
-- type: loadout
-  id: SecurityOfficerTrenchcoat
-  equipment:
-    outerClothing: ClothingOuterCoatTrenchSecurity
-# Aavikko
 
 # Shoes
 - type: loadout

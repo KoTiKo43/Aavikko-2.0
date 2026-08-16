@@ -34,14 +34,8 @@ health-examinable-carbon-Piercing-75 = [color=red]{ CAPITALIZE(POSS-ADJ($target)
 health-examinable-carbon-Piercing-100 = [color=red]{ CAPITALIZE(POSS-ADJ($target)) } тело полностью покрыто огромными, зияющими дырами.[/color]
 health-examinable-carbon-Piercing-200 = [color=crimson]{ CAPITALIZE(POSS-ADJ($target)) } тело выглядит разорванным![/color]
 
-# Aavikko translate
-health-examinable-carbon-Asphyxiation-8 = [color=#7DBACE]{ CAPITALIZE(POSS-ADJ($target)) } дыхание слегка затруднено.[/color]
-health-examinable-carbon-Asphyxiation-15 = [color=#7DBACE]{ CAPITALIZE(POSS-ADJ($target)) } дыхание учащённое и поверхностное.[/color]
 health-examinable-carbon-Asphyxiation-30 = [color=lightblue]{ CAPITALIZE(POSS-ADJ($target)) } губы синеют.[/color]
-health-examinable-carbon-Asphyxiation-50 = [color=#189FCC]{ CAPITALIZE(POSS-ADJ($target)) } губы заметно посинели.[/color]
 health-examinable-carbon-Asphyxiation-75 = [color=lightblue]{ CAPITALIZE(POSS-ADJ($target)) } лицо синеет.[/color]
-health-examinable-carbon-Asphyxiation-100 = [color=#189FCC]{ CAPITALIZE(POSS-ADJ($target)) } лицо сильно посинело от нехватки воздуха.[/color]
-health-examinable-carbon-Asphyxiation-200 = [color=#0E5E80]{ CAPITALIZE(POSS-ADJ($target)) } тело полностью посинело и выглядит неживым![/color]
 
 health-examinable-carbon-Heat-8 = [color=orange]{ CAPITALIZE(SUBJECT($target)) } { CONJUGATE-HAVE($target) } поверхностный ожог.[/color]
 health-examinable-carbon-Heat-15 = [color=orange]{ CAPITALIZE(SUBJECT($target)) } { CONJUGATE-HAVE($target) } несколько ожогов первой степени.[/color]

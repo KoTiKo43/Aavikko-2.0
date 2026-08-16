@@ -110,6 +110,11 @@ namespace Content.Server.Preferences.Managers
             if (Enum.TryParse<Gender>(profile.Gender, true, out var genderVal))
                 gender = genderVal;
 
+            // Corvax-TTS-Start
+            var TTSVoice = profile.TTSVoice;
+            if (TTSVoice == String.Empty)
+                TTSVoice = HumanoidProfileSystem.DefaultSexVoice[sex];
+            // Corvax-TTS-End
 
             var markings =
                 new Dictionary<ProtoId<OrganCategoryPrototype>, Dictionary<HumanoidVisualLayers, List<Marking>>>();
@@ -179,11 +184,11 @@ namespace Content.Server.Preferences.Managers
                 loadouts[role.RoleName] = loadout;
             }
 
-            var humanoidProfile = new HumanoidCharacterProfile(
+            return new HumanoidCharacterProfile(
                 profile.CharacterName,
                 profile.FlavorText,
                 species,
-                HumanoidProfileSystem.DefaultSexVoice[sex], // Aavikko: placeholder (TTS removed)
+                TTSVoice, // Corvax-TTS
                 profile.Age,
                 sex,
                 voice,
@@ -201,11 +206,6 @@ namespace Content.Server.Preferences.Managers
                 traits.ToHashSet(),
                 loadouts
             );
-
-            // Aavikko: restore bark voice and pitch from DB
-            humanoidProfile.BarkVoice = profile.BarkVoice ?? "Bark_human_1";
-            humanoidProfile.BarkPitch = profile.BarkPitch;
-            return humanoidProfile;
         }
 
         private async void HandleSelectCharacterMessage(MsgSelectCharacter message)

@@ -467,9 +467,6 @@
     storedOffset: 0,-2
   - type: Sprite
     state: saltysweet
-  - type: Tag
-    tags:
-    - ReptilianFood
 # Tastes awesome.
 
 - type: entity
@@ -485,9 +482,6 @@
         - cheesy
     - type: Sprite
       state: queso
-    - type: Tag
-      tags:
-      - ReptilianFood
 # Its queso! Everyone loves queso... Right?.
 
 - type: entity

@@ -1,4 +1,3 @@
-using Content.Shared.Aavikko.ItemOffer; // Aavikko item offer
 using Content.Shared.Input;
 using Robust.Shared.Input;
 
@@ -92,7 +91,6 @@ namespace Content.Client.Input
             human.AddFunction(ContentKeyFunctions.Arcade1);
             human.AddFunction(ContentKeyFunctions.Arcade2);
             human.AddFunction(ContentKeyFunctions.Arcade3);
-            human.AddFunction(ItemOfferKeyFunctions.ToggleItemOffer); // Aavikko item offer
 
             // actions should be common (for ghosts, mobs, etc)
             common.AddFunction(ContentKeyFunctions.OpenActionsMenu);

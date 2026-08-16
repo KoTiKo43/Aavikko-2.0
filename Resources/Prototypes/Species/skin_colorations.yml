@@ -9,7 +9,7 @@
 - type: skinColoration
   id: Hues
   strategy: !type:ClampedHsvColoration
-    value: [0.08, 1]
+    value: [0.175, 1]
 
 - type: skinColoration
   id: TintedHues

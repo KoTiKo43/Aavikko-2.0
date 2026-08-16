@@ -173,22 +173,6 @@ namespace Content.Client.Lobby.UI
 
             #endregion
 
-            #region Bark Voice (Aavikko)
-
-            BarkVoiceButton.OnItemSelected += args =>
-            {
-                BarkVoiceButton.SelectId(args.Id);
-                SetBarkVoice(args.Id);
-            };
-
-            // Aavikko: Preview bark voice sound
-            BarkVoicePreviewButton.OnPressed += _ => PreviewBarkVoice();
-
-            // Aavikko: Bark pitch slider
-            BarkPitchSlider.OnValueChanged += args => SetBarkPitch(args.Value / 1000f);
-
-            #endregion
-
             #region Age
 
             AgeEdit.OnTextChanged += args =>
@@ -399,8 +383,6 @@ namespace Content.Client.Lobby.UI
             UpdateFlavorTextEdit();
             UpdateSexControls();
             UpdateVoiceControls();
-UpdateBarkVoiceControls(); // Aavikko
-            UpdateBarkPitchControls(); // Aavikko
             UpdateGenderControls();
             UpdateSkinColor();
             UpdateSpawnPriorityControls();

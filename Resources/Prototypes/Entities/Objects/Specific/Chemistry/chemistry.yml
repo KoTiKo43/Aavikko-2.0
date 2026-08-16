@@ -172,7 +172,7 @@
     materialComposition:
       Glass: 50
   - type: SolutionContainerVisuals
-    maxFillLevels: 9
+    maxFillLevels: 6
     fillBaseName: beaker
     inHandsMaxFillLevels: 3
     inHandsFillBaseName: -fill-
@@ -288,7 +288,7 @@
     sprite: Objects/Specific/Chemistry/beaker_large.rsi
   - type: Appearance
   - type: SolutionContainerVisuals
-    maxFillLevels: 9
+    maxFillLevels: 6
     fillBaseName: beakerlarge
     inHandsMaxFillLevels: 4
     inHandsFillBaseName: -fill-
@@ -645,18 +645,3 @@
       tags:
       - Pill
   - type: Dumpable
-  - type: RandomSprite # Aavikko
-    available:
-      - 0:
-          pill_canister_black: ""
-          pill_canister_blue: ""
-          pill_canister: ""
-          pill_canister_dred: ""
-          pill_canister_green: ""
-          pill_canister_lred: ""
-          pill_canister_orange: ""
-          pill_canister_pink: ""
-          pill_canister_rainbow: ""
-          pill_canister_red: ""
-          pill_canister_white: ""
-          pill_canister_yellow: ""

@@ -163,7 +163,7 @@ public sealed partial class PlantSystem : EntitySystem
     public bool TryGetTray(Entity<PlantComponent?> ent, out Entity<PlantTrayComponent> trayEnt)
     {
         trayEnt = default!;
-        if (!Resolve(ent.Owner, ref ent.Comp, false)) // Aavikko fix: don't log error when PlantComponent missing
+        if (!Resolve(ent.Owner, ref ent.Comp))
             return false;
 
         trayEnt.Owner = Transform(ent.Owner).ParentUid;

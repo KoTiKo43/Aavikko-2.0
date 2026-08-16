@@ -4,8 +4,8 @@ loadout-group-species-restriction = Этот предмет недоступен
 # Miscellaneous
 loadout-group-trinkets = Безделушки
 loadout-group-jobtrinkets = Безделушки должности
-loadout-group-glasses = Очки
 loadout-group-assistive-items = Вспомогательные предметы
+loadout-group-glasses = Очки
 loadout-group-backpack = Рюкзак
 loadout-group-instruments = Инструменты
 loadout-group-survival-basic = Аварийный запас
@@ -28,10 +28,6 @@ loadout-group-captain-jumpsuit = Капитан, комбинезон
 loadout-group-captain-neck = Капитан, шея
 loadout-group-captain-backpack = Капитан, рюкзак
 loadout-group-captain-outerclothing = Капитан, верхняя одежда
-loadout-group-captain-shoes = Капитан, обувь
-
-# Aavikko
-loadout-group-captain-gloves = Капитан, перчатки
 
 loadout-group-hop-head = Глава персонала, голова
 loadout-group-hop-jumpsuit = Глава персонала, комбинезон
@@ -59,8 +55,8 @@ loadout-group-chef-outerclothing = Шеф-повар, верхняя одежд�
 
 loadout-group-librarian-jumpsuit = Библиотекарь, комбинезон
 
-loadout-group-lawyer-jumpsuit = Юрист, комбинезон
-loadout-group-lawyer-neck = Юрист, шея
+loadout-group-lawyer-jumpsuit = Адвокат, комбинезон
+loadout-group-lawyer-neck = Адвокат, шея
 
 loadout-group-chaplain-head = Священник, голова
 loadout-group-chaplain-mask = Священник, маска

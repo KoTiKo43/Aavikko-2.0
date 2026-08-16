@@ -43,7 +43,6 @@
 - type: loadoutGroup
   id: SeniorEngineerHead
   name: loadout-group-senior-engineer-head
-  minLimit: 0
   loadouts:
   - SeniorEngineerBeret
 
@@ -80,13 +79,6 @@
   loadouts:
   - WorkBoots
   - EngineeringWinterBoots
-  - ClothfootwrapsWhite # Aavikko
-  - ClothfootwrapsBlack # Aavikko
-  - ClothfootwrapsBlue # Aavikko
-  - ClothfootwrapsBrown # Aavikko
-  - ClothfootwrapsRed # Aavikko
-  - ClothfootwrapsSilver # Aavikko
-  - ClothfootwrapsYellow # Aavikko
 
 # Science
 - type: loadoutGroup
@@ -125,13 +117,6 @@
   - WhiteShoes
   - BlackShoes
   - ScienceWinterBoots
-  - ClothfootwrapsWhite # Aavikko
-  - ClothfootwrapsBlack # Aavikko
-  - ClothfootwrapsBlue # Aavikko
-  - ClothfootwrapsBrown # Aavikko
-  - ClothfootwrapsRed # Aavikko
-  - ClothfootwrapsSilver # Aavikko
-  - ClothfootwrapsYellow # Aavikko
 
 - type: loadoutGroup
   id: SeniorResearcherGloves
@@ -218,13 +203,6 @@
   - BrigmedicJackSec
   - BrigmedicCombat
   - BrigmedicWinterSec
-  - ClothfootwrapsWhite # Aavikko
-  - ClothfootwrapsBlack # Aavikko
-  - ClothfootwrapsBlue # Aavikko
-  - ClothfootwrapsBrown # Aavikko
-  - ClothfootwrapsRed # Aavikko
-  - ClothfootwrapsSilver # Aavikko
-  - ClothfootwrapsYellow # Aavikko
 
 - type: loadoutGroup
   id: SeniorOfficerHead
@@ -272,13 +250,6 @@
   - JackSecBoots # Corvax
   - JackBoots
   - SecurityWinterBoots
-  - ClothfootwrapsWhite # Aavikko
-  - ClothfootwrapsBlack # Aavikko
-  - ClothfootwrapsBlue # Aavikko
-  - ClothfootwrapsBrown # Aavikko
-  - ClothfootwrapsRed # Aavikko
-  - ClothfootwrapsSilver # Aavikko
-  - ClothfootwrapsYellow # Aavikko
 
 # Medical
 - type: loadoutGroup
@@ -316,10 +287,3 @@
   loadouts:
   - WhiteShoes
   - MedicalWinterBoots
-  - ClothfootwrapsWhite # Aavikko
-  - ClothfootwrapsBlack # Aavikko
-  - ClothfootwrapsBlue # Aavikko
-  - ClothfootwrapsBrown # Aavikko
-  - ClothfootwrapsRed # Aavikko
-  - ClothfootwrapsSilver # Aavikko
-  - ClothfootwrapsYellow # Aavikko

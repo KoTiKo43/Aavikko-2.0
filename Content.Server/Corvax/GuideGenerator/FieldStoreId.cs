@@ -157,7 +157,6 @@ public static class FieldStoreId
             kind = EntityPrototypeSerializerKind.Single;
             return true;
         }
-
         if ((def == typeof(PrototypeIdListSerializer<>)
              || def == typeof(PrototypeIdHashSetSerializer<>)
              || def == typeof(AbstractPrototypeIdArraySerializer<>)) &&
@@ -166,15 +165,13 @@ public static class FieldStoreId
             kind = EntityPrototypeSerializerKind.Sequence;
             return true;
         }
-
-        if ((def == typeof(PrototypeIdDictionarySerializer<,>) ) &&
+        if (def == typeof(PrototypeIdDictionarySerializer<,>) &&
             args[1] == typeof(EntityPrototype))
         {
             kind = EntityPrototypeSerializerKind.DictionaryKey;
             return true;
         }
-
-        if ((def == typeof(PrototypeIdValueDictionarySerializer<,>) ) &&
+        if (def == typeof(PrototypeIdValueDictionarySerializer<,>) &&
             args[1] == typeof(EntityPrototype))
         {
             kind = EntityPrototypeSerializerKind.DictionaryValue;

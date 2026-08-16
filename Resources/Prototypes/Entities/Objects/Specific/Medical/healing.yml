@@ -20,14 +20,11 @@
   id: Ointment
   suffix: Full
   components:
-  - type: Appearance
   - type: Tag
     tags:
     - Ointment
   - type: Sprite
-    layers:
-    - state: ointment
-      map: ["base"]
+    state: ointment
   - type: Item
     heldPrefix: ointment
     storedSprite:
@@ -54,11 +51,6 @@
         variation: 0.125
   - type: Stack
     stackType: Ointment
-    baseLayer: base
-    layerStates:
-    - ointment_2
-    - ointment_1
-    - ointment
     count: 10
   - type: StackPrice
     price: 5
@@ -79,14 +71,11 @@
   id: RegenerativeMesh
   suffix: Full
   components:
-  - type: Appearance
   - type: Tag
     tags:
     - Ointment
   - type: Sprite
-    layers:
-    - state: regenerative-mesh
-      map: ["base"]
+    state: regenerative-mesh
   - type: Item
     heldPrefix: regenerative-mesh
   - type: Healing
@@ -110,11 +99,6 @@
         variation: 0.125
   - type: Stack
     stackType: RegenerativeMesh
-    baseLayer: base
-    layerStates:
-    - regenerative-mesh_2
-    - regenerative-mesh_1
-    - regenerative-mesh
     count: 10
   - type: StackPrice
     price: 20
@@ -135,14 +119,11 @@
   id: Brutepack
   suffix: Full
   components:
-  - type: Appearance
   - type: Tag
     tags:
     - Brutepack
   - type: Sprite
-    layers:
-    - state: brutepack
-      map: ["base"]
+    state: brutepack
   - type: Item
     heldPrefix: brutepack
   - type: Healing
@@ -165,11 +146,6 @@
         variation: 0.125
   - type: Stack
     stackType: Brutepack
-    baseLayer: base
-    layerStates:
-    - brutepack_2
-    - brutepack_1
-    - brutepack
     count: 10
   - type: StackPrice
     price: 5
@@ -190,14 +166,11 @@
   id: MedicatedSuture
   suffix: Full
   components:
-  - type: Appearance
   - type: Tag
     tags:
     - Brutepack
   - type: Sprite
-    layers:
-    - state: medicated-suture
-      map: ["base"]
+    state: medicated-suture
   - type: Item
     heldPrefix: medicated-suture
     storedRotation: -90
@@ -222,12 +195,6 @@
         variation: 0.125
   - type: Stack
     stackType: MedicatedSuture
-    baseLayer: base
-    layerStates:
-    - medicated-suture_3
-    - medicated-suture_2
-    - medicated-suture_1
-    - medicated-suture
     count: 10
   - type: StackPrice
     price: 20
@@ -374,12 +341,9 @@
 - type: entity
   name: aloe cream
   description: A topical cream for burns.
-  parent: BaseHealingItem ##Yes it's a direct reskin # Nuuuh
+  parent: Ointment ##Yes it's a direct reskin
   id: AloeCream
   components:
-  - type: Tag
-    tags:
-    - Ointment
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/aloe.rsi
     state: cream
@@ -392,27 +356,6 @@
     storedSprite:
       state: cream
       sprite: Objects/Specific/Hydroponics/aloe.rsi
-  - type: Healing
-    damageContainers:
-      - Biological
-    damage:
-      types:
-        Heat: -5
-        Cold: -5
-        Shock: -5
-        Caustic: -1.5
-    healingBeginSound:
-      path: "/Audio/Items/Medical/ointment_begin.ogg"
-      params:
-        volume: 1.0
-        variation: 0.125
-    healingEndSound:
-      path: "/Audio/Items/Medical/ointment_end.ogg"
-      params:
-        volume: 1.0
-        variation: 0.125
-  - type: StackPrice
-    price: 5
 
 - type: entity
   parent: BaseHealingItem

@@ -15,18 +15,18 @@
     enum.HumanoidVisualLayers.HeadTop:
       limit: 1
       required: true
-      default: [ VulpEar ] # Aavikko fix: FoxEar prototype does not exist
+      default: [ FoxEar ] # Corvax-Vulp_Port VulpEar
     enum.HumanoidVisualLayers.Snout:
       limit: 1
       required: true
-      default: [ VulpSnout ] # Aavikko
+      default: [ FoxSnout ] # Corvax-Vulp_Port VulpSnout
     enum.HumanoidVisualLayers.SnoutCover:
       limit: 3
       required: false
     enum.HumanoidVisualLayers.Tail:
       limit: 1
       required: true
-      default: [ VulpTailVulp ] # Aavikko fix: FoxTail prototype does not exist
+      default: [ FoxTail ] # Corvax-Vulp_Port VulpTailVulp
     enum.HumanoidVisualLayers.LArm:
       limit: 2
       required: false
@@ -193,7 +193,7 @@
   - type: Vocal
     emoteSounds: MaleVulpkanin
   - type: Damageable
-    damageModifierSet: AavikkoVulpkanin # Aavikko
+    damageModifierSet: Vulpkanin
   - type: MeleeWeapon
     soundHit:
       path: /Audio/Weapons/pierce.ogg
@@ -242,11 +242,6 @@
       types:
         Asphyxiation: -2.0
   # Corvax-Vulp_Port end
-  - type: TemperatureSpeed # Aavikko tweak
-    thresholds:
-      263: 0.8
-      230: 0.6
-      200: 0.4
 
 - type: entity
   parent: OrganBaseOrganic

@@ -11,11 +11,6 @@
     maxItemSize: Small
     grid:
     - 0,0,3,1
-    # Aavikko sound replace start
-    storageOpenSound: /Audio/Aavikko/Items/Medical/Medkit/medkit_open.ogg
-    storageInsertSound: /Audio/Aavikko/Items/Medical/Medkit/medkit_rustle.ogg
-    storageRemoveSound: /Audio/Aavikko/Items/Medical/Medkit/medkit_rustle.ogg
-    # Aavikko sound replace end
   - type: Item
     size: Large
     sprite: Objects/Specific/Medical/firstaidkits.rsi
@@ -26,18 +21,6 @@
   - type: Tag
     tags:
     - Medkit
-  # Aavikko sound replace start
-  - type: EmitSoundOnActivate
-    sound:
-      path: /Audio/Aavikko/Items/Medical/Medkit/medkit_open.ogg
-      params:
-        volume: -2
-  - type: EmitSoundOnLand
-    sound:
-      path: /Audio/Aavikko/Items/Medical/Medkit/medkit_drop.ogg
-      params:
-        volume: -2
-  # Aavikko sound replace end
 
 - type: entity
   name: burn treatment kit

@@ -77,6 +77,3 @@ humanoid-profile-editor-voice-masculine = Мужественный
 humanoid-profile-editor-voice-feminine = Женственный
 humanoid-profile-editor-voice-neutral = Нейтральный
 humanoid-profile-editor-voice-none = Безымянный голос
-
-# Aavikko: bark voice randomize lock
-humanoid-profile-editor-randomize-bark-button = Барк

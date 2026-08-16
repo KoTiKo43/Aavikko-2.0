@@ -21,8 +21,6 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Shared.GameTicking; // Aavikko
-using Robust.Shared.GameObjects; // Aavikko
 
 namespace Content.Server.Administration.Managers;
 
@@ -40,7 +38,6 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
     [Dependency] private IEntitySystemManager _systems = default!;
     [Dependency] private ITaskManager _taskManager = default!;
     [Dependency] private UserDbDataManager _userDbData = default!;
-    [Dependency] private IEntityManager _entityManager = default!; // Aavikko
 
     private ISawmill _sawmill = default!;
 
@@ -171,14 +168,6 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
         _sawmill.Info(logMessage);
         _chat.SendAdminAlert(logMessage);
 
-        // Aavikko start
-        foreach (var (userId, userName) in banInfo.Users)
-        {
-            _entityManager.EventBus.RaiseEvent(EventSource.Local,
-                new BanEvent(userName, expires, banInfo.Reason, banDef.Severity, adminName));
-        }
-        // Aavikko end
-
         KickMatchingConnectedPlayers(banDef, "newly placed ban");
     }
 
@@ -246,12 +235,6 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
 
         var (banDef, expires) = await CreateBanDef(banInfo, BanType.Role, roleDefs);
 
-        // Aavikko start
-        var adminName = banInfo.BanningAdmin == null
-            ? Loc.GetString("system-user")
-            : (await _db.GetPlayerRecordByUserId(banInfo.BanningAdmin.Value))?.LastSeenUserName ?? Loc.GetString("system-user");
-        // Aavikko end
-
         await AddRoleBan(banDef);
 
         var length = expires == null
@@ -274,31 +257,6 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
             if (_playerManager.TryGetSessionById(userId, out var session))
                 SendRoleBans(session);
         }
-
-        // Aavikko start
-        foreach (var (userId, userName) in banInfo.Users)
-        {
-            var roleNames = new List<string>();
-
-            foreach (var jobProto in banInfo.JobPrototypes)
-            {
-                if (_prototypeManager.TryIndex(jobProto, out var job))
-                    roleNames.Add(job.LocalizedName);
-            }
-
-            foreach (var antagProto in banInfo.AntagPrototypes)
-            {
-                if (_prototypeManager.TryIndex(antagProto, out var antag))
-                    roleNames.Add(antag.Name);
-            }
-
-            if (roleNames.Count > 0)
-            {
-                _entityManager.EventBus.RaiseEvent(EventSource.Local,
-                    new RoleBanEvent(userName, roleNames, expires, banInfo.Reason, banDef.Severity, adminName));
-            }
-        }
-        // Aavikko end
     }
 
     private async Task<(BanDef Ban, DateTimeOffset? Expires)> CreateBanDef(

@@ -8,15 +8,7 @@
   },
   "states": [
   {
-      "name": "pda-magistrate",
-      "delays": [
-      [
-        0.4,
-        0.4,
-        0.4,
-        0.4
-      ]
-    ]
+      "name": "pda-magistrate"
   },
 	{
       "name": "id_overlay"
@@ -28,15 +20,7 @@
       "name": "light_overlay"
   },
 	{
-      "name": "pda",
-      "delays": [
-      [
-        0.4,
-        0.4,
-        0.4,
-        0.4
-      ]
-    ]
+      "name": "pda"
   }
   ]
 }

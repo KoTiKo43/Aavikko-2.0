@@ -11,7 +11,6 @@ using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences.Loadouts;
 using Content.Shared.Roles;
 using Content.Shared.Speech.Components;
-using Content.Shared.Speech;
 using Content.Shared.Traits;
 using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
@@ -38,7 +37,6 @@ namespace Content.Shared.Preferences
     {
         public static readonly ProtoId<SpeciesPrototype> DefaultSpecies = "Human";
         public static readonly ProtoId<EmoteSoundsPrototype> DefaultVoice = "MaleHuman";
-        public static readonly ProtoId<SpeechSoundsPrototype> DefaultBarkVoice = "Bark_human_1"; // Aavikko: default bark voice
         private static readonly Regex RestrictedNameRegex = new("[^А-Яа-яёЁ0-9' -]"); // Corvax-Localization
         private static readonly Regex ICNameCaseRegex = new(@"^(?<word>\w)|\b(?<word>\w)(?=\w*$)");
 
@@ -99,14 +97,6 @@ namespace Content.Shared.Preferences
 
         [DataField]
         public ProtoId<EmoteSoundsPrototype> Voice { get; set; } = DefaultVoice;
-
-        [DataField] // Aavikko: serialized bark voice selection
-        // Aavikko: Bark voice (speech sounds for say/ask/exclaim)
-        public ProtoId<SpeechSoundsPrototype> BarkVoice { get; set; } = DefaultBarkVoice; // Aavikko: bark voice (always set)
-
-        // Aavikko: Manual pitch offset for bark voice [-0.2, +0.2]
-        [DataField]
-        public float BarkPitch { get; set; } = 0f;
 
         [DataField]
         public Gender Gender { get; private set; } = Gender.Male;
@@ -211,8 +201,6 @@ namespace Content.Shared.Preferences
                 new HashSet<ProtoId<TraitPrototype>>(other.TraitPreferences),
                 new Dictionary<string, RoleLoadout>(other.Loadouts))
         {
-            BarkVoice = other.BarkVoice; // Aavikko: preserve bark voice in copy constructor
-            BarkPitch = other.BarkPitch; // Aavikko: preserve pitch
         }
 
         /// <summary>
@@ -260,7 +248,6 @@ namespace Content.Shared.Preferences
             Eyes = 1 << 5,
             Skin = 1 << 6,
             Markings = 1 << 7,
-            BarkVoice = 1 << 8, // Aavikko
         }
 
         /// <summary>
@@ -274,8 +261,7 @@ namespace Content.Shared.Preferences
             | RandomizeCfg.Gender
             | RandomizeCfg.Eyes
             | RandomizeCfg.Skin
-            | RandomizeCfg.Markings
-            | RandomizeCfg.BarkVoice; // Aavikko
+            | RandomizeCfg.Markings;
 
         /// <summary>
         /// Picks a random species from roundstart species.
@@ -336,24 +322,6 @@ namespace Content.Shared.Preferences
             ).ID;
             return voiceId;
         }
-
-        // Aavikko: Picks a random bark voice from all Bark_* prototypes.
-        private static ProtoId<SpeechSoundsPrototype> RandomBarkVoice()
-        {
-            var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
-            var random = IoCManager.Resolve<IRobustRandom>();
-
-            var pool = prototypeManager.EnumeratePrototypes<SpeechSoundsPrototype>()
-                .Where(p => p.ID.StartsWith("Bark_"))
-                .Select(p => (ProtoId<SpeechSoundsPrototype>) p.ID)
-                .ToArray();
-
-            if (pool.Length == 0)
-                return DefaultBarkVoice;
-
-            return random.Pick(pool);
-        }
-
         // Corvax-TTS-End
 
         /// <summary>
@@ -422,8 +390,6 @@ namespace Content.Shared.Preferences
             profile.Name = (randomizeCfg & RandomizeCfg.Name) != 0 ? RandomName(speciesProto, profile.Gender) : baseProfile.Name;
             profile.Age = (randomizeCfg & RandomizeCfg.Age) != 0 ? RandomAge(speciesProto) : baseProfile.Age;
             profile.TTSVoice = (randomizeCfg & RandomizeCfg.Age) != 0 ? RandomTTS(profile.Voice) : baseProfile.TTSVoice; // Corvax-TTS
-            profile.BarkVoice = (randomizeCfg & RandomizeCfg.BarkVoice) != 0 ? RandomBarkVoice() : baseProfile.BarkVoice; // Aavikko
-            // Aavikko: pitch offset is part of bark voice randomization
 
             profile.Appearance = HumanoidCharacterAppearance.Random(speciesProto, profile.Sex, randomizeCfg, baseProfile.Appearance);
 
@@ -469,19 +435,6 @@ namespace Content.Shared.Preferences
         {
             return new(this) { Voice = voice };
         }
-
-        // Aavikko: Bark voice selection
-        public HumanoidCharacterProfile WithBarkVoice(ProtoId<SpeechSoundsPrototype> barkVoice)
-        {
-            return new(this) { BarkVoice = barkVoice };
-        }
-
-        // Aavikko: Set bark pitch offset (clamped to [-0.2, +0.2])
-        public HumanoidCharacterProfile WithBarkPitch(float pitch)
-        {
-            return new(this) { BarkPitch = Math.Clamp(pitch, -0.5f, 0.5f) };
-        }
-
 
         public HumanoidCharacterProfile WithGender(Gender gender)
         {
@@ -702,8 +655,6 @@ namespace Content.Shared.Preferences
             if (!Loadouts.SequenceEqual(other.Loadouts)) return false;
             if (FlavorText != other.FlavorText) return false;
             if (TTSVoice != other.TTSVoice) return false; // Corvax-TTS
-            if (BarkVoice != other.BarkVoice) return false; // Aavikko
-            if (Math.Abs(BarkPitch - other.BarkPitch) > 0.001f) return false; // Aavikko
             return Appearance.Equals(other.Appearance);
         }
 
@@ -737,12 +688,6 @@ namespace Content.Shared.Preferences
             var voice = Voice;
             if (!speciesPrototype.Voices.Contains(voice))
                 voice = speciesPrototype.DefaultSoundsBySex[(int)sex];
-
-            // Aavikko: validate bark voice
-            var barkVoice = BarkVoice;
-            if (!prototypeManager.HasIndex<SpeechSoundsPrototype>(barkVoice))
-                barkVoice = DefaultBarkVoice; // Aavikko: always fall back to default bark
-            BarkPitch = Math.Clamp(BarkPitch, -0.5f, 0.5f); // Aavikko: clamp pitch
 
             // ensure the species can be that sex and their age fits the founds
             if (!speciesPrototype.Sexes.Contains(sex))
@@ -854,7 +799,6 @@ namespace Content.Shared.Preferences
             Age = age;
             Sex = sex;
             Voice = voice;
-            BarkVoice = barkVoice;
             Gender = gender;
             Appearance = appearance;
             SpawnPriority = spawnPriority;

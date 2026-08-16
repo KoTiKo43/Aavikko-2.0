@@ -3,13 +3,11 @@ using Content.Server.Humanoid;
 using Content.Server.Mind;
 using Content.Server.PDA;
 using Content.Server.Station.Components;
-using Content.Shared.Aavikko.Speech; // Aavikko: BarkVoiceComponent
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Body;
 using Content.Shared.CCVar;
 using Content.Shared.Clothing;
-using Content.Shared.Speech;
 using Content.Shared.DetailExaminable;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
@@ -143,18 +141,6 @@ public sealed partial class StationSpawningSystem : SharedStationSpawningSystem
             if (profile.FlavorText != "" && _configurationManager.GetCVar(CCVars.FlavorText))
             {
                 AddComp<DetailExaminableComponent>(entity.Value).Content = profile.FlavorText;
-            }
-
-            // Aavikko: Apply bark voice from profile
-            // Aavikko: Apply bark voice from profile (always set)
-            if (TryComp<SpeechComponent>(entity.Value, out var speech))
-            {
-                speech.SpeechSounds = profile.BarkVoice;
-                Dirty(entity.Value, speech); // Aavikko: replicate to clients
-
-                // Aavikko: Also set BarkVoiceComponent with pitch offset
-                var bark = EnsureComp<BarkVoiceComponent>(entity.Value);
-                bark.PitchOffset = profile.BarkPitch;
             }
         }
 

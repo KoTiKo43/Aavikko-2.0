@@ -1,4 +1,3 @@
-// Aavikko fix: Box2 -> Thickness migration for v286/v288 serialization API
 using System.Numerics;
 using Robust.Shared.Utility;
 

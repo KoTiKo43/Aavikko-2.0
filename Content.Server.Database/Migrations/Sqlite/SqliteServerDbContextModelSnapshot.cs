@@ -1047,15 +1047,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("age");
 
-                    b.Property<float>("BarkPitch")
-                        .HasColumnType("REAL")
-                        .HasColumnName("bark_pitch");
-
-                    b.Property<string>("BarkVoice")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("bark_voice");
-
                     b.Property<string>("CharacterName")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -1134,6 +1125,11 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("species");
+
+                    b.Property<string>("TTSVoice")  // Corvax-TTS
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("ttsvoice");
 
                     b.Property<string>("Voice")
                         .HasColumnType("TEXT")

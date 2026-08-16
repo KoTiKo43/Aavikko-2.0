@@ -17,6 +17,7 @@
 - type: startingGear
   id: SeniorResearcherGear
   equipment:
+    shoes: ClothingShoesColorBlack
     id: SeniorResearcherPDA
     ears: ClothingHeadsetScience
 

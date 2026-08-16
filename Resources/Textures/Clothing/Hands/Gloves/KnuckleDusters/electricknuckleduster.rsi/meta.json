@@ -32,10 +32,6 @@
             "directions": 4
         },
         {
-            "name": "off-equipped-HAND-orc",
-            "directions": 4
-        },
-        {
             "name": "off-inhand-left",
             "directions": 4
         },
@@ -45,36 +41,6 @@
         },
         {
             "name": "on-equipped-HAND",
-            "directions": 4,
-            "delays": [
-                [
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1
-                ],
-                [
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1
-                ],
-                [
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1
-                ],
-                [
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1
-                ]
-            ]
-        },
-        {
-            "name": "on-equipped-HAND-orc",
             "directions": 4,
             "delays": [
                 [

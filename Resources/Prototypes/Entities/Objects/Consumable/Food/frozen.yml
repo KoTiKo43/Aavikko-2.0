@@ -13,9 +13,6 @@
       reagents:
       - ReagentId: Nutriment
         Quantity: 10
-  - type: Tag
-    tags:
-      - ReptilianFood
 
 # Ice-cream
 

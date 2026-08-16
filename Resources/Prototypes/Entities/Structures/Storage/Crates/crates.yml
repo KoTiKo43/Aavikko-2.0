@@ -16,13 +16,6 @@
     group: CrateSteel
   - type: RadiationBlockingContainer
     resistance: 2.5
-  # Aavikko-crate-sounds-start
-  - type: EntityStorage
-    closeSound:
-      path: /Audio/Aavikko/Machines/crate_close.ogg
-    openSound:
-      path: /Audio/Aavikko/Machines/crate_open.ogg
-  # Aavikko-crate-sounds-end
 
 - type: entity
   parent: CrateBaseWeldable
@@ -42,13 +35,6 @@
     price: 100
   - type: Paintable
     group: CratePlastic
-  # Aavikko-crate-sounds-start
-  - type: EntityStorage
-    closeSound:
-      path: /Audio/Aavikko/Machines/crate_close.ogg
-    openSound:
-      path: /Audio/Aavikko/Machines/crate_open.ogg
-  # Aavikko-crate-sounds-end
 
 - type: entity
   parent: CratePlastic

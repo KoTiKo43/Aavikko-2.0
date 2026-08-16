@@ -113,10 +113,7 @@
       path: /Audio/Corvax/Announcements/flux.ogg # Corvax-Announcements
       params:
         volume: -4
-    weight: 4 # 8 -> 4 Aavikko tweak
-    reoccurrenceDelay: 60 # Aavikko tweak
-    maxOccurrences: 2 # Aavikko tweak
-    minimumPlayers: 10 # Aavikko tweak
+    weight: 8
     duration: 35
   - type: AnomalySpawnRule
 
@@ -134,10 +131,8 @@
       path: /Audio/Corvax/Announcements/blusp_anomalies.ogg # Corvax-Announcements
       params:
         volume: -4
-    weight: 6 # 8 -> 6 Aavikko tweak
+    weight: 8
     duration: 35
-    reoccurrenceDelay: 40 # Aavikko tweak
-    maxOccurrences: 3 # Aavikko tweak
   - type: BluespaceArtifactRule
 
 - type: entity
@@ -334,9 +329,7 @@
       params:
         volume: -4
     endAnnouncement: station-event-gas-leak-end-announcement
-    weight: 4 # 8 -> 4 Aavikko tweak
-    reoccurrenceDelay: 60 # Aavikko tweak
-    maxOccurrences: 2 # Aavikko tweak
+    weight: 8
     endAudio:
       path: /Audio/Announcements/gasleak_end.ogg # Corvax-Announcements
       params:
@@ -359,9 +352,7 @@
   parent: BaseStationEventShortDelay
   components:
   - type: StationEvent
-    weight: 2 # 5 -> 2 Aavikko tweak
-    reoccurrenceDelay: 50 # Aavikko tweak
-    maxOccurrences: 2 # Aavikko tweak
+    weight: 5
     startAnnouncement: station-event-power-grid-check-start-announcement
     endAnnouncement: station-event-power-grid-check-end-announcement
     startAudio:
@@ -377,9 +368,7 @@
   id: SolarFlare
   components:
   - type: StationEvent
-    weight: 4 # 8 -> 4 Aavikko tweak
-    reoccurrenceDelay: 60 # Aavikko tweak
-    maxOccurrences: 2 # Aavikko tweak
+    weight: 8
     startAnnouncement: station-event-solar-flare-start-announcement
     endAnnouncement: station-event-solar-flare-end-announcement
     startAudio: # Corvax-Announcements
@@ -579,10 +568,10 @@
     reoccurrenceDelay: 30
   - type: MassHallucinationsRule
     minTimeBetweenIncidents: 0.1
-    maxTimeBetweenIncidents: 100
+    maxTimeBetweenIncidents: 300
     maxSoundDistance: 7
     sounds:
-      collection: AavikkoNewHallucinations
+      collection: Paracusia
 
 - type: entity
   parent: BaseGameRule

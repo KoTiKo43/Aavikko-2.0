@@ -7,15 +7,11 @@
     layers:
     - state: silver
     - state: stripe_top
-      color: &color-command-top "#404783" # aavikko icons resprite
+      color: "#1b67a5"
     - state: stripe_bottom
-      color: &color-command-bottom "#332f58" # aavikko icons resprite
-    - state: job_icon_top
-      color: *color-command-top # aavikko icons resprite
-    - state: job_icon_bottom
-      color: *color-command-bottom # aavikko icons resprite
+      color: "#0e4069"
     - sprite: &icon-rsi Corvax/Interface/Misc/job_icons.rsi
-      offset: &icon-offset -0.1875, 0 # 6 pixels left aavikko icons resprite #-0.09375, 0.0625 #3 pixels left, 2 pixels up
+      offset: &icon-offset -0.09375, 0.0625
       state: IAA
   - type: PresetIdCard
     job: IAA
@@ -29,13 +25,9 @@
     layers:
     - state: default
     - state: stripe_top
-      color: &color-security-top "#88242d" # aavikko icons resprite
+      color: &color-security-top "#cb0000"
     - state: stripe_bottom
-      color: &color-security-bottom "#501726" # aavikko icons resprite
-    - state: job_icon_top
-      color: *color-security-top # aavikko icons resprite
-    - state: job_icon_bottom
-      color: *color-security-bottom # aavikko icons resprite
+      color: &color-security-bottom "#830000"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Pilot
@@ -51,13 +43,9 @@
     layers:
     - state: centcom
     - state: stripe_top
-      color: *color-command-top # aavikko icons resprite
+      color: "#1b67a5"
     - state: stripe_bottom
-      color: *color-command-bottom # aavikko icons resprite
-    - state: job_icon_top
-      color: *color-command-top # aavikko icons resprite
-    - state: job_icon_bottom
-      color: *color-command-bottom # aavikko icons resprite
+      color: "#0e4069"
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Magistrate

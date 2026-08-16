@@ -124,8 +124,6 @@ namespace Content.Shared.Administration
         /// </summary>
         NameColor = 1 << 21,
 
-        AddRolePlayTime = 1 << 22, // Aavikko
-
         // Corvax-DiscordRoles
         /// <summary>
         ///     Allows you to edit players playtime.

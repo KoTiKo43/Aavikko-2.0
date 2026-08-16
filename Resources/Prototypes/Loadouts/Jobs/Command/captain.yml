@@ -8,32 +8,6 @@
       role: JobCaptain
       time: 20h
 
-# For Aavikko white captain
-- type: loadoutEffectGroup
-  id: WhiteCap
-  effects:
-  - !type:JobRequirementLoadoutEffect
-    requirement:
-      !type:RoleTimeRequirement
-      role: JobCaptain
-      time: 120h
-
-# Aavikko start
-# Gloves
-- type: loadout
-  id: CaptainGloves
-  equipment:
-    gloves: ClothingHandsGlovesCaptain
-
-- type: loadout
-  id: CaptainGlovesWhite
-  equipment:
-    gloves: ClothingHandsGlovesWhiteCaptain
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: WhiteCap
-# Aavikko end
-
 # Jumpsuit
 - type: loadout
   id: CaptainJumpsuit
@@ -55,34 +29,6 @@
   equipment:
     jumpsuit: ClothingUniformJumpskirtCapFormalDress
 
-# Aavikko start
-- type: loadout
-  id: CaptainJumpsuitWhite
-  equipment:
-    jumpsuit: ClothingUniformJumpsuitWhiteCaptain
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: WhiteCap
-
-- type: startingGear
-  id: CaptainJumpsuitWhite
-  equipment:
-    jumpsuit: ClothingUniformJumpsuitWhiteCaptain
-
-- type: loadout
-  id: CaptainJumpskirtWhite
-  equipment:
-    jumpsuit: ClothingUniformJumpskirtWhiteCaptain
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: WhiteCap
-
-- type: startingGear
-  id: CaptainJumpskirtWhite
-  equipment:
-    jumpsuit: ClothingUniformJumpskirtWhiteCaptain
-# Aavikko end
-
 # Head
 - type: loadout
   id: CaptainHead
@@ -93,16 +39,6 @@
   id: CaptainCap
   equipment:
     head: ClothingHeadHatCapcap
-
-# Aavikko start
-- type: loadout
-  id: CaptainCapWhite
-  equipment:
-    head: ClothingHeadHatCapcapWhite
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: WhiteCap
-# Aavikko end
 
 # Neck
 - type: loadout
@@ -127,21 +63,6 @@
   id: CaptainMantle
   equipment:
     neck: ClothingNeckMantleCap
-
-# Aavikko start
-- type: loadout
-  id: CaptainCloakWhite
-  equipment:
-    neck: ClothingNeckCloakCapWhite
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: WhiteCap
-
-- type: startingGear
-  id: CaptainCloakWhite
-  equipment:
-    neck: ClothingNeckCloakCapWhite
-# Aavikko end
 
 # Back
 - type: loadout

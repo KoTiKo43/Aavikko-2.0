@@ -44,13 +44,7 @@
         - MachineMask
         layer:
         - MachineLayer
-  # Aavikko-closet-sounds-start
   - type: EntityStorage
-    closeSound:
-      path: /Audio/Aavikko/Machines/closet_close.ogg
-    openSound:
-      path: /Audio/Aavikko/Machines/closet_open.ogg
-  # Aavikko-closet-sounds-end
   - type: ContainerContainer
     containers:
       entity_storage: !type:Container
