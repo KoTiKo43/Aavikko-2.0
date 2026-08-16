@@ -4,7 +4,7 @@ Apply.py — apply Aavikko mod overlay to upstream SS14 build.
 
 Pipeline:
   0. Check for unresolved conflicts (Check.py --apply-check)
-  1. Delete upstream files (manifest delete/stale + Deletes/ manual)
+  1. Delete upstream files (manifest delete + Deletes/ manual)
   2. Copy Patches/ → Resources/ (overwrite upstream)
   3. Copy Mods/ → Resources/ (add new content)
   4. Apply .cs.patch + .xaml.patch via git apply
@@ -659,12 +659,11 @@ def main():
         else:
             print("\n--- [0/6] Check for unresolved conflicts (--force, skipped) ---")
 
-        # 1. Delete conflicts + stale + manual deletions
-        print("\n--- [1/6] Delete conflicting + stale + manual deletions ---")
+        # 1. Delete conflicts + manual deletions (stale removal disabled — too annoying)
+        print("\n--- [1/6] Delete conflicting + manual deletions ---")
         deleted = delete_conflicts()
-        stale = delete_stale()
         manual = delete_manual()
-        print(f"  Total: {len(deleted)} conflicts, {len(stale)} stale, {len(manual)} manual")
+        print(f"  Total: {len(deleted)} conflicts, {len(manual)} manual")
 
         # 2. Copy Patches/ → Resources/
         print("\n--- [2/6] Copy Patches/ → Resources/ ---")
@@ -740,7 +739,7 @@ def main():
             "applied_at": datetime.now(timezone.utc).isoformat(),
             "head_commit": head_commit,
             "deleted": deleted,
-            "stale_removed": stale,
+            "stale_removed": [],
             "manual_deleted": manual,
             "patches_copied": patches_count,
             "mods_copied": mods_count,
@@ -776,14 +775,14 @@ def main():
         print(f"\n{'=' * 70}")
         if failed_patches:
             print(f"Apply complete with {len(failed_patches)} failure(s)")
-            print(f"  {len(deleted)} deleted, {len(stale)} stale, {len(manual)} manual, "
+            print(f"  {len(deleted)} deleted, {len(manual)} manual, "
                   f"{patches_count} res-patches, {mods_count} res-mods, "
                   f"{len(applied_patches)}/{len(all_patches)} cs+xaml patches, "
                   f"{len(applied_robust)}/{len(robust_patches)} robust patches, "
                   f"{robust_mods_count} robust mods")
             print(f"  WARNING: {len(failed_patches)} patch(es) failed — see above")
             sys.exit(1)
-        print(f"Done! {len(deleted)} deleted, {len(stale)} stale, {len(manual)} manual, "
+        print(f"Done! {len(deleted)} deleted, {len(manual)} manual, "
               f"{patches_count} res-patches, {mods_count} res-mods, "
               f"{len(applied_patches)}/{len(all_patches)} cs+xaml patches, "
               f"{len(applied_robust)}/{len(robust_patches)} robust patches, "
