@@ -1,0 +1,45 @@
+diff --git a/Content.Server/Station/Systems/StationSpawningSystem.cs b/Content.Server/Station/Systems/StationSpawningSystem.cs
+index 2e04d6d142..e392249d61 100644
+--- a/Content.Server/Station/Systems/StationSpawningSystem.cs
++++ b/Content.Server/Station/Systems/StationSpawningSystem.cs
+@@ -3,11 +3,13 @@
+ using Content.Server.Mind;
+ using Content.Server.PDA;
+ using Content.Server.Station.Components;
++using Content.Shared.Aavikko.Speech; // Aavikko: BarkVoiceComponent
+ using Content.Shared.Access.Components;
+ using Content.Shared.Access.Systems;
+ using Content.Shared.Body;
+ using Content.Shared.CCVar;
+ using Content.Shared.Clothing;
++using Content.Shared.Speech;
+ using Content.Shared.DetailExaminable;
+ using Content.Shared.Humanoid;
+ using Content.Shared.Humanoid.Prototypes;
+@@ -142,6 +144,18 @@ public EntityUid SpawnPlayerMob(
+             {
+                 AddComp<DetailExaminableComponent>(entity.Value).Content = profile.FlavorText;
+             }
++
++            // Aavikko: Apply bark voice from profile
++            // Aavikko: Apply bark voice from profile (always set)
++            if (TryComp<SpeechComponent>(entity.Value, out var speech))
++            {
++                speech.SpeechSounds = profile.BarkVoice;
++                Dirty(entity.Value, speech); // Aavikko: replicate to clients
++
++                // Aavikko: Also set BarkVoiceComponent with pitch offset
++                var bark = EnsureComp<BarkVoiceComponent>(entity.Value);
++                bark.PitchOffset = profile.BarkPitch;
++            }
+         }
+ 
+         if (loadout != null)
+@@ -253,4 +267,4 @@ public PlayerSpawningEvent(ProtoId<JobPrototype>? job, HumanoidCharacterProfile?
+         HumanoidCharacterProfile = humanoidCharacterProfile;
+         Station = station;
+     }
+-}
++}
+\ No newline at end of file
+

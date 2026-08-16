@@ -1,0 +1,51 @@
+{
+    "version": 1,
+    "copyright": "by s6766, DS:712697131512889465",
+    "license": "CLA with hosting restrictions",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "dread",
+            "directions": 4
+        },
+        {
+            "name": "father",
+            "directions": 4
+        },
+        {
+            "name": "meganefor",
+            "directions": 4
+        },
+        {
+            "name": "mohawk",
+            "directions": 4
+        },
+        {
+            "name": "nefor",
+            "directions": 4
+        },
+        {
+            "name": "polnoref",
+            "directions": 4
+        },
+        {
+            "name": "ronin",
+            "directions": 4
+        },
+        {
+            "name": "vicing",
+            "directions": 4
+        },
+        {
+            "name": "vip",
+            "directions": 4
+        },
+        {
+            "name": "wisdom",
+            "directions": 4
+        }
+    ]
+}

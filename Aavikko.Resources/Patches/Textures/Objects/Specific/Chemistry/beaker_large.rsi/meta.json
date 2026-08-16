@@ -1,0 +1,84 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Copyright by https://github.com/sojourn-13/sojourn-station",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "beakerlarge"
+        },
+        {
+            "name": "lid_beakerlarge"
+        },
+        {
+            "name": "inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "inhand-left-fill-1",
+            "directions": 4
+        },
+        {
+            "name": "inhand-left-fill-2",
+            "directions": 4
+        },
+        {
+            "name": "inhand-left-fill-3",
+            "directions": 4
+        },
+        {
+            "name": "inhand-left-fill-4",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right-fill-1",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right-fill-2",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right-fill-3",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right-fill-4",
+            "directions": 4
+        },
+        {
+            "name": "beakerlarge1"
+        },
+        {
+            "name": "beakerlarge2"
+        },
+        {
+            "name": "beakerlarge3"
+        },
+        {
+            "name": "beakerlarge4"
+        },
+        {
+            "name": "beakerlarge5"
+        },
+        {
+            "name": "beakerlarge6"
+        },
+        {
+            "name": "beakerlarge7"
+        },
+        {
+            "name": "beakerlarge8"
+        },
+        {
+            "name": "beakerlarge9"
+        }
+    ]
+}

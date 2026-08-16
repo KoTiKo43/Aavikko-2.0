@@ -1,0 +1,33 @@
+diff --git a/Content.Server.Database/Migrations/Sqlite/SqliteServerDbContextModelSnapshot.cs b/Content.Server.Database/Migrations/Sqlite/SqliteServerDbContextModelSnapshot.cs
+index 8b523fb4d6..102137af13 100644
+--- a/Content.Server.Database/Migrations/Sqlite/SqliteServerDbContextModelSnapshot.cs
++++ b/Content.Server.Database/Migrations/Sqlite/SqliteServerDbContextModelSnapshot.cs
+@@ -1047,6 +1047,15 @@ protected override void BuildModel(ModelBuilder modelBuilder)
+                         .HasColumnType("INTEGER")
+                         .HasColumnName("age");
+ 
++                    b.Property<float>("BarkPitch")
++                        .HasColumnType("REAL")
++                        .HasColumnName("bark_pitch");
++
++                    b.Property<string>("BarkVoice")
++                        .IsRequired()
++                        .HasColumnType("TEXT")
++                        .HasColumnName("bark_voice");
++
+                     b.Property<string>("CharacterName")
+                         .IsRequired()
+                         .HasColumnType("TEXT")
+@@ -1126,11 +1135,6 @@ protected override void BuildModel(ModelBuilder modelBuilder)
+                         .HasColumnType("TEXT")
+                         .HasColumnName("species");
+ 
+-                    b.Property<string>("TTSVoice")  // Corvax-TTS
+-                        .IsRequired()
+-                        .HasColumnType("TEXT")
+-                        .HasColumnName("ttsvoice");
+-
+                     b.Property<string>("Voice")
+                         .HasColumnType("TEXT")
+                         .HasColumnName("voice");
+

@@ -1,0 +1,167 @@
+- type: entity
+  parent: AppearanceHuman
+  id: AppearanceDwarf
+  categories: [ HideSpawnMenu ]
+  name: dwarf appearance
+  components:
+  - type: Inventory
+    femaleDisplacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: Mobs/Species/Human/displacement.rsi
+            state: jumpsuit-female
+  - type: InitialBody
+    organs:
+      Torso: OrganDwarfTorso
+      Head: OrganDwarfHead
+      ArmLeft: OrganDwarfArmLeft
+      ArmRight: OrganDwarfArmRight
+      HandRight: OrganDwarfHandRight
+      HandLeft: OrganDwarfHandLeft
+      LegLeft: OrganDwarfLegLeft
+      LegRight: OrganDwarfLegRight
+      FootLeft: OrganDwarfFootLeft
+      FootRight: OrganDwarfFootRight
+      Brain: OrganHumanBrain
+      Eyes: OrganDwarfEyes
+      Tongue: OrganHumanTongue
+      Appendix: OrganHumanAppendix
+      Ears: OrganHumanEars
+      Lungs: OrganHumanLungs
+      Heart: OrganDwarfHeart
+      Stomach: OrganDwarfStomach
+      Liver: OrganDwarfLiver
+      Kidneys: OrganHumanKidneys
+  - type: HumanoidProfile
+    species: Dwarf
+  - type: ScaleVisuals  # Aavikko: use scale instead of displacement maps
+    scale: 1, 0.8
+- type: entity
+  parent:
+  - AppearanceDwarf
+  - MobHuman
+  id: MobDwarf
+  name: Urist McHands the Dwarf
+  components:
+  - type: Fixtures
+    fixtures: # TODO: This needs a second fixture just for mob collisions.
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        # they r smaller
+        density: 120
+        restitution: 0.0
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: Vocal
+    emoteSounds: UnisexDwarf
+  - type: ReplacementAccent
+    accent: scottish
+  - type: Speech
+    speechSounds: Bass
+  - type: CreamPied
+  - type: Damageable
+  - type: Flammable
+  - type: InnerBodyAnomalyVisuals
+
+- type: entity
+  parent: OrganBaseOrganic
+  id: OrganDwarf
+  abstract: true
+  suffix: Dwarf
+
+- type: entity
+  parent: OrganDwarf
+  id: OrganDwarfAppearance
+  abstract: true
+  suffix: Dwarf
+  components:
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Species/Human/parts.rsi
+
+- type: entity
+  parent: OrganDwarf
+  id: OrganDwarfMetabolizer
+  abstract: true
+  components:
+  - type: Metabolizer
+    metabolizerTypes: [ Dwarf ]
+
+- type: entity
+  parent: [ OrganHumanTorso, OrganDwarfAppearance ]
+  id: OrganDwarfTorso
+
+
+- type: entity
+  parent: [ OrganHumanHead, OrganDwarfAppearance ]
+  id: OrganDwarfHead
+
+
+- type: entity
+  parent: [ OrganHumanArmLeft, OrganDwarfAppearance ]
+  id: OrganDwarfArmLeft
+
+
+- type: entity
+  parent: [ OrganHumanArmRight, OrganDwarfAppearance ]
+  id: OrganDwarfArmRight
+
+
+- type: entity
+  parent: [ OrganHumanHandRight, OrganDwarfAppearance ]
+  id: OrganDwarfHandRight
+
+
+- type: entity
+  parent: [ OrganHumanHandLeft, OrganDwarfAppearance ]
+  id: OrganDwarfHandLeft
+
+
+- type: entity
+  parent: [ OrganHumanLegLeft, OrganDwarfAppearance ]
+  id: OrganDwarfLegLeft
+
+
+- type: entity
+  parent: [ OrganHumanLegRight, OrganDwarfAppearance ]
+  id: OrganDwarfLegRight
+
+
+- type: entity
+  parent: [ OrganHumanFootLeft, OrganDwarfAppearance ]
+  id: OrganDwarfFootLeft
+
+
+- type: entity
+  parent: [ OrganHumanFootRight, OrganDwarfAppearance ]
+  id: OrganDwarfFootRight
+
+
+- type: entity
+  parent: [ OrganHumanEyes, OrganDwarfAppearance ]
+  id: OrganDwarfEyes
+  components:
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Customization/eyes.rsi
+
+
+- type: entity
+  parent: [ OrganDwarfMetabolizer, OrganHumanStomach ]
+  id: OrganDwarfStomach
+  components:
+  - type: Metabolizer
+    maxReagents: 5
+
+- type: entity
+  parent: [ OrganDwarfMetabolizer, OrganHumanLiver ]
+  id: OrganDwarfLiver
+
+- type: entity
+  parent: [ OrganDwarfMetabolizer, OrganHumanHeart ]
+  id: OrganDwarfHeart

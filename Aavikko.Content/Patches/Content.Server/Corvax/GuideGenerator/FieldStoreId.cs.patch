@@ -1,0 +1,31 @@
+diff --git a/Content.Server/Corvax/GuideGenerator/FieldStoreId.cs b/Content.Server/Corvax/GuideGenerator/FieldStoreId.cs
+index 0e353ef0dc..3658f726bf 100644
+--- a/Content.Server/Corvax/GuideGenerator/FieldStoreId.cs
++++ b/Content.Server/Corvax/GuideGenerator/FieldStoreId.cs
+@@ -157,6 +157,7 @@ private static bool TryGetEntityPrototypeSerializerKind(Type? serializerType, ou
+             kind = EntityPrototypeSerializerKind.Single;
+             return true;
+         }
++
+         if ((def == typeof(PrototypeIdListSerializer<>)
+              || def == typeof(PrototypeIdHashSetSerializer<>)
+              || def == typeof(AbstractPrototypeIdArraySerializer<>)) &&
+@@ -165,13 +166,15 @@ private static bool TryGetEntityPrototypeSerializerKind(Type? serializerType, ou
+             kind = EntityPrototypeSerializerKind.Sequence;
+             return true;
+         }
+-        if (def == typeof(PrototypeIdDictionarySerializer<,>) &&
++
++        if ((def == typeof(PrototypeIdDictionarySerializer<,>) ) &&
+             args[1] == typeof(EntityPrototype))
+         {
+             kind = EntityPrototypeSerializerKind.DictionaryKey;
+             return true;
+         }
+-        if (def == typeof(PrototypeIdValueDictionarySerializer<,>) &&
++
++        if ((def == typeof(PrototypeIdValueDictionarySerializer<,>) ) &&
+             args[1] == typeof(EntityPrototype))
+         {
+             kind = EntityPrototypeSerializerKind.DictionaryValue;
+

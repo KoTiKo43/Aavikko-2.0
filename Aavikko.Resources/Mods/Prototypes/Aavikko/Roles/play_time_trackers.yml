@@ -1,0 +1,14 @@
+- type: playTimeTracker
+  id: JobSecretarian
+
+- type: playTimeTracker
+  id: JobBRLCaptain
+
+- type: playTimeTracker
+  id: JobBRLMedic
+
+- type: playTimeTracker
+  id: JobBRLOperative
+
+- type: playTimeTracker
+  id: JobBRLOperativeBio

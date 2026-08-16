@@ -1,0 +1,15 @@
+- type: vendingMachineInventory
+  id: RoboDrobeInventory
+  startingInventory:
+    ClothingBackpackRoboticist: 3 # Aavikko
+    ClothingBackpackSatchelRoboticist: 3 # Aavikko
+    ClothingBackpackDuffelRoboticist: 3 # Aavikko
+    ClothingOuterCoatRobo: 2
+    ClothingUniformJumpsuitRoboticist: 2
+    ClothingUniformJumpskirtRoboticist: 2
+    ClothingShoesColorBlack: 2
+    ClothingHandsGlovesRobohands: 2
+    ClothingHeadHatCorpsoft: 2
+    ClothingHeadBandSkull: 2
+    ClothingHeadsetRobotics: 2
+    ClothingOuterWinterRobo: 2

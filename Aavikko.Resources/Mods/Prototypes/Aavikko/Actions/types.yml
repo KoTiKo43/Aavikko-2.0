@@ -1,0 +1,8 @@
+- type: entity
+  parent: ActionToggleWagging
+  id: ActionToggleWaggingTajaran
+  components:
+  - type: Sprite
+    sprite: Aavikko/Mobs/Customization/Tajaran/tajaran_tail.rsi
+    layers:
+    - state: tail-wag-icon

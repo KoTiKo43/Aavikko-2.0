@@ -1,0 +1,22 @@
+diff --git a/Content.Server/Database/ServerDbBase.cs b/Content.Server/Database/ServerDbBase.cs
+index 9c93cd79fc..7c05e01733 100644
+--- a/Content.Server/Database/ServerDbBase.cs
++++ b/Content.Server/Database/ServerDbBase.cs
+@@ -212,7 +212,8 @@ private Profile ConvertProfiles(HumanoidCharacterProfile humanoid, int slot, Pro
+             profile.CharacterName = humanoid.Name;
+             profile.FlavorText = humanoid.FlavorText;
+             profile.Species = humanoid.Species;
+-            profile.TTSVoice = humanoid.TTSVoice; // Corvax-TTS
++            profile.BarkVoice = humanoid.BarkVoice.ToString(); // Aavikko (replaces Corvax TTS)
++            profile.BarkPitch = humanoid.BarkPitch; // Aavikko
+             profile.Age = humanoid.Age;
+             profile.Sex = humanoid.Sex.ToString();
+             profile.Voice = humanoid.Voice.ToString();
+@@ -1761,4 +1762,4 @@ private static async Task<List<T>> ParallelCollect<T>(params IEnumerable<Func<Ta
+             return results.SelectMany(x => x).ToList();
+         }
+     }
+-}
++}
+\ No newline at end of file
+

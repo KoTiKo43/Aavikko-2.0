@@ -1,0 +1,14 @@
+- type: roleLoadout
+  id: JobSecretarian
+  groups:
+  - Inventory # Aavikko-Loadouts
+  - SecretarianHead
+  - SecretarianJumpsuit
+  - SecretarianGloves
+  - SecretarianShoes
+  - CommonBackpack
+  - Glasses
+  - AssistiveItems
+  - Survival
+  - Trinkets
+  - GroupSpeciesBreathTool

@@ -1,0 +1,12 @@
+# Aavikko manifest
+# Generated: 2026-08-16T16:04:36+0300
+
+# Upstream files to delete (prototype ID conflicts)
+delete:
+
+# Stale files (removed by FTL dedup)
+stale:
+  - Locale/en-US/corvax/station-goal/station-goal-command.ftl
+  - Locale/en-US/corvax/station-goal/station-goal-component.ftl
+  - Locale/ru-RU/ss14-ru/prototypes/corvax/entities/objects/devices/electronic/door_access.ftl
+  - Locale/ru-RU/ss14-ru/prototypes/corvax/entities/structures/storage/closets/lockers/lockers.ftl

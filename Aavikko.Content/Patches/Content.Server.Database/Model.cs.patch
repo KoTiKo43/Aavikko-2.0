@@ -1,0 +1,22 @@
+diff --git a/Content.Server.Database/Model.cs b/Content.Server.Database/Model.cs
+index f5d022f2ba..bfba22656f 100644
+--- a/Content.Server.Database/Model.cs
++++ b/Content.Server.Database/Model.cs
+@@ -335,7 +335,8 @@ public class Profile
+         public string? Voice { get; set; } = null!; // If null, the voice gets defaulted to the sex associated value
+         public string Gender { get; set; } = null!;
+         public string Species { get; set; } = null!;
+-        [Column("ttsvoice")] public string TTSVoice { get; set; } = null!; // Corvax-TTS
++        [Column("bark_voice")] public string BarkVoice { get; set; } = "Bark_human_1"; // Aavikko
++        [Column("bark_pitch")] public float BarkPitch { get; set; } = 0f; // Aavikko
+         [Column(TypeName = "jsonb")] public JsonDocument? OrganMarkings { get; set; } = null!;
+         [Column(TypeName = "jsonb")] public JsonDocument? Markings { get; set; } = null!;
+         public string HairName { get; set; } = null!;
+@@ -1061,4 +1062,4 @@ public class IPIntelCache
+         /// </summary>
+         public float Score { get; set; }
+     }
+-}
++}
+\ No newline at end of file
+

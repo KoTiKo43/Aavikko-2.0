@@ -1,0 +1,50 @@
+diff --git a/Content.Server/Preferences/Managers/ServerPreferencesManager.cs b/Content.Server/Preferences/Managers/ServerPreferencesManager.cs
+index 6052388d24..012ec0671d 100644
+--- a/Content.Server/Preferences/Managers/ServerPreferencesManager.cs
++++ b/Content.Server/Preferences/Managers/ServerPreferencesManager.cs
+@@ -110,11 +110,6 @@ internal HumanoidCharacterProfile ConvertProfiles(Profile profile)
+             if (Enum.TryParse<Gender>(profile.Gender, true, out var genderVal))
+                 gender = genderVal;
+ 
+-            // Corvax-TTS-Start
+-            var TTSVoice = profile.TTSVoice;
+-            if (TTSVoice == String.Empty)
+-                TTSVoice = HumanoidProfileSystem.DefaultSexVoice[sex];
+-            // Corvax-TTS-End
+ 
+             var markings =
+                 new Dictionary<ProtoId<OrganCategoryPrototype>, Dictionary<HumanoidVisualLayers, List<Marking>>>();
+@@ -184,11 +179,11 @@ internal HumanoidCharacterProfile ConvertProfiles(Profile profile)
+                 loadouts[role.RoleName] = loadout;
+             }
+ 
+-            return new HumanoidCharacterProfile(
++            var humanoidProfile = new HumanoidCharacterProfile(
+                 profile.CharacterName,
+                 profile.FlavorText,
+                 species,
+-                TTSVoice, // Corvax-TTS
++                HumanoidProfileSystem.DefaultSexVoice[sex], // Aavikko: placeholder (TTS removed)
+                 profile.Age,
+                 sex,
+                 voice,
+@@ -206,6 +201,11 @@ internal HumanoidCharacterProfile ConvertProfiles(Profile profile)
+                 traits.ToHashSet(),
+                 loadouts
+             );
++
++            // Aavikko: restore bark voice and pitch from DB
++            humanoidProfile.BarkVoice = profile.BarkVoice ?? "Bark_human_1";
++            humanoidProfile.BarkPitch = profile.BarkPitch;
++            return humanoidProfile;
+         }
+ 
+         private async void HandleSelectCharacterMessage(MsgSelectCharacter message)
+@@ -584,4 +584,4 @@ void IPostInjectInit.PostInject()
+             _userDb.AddOnPlayerDisconnect(OnClientDisconnected);
+         }
+     }
+-}
++}
+\ No newline at end of file
+

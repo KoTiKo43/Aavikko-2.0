@@ -1,0 +1,24 @@
+# Tattoos Head
+- type: marking
+  id: OrcTagarsSign
+  bodyPart: Head
+  groupWhitelist: [ Orc ]
+  sprites:
+  - sprite: Aavikko/Mobs/Customization/Orc/orc_tattoos.rsi
+    state: orc_tagars_sign
+
+- type: marking
+  id: OrcSign1
+  bodyPart: Head
+  groupWhitelist: [ Orc ]
+  sprites:
+  - sprite: Aavikko/Mobs/Customization/Orc/orc_tattoos.rsi
+    state: orc_sign_1
+
+- type: marking
+  id: OrcSign2
+  bodyPart: Head
+  groupWhitelist: [ Orc ]
+  sprites:
+  - sprite: Aavikko/Mobs/Customization/Orc/orc_tattoos.rsi
+    state: orc_sign_2

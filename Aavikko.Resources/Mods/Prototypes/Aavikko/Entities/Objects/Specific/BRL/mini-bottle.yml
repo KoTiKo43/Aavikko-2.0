@@ -1,0 +1,9 @@
+- type: entity
+  name: mini bottle
+  parent: BaseChemistryEmptyBottle
+  id: BRLMiniBottle
+  description: Bottle for collecting infected blood with a pneumo-syringe.
+  suffix: Aavikko, BRL
+  components:
+  - type: Sprite
+    sprite: Aavikko/Objects/Specific/BRL/mini-bottle.rsi

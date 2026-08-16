@@ -1,0 +1,12 @@
+- type: entity
+  name: secretarian's rubber stamp
+  parent: RubberStampBase
+  id: RubberStampSecretarian
+  suffix: DO NOT MAP, Aavikko
+  components:
+  - type: Stamp
+    stampedName: stamp-component-stamped-name-secretarian
+    stampedColor: "#233D57"
+    stampState: "paper_stamp-lawyer"
+  - type: Sprite
+    state: stamp-lawyer

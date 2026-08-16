@@ -1,0 +1,33 @@
+diff --git a/Content.Server.Database/Migrations/Postgres/PostgresServerDbContextModelSnapshot.cs b/Content.Server.Database/Migrations/Postgres/PostgresServerDbContextModelSnapshot.cs
+index 6b3ae71bc1..b9424c8898 100644
+--- a/Content.Server.Database/Migrations/Postgres/PostgresServerDbContextModelSnapshot.cs
++++ b/Content.Server.Database/Migrations/Postgres/PostgresServerDbContextModelSnapshot.cs
+@@ -1112,6 +1112,15 @@ protected override void BuildModel(ModelBuilder modelBuilder)
+                         .HasColumnType("integer")
+                         .HasColumnName("age");
+ 
++                    b.Property<float>("BarkPitch")
++                        .HasColumnType("real")
++                        .HasColumnName("bark_pitch");
++
++                    b.Property<string>("BarkVoice")
++                        .IsRequired()
++                        .HasColumnType("text")
++                        .HasColumnName("bark_voice");
++
+                     b.Property<string>("CharacterName")
+                         .IsRequired()
+                         .HasColumnType("text")
+@@ -1191,11 +1200,6 @@ protected override void BuildModel(ModelBuilder modelBuilder)
+                         .HasColumnType("text")
+                         .HasColumnName("species");
+ 
+-                    b.Property<string>("TTSVoice")  // Corvax-TTS
+-                        .IsRequired()
+-                        .HasColumnType("text")
+-                        .HasColumnName("ttsvoice");
+-
+                     b.Property<string>("Voice")
+                         .HasColumnType("text")
+                         .HasColumnName("voice");
+

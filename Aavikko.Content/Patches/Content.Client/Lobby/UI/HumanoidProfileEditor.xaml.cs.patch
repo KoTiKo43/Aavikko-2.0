@@ -1,0 +1,44 @@
+diff --git a/Content.Client/Lobby/UI/HumanoidProfileEditor.xaml.cs b/Content.Client/Lobby/UI/HumanoidProfileEditor.xaml.cs
+index 8dc4dce6a6..dd93d8851f 100644
+--- a/Content.Client/Lobby/UI/HumanoidProfileEditor.xaml.cs
++++ b/Content.Client/Lobby/UI/HumanoidProfileEditor.xaml.cs
+@@ -173,6 +173,22 @@ public HumanoidProfileEditor(
+ 
+             #endregion
+ 
++            #region Bark Voice (Aavikko)
++
++            BarkVoiceButton.OnItemSelected += args =>
++            {
++                BarkVoiceButton.SelectId(args.Id);
++                SetBarkVoice(args.Id);
++            };
++
++            // Aavikko: Preview bark voice sound
++            BarkVoicePreviewButton.OnPressed += _ => PreviewBarkVoice();
++
++            // Aavikko: Bark pitch slider
++            BarkPitchSlider.OnValueChanged += args => SetBarkPitch(args.Value / 1000f);
++
++            #endregion
++
+             #region Age
+ 
+             AgeEdit.OnTextChanged += args =>
+@@ -383,6 +399,8 @@ public void SetProfile(HumanoidCharacterProfile? profile, int? slot)
+             UpdateFlavorTextEdit();
+             UpdateSexControls();
+             UpdateVoiceControls();
++UpdateBarkVoiceControls(); // Aavikko
++            UpdateBarkPitchControls(); // Aavikko
+             UpdateGenderControls();
+             UpdateSkinColor();
+             UpdateSpawnPriorityControls();
+@@ -447,4 +465,4 @@ private void SetPreviewRotation(Direction direction)
+             SpriteView.OverrideDirection = (Direction)((int)direction % 4 * 2);
+         }
+     }
+-}
++}
+\ No newline at end of file
+

@@ -1,0 +1,29 @@
+- type: gameMapPool
+  id: AavikkoMapPool
+  maps:
+  # Highpop 55+
+  #- CorvaxDelta
+  #- CorvaxAvrite
+  #- CorvaxAstra
+  #- CorvaxPilgrim
+  #- CorvaxChloris
+  #- CorvaxGlacier
+  - AavikkoBox
+  #- Elkridge
+  #- Plasma
+  #- Exo
+
+  # Midpop 25–55
+  - AavikkoPaper
+  - AavikkoOutpost
+  - AavikkoAwesome
+  - AavikkoPearl
+  - AavikkoMarathon
+  - AavikkoBagel
+  - AavikkoSnowball
+
+  # Lowpop 0–25
+  - AavikkoMaus
+  - AavikkoSilly
+  #- AavikkoTushkan
+  - AavikkoPacked

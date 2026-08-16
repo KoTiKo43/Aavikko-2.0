@@ -1,0 +1,13 @@
+diff --git a/Content.Server/Explosion/EntitySystems/ExplosionSystem.cs b/Content.Server/Explosion/EntitySystems/ExplosionSystem.cs
+index cdb90c781d..3aae469a3d 100644
+--- a/Content.Server/Explosion/EntitySystems/ExplosionSystem.cs
++++ b/Content.Server/Explosion/EntitySystems/ExplosionSystem.cs
+@@ -25,6 +25,7 @@
+ using Robust.Shared.Audio.Systems;
+ using Robust.Shared.Configuration;
+ using Robust.Shared.Map;
++using Robust.Shared.Map.Components;
+ using Robust.Shared.Physics.Components;
+ using Robust.Shared.Player;
+ using Robust.Shared.Random;
+

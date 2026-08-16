@@ -1,0 +1,21 @@
+diff --git a/Content.Client/Administration/UI/Tabs/AdminbusTab/LoadBlueprintsWindow.xaml.cs b/Content.Client/Administration/UI/Tabs/AdminbusTab/LoadBlueprintsWindow.xaml.cs
+index a7985337fa..807b2ca3ca 100644
+--- a/Content.Client/Administration/UI/Tabs/AdminbusTab/LoadBlueprintsWindow.xaml.cs
++++ b/Content.Client/Administration/UI/Tabs/AdminbusTab/LoadBlueprintsWindow.xaml.cs
+@@ -66,6 +66,8 @@ private void Reset()
+             }
+ 
+             if (currentMap != MapId.Nullspace)
++            // Aavikko fix: guard against empty OptionButton (upstream v288 bug)
++            if (MapOptions.ItemCount > 0)
+                 MapOptions.Select((int) currentMap);
+ 
+             XCoordinate.Value = (int) position.X;
+@@ -116,4 +118,4 @@ private void OnSubmitButtonPressed(BaseButton.ButtonEventArgs obj)
+                 $"loadbp {new MapId(MapOptions.SelectedId)} \"{MapPath.Text}\" {XCoordinate.Value} {YCoordinate.Value} {RotationSpin.Value}");
+         }
+     }
+-}
++}
+\ No newline at end of file
+

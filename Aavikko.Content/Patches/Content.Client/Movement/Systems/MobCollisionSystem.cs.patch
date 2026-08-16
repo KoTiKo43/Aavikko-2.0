@@ -1,0 +1,32 @@
+diff --git a/Content.Client/Movement/Systems/MobCollisionSystem.cs b/Content.Client/Movement/Systems/MobCollisionSystem.cs
+index 948f93b658..25f17e7063 100644
+--- a/Content.Client/Movement/Systems/MobCollisionSystem.cs
++++ b/Content.Client/Movement/Systems/MobCollisionSystem.cs
+@@ -29,12 +29,22 @@ public override void Update(float frameTime)
+         base.Update(frameTime);
+     }
+ 
++    private const int ThrottleTicks = 2; // Aavikko
++    private GameTick _lastSentTick = GameTick.Zero; // Aavikko
++
+     protected override void RaiseCollisionEvent(EntityUid uid, Vector2 direction, float speedMod)
+     {
+-        RaisePredictiveEvent(new MobCollisionMessage()
++        var curTick = _timing.CurTick; // Aavikko
++        var tickDiff = curTick.Value - _lastSentTick.Value; // Aavikko
++
++        if (_lastSentTick == GameTick.Zero || tickDiff >= ThrottleTicks)
+         {
+-            Direction = direction,
+-            SpeedModifier = speedMod,
+-        });
++            RaisePredictiveEvent(new MobCollisionMessage()
++            {
++                Direction = direction,
++                SpeedModifier = speedMod,
++            });
++            _lastSentTick = curTick; // Aavikko
++        }
+     }
+ }
+

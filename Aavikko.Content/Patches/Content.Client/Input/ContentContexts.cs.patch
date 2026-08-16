@@ -1,0 +1,18 @@
+diff --git a/Content.Client/Input/ContentContexts.cs b/Content.Client/Input/ContentContexts.cs
+index 01e7dc367c..af25edb8ad 100644
+--- a/Content.Client/Input/ContentContexts.cs
++++ b/Content.Client/Input/ContentContexts.cs
+@@ -1,3 +1,4 @@
++using Content.Shared.Aavikko.ItemOffer; // Aavikko item offer
+ using Content.Shared.Input;
+ using Robust.Shared.Input;
+ 
+@@ -91,6 +92,7 @@ public static void SetupContexts(IInputContextContainer contexts)
+             human.AddFunction(ContentKeyFunctions.Arcade1);
+             human.AddFunction(ContentKeyFunctions.Arcade2);
+             human.AddFunction(ContentKeyFunctions.Arcade3);
++            human.AddFunction(ItemOfferKeyFunctions.ToggleItemOffer); // Aavikko item offer
+ 
+             // actions should be common (for ghosts, mobs, etc)
+             common.AddFunction(ContentKeyFunctions.OpenActionsMenu);
+

@@ -1,0 +1,14 @@
+diff --git a/Content.Shared/Administration/AdminFlags.cs b/Content.Shared/Administration/AdminFlags.cs
+index 7adec3f010..d98c9bf4d1 100644
+--- a/Content.Shared/Administration/AdminFlags.cs
++++ b/Content.Shared/Administration/AdminFlags.cs
+@@ -124,6 +124,8 @@ public enum AdminFlags : uint
+         /// </summary>
+         NameColor = 1 << 21,
+ 
++        AddRolePlayTime = 1 << 22, // Aavikko
++
+         // Corvax-DiscordRoles
+         /// <summary>
+         ///     Allows you to edit players playtime.
+

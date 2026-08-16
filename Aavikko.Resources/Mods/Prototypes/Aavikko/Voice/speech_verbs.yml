@@ -1,0 +1,14 @@
+- type: speechVerb ### Aavikko QWERTY used to be here
+  id: Pigeon
+  name: chat-speech-verb-name-parrot
+  speechVerbStrings:
+  - К-урлык.
+  - К-урлык! К-урлык!
+  - К-урло...
+
+- type: speechVerb
+  id: Feline
+  name: chat-speech-verb-name-feline
+  speechVerbStrings:
+  - chat-speech-verb-feline-1
+  - chat-speech-verb-feline-2

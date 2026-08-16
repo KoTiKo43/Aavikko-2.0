@@ -1,0 +1,27 @@
+diff --git a/Content.Shared/Speech/EntitySystems/LizardAccentSystem.cs b/Content.Shared/Speech/EntitySystems/LizardAccentSystem.cs
+index 825a9bb1d9..dde344ef01 100644
+--- a/Content.Shared/Speech/EntitySystems/LizardAccentSystem.cs
++++ b/Content.Shared/Speech/EntitySystems/LizardAccentSystem.cs
+@@ -16,8 +16,8 @@ public sealed partial class LizardAccentSystem : RelayAccentSystem<LizardAccentC
+     // Corvax-Localization-Start
+     private static readonly Regex _regexLowerC = new Regex("с+");
+     private static readonly Regex _regexUpperC = new Regex("С+");
+-    private static readonly Regex _regexLowerZ = new Regex("з+");
+-    private static readonly Regex _regexUpperZ = new Regex("З+");
++    // private static readonly Regex _regexLowerZ = new Regex("з+"); // Aavikko з disable
++    // private static readonly Regex _regexUpperZ = new Regex("З+"); // Aavikko з disable
+     private static readonly Regex _regexLowerSh = new Regex("ш+");
+     private static readonly Regex _regexUpperSh = new Regex("Ш+");
+     private static readonly Regex _regexLowerCh = new Regex("ч+");
+@@ -48,8 +48,8 @@ public override string Accentuate(string message, Entity<LizardAccentComponent>?
+         // Corvax-Localization-Start
+         message = _regexLowerC.Replace(message, _random.Pick(_replacementsSs));
+         message = _regexUpperC.Replace(message, _random.Pick(_replacementsSsUpper));
+-        message = _regexLowerZ.Replace(message, _random.Pick(_replacementsSs));       // для "з+" используются те же замены, что и для "с+"
+-        message = _regexUpperZ.Replace(message, _random.Pick(_replacementsSsUpper)); // для "З+" используются те же замены, что и для "С+"
++        // message = _regexLowerZ.Replace(message, _random.Pick(_replacementsSs));       // для "з+" используются те же замены, что и для "с+" // Aavikko з disable
++        // message = _regexUpperZ.Replace(message, _random.Pick(_replacementsSsUpper)); // для "З+" используются те же замены, что и для "С+" // Aavikko з disable
+         message = _regexLowerSh.Replace(message, _random.Pick(_replacementsSh));
+         message = _regexUpperSh.Replace(message, _random.Pick(_replacementsShUpper));
+         message = _regexLowerCh.Replace(message, _random.Pick(_replacementsCh));
+

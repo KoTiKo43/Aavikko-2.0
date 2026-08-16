@@ -1,0 +1,13 @@
+diff --git a/Content.Server/StationEvents/RampingStationEventSchedulerSystem.cs b/Content.Server/StationEvents/RampingStationEventSchedulerSystem.cs
+index b425254d9d..2e5e8711f1 100644
+--- a/Content.Server/StationEvents/RampingStationEventSchedulerSystem.cs
++++ b/Content.Server/StationEvents/RampingStationEventSchedulerSystem.cs
+@@ -70,6 +70,6 @@ private void PickNextEventTime(EntityUid uid, RampingStationEventSchedulerCompon
+         var mod = GetChaosModifier(uid, component);
+ 
+         // 4-12 minutes baseline. Will get faster over time as the chaos mod increases.
+-        component.TimeUntilNextEvent = _random.NextFloat(240f / mod, 720f / mod);
++        component.TimeUntilNextEvent = _random.NextFloat(600f / mod, 840f / mod); // 10-14 minutes Aavikko tweak
+     }
+ }
+

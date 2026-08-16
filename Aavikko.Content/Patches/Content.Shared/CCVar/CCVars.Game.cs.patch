@@ -1,0 +1,18 @@
+diff --git a/Content.Shared/CCVar/CCVars.Game.cs b/Content.Shared/CCVar/CCVars.Game.cs
+index 97361933ee..f7b716dd4e 100644
+--- a/Content.Shared/CCVar/CCVars.Game.cs
++++ b/Content.Shared/CCVar/CCVars.Game.cs
+@@ -477,4 +477,12 @@ public static readonly CVarDef<bool>
+     /// </summary>
+     public static readonly CVarDef<bool> WallMountFade =
+         CVarDef.Create("game.wallmount_fade", true, CVar.SERVER | CVar.REPLICATED);
++
++    // Aavikko start
++    /// <summary>
++    /// Automatically start a map vote when the pre-round lobby opens.
++    /// </summary>
++    public static readonly CVarDef<bool> AutoMapVote =
++        CVarDef.Create("game.auto_map_vote", false, CVar.SERVERONLY);
++    // Aavikko end
+ }
+

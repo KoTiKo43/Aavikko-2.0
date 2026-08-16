@@ -1,0 +1,13 @@
+- type: entity
+  parent: GasTankRoundBase
+  id: BRLTank
+  name: BRL tank
+  description: A standard BRL cylindrical gas tank. It can hold 5 L of gas.
+  suffix: Aavikko, BRL
+  components:
+  - type: Sprite
+    sprite: Aavikko/Objects/Tanks/brl.rsi
+  - type: Item
+    sprite: Aavikko/Objects/Tanks/brl.rsi
+  - type: Clothing
+    sprite: Aavikko/Objects/Tanks/brl.rsi
