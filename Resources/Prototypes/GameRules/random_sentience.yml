@@ -10,7 +10,7 @@
       path: /Audio/Announcements/attention.ogg
   - type: RandomSentienceRule
     minSentiences: 2
-    maxSentiences: 5
+    maxSentiences: 3 # 5 -> 3 Aavikko tweak
 
 - type: localizedDataset
   id: RandomSentienceEventData
