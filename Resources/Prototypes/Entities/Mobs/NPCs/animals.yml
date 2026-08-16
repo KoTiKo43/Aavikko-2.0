@@ -425,6 +425,15 @@
     damage:
       types:
         Piercing: 0
+  - type: EntityTableContainerFill
+    containers:
+      body_organs: !type:AllSelector
+        children:
+        - id: OrganAnimalLungsNoGib
+        - id: OrganAnimalHeartNoGib
+        - id: OrganAnimalStomachNoGib
+        - id: OrganAnimalLiverNoGib
+        - id: OrganAnimalKidneysNoGib
 
 - type: entity
   parent: BaseCockroach
