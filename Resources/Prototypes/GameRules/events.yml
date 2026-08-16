@@ -149,6 +149,7 @@
     reoccurrenceDelay: 5
     earliestStart: 1
     duration: 1
+    maxOccurrences: 3 # Aavikko tweak
   - type: BluespaceLockerRule
 
 - type: entity
@@ -640,6 +641,7 @@
     minimumPlayers: 4
     duration: null
     occursDuringRoundEnd: false
+    maxOccurrences: 2 # Aavikko tweak
   - type: SpaceSpawnRule
     spawnDistance: 0
 
