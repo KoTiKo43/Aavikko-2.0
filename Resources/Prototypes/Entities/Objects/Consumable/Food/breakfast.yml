@@ -35,6 +35,9 @@
       - food
   - type: Sprite
     state: fullamerican
+  - type: Tag
+    tags:
+      - Meat
 
 - type: entity
   parent: FoodBreakfastBase
@@ -47,3 +50,6 @@
       - food
   - type: Sprite
     state: fullenglish
+  - type: Tag
+    tags:
+      - Meat
