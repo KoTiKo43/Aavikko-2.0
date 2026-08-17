@@ -340,5 +340,6 @@ server_config.toml
 # Aavikko overlay (auto-generated, don't commit)
 Aavikko.Modding/Patcher/.applied
 Aavikko.Modding/Patcher/.upstream_state.json
+Aavikko.Modding/Patcher/.symlinks.json
 Aavikko.Modding/Patcher/.conflict_decisions.yml
 Aavikko.Modding/Patcher/.apply.lock
