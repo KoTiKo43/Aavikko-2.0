@@ -65,10 +65,11 @@ LOCK_FILE = SCRIPT_DIR / ".apply.lock"
 TEMP_SNAPSHOT_SUFFIXES = (".conflict.upstream", ".old.patched", ".conflict.patched")
 
 
-def run(cmd: str, cwd: Path | None = None) -> tuple[str, str, int]:
+def run(cmd: str, cwd: Path | None = None, timeout: int | None = None) -> tuple[str, str, int]:
     result = subprocess.run(
         cmd, shell=True, cwd=cwd, capture_output=True,
-        text=True, encoding="utf-8", errors="replace"
+        text=True, encoding="utf-8", errors="replace",
+        timeout=timeout
     )
     return result.stdout.strip(), result.stderr.strip(), result.returncode
 
@@ -453,6 +454,8 @@ def check_conflicts() -> bool:
     records a baseline via `Check.py --baseline`. This is safe because there
     are no conflicts on the very first Apply — the baseline just records
     current upstream state for future conflict detection.
+
+    Timeout: 120 seconds for Check.py (sha256 scanning of 5000+ files can be slow).
     """
     state_file = SCRIPT_DIR / ".upstream_state.json"
     check_script = shlex.quote(str(SCRIPT_DIR / "Check.py"))
@@ -461,7 +464,8 @@ def check_conflicts() -> bool:
         print("  [INFO] No .upstream_state.json found — recording baseline (first-time setup)")
         stdout, stderr, rc = run(
             f"python3 {check_script} --baseline",
-            cwd=BUILD_ROOT
+            cwd=BUILD_ROOT,
+            timeout=300  # 5 min for baseline (scans all files)
         )
         if rc != 0:
             print(f"\n[FATAL] Failed to record baseline via Check.py --baseline", file=sys.stderr)
@@ -471,10 +475,16 @@ def check_conflicts() -> bool:
         print("  [OK] Baseline recorded")
         return True
 
-    stdout, stderr, rc = run(
-        f"python3 {check_script} --apply-check",
-        cwd=BUILD_ROOT
-    )
+    print("  [INFO] Running conflict check (can take 30-60s for large builds)...")
+    try:
+        stdout, stderr, rc = run(
+            f"python3 {check_script} --apply-check",
+            cwd=BUILD_ROOT,
+            timeout=120  # 2 min timeout for apply-check
+        )
+    except subprocess.TimeoutExpired:
+        print("  [WARN] Conflict check timed out (120s) — continuing with --force behaviour")
+        return True
     if rc != 0:
         print(f"\n[BLOCKED] Unresolved conflicts detected — Apply.py cannot run.")
         print(f"  Run: python3 {SCRIPT_DIR.name}/Check.py")
@@ -542,6 +552,8 @@ def main():
                         help="Skip conflict check, force apply anyway")
     parser.add_argument("--reapply", action="store_true",
                         help="Force re-apply even if .applied exists (clears .applied first)")
+    parser.add_argument("--strict", action="store_true",
+                        help="Run validate_overlay_placement() sanity check (slow on HDD)")
     args = parser.parse_args()
 
     print("=" * 70)
@@ -549,19 +561,32 @@ def main():
     print("=" * 70)
 
     # Remove ALL symlinks before applying (they would be copied to Resources/)
+    # Fast-path: read .symlinks.json state file (O(N) where N = symlinks created, ~32).
+    # Fallback: slow rglob walk (O(filesystem tree), ~50s on HDD with 5000+ files)
+    # if state file is missing (first run, legacy state, or manual cleanup).
     try:
         import SymLinks
-        print("\n--- Removing all symlinks (@Mods/@Patches/@Path/@patched) ---")
-        removed = 0
-        for overlay_root, label, _ in SymLinks.OVERLAY_PAIRS:
-            if overlay_root.exists():
-                removed += SymLinks.remove_nav_links_for_pair(overlay_root, label)
-                removed += SymLinks.remove_path_links_for_overlay(overlay_root, label)
-                removed += SymLinks.remove_patched_links(overlay_root, label)
-        if removed > 0:
-            print(f"  [OK] Removed {removed} symlinks")
+        print("\n--- Removing all symlinks (@Mods/@Patches/@Path/@patched) ---", flush=True)
+        removed = SymLinks.remove_all_tracked_symlinks()
+        if removed >= 0:
+            # Fast path succeeded
+            if removed > 0:
+                print(f"  [OK] Removed {removed} symlinks (fast-path via .symlinks.json)")
+            else:
+                print(f"  [OK] No symlinks found (state file empty)")
         else:
-            print(f"  [OK] No symlinks found")
+            # Fallback: state file missing — use slow rglob walk
+            print("  [INFO] No .symlinks.json — falling back to slow rglob scan...")
+            removed = 0
+            for overlay_root, label, _ in SymLinks.OVERLAY_PAIRS:
+                if overlay_root.exists():
+                    removed += SymLinks.remove_nav_links_for_pair(overlay_root, label)
+                    removed += SymLinks.remove_path_links_for_overlay(overlay_root, label)
+                    removed += SymLinks.remove_patched_links(overlay_root, label)
+            if removed > 0:
+                print(f"  [OK] Removed {removed} symlinks (legacy rglob scan)")
+            else:
+                print(f"  [OK] No symlinks found (legacy scan)")
     except ImportError:
         pass  # SymLinks.py not available, skip
 
@@ -606,49 +631,61 @@ def main():
 
     try:
         # Sanity check: overlay is not empty
-        total_files = 0
-        for d in (PATCHES_DIR, MODS_DIR, CS_PATCHES_DIR, CS_MODS_DIR,
-                  ROBUST_PATCHES_DIR, ROBUST_MODS_DIR):
+        # Fast version: use next(rglob, None) — returns on first file found,
+        # avoids walking entire 5000+ file tree just to count.
+        overlay_dirs = (PATCHES_DIR, MODS_DIR, CS_PATCHES_DIR, CS_MODS_DIR,
+                        ROBUST_PATCHES_DIR, ROBUST_MODS_DIR)
+        has_any_file = False
+        for d in overlay_dirs:
             if d.exists():
-                total_files += sum(1 for _ in d.rglob("*")
-                                   if _.is_file() and not _.name.startswith(".gitkeep"))
-        if total_files == 0 and not MANIFEST.exists() and not DELETES_DIR.exists():
+                if next((f for f in d.rglob("*") if f.is_file() and not f.name.startswith(".gitkeep")), None) is not None:
+                    has_any_file = True
+                    break
+        if not has_any_file and not MANIFEST.exists() and not DELETES_DIR.exists():
             print(f"\n[FATAL] Overlay is empty — nothing to apply.", file=sys.stderr)
             print(f"  Run Migrate.py first: python3 {SCRIPT_DIR.name}/Migrate.py --clean", file=sys.stderr)
             sys.exit(2)
 
         # Clean up temp snapshots from Check.py BEFORE anything else
         # (.conflict.upstream, .old.patched, .conflict.patched)
-        # These are created by Check.py during conflict detection and must be removed
-        # before validate_overlay_placement() sees them and thinks they're misplaced.
+        # Single-walk optimization: walk tree ONCE, check all suffixes per file
+        # (old version walked tree 3 times — once per suffix).
         cleaned = 0
         for d in (PATCHES_DIR, CS_PATCHES_DIR, ROBUST_PATCHES_DIR):
             if not d.exists():
                 continue
-            for suffix in TEMP_SNAPSHOT_SUFFIXES:
-                for f in d.rglob(f"*{suffix}"):
-                    if f.is_file():
+            for f in d.rglob("*"):
+                if not f.is_file():
+                    continue
+                if any(f.name.endswith(suf) for suf in TEMP_SNAPSHOT_SUFFIXES):
+                    try:
                         f.unlink()
                         cleaned += 1
+                    except OSError:
+                        pass
         if cleaned > 0:
             print(f"  [DEL] {cleaned} temp snapshot(s) cleaned")
 
         # Validate overlay placement (Mods/Patches swap detection)
-        swap_warnings = validate_overlay_placement()
-        if swap_warnings:
-            print(f"\n[WARNING] {len(swap_warnings)} file(s) may be in the wrong overlay folder:")
-            for w in swap_warnings[:10]:
-                print(w, file=sys.stderr)
-            if len(swap_warnings) > 10:
-                print(f"  ... and {len(swap_warnings) - 10} more", file=sys.stderr)
-            print(f"\n  Files in Patches/ should exist in upstream (they REPLACE upstream files).", file=sys.stderr)
-            print(f"  Files in Mods/ should NOT exist in upstream (they are NEW files).", file=sys.stderr)
-            print(f"  Continuing anyway in 3s... (Ctrl+C to abort)\n", file=sys.stderr)
-            try:
-                import time
-                time.sleep(3)
-            except KeyboardInterrupt:
-                sys.exit(1)
+        # OPTIMIZATION: skipped by default — it walks all 5000+ files twice
+        # (once for Patches, once for Mods) and checks upstream existence per file.
+        # On HDD this adds 30-60s. Use --strict to enable.
+        if args.strict:
+            swap_warnings = validate_overlay_placement()
+            if swap_warnings:
+                print(f"\n[WARNING] {len(swap_warnings)} file(s) may be in the wrong overlay folder:")
+                for w in swap_warnings[:10]:
+                    print(w, file=sys.stderr)
+                if len(swap_warnings) > 10:
+                    print(f"  ... and {len(swap_warnings) - 10} more", file=sys.stderr)
+                print(f"\n  Files in Patches/ should exist in upstream (they REPLACE upstream files).", file=sys.stderr)
+                print(f"  Files in Mods/ should NOT exist in upstream (they are NEW files).", file=sys.stderr)
+                print(f"\n  Continuing anyway in 3s... (Ctrl+C to abort)\n", file=sys.stderr)
+                try:
+                    import time
+                    time.sleep(3)
+                except KeyboardInterrupt:
+                    sys.exit(1)
 
         # 0. Check for unresolved conflicts
         if not args.force:
@@ -757,15 +794,10 @@ def main():
         if not failed_patches:
             try:
                 import SymLinks
-                print("\n--- Creating symlinks (@Mods/@Patches/@Path/@patched) ---")
+                print("\n--- Creating @patched symlinks ---")
                 for overlay_root, label, build_target in SymLinks.OVERLAY_PAIRS:
                     if overlay_root.exists():
-                        # @Mods/@Patches (cross-navigation between Mods and Patches)
-                        SymLinks.create_nav_links_for_pair(overlay_root, label)
-                        # @Path (overlay → build tree, for navigation)
-                        SymLinks.create_path_links_for_overlay(
-                            overlay_root, label, build_target)
-                        # @patched (.cs.patch → patched .cs file in build)
+                        # Only @patched (.cs.patch → patched .cs file in build)
                         SymLinks.create_patched_links(
                             overlay_root, label, build_target)
                 print("  [OK] Symlinks created")

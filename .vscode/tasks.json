@@ -1,103 +1,104 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "build",
-            "command": "dotnet",
-            "type": "shell",
-            "args": [
-                "build",
-                "/property:GenerateFullPaths=true", // Ask dotnet build to generate full paths for file names.
-                "/consoleloggerparameters:'ForceNoAlign;NoSummary'" // Do not generate summary otherwise it leads to duplicate errors in Problems panel
-            ],
-            "group": {
-                "kind": "build"
-            },
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$msCompile",
-            "runOptions": {
-                "instanceLimit": 1
-            }
-        },
-        {
-            "label": "build (C# Dev Kit)",
-            "detail": "needs C# Dev Kit extention. use the (build) task instead if you dont have the extention.",
-            "type": "dotnet",
-            "task": "build",
-            "icon": {
-                "id": "build",
-                "color": "terminal.ansiBlue"
-            },
-            "group": {
-                "kind": "build"
-            },
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$msCompile",
-            "runOptions": {
-                "instanceLimit": 1
-            }
-        },
-        {
-            "label": "build-yaml-linter",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/Content.YAMLLinter/Content.YAMLLinter.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:'ForceNoAlign;NoSummary'"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "test",
-            "command": "dotnet",
-            "type": "shell",
-            "args": [
-                "test",
-                "--no-build",
-                "--configuration",
-                "DebugOpt",
-                "Content.Tests/Content.Tests.csproj",
-                "--",
-                "NUnit.ConsoleOut=0"
-            ],
-            "group": {
-                "kind": "test"
-            },
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "integration-test",
-            "command": "dotnet",
-            "type": "shell",
-            "args": [
-                "test",
-                "--no-build",
-                "--configuration",
-                "DebugOpt",
-                "Content.IntegrationTests/Content.IntegrationTests.csproj",
-                "--",
-                "NUnit.ConsoleOut=0",
-                "NUnit.MapWarningTo=Failed.ConsoleOut=0",
-                "NUnit.MapWarningTo=Failed"
-            ],
-            "group": {
-                "kind": "test"
-            },
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$msCompile"
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "aavikko: apply",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/Aavikko.Modding/Patcher/Apply.py"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "aavikko: clear",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/Aavikko.Modding/Patcher/Clear.py"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "aavikko: validate",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/Aavikko.Modding/Patcher/Validate.py"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "aavikko: check",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/Aavikko.Modding/Patcher/Check.py"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "aavikko: build server",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["build", "Content.Server", "--no-restore"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "aavikko: build client",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["build", "Content.Client", "--no-restore"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "aavikko: apply + build server",
+      "dependsOn": ["aavikko: apply", "aavikko: build server"],
+      "dependsOrder": "sequence",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "aavikko: apply + build client",
+      "dependsOn": ["aavikko: apply", "aavikko: build client"],
+      "dependsOrder": "sequence",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "aavikko: clear + apply + build server",
+      "dependsOn": ["aavikko: clear", "aavikko: apply", "aavikko: build server"],
+      "dependsOrder": "sequence",
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
 }

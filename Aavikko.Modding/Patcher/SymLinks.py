@@ -56,12 +56,20 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 BUILD_ROOT = SCRIPT_DIR.parent.parent
+
+# State file: tracks every symlink we create, so removal is O(N) unlink calls
+# instead of O(filesystem tree) rglob walks. On HDD with 5000+ overlay files,
+# this is the difference between 0.1s and 50s.
+# Paths stored relative to BUILD_ROOT (portable across sandbox/host mount points).
+SYMLINK_STATE_FILE = SCRIPT_DIR / ".symlinks.json"
 
 # All overlay pairs to process.
 # Each tuple: (overlay_root, label, build_target_dir)
@@ -84,6 +92,121 @@ PATCHED_LINK_SUFFIX = "@patched"  # appended to filename: Bar.cs@patched
 def is_nav_symlink(path: Path) -> bool:
     """Check if a path is one of our navigation symlinks (@Mods/@Patches/@Path)."""
     return path.name in (MODS_LINK_NAME, PATCHES_LINK_NAME, PATH_LINK_NAME) and path.is_symlink()
+
+
+# ── State file: fast-path removal ─────────────────────────────────────────
+
+
+def _load_symlink_state() -> list[str]:
+    """Load list of created symlinks from .symlinks.json.
+    Returns list of paths relative to BUILD_ROOT. Returns [] if missing/corrupt.
+    """
+    if not SYMLINK_STATE_FILE.exists():
+        return []
+    try:
+        data = json.loads(SYMLINK_STATE_FILE.read_text(encoding="utf-8"))
+        return list(data.get("symlinks", []))
+    except (OSError, json.JSONDecodeError):
+        return []
+
+
+def _save_symlink_state(symlinks: list[str]) -> None:
+    """Write list of created symlinks to .symlinks.json (atomic)."""
+    data = {
+        "version": 1,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "symlinks": symlinks,
+    }
+    tmp = SYMLINK_STATE_FILE.with_suffix(".json.tmp")
+    try:
+        tmp.write_text(json.dumps(data, indent=2), encoding="utf-8")
+        os.replace(tmp, SYMLINK_STATE_FILE)
+    except OSError:
+        pass  # best-effort
+
+
+def _clear_symlink_state() -> None:
+    """Delete the state file after all symlinks removed."""
+    try:
+        SYMLINK_STATE_FILE.unlink()
+    except FileNotFoundError:
+        pass
+
+
+def _record_symlink(link_path: Path) -> None:
+    """Record a created symlink in the state file (append).
+    Path stored relative to BUILD_ROOT for portability.
+
+    IMPORTANT: do NOT use link_path.resolve() — that follows the symlink to its
+    TARGET, which would record the wrong path. Use .absolute() instead which just
+    makes the path absolute without following symlinks.
+    """
+    try:
+        # absolute() doesn't resolve symlinks (Path.absolute() is Py 3.11+,
+        # fallback to os.path.abspath for older versions)
+        if hasattr(link_path, 'absolute'):
+            link_abs = link_path.absolute()
+        else:
+            link_abs = Path(os.path.abspath(str(link_path)))
+        if hasattr(BUILD_ROOT, 'absolute'):
+            build_abs = BUILD_ROOT.absolute()
+        else:
+            build_abs = Path(os.path.abspath(str(BUILD_ROOT)))
+        try:
+            rel = str(link_abs.relative_to(build_abs))
+        except ValueError:
+            # Link outside BUILD_ROOT — store absolute as fallback
+            rel = str(link_abs)
+    except OSError:
+        rel = str(link_path)
+    existing = _load_symlink_state()
+    if rel not in existing:
+        existing.append(rel)
+        _save_symlink_state(existing)
+
+
+def remove_all_tracked_symlinks() -> int:
+    """Fast-path: read .symlinks.json, unlink each entry, clear the file.
+
+    This is the O(N) fast path — N = number of symlinks we created (typically 32).
+    Avoids the O(filesystem tree) rglob walk which on HDD takes 50+ seconds
+    for trees with 5000+ files.
+
+    Returns:
+      >=0: number of symlinks removed via fast path
+      -1 : state file missing — caller should fall back to slow rglob method
+    """
+    if not SYMLINK_STATE_FILE.exists():
+        return -1
+
+    entries = _load_symlink_state()
+    if not entries:
+        _clear_symlink_state()
+        return 0
+
+    removed = 0
+    # Use absolute() (not resolve()) so we keep the symlink path itself,
+    # not the target. resolve() would follow the link and we'd unlink the wrong file.
+    if hasattr(BUILD_ROOT, 'absolute'):
+        build_root = BUILD_ROOT.absolute()
+    else:
+        build_root = Path(os.path.abspath(str(BUILD_ROOT)))
+
+    for rel in entries:
+        # build_root / rel preserves relative structure; if rel is absolute,
+        # Path's / operator returns the absolute path
+        link_path = build_root / rel
+        try:
+            # is_symlink() checks the link itself; exists() follows the link
+            # Use OR so we catch both live and dead symlinks
+            if link_path.is_symlink() or link_path.exists():
+                link_path.unlink()
+                removed += 1
+        except OSError:
+            pass  # already gone, permission issue, etc.
+
+    _clear_symlink_state()
+    return removed
 
 
 def is_patched_symlink(path: Path) -> bool:
@@ -144,6 +267,8 @@ def create_symlink_safe(link_path: Path, target: Path) -> bool:
 
     try:
         os.symlink(rel_target, link_path, target_is_directory=True)
+        # Record in state file for fast removal later (avoids 50s rglob walk on HDD)
+        _record_symlink(link_path)
         return True
     except (OSError, NotImplementedError):
         # Windows without admin/developer mode, or platform without symlinks
@@ -164,6 +289,8 @@ def create_text_fallback(link_path: Path, target: Path) -> bool:
             f"Open this path manually in your file manager.\n",
             encoding="utf-8"
         )
+        # Record fallback in state file too (so removal can clean it up)
+        _record_symlink(txt_path)
         return True
     except OSError:
         return False
@@ -607,19 +734,14 @@ def main():
     print("=" * 70)
 
     if args.action == "create":
-        # Create @Mods/@Patches (cross-navigation) + @Path (overlay → build tree)
+        # Only create @patched symlinks (for C# patches) — @Mods/@Patches/@Path removed (too noisy)
         total_links = 0
         total_fallbacks = 0
         for overlay_root, label, build_target in OVERLAY_PAIRS:
             if not overlay_root.exists():
                 continue
-            print(f"\n--- {label} ({overlay_root.name}) — @Mods/@Patches ---")
-            links, fallbacks = create_nav_links_for_pair(overlay_root, label)
-            total_links += links
-            total_fallbacks += fallbacks
-
-            print(f"\n--- {label} ({overlay_root.name}) — @Path ---")
-            links, fallbacks = create_path_links_for_overlay(overlay_root, label, build_target)
+            print(f"\n--- {label} ({overlay_root.name}) — @patched ---")
+            links, fallbacks = create_patched_links(overlay_root, label, build_target)
             total_links += links
             total_fallbacks += fallbacks
 

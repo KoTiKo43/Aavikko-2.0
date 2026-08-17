@@ -172,19 +172,32 @@ def main():
 
     # Remove ALL symlinks before revert: @Mods/@Patches, @Path, @patched
     # (they would dangle after Clear reverts upstream files)
+    # Fast-path: read .symlinks.json state file (O(N) where N = symlinks created, ~32).
+    # Fallback: slow rglob walk (O(filesystem tree), ~50s on HDD with 5000+ files)
+    # if state file is missing (first run, legacy state, or manual cleanup).
     try:
         import SymLinks
-        print("\n--- Removing all symlinks (@Mods/@Patches/@Path/@patched) ---")
-        removed = 0
-        for overlay_root, label, _ in SymLinks.OVERLAY_PAIRS:
-            if overlay_root.exists():
-                removed += SymLinks.remove_nav_links_for_pair(overlay_root, label)
-                removed += SymLinks.remove_path_links_for_overlay(overlay_root, label)
-                removed += SymLinks.remove_patched_links(overlay_root, label)
-        if removed > 0:
-            print(f"  [OK] Removed {removed} symlinks")
+        print("\n--- Removing all symlinks (@Mods/@Patches/@Path/@patched) ---", flush=True)
+        removed = SymLinks.remove_all_tracked_symlinks()
+        if removed >= 0:
+            # Fast path succeeded
+            if removed > 0:
+                print(f"  [OK] Removed {removed} symlinks (fast-path via .symlinks.json)")
+            else:
+                print(f"  [OK] No symlinks found (state file empty)")
         else:
-            print(f"  [OK] No symlinks found")
+            # Fallback: state file missing — use slow rglob walk
+            print("  [INFO] No .symlinks.json — falling back to slow rglob scan...")
+            removed = 0
+            for overlay_root, label, _ in SymLinks.OVERLAY_PAIRS:
+                if overlay_root.exists():
+                    removed += SymLinks.remove_nav_links_for_pair(overlay_root, label)
+                    removed += SymLinks.remove_path_links_for_overlay(overlay_root, label)
+                    removed += SymLinks.remove_patched_links(overlay_root, label)
+            if removed > 0:
+                print(f"  [OK] Removed {removed} symlinks (legacy rglob scan)")
+            else:
+                print(f"  [OK] No symlinks found (legacy scan)")
     except ImportError:
         pass
 
