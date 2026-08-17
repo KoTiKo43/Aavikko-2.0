@@ -4,20 +4,20 @@ Apply.py — apply Aavikko mod overlay to upstream SS14 build.
 
 Pipeline:
   0. Check for unresolved conflicts (Check.py --apply-check)
-  1. Delete upstream files (manifest delete + Deletes/ manual)
+  1. Delete upstream files (manifest delete: section)
   2. Copy Patches/ → Resources/ (overwrite upstream)
   3. Copy Mods/ → Resources/ (add new content)
   4. Apply .cs.patch + .xaml.patch via git apply
   5. Write .applied marker (with head_commit for Clear.py)
 
 Security:
-  - safe_resolve_under() prevents path traversal via manifest.yml or Deletes/
+  - safe_resolve_under() prevents path traversal via manifest.yml
   - File lock prevents concurrent Apply.py runs
   - Empty overlay check prevents false success
 
-Deletes/ folder:
-  Developer creates empty placeholder files with mirror paths.
-  Apply.py removes the corresponding Resources/ file.
+Note: The Deletes/ folder feature was removed. To "delete" an upstream
+file, create a .patch that empties it (with a comment explaining why) or use
+the manifest.yml `delete:` section.
 """
 from __future__ import annotations
 
@@ -48,7 +48,6 @@ BUILD_ROOT = SCRIPT_DIR.parent.parent  # Patcher/ → Aavikko.Modding/ → Corva
 RESOURCES_DIR = BUILD_ROOT / "Aavikko.Resources"
 MODS_DIR = RESOURCES_DIR / "Mods"
 PATCHES_DIR = RESOURCES_DIR / "Patches"
-DELETES_DIR = RESOURCES_DIR / "Deletes"
 MANIFEST = RESOURCES_DIR / "manifest.yml"
 CONTENT_DIR = BUILD_ROOT / "Aavikko.Content"
 CS_MODS_DIR = CONTENT_DIR / "Mods"
@@ -202,31 +201,6 @@ def delete_conflicts() -> list[str]:
 
 def delete_stale() -> list[str]:
     return _delete_section("stale")
-
-
-def delete_manual() -> list[str]:
-    """Delete upstream files marked by developer in Aavikko.Resources/Deletes/."""
-    if not DELETES_DIR.exists():
-        return []
-    deleted = []
-    for f in sorted(DELETES_DIR.rglob("*")):
-        if not f.is_file():
-            continue
-        rel = f.relative_to(DELETES_DIR)
-        target = safe_resolve_under(BUILD_ROOT / "Resources", str(rel))
-        if target is None:
-            print(f"  [WARN] Refusing path traversal in Deletes/: {rel}", file=sys.stderr)
-            continue
-        if target.exists():
-            if target.is_dir():
-                shutil.rmtree(target)
-            else:
-                target.unlink()
-            deleted.append(str(rel))
-            print(f"  [DEL-MANUAL] {rel}")
-        else:
-            print(f"  [SKIP-MANUAL] {rel} (already clean)")
-    return deleted
 
 
 # ── Copy operations ────────────────────────────────────────────────────────
@@ -641,7 +615,7 @@ def main():
                 if next((f for f in d.rglob("*") if f.is_file() and not f.name.startswith(".gitkeep")), None) is not None:
                     has_any_file = True
                     break
-        if not has_any_file and not MANIFEST.exists() and not DELETES_DIR.exists():
+        if not has_any_file and not MANIFEST.exists():
             print(f"\n[FATAL] Overlay is empty — nothing to apply.", file=sys.stderr)
             print(f"  Run Migrate.py first: python3 {SCRIPT_DIR.name}/Migrate.py --clean", file=sys.stderr)
             sys.exit(2)
@@ -696,11 +670,12 @@ def main():
         else:
             print("\n--- [0/6] Check for unresolved conflicts (--force, skipped) ---")
 
-        # 1. Delete conflicts + manual deletions (stale removal disabled — too annoying)
-        print("\n--- [1/6] Delete conflicting + manual deletions ---")
+        # 1. Delete conflicts (manifest.yml `delete:` section only)
+        #    The old Deletes/ folder feature was removed — use empty-content
+        #    .patch files instead if you need to "blank out" an upstream file.
+        print("\n--- [1/6] Delete conflicting files (manifest.yml) ---")
         deleted = delete_conflicts()
-        manual = delete_manual()
-        print(f"  Total: {len(deleted)} conflicts, {len(manual)} manual")
+        print(f"  Total: {len(deleted)} conflicts deleted")
 
         # 2. Copy Patches/ → Resources/
         print("\n--- [2/6] Copy Patches/ → Resources/ ---")
@@ -772,12 +747,11 @@ def main():
         # Use atomic write to prevent corruption on Ctrl+C / disk full
         head_commit, _, _ = run("git rev-parse HEAD", cwd=BUILD_ROOT)
         _applied_data = {
-            "schema_version": 4,  # v4: content_mods_copied added, csproj patches removed
+            "schema_version": 5,  # v5: Deletes/ folder removed (manual_deleted field dropped)
             "applied_at": datetime.now(timezone.utc).isoformat(),
             "head_commit": head_commit,
             "deleted": deleted,
             "stale_removed": [],
-            "manual_deleted": manual,
             "patches_copied": patches_count,
             "mods_copied": mods_count,
             "content_mods_copied": content_mods_count,
@@ -807,14 +781,14 @@ def main():
         print(f"\n{'=' * 70}")
         if failed_patches:
             print(f"Apply complete with {len(failed_patches)} failure(s)")
-            print(f"  {len(deleted)} deleted, {len(manual)} manual, "
+            print(f"  {len(deleted)} deleted, "
                   f"{patches_count} res-patches, {mods_count} res-mods, "
                   f"{len(applied_patches)}/{len(all_patches)} cs+xaml patches, "
                   f"{len(applied_robust)}/{len(robust_patches)} robust patches, "
                   f"{robust_mods_count} robust mods")
             print(f"  WARNING: {len(failed_patches)} patch(es) failed — see above")
             sys.exit(1)
-        print(f"Done! {len(deleted)} deleted, {len(manual)} manual, "
+        print(f"Done! {len(deleted)} deleted, "
               f"{patches_count} res-patches, {mods_count} res-mods, "
               f"{len(applied_patches)}/{len(all_patches)} cs+xaml patches, "
               f"{len(applied_robust)}/{len(robust_patches)} robust patches, "
