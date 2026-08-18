@@ -32,6 +32,17 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Force UTF-8 for stdout/stderr — Windows default is cp1251 which can't encode
+# Unicode characters like →, —, ✓, ⚠ used in print() statements.
+# Without this, Apply.py crashes with UnicodeEncodeError on Windows PowerShell.
+# Python 3.7+ supports sys.stdout.reconfigure().
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except (OSError, ValueError):
+        pass  # Fails on some streams (e.g., redirected to file) — ignore
+
 # File locking — fcntl is Unix-only, use msvcrt on Windows
 try:
     import fcntl
@@ -65,28 +76,35 @@ LOCK_FILE = SCRIPT_DIR / ".apply.lock"
 TEMP_SNAPSHOT_SUFFIXES = (".conflict.upstream", ".old.patched", ".conflict.patched")
 
 
-def run(cmd: str, cwd: Path | None = None, timeout: int | None = None) -> tuple[str, str, int]:
-    """Run a shell-style command (cross-platform).
+def run(cmd, cwd: Path | None = None, timeout: int | None = None) -> tuple[str, str, int]:
+    """Run a command. Accepts either a string (shell-style) OR an argv list.
 
-    OLD behavior: subprocess.run(cmd, shell=True).
-    Problem on Windows: PowerShell doesn't accept `&&` as separator.
+    Cross-platform: never uses shell=True. If `cmd` is a string, it's split
+    via shlex.split (which can BREAK on Windows paths with backslashes if
+    they're not properly quoted). For safety, prefer passing an argv list:
 
-    NEW behavior: shlex.split the command into argv list, run without shell.
-    This works on Windows/Linux/macOS identically. Shell features (pipes,
-    redirects, glob) are NOT supported — but Apply.py doesn't use them.
+        run(["git", "apply", "--check", str(patch_path)])  # SAFE
+        run("git apply --check 'path'")                    # OK if quoted
+        run("git rev-parse HEAD")                          # OK (no paths)
+
+    The argv list form is 100% cross-platform — no shell, no quoting,
+    no backslash interpretation. Always prefer it for commands with paths.
     """
-    try:
-        argv = shlex.split(cmd)
-    except ValueError:
-        # Fallback for edge cases (unbalanced quotes) — use shell
-        result = subprocess.run(
-            cmd, shell=True, cwd=cwd, capture_output=True,
-            text=True, encoding="utf-8", errors="replace",
-            timeout=timeout
-        )
-        return result.stdout.strip(), result.stderr.strip(), result.returncode
-    if not argv:
-        return "", "", 0
+    if isinstance(cmd, str):
+        try:
+            argv = shlex.split(cmd)
+        except ValueError:
+            # Fallback for edge cases (unbalanced quotes) — use shell
+            result = subprocess.run(
+                cmd, shell=True, cwd=cwd, capture_output=True,
+                text=True, encoding="utf-8", errors="replace",
+                timeout=timeout
+            )
+            return result.stdout.strip(), result.stderr.strip(), result.returncode
+        if not argv:
+            return "", "", 0
+    else:
+        argv = list(cmd)
     result = subprocess.run(
         argv, cwd=cwd, capture_output=True,
         text=True, encoding="utf-8", errors="replace",
@@ -95,15 +113,17 @@ def run(cmd: str, cwd: Path | None = None, timeout: int | None = None) -> tuple[
     return result.stdout.strip(), result.stderr.strip(), result.returncode
 
 
-def run_git_with_lock_retry(cmd: str, cwd: Path | None = None,
+def run_git_with_lock_retry(cmd, cwd: Path | None = None,
                             max_retries: int = 5, retry_delay: float = 1.0,
                             timeout: int | None = None) -> tuple[str, str, int]:
     """Run a git command with retry on index.lock conflict.
 
+    Accepts either a string OR an argv list (delegates to run()).
+
     Git returns rc=128 with message "Unable to create '.git/index.lock': File exists"
     when another git process (Status.py polling, VS Code Source Control view, etc.)
     is running concurrently. This is a common race condition when:
-      - VS Code extension polls Status.py every 5 sec (which calls git status)
+      - VS Code extension polls Status.py every 15 sec (which calls git status)
       - Apply.py runs git apply (which writes to .git/index.lock)
       - User has VS Code Source Control panel open
 
@@ -259,12 +279,46 @@ def delete_stale() -> list[str]:
 # ── Copy operations ────────────────────────────────────────────────────────
 
 
+def _copy_with_retry(src: Path, dst: Path, max_retries: int = 3) -> bool:
+    """Copy a file with retry on PermissionError (Windows file locking).
+
+    On Windows, if a file is open in VS Code (or another editor), shutil.copy
+    may fail with PermissionError: [Errno 13] Permission denied. This function
+    retries up to max_retries times with 0.5s delay between attempts.
+
+    Returns True if copy succeeded, False if all retries failed.
+    """
+    for attempt in range(max_retries):
+        try:
+            shutil.copy(src, dst)
+            return True
+        except PermissionError as e:
+            if attempt < max_retries - 1:
+                # File may be locked by VS Code or antivirus — wait and retry
+                print(f"  [WARN] Permission denied copying {src.name} (attempt {attempt+1}/{max_retries}), retrying in 0.5s...",
+                      file=sys.stderr)
+                time.sleep(0.5)
+            else:
+                print(f"  [FAIL] Could not copy {src.name} after {max_retries} attempts: {e}",
+                      file=sys.stderr)
+                return False
+        except OSError as e:
+            # Other OS errors (disk full, path too long, etc.) — don't retry
+            print(f"  [FAIL] Could not copy {src.name}: {e}", file=sys.stderr)
+            return False
+    return False
+
+
 def copy_tree(src_dir: Path, label: str) -> int:
     """Copy all files from src_dir to Resources/ (overwrite).
-    Skips symlinks and temp snapshot files from Check.py."""
+    Skips symlinks and temp snapshot files from Check.py.
+
+    Uses _copy_with_retry() for PermissionError handling (Windows file locking
+    when files are open in VS Code)."""
     count = 0
     skipped_symlinks = 0
     skipped_temps = 0
+    failed_copies = 0
     files = sorted([f for f in src_dir.rglob("*") if f.is_file()])
     for src in files:
         if src.is_symlink():
@@ -278,14 +332,18 @@ def copy_tree(src_dir: Path, label: str) -> int:
         rel = src.relative_to(src_dir)
         dst = BUILD_ROOT / "Resources" / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy(src, dst)
-        count += 1
+        if _copy_with_retry(src, dst):
+            count += 1
+        else:
+            failed_copies += 1
         if count % 500 == 0:
             print(f"    ... {count}/{len(files)}")
     if skipped_symlinks:
         print(f"  [WARN] {skipped_symlinks} symlink(s) skipped", file=sys.stderr)
     if skipped_temps:
         print(f"  [SKIP] {skipped_temps} temp snapshot(s) skipped", file=sys.stderr)
+    if failed_copies:
+        print(f"  [FAIL] {failed_copies} file(s) could not be copied (PermissionError?)", file=sys.stderr)
     print(f"  [OK] {count} files copied ({label})")
     return count
 
@@ -371,19 +429,31 @@ def apply_cs_patch(patch_path: Path, skip_paths: set[str] | None = None,
         print(f"  [SKIP] {patch_path.name} (decision: s in .conflict_decisions.yml)")
         return True
 
-    patch_str = shlex.quote(str(patch_path))
-    # Use run_git_with_lock_retry for git apply — same index.lock race as Clear
-    # (VS Code extension polls Status.py every 5s, which can hold .git/index.lock)
-    stdout, stderr, rc = run_git_with_lock_retry(f"git apply --check {patch_str}", cwd=cwd)
+    # Use argv list form — 100% cross-platform safe (no shlex.split/quoting).
+    # On Windows, shlex.split can mangle backslashes in paths if not properly
+    # quoted. Passing argv directly avoids all shell interpretation.
+    #
+    # CRITICAL: Use `git -c core.autocrlf=false apply` on Windows.
+    # On Windows with core.autocrlf=true, git converts LF→CRLF in working tree
+    # files during checkout. But .cs.patch files contain LF (created on Linux).
+    # When `git apply` compares patch context (LF) with file content (CRLF),
+    # it FAILS with "patch does not apply" even though the content matches.
+    # Disabling autocrlf for this specific command fixes it.
+    # On Linux/macOS this is a no-op (autocrlf is already false).
+    patch_path_str = str(patch_path)
+    stdout, stderr, rc = run_git_with_lock_retry(
+        ["git", "-c", "core.autocrlf=false", "apply", "--check", patch_path_str], cwd=cwd)
     if rc == 0:
-        stdout, stderr, rc = run_git_with_lock_retry(f"git apply {patch_str}", cwd=cwd)
+        stdout, stderr, rc = run_git_with_lock_retry(
+            ["git", "-c", "core.autocrlf=false", "apply", patch_path_str], cwd=cwd)
         if rc == 0:
             print(f"  [OK] {patch_path.name}")
             return True
         print(f"  [FAIL] {patch_path.name}: git apply failed after --check passed")
-        print(f"         stderr: {stderr[:200]}")
+        print(f"         stderr: {stderr[:300]}", file=sys.stderr)
         return False
-    stdout2, stderr2, rc2 = run_git_with_lock_retry(f"git apply --reverse --check {patch_str}", cwd=cwd)
+    stdout2, stderr2, rc2 = run_git_with_lock_retry(
+        ["git", "-c", "core.autocrlf=false", "apply", "--reverse", "--check", patch_path_str], cwd=cwd)
     if rc2 == 0:
         print(f"  [SKIP] {patch_path.name} (already applied)")
         return True
@@ -492,17 +562,17 @@ def check_conflicts() -> bool:
     if not state_file.exists():
         print("  [INFO] No .upstream_state.json found — recording baseline (first-time setup)")
         # Use sys.executable (NOT "python3") for cross-platform compat.
-        # On Windows sys.executable is "C:\\Python\\python.exe" or "py.exe".
-        # On Linux/macOS sys.executable is "/usr/bin/python3" etc.
+        # Use argv list form — 100% cross-platform safe (no shlex.split/quoting).
+        # Use -X utf8 flag to force UTF-8 mode in child process (Windows cp1251 fix).
         stdout, stderr, rc = run(
-            f"{shlex.quote(sys.executable)} {shlex.quote(check_script)} --baseline",
+            [sys.executable, "-X", "utf8", check_script, "--baseline"],
             cwd=BUILD_ROOT,
             timeout=300  # 5 min for baseline (scans all files)
         )
         if rc != 0:
             print(f"\n[FATAL] Failed to record baseline via Check.py --baseline", file=sys.stderr)
             if stderr:
-                print(f"  stderr: {stderr[:300]}", file=sys.stderr)
+                print(f"  stderr: {stderr[:500]}", file=sys.stderr)
             return False
         print("  [OK] Baseline recorded")
         return True
@@ -510,7 +580,7 @@ def check_conflicts() -> bool:
     print("  [INFO] Running conflict check (can take 30-60s for large builds)...")
     try:
         stdout, stderr, rc = run(
-            f"{shlex.quote(sys.executable)} {shlex.quote(check_script)} --apply-check",
+            [sys.executable, "-X", "utf8", check_script, "--apply-check"],
             cwd=BUILD_ROOT,
             timeout=120  # 2 min timeout for apply-check
         )
@@ -648,7 +718,7 @@ def main():
                 # Run Clear.py to revert upstream, then proceed
                 from subprocess import run as sp_run
                 sp_run(
-                    ["python3", str(SCRIPT_DIR / "Clear.py")],
+                    [sys.executable, "-X", "utf8", str(SCRIPT_DIR / "Clear.py")],
                     cwd=BUILD_ROOT, check=False
                 )
         except (json.JSONDecodeError, OSError) as e:
@@ -677,6 +747,7 @@ def main():
             print(f"\n[FATAL] Overlay is empty — nothing to apply.", file=sys.stderr)
             print(f"  Run Migrate.py first: python3 {SCRIPT_DIR.name}/Migrate.py --clean", file=sys.stderr)
             sys.exit(2)
+        # --- END: was inside try: ---
 
         # Clean up temp snapshots from Check.py BEFORE anything else
         # (.conflict.upstream, .old.patched, .conflict.patched)
@@ -858,5 +929,48 @@ def main():
         release_lock()
 
 
+def _print_crash_diagnostics(exc: Exception) -> None:
+    """Print detailed crash info so user can report the exact error.
+
+    When Apply.py crashes with an unexpected exception (OSError, PermissionError,
+    UnicodeDecodeError, etc.), the default Python traceback is often cryptic.
+    This function prints a user-friendly summary + the full traceback, so
+    the user can copy-paste it to the developer.
+    """
+    import traceback
+    print(f"\n{'=' * 70}", file=sys.stderr)
+    print(f"[CRASH] Apply.py failed with unexpected error", file=sys.stderr)
+    print(f"{'=' * 70}", file=sys.stderr)
+    print(f"  Error type: {type(exc).__name__}", file=sys.stderr)
+    print(f"  Error message: {exc}", file=sys.stderr)
+    print(f"  Python: {sys.version.split()[0]}", file=sys.stderr)
+    print(f"  Platform: {sys.platform}", file=sys.stderr)
+    print(f"  BUILD_ROOT: {BUILD_ROOT}", file=sys.stderr)
+    print(f"  SCRIPT_DIR: {SCRIPT_DIR}", file=sys.stderr)
+    # Check if .applied exists (partial state?)
+    if APPLIED_FILE.exists():
+        print(f"  .applied: EXISTS (Apply may have partially completed)", file=sys.stderr)
+    else:
+        print(f"  .applied: missing", file=sys.stderr)
+    # Check if .apply.lock exists (stale lock?)
+    if LOCK_FILE.exists():
+        print(f"  .apply.lock: EXISTS (may need manual removal)", file=sys.stderr)
+    print(f"\n  Full traceback:", file=sys.stderr)
+    traceback.print_exc(file=sys.stderr)
+    print(f"\n{'=' * 70}", file=sys.stderr)
+    print(f"  Please copy the above output and report to the developer.", file=sys.stderr)
+    print(f"  Include: error type, message, traceback, and what you did before.", file=sys.stderr)
+    print(f"{'=' * 70}", file=sys.stderr)
+
+
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n[ABORTED] Apply.py interrupted by user (Ctrl+C)", file=sys.stderr)
+        sys.exit(130)
+    except SystemExit:
+        raise  # Don't catch sys.exit()
+    except Exception as e:
+        _print_crash_diagnostics(e)
+        sys.exit(1)

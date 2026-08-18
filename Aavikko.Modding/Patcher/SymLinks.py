@@ -62,6 +62,15 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Force UTF-8 for stdout/stderr — Windows default is cp1251 which can't encode
+# Unicode characters like → used in print() statements.
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except (OSError, ValueError):
+        pass
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 BUILD_ROOT = SCRIPT_DIR.parent.parent
 

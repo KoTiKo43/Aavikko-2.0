@@ -35,6 +35,15 @@ import subprocess
 import sys
 from pathlib import Path
 
+# Force UTF-8 for stdout/stderr — Windows default is cp1251 which can't encode
+# Unicode characters like →, —, ✓ used in print() statements.
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except (OSError, ValueError):
+        pass
+
 from ui import (
     header, section, divider, kv, ok, info, warn, error, fatal,
     skip, hint, tag, bullet, progress_iter, summary_table,
@@ -119,24 +128,34 @@ def is_git_tracked(filepath: str, cwd: Path | None = None) -> bool:
     return result.returncode == 0
 
 
-def run(cmd: str, cwd: Path | None = None, check: bool = True) -> tuple[str, str, int]:
-    """Run a shell-style command (cross-platform).
+def run(cmd, cwd: Path | None = None, check: bool = True) -> tuple[str, str, int]:
+    """Run a command. Accepts either a string (shell-style) OR an argv list.
 
-    shlex.split the command into argv list, run without shell.
-    Works on Windows/Linux/macOS identically. Shell features (pipes,
-    redirects, glob) are NOT supported.
+    Cross-platform: never uses shell=True. If `cmd` is a string, it's split
+    via shlex.split (which can BREAK on Windows paths with backslashes if
+    they're not properly quoted). For safety, prefer passing an argv list.
+
+    The argv list form is 100% cross-platform — no shell, no quoting,
+    no backslash interpretation.
     """
-    try:
-        argv = shlex.split(cmd)
-    except ValueError:
-        # Fallback for edge cases (unbalanced quotes) — use shell
-        result = subprocess.run(
-            cmd, shell=True, cwd=cwd, capture_output=True,
-            text=True, encoding="utf-8", errors="replace"
-        )
+    if isinstance(cmd, str):
+        try:
+            argv = shlex.split(cmd)
+        except ValueError:
+            # Fallback for edge cases (unbalanced quotes) — use shell
+            result = subprocess.run(
+                cmd, shell=True, cwd=cwd, capture_output=True,
+                text=True, encoding="utf-8", errors="replace"
+            )
+        else:
+            if not argv:
+                return "", "", 0
+            result = subprocess.run(
+                argv, cwd=cwd, capture_output=True,
+                text=True, encoding="utf-8", errors="replace"
+            )
     else:
-        if not argv:
-            return "", "", 0
+        argv = list(cmd)
         result = subprocess.run(
             argv, cwd=cwd, capture_output=True,
             text=True, encoding="utf-8", errors="replace"
@@ -284,7 +303,7 @@ def capture_resources_file(filepath: str, restore: bool = False) -> bool:
     if restore:
         if location == "Patches":
             # Tracked: git checkout to restore
-            run(f"git checkout -- {shlex.quote(filepath)}", cwd=BUILD_ROOT, check=False)
+            run(["git", "checkout", "--", filepath], cwd=BUILD_ROOT, check=False)
             ok(f"Restored upstream: {filepath}")
         else:
             # New file: just delete it (we already have a copy in Mods/)
@@ -327,7 +346,7 @@ def capture_patch(filepath: str, restore: bool = False, is_csproj: bool = False,
         return False
 
     # Verify file is tracked by git
-    _, _, rc = run(f"git ls-files --error-unmatch {filepath}", cwd=cwd, check=False)
+    _, _, rc = run(["git", "ls-files", "--error-unmatch", filepath], cwd=cwd, check=False)
     if rc != 0:
         error(f"File is not tracked by git: {filepath}")
         hint("Generate.py only works on upstream files (tracked by git).")
@@ -361,12 +380,13 @@ def capture_patch(filepath: str, restore: bool = False, is_csproj: bool = False,
     original_content = full_path.read_bytes()
     try:
         # Checkout HEAD version (clean upstream)
-        run(f"git checkout HEAD -- {shlex.quote(filepath)}", cwd=cwd, check=False)
+        run(["git", "checkout", "HEAD", "--", filepath], cwd=cwd, check=False)
 
         # Verify patch against now-clean upstream
-        patch_str = shlex.quote(str(dest))
+        # Use argv list + -c core.autocrlf=false for cross-platform CRLF compat
         _, verify_err, verify_rc = run(
-            f"git apply --check {patch_str}", cwd=cwd, check=False
+            ["git", "-c", "core.autocrlf=false", "apply", "--check", str(dest)],
+            cwd=cwd, check=False
         )
 
         if verify_rc == 0:
@@ -402,7 +422,7 @@ def capture_patch(filepath: str, restore: bool = False, is_csproj: bool = False,
 
     # Optionally restore upstream (only if patch was saved OK)
     if restore and saved_ok:
-        run(f"git checkout -- {filepath}", cwd=BUILD_ROOT, check=False)
+        run(["git", "checkout", "--", filepath], cwd=BUILD_ROOT, check=False)
         ok(f"Restored upstream: {filepath}")
     
     return True

@@ -65,11 +65,14 @@ export async function runScript(
             'Aavikko: Python not found. Install Python 3 or set aavikko.pythonPath.');
         return null;
     }
-    log(`$ ${python} ${script} ${args.join(' ')}  (cwd: ${patcherDir})`);
+    log(`$ ${python} -X utf8 ${script} ${args.join(' ')}  (cwd: ${patcherDir})`);
     return new Promise((resolve) => {
         cp.execFile(
             python,
-            [path.join(patcherDir, script), ...args],
+            // -X utf8 forces UTF-8 mode in Python — critical on Windows where
+            // the default encoding is cp1251 (can't encode →, —, ✓, ⚠).
+            // Without this, scripts crash with UnicodeEncodeError.
+            ['-X', 'utf8', path.join(patcherDir, script), ...args],
             { cwd: patcherDir, timeout: timeoutMs, maxBuffer: 32 * 1024 * 1024 },
             (err, stdout, stderr) => {
                 const code = err && typeof err.code === 'number' ? err.code : 0;

@@ -20,6 +20,16 @@ import sys
 import time
 from typing import Any, Iterable
 
+# Force UTF-8 for stdout/stderr — Windows default is cp1251 which can't encode
+# Unicode characters like →, —, ✓, ⚠ used in this module's output.
+# Without this, scripts using ui.py crash with UnicodeEncodeError on Windows.
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except (OSError, ValueError):
+        pass
+
 WIDTH = 70
 
 # ── Color detection ─────────────────────────────────────────────────────────

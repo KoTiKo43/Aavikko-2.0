@@ -193,13 +193,14 @@ function registerCommands(
             vscode.window.showErrorMessage('Aavikko: Python not found.');
             return;
         }
-        runScriptInTerminal(patcherDir, `${python} Check.py`);
+        // -X utf8 forces UTF-8 mode (Windows cp1251 fix)
+        runScriptInTerminal(patcherDir, `${python} -X utf8 Check.py`);
     });
 
     cmd('aavikko.showStatus', async () => {
         const python = await getPython();
         if (python) {
-            runScriptInTerminal(patcherDir, `${python} Status.py`);
+            runScriptInTerminal(patcherDir, `${python} -X utf8 Status.py`);
         }
         showLog();
     });

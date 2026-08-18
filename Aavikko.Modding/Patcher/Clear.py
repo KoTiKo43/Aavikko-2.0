@@ -30,6 +30,15 @@ import sys
 import time
 from pathlib import Path
 
+# Force UTF-8 for stdout/stderr — Windows default is cp1251 which can't encode
+# Unicode characters like →, — used in print() statements.
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except (OSError, ValueError):
+        pass
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 BUILD_ROOT = SCRIPT_DIR.parent.parent
 APPLIED_FILE = SCRIPT_DIR / ".applied"
@@ -48,23 +57,30 @@ REVERT_DIRS = [
 ]
 
 
-def run(cmd: str, cwd: Path | None = None) -> tuple[str, str, int]:
-    """Run a shell-style command (cross-platform).
+def run(cmd, cwd: Path | None = None) -> tuple[str, str, int]:
+    """Run a command. Accepts either a string (shell-style) OR an argv list.
 
-    shlex.split the command into argv list, run without shell.
-    Works on Windows/Linux/macOS identically.
+    Cross-platform: never uses shell=True. If `cmd` is a string, it's split
+    via shlex.split (which can BREAK on Windows paths with backslashes if
+    they're not properly quoted). For safety, prefer passing an argv list.
+
+    The argv list form is 100% cross-platform — no shell, no quoting,
+    no backslash interpretation. Always prefer it for commands with paths.
     """
-    try:
-        argv = shlex.split(cmd)
-    except ValueError:
-        # Fallback for edge cases (unbalanced quotes) — use shell
-        result = subprocess.run(
-            cmd, shell=True, cwd=cwd, capture_output=True,
-            text=True, encoding="utf-8", errors="replace"
-        )
-        return result.stdout.strip(), result.stderr.strip(), result.returncode
-    if not argv:
-        return "", "", 0
+    if isinstance(cmd, str):
+        try:
+            argv = shlex.split(cmd)
+        except ValueError:
+            # Fallback for edge cases (unbalanced quotes) — use shell
+            result = subprocess.run(
+                cmd, shell=True, cwd=cwd, capture_output=True,
+                text=True, encoding="utf-8", errors="replace"
+            )
+            return result.stdout.strip(), result.stderr.strip(), result.returncode
+        if not argv:
+            return "", "", 0
+    else:
+        argv = list(cmd)
     result = subprocess.run(
         argv, cwd=cwd, capture_output=True,
         text=True, encoding="utf-8", errors="replace"
@@ -72,16 +88,15 @@ def run(cmd: str, cwd: Path | None = None) -> tuple[str, str, int]:
     return result.stdout.strip(), result.stderr.strip(), result.returncode
 
 
-def run_git_with_lock_retry(cmd: str, cwd: Path | None = None,
+def run_git_with_lock_retry(cmd, cwd: Path | None = None,
                             max_retries: int = 5, retry_delay: float = 1.0) -> tuple[str, str, int]:
     """Run a git command with retry on index.lock conflict.
 
+    Accepts either a string OR an argv list (delegates to run()).
+
     Git returns rc=128 with message "Unable to create '.git/index.lock': File exists"
     when another git process (Status.py polling, VS Code Source Control view, etc.)
-    is running concurrently. This is a common race condition when:
-      - VS Code extension polls Status.py every 5 sec (which calls git status)
-      - Clear.py runs git checkout/git clean
-      - User has VS Code Source Control panel open
+    is running concurrently.
 
     Strategy: detect index.lock error, wait 1 sec, retry. Up to 5 times.
     """
@@ -159,20 +174,20 @@ def revert_dir(dirname: str) -> bool:
     """Revert a directory to HEAD: git checkout + git clean.
     Returns True if BOTH commands succeeded (no errors).
 
-    Uses run_git_with_lock_retry() because VS Code extension's Status.py
-    polling (every 5s) can hold .git/index.lock concurrently with Clear.py.
-    Without retry, Clear would fail with rc=128 on the FIRST attempt.
+    Uses run_git_with_lock_retry() with argv list form (cross-platform safe).
     """
     target = BUILD_ROOT / dirname
     if not target.exists():
         return False
 
     # git checkout HEAD -- <dir> (revert tracked file modifications)
-    # Retry on index.lock conflict (VS Code polling race condition)
-    _, _, rc1 = run_git_with_lock_retry(f"git checkout HEAD -- {dirname}/", cwd=BUILD_ROOT)
+    # Use argv list — no shlex.split/quoting issues on Windows
+    _, _, rc1 = run_git_with_lock_retry(
+        ["git", "checkout", "HEAD", "--", f"{dirname}/"], cwd=BUILD_ROOT)
 
     # git clean -fd <dir> (remove untracked files added by Apply)
-    _, _, rc2 = run_git_with_lock_retry(f"git clean -fd {dirname}/", cwd=BUILD_ROOT)
+    _, _, rc2 = run_git_with_lock_retry(
+        ["git", "clean", "-fd", f"{dirname}/"], cwd=BUILD_ROOT)
 
     # Both should succeed; if either fails, it's a real error (not partial)
     if rc1 != 0:
@@ -187,9 +202,9 @@ def revert_robusttoolbox() -> bool:
     rb = BUILD_ROOT / "RobustToolbox"
     if not rb.exists():
         return False
-    # Use retry for submodule too (same race condition applies)
-    run_git_with_lock_retry("git checkout HEAD -- .", cwd=rb)
-    run_git_with_lock_retry("git clean -fd", cwd=rb)
+    # Use argv list + retry for submodule too (same race condition applies)
+    run_git_with_lock_retry(["git", "checkout", "HEAD", "--", "."], cwd=rb)
+    run_git_with_lock_retry(["git", "clean", "-fd"], cwd=rb)
     return True
 
 

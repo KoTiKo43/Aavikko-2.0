@@ -37,6 +37,17 @@ import subprocess
 import sys
 from pathlib import Path
 
+# Force UTF-8 for stdout/stderr — Windows default is cp1251 which can't encode
+# Unicode characters in paths/messages. Without this, Status.py crashes with
+# UnicodeEncodeError when run on Windows PowerShell (and VS Code extension
+# receives empty stdout → "Unexpected end of JSON input" parse error).
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except (OSError, ValueError):
+        pass
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 BUILD_ROOT = SCRIPT_DIR.parent.parent
 ROBUST_DIR = BUILD_ROOT / "RobustToolbox"

@@ -42,6 +42,15 @@ import sys
 import time
 from pathlib import Path
 
+# Force UTF-8 for stdout/stderr — Windows default is cp1251 which can't encode
+# Unicode characters like →, —, ✓ used in print() statements.
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except (OSError, ValueError):
+        pass
+
 # Validate git commit hashes (hex, 7-40 chars)
 COMMIT_RE = re.compile(r'^[0-9a-f]{7,40}$')
 
@@ -60,24 +69,29 @@ STATE_FILE = SCRIPT_DIR / ".upstream_state.json"
 DECISIONS_FILE = SCRIPT_DIR / ".conflict_decisions.yml"
 
 
-def run(cmd: str, cwd: Path | None = None) -> tuple[str, str, int]:
-    """Run a shell-style command (cross-platform).
+def run(cmd, cwd: Path | None = None) -> tuple[str, str, int]:
+    """Run a command. Accepts either a string (shell-style) OR an argv list.
 
-    shlex.split the command into argv list, run without shell.
-    Works on Windows/Linux/macOS identically. Shell features (pipes,
-    redirects, glob) are NOT supported.
+    Cross-platform: never uses shell=True. If `cmd` is a string, it's split
+    via shlex.split (which can BREAK on Windows paths with backslashes if
+    they're not properly quoted). For safety, prefer passing an argv list:
+
+        run(["git", "status", "--porcelain"])  # SAFE
+        run("git rev-parse HEAD")               # OK (no paths)
     """
-    try:
-        argv = shlex.split(cmd)
-    except ValueError:
-        # Fallback for edge cases (unbalanced quotes) — use shell
-        result = subprocess.run(
-            cmd, shell=True, cwd=cwd, capture_output=True,
-            text=True, encoding="utf-8", errors="replace"
-        )
-        return result.stdout.strip(), result.stderr.strip(), result.returncode
-    if not argv:
-        return "", "", 0
+    if isinstance(cmd, str):
+        try:
+            argv = shlex.split(cmd)
+        except ValueError:
+            result = subprocess.run(
+                cmd, shell=True, cwd=cwd, capture_output=True,
+                text=True, encoding="utf-8", errors="replace"
+            )
+            return result.stdout.strip(), result.stderr.strip(), result.returncode
+        if not argv:
+            return "", "", 0
+    else:
+        argv = list(cmd)
     result = subprocess.run(
         argv, cwd=cwd, capture_output=True,
         text=True, encoding="utf-8", errors="replace"
