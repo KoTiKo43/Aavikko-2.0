@@ -22,6 +22,7 @@ Universal modding system for Space Station 14 builds. Overlay resources, patch C
     │   ├── Generate.py       ← Scan git changes, create .cs.mod + .cs.patch
     │   ├── Apply.py          ← Apply patches, restore .cs.mod → .cs
     │   ├── Clear.py          ← Revert upstream to base_commit
+    │   ├── Status.py         ← (new) JSON status bridge for the VS Code extension
     │   ├── .base_commit      ← (auto) Corvax + RobustToolbox HEAD hashes
     │   ├── .applied          ← (auto) List of applied patches
     │   └── Patches/
@@ -108,6 +109,18 @@ Options:
 | `Apply.py --skip-conflicts` | Skip conflicting patches |
 | `Clear.py` | Revert upstream to base_commit |
 | `Clear.py --dry-run` | Show what would be cleared |
+| `Status.py` | Pretty overlay status summary (state, git, overlay counts, dirty files, conflicts) |
+| `Status.py --json` | Same as JSON — consumed by the VS Code extension (read-only, never crashes) |
+
+## VS Code extension
+
+`Aavikko.Modding/VSCode/aavikko-overlay-0.2.0.vsix` — install via
+`code --install-extension` or Extensions view → «Install from VSIX…».
+
+Features: status-bar indicator (click = action menu), Overview / Dirty Files /
+Conflicts panels, Explorer badges (blue = mod, orange = patch), inline
+highlight of patched lines, one-click Apply/Clear/Generate/Check, conflict
+diffs and resolution. Source lives in `VSCode/aavikko-overlay/`.
 
 ## Launcher scripts
 
