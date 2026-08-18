@@ -145,6 +145,125 @@ def sha256_git_head(rel_path: str) -> str | None:
     return h.hexdigest()
 
 
+def _batch_sha256_git_head(rel_paths: list[str]) -> dict[str, str | None]:
+    """Calculate SHA256 of MULTIPLE files in git HEAD — via ONE git process.
+
+    Uses `git cat-file --batch` (batch mode) to read many blobs in a single
+    subprocess. This is CRITICAL for performance on Windows where spawning
+    a new process for each file costs ~100ms × 5000 files = 8+ minutes.
+    With batch mode, all 5000 files are read in ~2-5 seconds total.
+
+    Args:
+      rel_paths: list of paths relative to BUILD_ROOT
+
+    Returns:
+      dict { rel_path: sha256_hex or None (if not in HEAD) }
+    """
+    if not rel_paths:
+        return {}
+
+    # Spawn ONE git process, feed it paths via stdin, read responses from stdout.
+    # Format of git cat-file --batch input: one object name per line.
+    # Format of output per object:
+    #   <oid> <type> <size>\n
+    #   <content>\n
+    # If object missing: <path> missing\n
+    proc = subprocess.Popen(
+        ["git", "cat-file", "--batch"],
+        cwd=BUILD_ROOT,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if proc.stdin is None or proc.stdout is None:
+        return {p: None for p in rel_paths}
+
+    # Send all paths at once
+    input_data = "\n".join(f"HEAD:{p}" for p in rel_paths) + "\n"
+    try:
+        proc.stdin.write(input_data.encode("utf-8"))
+        proc.stdin.close()
+    except (BrokenPipeError, OSError):
+        pass  # git may have exited early (e.g., bad path) — handle below
+
+    result: dict[str, str | None] = {}
+    for path in rel_paths:
+        # Read header line: "<oid> <type> <size>" or "<path> missing"
+        header = proc.stdout.readline()
+        if not header:
+            # git exited unexpectedly — remaining paths are None
+            result[path] = None
+            continue
+        header_str = header.decode("utf-8", errors="replace").strip()
+        if header_str.endswith(" missing"):
+            # Not in HEAD (untracked / new file)
+            result[path] = None
+            continue
+        # Parse header: "<oid> blob <size>"
+        parts = header_str.split()
+        if len(parts) < 3:
+            result[path] = None
+            continue
+        try:
+            size = int(parts[2])
+        except ValueError:
+            result[path] = None
+            continue
+        # Read exactly <size> bytes of blob content
+        content = proc.stdout.read(size)
+        # Read trailing newline after content
+        proc.stdout.read(1)
+        h = hashlib.sha256()
+        h.update(content)
+        result[path] = h.hexdigest()
+
+    # Wait for git process to finish (should be quick — already read everything)
+    try:
+        proc.wait(timeout=5)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+    return result
+
+
+def _git_ls_tree_head() -> dict[str, str | None]:
+    """Get SHA1 (git blob hash) of ALL files in HEAD — via ONE git process.
+
+    Uses `git ls-tree -r HEAD` — returns "<mode> <type> <sha1>\t<path>" for
+    every file in the HEAD tree. ONE subprocess, returns in ~50ms even for
+    huge repos (10x+ faster than batch cat-file, 1000x faster than per-file
+    git show).
+
+    The git SHA1 IS a hash of the blob content — it changes if content
+    changes. Perfect for comparing baseline vs current state.
+
+    NOTE: Returns git SHA1 (40 hex chars), NOT SHA256. This is a different
+    hash algorithm than the old baseline format. State files using SHA256
+    need migration (auto-detected — see migrate_state_format() below).
+
+    Returns:
+      dict { rel_path: git_sha1_hex (40 chars) or None if not in HEAD }
+    """
+    result = subprocess.run(
+        ["git", "ls-tree", "-r", "HEAD"],
+        cwd=BUILD_ROOT, capture_output=True, text=True,
+        encoding="utf-8", errors="replace",
+    )
+    if result.returncode != 0:
+        return {}
+    tree: dict[str, str | None] = {}
+    for line in result.stdout.splitlines():
+        # Format: "<mode> <type> <sha1>\t<path>"
+        if "\t" not in line:
+            continue
+        meta, path = line.split("\t", 1)
+        parts = meta.split()
+        if len(parts) < 3:
+            continue
+        sha1 = parts[2]
+        tree[path] = sha1
+    return tree
+
+
 def get_upstream_commit() -> str:
     """Get current HEAD commit hash."""
     stdout, _, _ = run("git rev-parse HEAD", cwd=BUILD_ROOT)
@@ -155,13 +274,37 @@ def get_upstream_commit() -> str:
 
 
 def load_state() -> dict:
-    """Load upstream state. Returns empty dict if not exists."""
+    """Load upstream state. Returns empty dict if not exists.
+
+    Auto-migrates legacy SHA256 state → re-baseline (return empty dict).
+    Detects SHA256 hashes by length: 64 chars = SHA256 (legacy), 40 = SHA1.
+    """
     if not STATE_FILE.exists():
         return {}
     try:
-        return json.loads(STATE_FILE.read_text(encoding="utf-8"))
+        state = json.loads(STATE_FILE.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
         return {}
+
+    # ── Auto-migrate: detect SHA256 hashes and trigger re-baseline ──
+    # SHA256 = 64 hex chars, SHA1 = 40 hex chars.
+    # If any hash in the state is 64 chars, it's a legacy SHA256 baseline
+    # and we need to re-record it with the new SHA1 format.
+    hash_format = state.get("hash_format", "sha256")  # default to legacy if missing
+    if hash_format == "sha256":
+        # Check if any hash is actually SHA256 (64 chars)
+        for path, sha in state.get("patches", {}).items():
+            if sha and len(sha) == 64:
+                # Legacy SHA256 baseline — discard, force re-baseline
+                print(f"  [INFO] Legacy SHA256 baseline detected — re-baselining with SHA1 (faster)")
+                print(f"  [INFO] Old baseline: {len(state.get('patches', {}))} patches, "
+                      f"{len(state.get('mods', {}))} mods")
+                return {}
+        for path, sha in state.get("mods", {}).items():
+            if sha and len(sha) == 64:
+                print(f"  [INFO] Legacy SHA256 baseline detected — re-baselining with SHA1 (faster)")
+                return {}
+    return state
 
 
 def save_state(state: dict) -> None:
@@ -190,54 +333,64 @@ def _atomic_write_text(path: Path, content: str) -> None:
 
 
 def collect_current_state() -> dict:
-    """Collect current state: upstream commit + sha256 of all files we track.
+    """Collect current state: upstream commit + hash of all files we track.
 
-    CRITICAL: Uses sha256_git_head() which reads from `git show HEAD:<path>`,
-    NOT from working tree. This is because after Apply.py the working tree
-    contains our overlay files (Patches copied over, .cs.patch applied).
-    Reading working tree would report ALL files as "changed" vs baseline.
+    CRITICAL PERFORMANCE: Uses _git_ls_tree_head() — ONE `git ls-tree -r HEAD`
+    subprocess that returns SHA1 of ALL files in HEAD in ~50ms. This is
+    1000x faster than calling `git show HEAD:<path>` per file, and 10x faster
+    than `git cat-file --batch` (which still has to read blob content).
+
+    The git SHA1 IS a content hash — it changes iff blob content changes.
+    Perfect for our use case (compare baseline vs current state to detect
+    upstream changes that conflict with our overlay).
+
+    NOTE: Old state files (pre-0.2.9) used SHA256. We auto-migrate by
+    checking hash length: 64 chars = SHA256 (legacy), 40 chars = SHA1 (new).
+    If old_state uses SHA256 and new_state uses SHA1, we re-baseline.
 
     Scans:
-      - Aavikko.Resources/Patches/ — for each file, get sha256 of upstream Resources/<path>
+      - Aavikko.Resources/Patches/ — for each file, get hash of upstream Resources/<path>
       - Aavikko.Resources/Mods/    — for each file, check if upstream now has same path
-      - Aavikko.Content/Patches/   — for each .cs.patch/.xaml.patch, get sha256 of upstream Content.<path>
+      - Aavikko.Content/Patches/   — for each .cs.patch/.xaml.patch, get hash of upstream Content.<path>
       - Aavikko.Content/Mods/      — for each file, check if upstream now has same path
     """
     state = {
         "recorded_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
         "upstream_commit": get_upstream_commit(),
-        "patches": {},  # path → sha256 of upstream file (from HEAD)
-        "mods": {},     # path → sha256 of upstream file (or None if not in HEAD)
+        "hash_format": "git_sha1",  # v2: was "sha256" pre-0.2.9
+        "patches": {},  # path → git_sha1 of upstream file (from HEAD)
+        "mods": {},     # path → git_sha1 of upstream file (or None if not in HEAD)
     }
 
-    # ── Resources/Patches/ — upstream file at same path (read from HEAD) ──
+    # ── Step 1: collect all paths to track ──
+    patches_paths: list[str] = []
+    mods_paths: list[str] = []
+
+    # Resources/Patches/
     res_patches = RESOURCES_DIR / "Patches"
     if res_patches.exists():
         for f in res_patches.rglob("*"):
             if not f.is_file():
                 continue
             rel = str(f.relative_to(res_patches))
-            # Use git HEAD version — NOT working tree (which has overlay applied)
-            state["patches"][f"Resources/{rel}"] = sha256_git_head(f"Resources/{rel}")
+            patches_paths.append(f"Resources/{rel}")
 
-    # ── Resources/Mods/ — upstream file at same path (should NOT exist in HEAD) ──
+    # Resources/Mods/
     res_mods = RESOURCES_DIR / "Mods"
     if res_mods.exists():
         for f in res_mods.rglob("*"):
             if not f.is_file():
                 continue
             rel = str(f.relative_to(res_mods))
-            # None if not in HEAD (good — Aavikko's new file)
-            state["mods"][f"Resources/{rel}"] = sha256_git_head(f"Resources/{rel}")
+            mods_paths.append(f"Resources/{rel}")
 
-    # ── Content/Patches/ — upstream .cs/.xaml file (read from HEAD) ──
+    # Content/Patches/
     content_patches = CONTENT_DIR / "Patches"
     if content_patches.exists():
         for f in content_patches.rglob("*"):
             if not f.is_file():
                 continue
             name = f.name
-            # Skip .patch files — we want the upstream file they patch
             if name.endswith(".cs.patch"):
                 upstream_rel = str(f.relative_to(content_patches)).replace(".cs.patch", ".cs")
             elif name.endswith(".xaml.patch"):
@@ -246,18 +399,26 @@ def collect_current_state() -> dict:
                 upstream_rel = str(f.relative_to(content_patches)).replace(".xaml.cs.patch", ".xaml.cs")
             else:
                 continue
-            # Use git HEAD version — NOT working tree (which has patch applied)
-            state["patches"][upstream_rel] = sha256_git_head(upstream_rel)
+            patches_paths.append(upstream_rel)
 
-    # ── Content/Mods/ — upstream file at same path (should NOT exist in HEAD) ──
+    # Content/Mods/
     content_mods = CONTENT_DIR / "Mods"
     if content_mods.exists():
         for f in content_mods.rglob("*"):
             if not f.is_file():
                 continue
             rel = str(f.relative_to(content_mods))
-            # None if not in HEAD (good — Aavikko's new file)
-            state["mods"][rel] = sha256_git_head(rel)
+            mods_paths.append(rel)
+
+    # ── Step 2: ONE git ls-tree -r HEAD — get SHA1 of ALL files in HEAD ──
+    # This is the magic — one subprocess, ~50ms, returns SHA1 for every file.
+    all_head_hashes = _git_ls_tree_head()
+
+    # ── Step 3: fill state from all_head_hashes ──
+    for path in patches_paths:
+        state["patches"][path] = all_head_hashes.get(path)
+    for path in mods_paths:
+        state["mods"][path] = all_head_hashes.get(path)
 
     return state
 

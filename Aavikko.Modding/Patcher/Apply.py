@@ -582,10 +582,10 @@ def check_conflicts() -> bool:
         stdout, stderr, rc = run(
             [sys.executable, "-X", "utf8", check_script, "--apply-check"],
             cwd=BUILD_ROOT,
-            timeout=120  # 2 min timeout for apply-check
+            timeout=300  # 5 min (was 2 min) — Windows HDD can be slow on first run
         )
     except subprocess.TimeoutExpired:
-        print("  [WARN] Conflict check timed out (120s) — continuing with --force behaviour")
+        print("  [WARN] Conflict check timed out (300s) — continuing with --force behaviour")
         return True
     if rc != 0:
         print(f"\n[BLOCKED] Unresolved conflicts detected — Apply.py cannot run.")
