@@ -88,10 +88,66 @@ export class StateManager {
     private readonly _onDidChange = new vscode.EventEmitter<AavikkoStatus>();
     readonly onDidChange = this._onDidChange.event;
 
+    // Periodic poll fallback — runs every N seconds to catch state changes
+    // that FileSystemWatcher might miss on network-mounted drives (Crucible,
+    // NFS, FUSE, SMB/CIFS). Without this, switching VS Code tabs or focusing
+    // other windows could leave stale state until a manual refresh.
+    //
+    // Polling is paused automatically while a long-running operation is in
+    // progress (Apply/Clear/Generate take 30s-2min). See withBusy() below.
+    private pollTimer: NodeJS.Timeout | null = null;
+    private busyCount = 0;
+    private static readonly POLL_INTERVAL_MS = 5000;  // 5 sec
+    private static readonly POLL_DEBOUNCE_MS = 1500;  // ignore rapid re-polls
+
     constructor(
         readonly buildRoot: string,
         readonly patcherDir: string,
-    ) {}
+    ) {
+        this.startPolling();
+    }
+
+    /**
+     * Mark state as "busy" — pauses polling while a long-running operation
+     * (Apply/Clear/Generate) is executing. Returns a function to call when
+     * the operation finishes (resumes polling + triggers immediate refresh).
+     *
+     * Usage:
+     *   const done = state.withBusy();
+     *   try { await apply(); } finally { done(); }
+     */
+    withBusy(): () => void {
+        this.busyCount++;
+        return () => {
+            this.busyCount = Math.max(0, this.busyCount - 1);
+            // Trigger immediate refresh after busy operation completes
+            // (debounced so multiple done() calls don't trigger flood)
+            setTimeout(() => { void this.refresh(); }, 200);
+        };
+    }
+
+    private startPolling(): void {
+        if (this.pollTimer) { return; }
+        this.pollTimer = setInterval(() => {
+            // Skip while busy (Apply/Clear/Generate running) — they take 30s-2min
+            // and we'd just thrash Python subprocess if we polled during them.
+            if (this.busyCount > 0) { return; }
+            // Debounce: don't re-poll if a refresh was triggered <1.5s ago
+            if (Date.now() - this.lastRefreshAt < StateManager.POLL_DEBOUNCE_MS) {
+                return;
+            }
+            void this.refresh();
+        }, StateManager.POLL_INTERVAL_MS);
+    }
+
+    private stopPolling(): void {
+        if (this.pollTimer) {
+            clearInterval(this.pollTimer);
+            this.pollTimer = null;
+        }
+    }
+
+    private lastRefreshAt = 0;
 
     get current(): AavikkoStatus {
         return this.status;
@@ -111,28 +167,41 @@ export class StateManager {
 
     /** Refresh status. Prefers Status.py; falls back to built-in JS logic. */
     async refresh(): Promise<AavikkoStatus> {
-        const statusPy = path.join(this.patcherDir, 'Status.py');
-        if (fs.existsSync(statusPy)) {
-            const result = await runScript(this.patcherDir, 'Status.py', ['--json'], 60_000);
-            if (result && result.code === 0) {
-                try {
-                    const parsed = JSON.parse(result.stdout.trim());
-                    if (parsed.error) {
-                        logError('Status.py reported error', parsed.error);
-                    } else {
-                        this.status = this.normalize(parsed);
-                        this._onDidChange.fire(this.status);
-                        return this.status;
+        // Don't refresh if already refreshing (avoid stacking concurrent
+        // Status.py subprocesses — they each take 1-2s).
+        if (this.refreshing) {
+            return this.status;
+        }
+        this.refreshing = true;
+        this.lastRefreshAt = Date.now();
+        try {
+            const statusPy = path.join(this.patcherDir, 'Status.py');
+            if (fs.existsSync(statusPy)) {
+                const result = await runScript(this.patcherDir, 'Status.py', ['--json'], 60_000);
+                if (result && result.code === 0) {
+                    try {
+                        const parsed = JSON.parse(result.stdout.trim());
+                        if (parsed.error) {
+                            logError('Status.py reported error', parsed.error);
+                        } else {
+                            this.status = this.normalize(parsed);
+                            this._onDidChange.fire(this.status);
+                            return this.status;
+                        }
+                    } catch (e) {
+                        logError('Failed to parse Status.py output', e);
                     }
-                } catch (e) {
-                    logError('Failed to parse Status.py output', e);
                 }
             }
+            this.status = await this.fallbackStatus();
+            this._onDidChange.fire(this.status);
+            return this.status;
+        } finally {
+            this.refreshing = false;
         }
-        this.status = await this.fallbackStatus();
-        this._onDidChange.fire(this.status);
-        return this.status;
     }
+
+    private refreshing = false;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private normalize(raw: any): AavikkoStatus {
@@ -282,6 +351,7 @@ export class StateManager {
     }
 
     dispose(): void {
+        this.stopPolling();
         this._onDidChange.dispose();
     }
 }

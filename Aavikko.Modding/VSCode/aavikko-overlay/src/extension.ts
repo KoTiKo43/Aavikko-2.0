@@ -144,24 +144,31 @@ function registerCommands(
 
     /** Run a script with progress + captured output; refresh state after. */
     async function runHeadless(script: string, args: string[], title: string): Promise<boolean> {
-        const result = await vscode.window.withProgress(
-            { location: vscode.ProgressLocation.Notification, title: `Aavikko: ${title}…`, cancellable: false },
-            () => runScript(patcherDir, script, args, 300_000),
-        );
-        if (!result) {
-            return false;
+        // Mark state as "busy" — pauses polling while Apply/Clear/Generate runs
+        // (these scripts take 30s-2min; polling during them would thrash Python)
+        const doneBusy = state.withBusy();
+        try {
+            const result = await vscode.window.withProgress(
+                { location: vscode.ProgressLocation.Notification, title: `Aavikko: ${title}…`, cancellable: false },
+                () => runScript(patcherDir, script, args, 300_000),
+            );
+            if (!result) {
+                return false;
+            }
+            if (result.stdout.trim()) { log(result.stdout.trim()); }
+            if (result.stderr.trim()) { log(`stderr: ${result.stderr.trim()}`); }
+            await refresh();
+            if (result.code !== 0) {
+                const choice = await vscode.window.showErrorMessage(
+                    `Aavikko: ${title} failed (exit ${result.code})`, 'Show Log');
+                if (choice === 'Show Log') { showLog(); }
+                return false;
+            }
+            vscode.window.showInformationMessage(`Aavikko: ${title} — done`);
+            return true;
+        } finally {
+            doneBusy();
         }
-        if (result.stdout.trim()) { log(result.stdout.trim()); }
-        if (result.stderr.trim()) { log(`stderr: ${result.stderr.trim()}`); }
-        await refresh();
-        if (result.code !== 0) {
-            const choice = await vscode.window.showErrorMessage(
-                `Aavikko: ${title} failed (exit ${result.code})`, 'Show Log');
-            if (choice === 'Show Log') { showLog(); }
-            return false;
-        }
-        vscode.window.showInformationMessage(`Aavikko: ${title} — done`);
-        return true;
     }
 
     const cmd = (id: string, fn: (...args: unknown[]) => unknown) =>
