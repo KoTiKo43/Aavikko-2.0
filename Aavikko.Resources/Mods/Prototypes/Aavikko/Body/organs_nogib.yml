@@ -1,0 +1,80 @@
+- type: entity
+  parent: [ OrganAnimalInternal, OrganAnimalMetabolizer ]
+  id: OrganAnimalLungsNoGib
+  components:
+  - type: Organ
+    category: Lungs
+  - type: Lung
+  - type: Metabolizer
+    stages: [ Respiration ]
+  - type: SolutionManager
+    solutions:
+    - SolutionLungGas
+  - type: Sprite
+    layers:
+    - state: lung-l
+    - state: lung-r
+  - type: Item
+    heldPrefix: lungs
+
+- type: entity
+  parent: [ OrganAnimalInternal, OrganAnimalMetabolizer ]
+  id: OrganAnimalHeartNoGib
+  components:
+  - type: Organ
+    category: Heart
+  - type: Sprite
+    layers:
+    - state: heart-on
+  - type: Metabolizer
+    maxReagents: 2
+    stages: [ Bloodstream ]
+
+- type: entity
+  parent: [ OrganAnimalInternal, OrganAnimalMetabolizer ]
+  id: OrganAnimalStomachNoGib
+  components:
+  - type: Organ
+    category: Stomach
+  - type: Stomach
+  - type: SolutionManager
+    solutions:
+    - SolutionStomach
+  - type: Metabolizer
+    maxReagents: 3
+    stages: [ Digestion ]
+  - type: Sprite
+    layers:
+    - state: stomach
+  - type: Item
+    heldPrefix: stomach
+
+- type: entity
+  parent: [ OrganAnimalInternal, OrganAnimalMetabolizer ]
+  id: OrganAnimalLiverNoGib
+  components:
+  - type: Organ
+    category: Liver
+  - type: Sprite
+    layers:
+    - state: liver
+  - type: Item
+    heldPrefix: liver
+  - type: Metabolizer
+    maxReagents: 1
+    stages: [ Metabolites ]
+
+- type: entity
+  parent: [ OrganAnimalInternal, OrganAnimalMetabolizer ]
+  id: OrganAnimalKidneysNoGib
+  components:
+  - type: Organ
+    category: Kidneys
+  - type: Sprite
+    layers:
+      - state: kidney-l
+      - state: kidney-r
+  - type: Item
+    heldPrefix: kidneys
+  - type: Metabolizer
+    maxReagents: 5

@@ -70,3 +70,5 @@ marking-HumanHairViper = Гадюка
 marking-HumanHairWife = Жена
 marking-HumanHairZiegler = Циглер
 marking-Spikey = Колючая причёска
+
+# Aavikko Tajaran marking moved to mods
