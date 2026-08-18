@@ -69,13 +69,50 @@ def run(cmd: str, cwd: Path | None = None) -> tuple[str, str, int]:
 
 
 def sha256_file(path: Path) -> str | None:
-    """Calculate SHA256 of a file. Returns None if file doesn't exist."""
+    """Calculate SHA256 of a file on disk (working tree). Returns None if missing.
+
+    NOTE: This reads from WORKING TREE. After Apply.py the working tree contains
+    our overlay files, so this is NOT the upstream version. For checking upstream
+    state, use sha256_git_head() instead — reads from `git show HEAD:<path>`.
+    """
     if not path.exists() or not path.is_file():
         return None
     h = hashlib.sha256()
     with open(path, "rb") as f:
         for chunk in iter(lambda: f.read(65536), b""):
             h.update(chunk)
+    return h.hexdigest()
+
+
+def sha256_git_head(rel_path: str) -> str | None:
+    """Calculate SHA256 of a file as it exists in git HEAD (committed upstream).
+
+    Uses `git show HEAD:<path>` to read the blob content (NOT working tree).
+    This is critical: after Apply.py the working tree contains our overlay
+    files, so reading working tree would report ALL files as "changed"
+    vs baseline. We must compare against what's actually committed upstream.
+
+    Args:
+      rel_path: path relative to BUILD_ROOT (e.g. "Resources/Audio/foo.ogg",
+                "Content.Shared/Botany/Systems/PlantSystem.cs")
+
+    Returns:
+      SHA256 hex of the file content in HEAD, or None if not tracked in HEAD.
+    """
+    # git show HEAD:<path> — outputs blob content to stdout
+    # Use shlex.quote to prevent shell injection (paths come from rglob of
+    # our own overlay files, but defense-in-depth)
+    quoted = shlex.quote(rel_path)
+    result = subprocess.run(
+        f"git show HEAD:{quoted}",
+        shell=True, cwd=BUILD_ROOT, capture_output=True,
+        # Binary mode — don't decode, just hash the bytes
+    )
+    if result.returncode != 0:
+        # Not in HEAD (untracked / new file in working tree)
+        return None
+    h = hashlib.sha256()
+    h.update(result.stdout)
     return h.hexdigest()
 
 
@@ -126,8 +163,13 @@ def _atomic_write_text(path: Path, content: str) -> None:
 def collect_current_state() -> dict:
     """Collect current state: upstream commit + sha256 of all files we track.
 
+    CRITICAL: Uses sha256_git_head() which reads from `git show HEAD:<path>`,
+    NOT from working tree. This is because after Apply.py the working tree
+    contains our overlay files (Patches copied over, .cs.patch applied).
+    Reading working tree would report ALL files as "changed" vs baseline.
+
     Scans:
-      - Aavikko.Resources/Patches/ — for each file, get sha256 of corresponding upstream Resources/<path>
+      - Aavikko.Resources/Patches/ — for each file, get sha256 of upstream Resources/<path>
       - Aavikko.Resources/Mods/    — for each file, check if upstream now has same path
       - Aavikko.Content/Patches/   — for each .cs.patch/.xaml.patch, get sha256 of upstream Content.<path>
       - Aavikko.Content/Mods/      — for each file, check if upstream now has same path
@@ -135,31 +177,31 @@ def collect_current_state() -> dict:
     state = {
         "recorded_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
         "upstream_commit": get_upstream_commit(),
-        "patches": {},  # path → sha256 of upstream file
-        "mods": {},     # path → sha256 of upstream file (or None if not in upstream)
+        "patches": {},  # path → sha256 of upstream file (from HEAD)
+        "mods": {},     # path → sha256 of upstream file (or None if not in HEAD)
     }
 
-    # ── Resources/Patches/ — upstream file at same path ──
+    # ── Resources/Patches/ — upstream file at same path (read from HEAD) ──
     res_patches = RESOURCES_DIR / "Patches"
     if res_patches.exists():
         for f in res_patches.rglob("*"):
             if not f.is_file():
                 continue
             rel = str(f.relative_to(res_patches))
-            upstream = BUILD_ROOT / "Resources" / rel
-            state["patches"][f"Resources/{rel}"] = sha256_file(upstream)
+            # Use git HEAD version — NOT working tree (which has overlay applied)
+            state["patches"][f"Resources/{rel}"] = sha256_git_head(f"Resources/{rel}")
 
-    # ── Resources/Mods/ — upstream file at same path (should NOT exist) ──
+    # ── Resources/Mods/ — upstream file at same path (should NOT exist in HEAD) ──
     res_mods = RESOURCES_DIR / "Mods"
     if res_mods.exists():
         for f in res_mods.rglob("*"):
             if not f.is_file():
                 continue
             rel = str(f.relative_to(res_mods))
-            upstream = BUILD_ROOT / "Resources" / rel
-            state["mods"][f"Resources/{rel}"] = sha256_file(upstream)  # None if not in upstream
+            # None if not in HEAD (good — Aavikko's new file)
+            state["mods"][f"Resources/{rel}"] = sha256_git_head(f"Resources/{rel}")
 
-    # ── Content/Patches/ — upstream .cs/.xaml file ──
+    # ── Content/Patches/ — upstream .cs/.xaml file (read from HEAD) ──
     content_patches = CONTENT_DIR / "Patches"
     if content_patches.exists():
         for f in content_patches.rglob("*"):
@@ -175,18 +217,18 @@ def collect_current_state() -> dict:
                 upstream_rel = str(f.relative_to(content_patches)).replace(".xaml.cs.patch", ".xaml.cs")
             else:
                 continue
-            upstream = BUILD_ROOT / upstream_rel
-            state["patches"][upstream_rel] = sha256_file(upstream)
+            # Use git HEAD version — NOT working tree (which has patch applied)
+            state["patches"][upstream_rel] = sha256_git_head(upstream_rel)
 
-    # ── Content/Mods/ — upstream file at same path (should NOT exist) ──
+    # ── Content/Mods/ — upstream file at same path (should NOT exist in HEAD) ──
     content_mods = CONTENT_DIR / "Mods"
     if content_mods.exists():
         for f in content_mods.rglob("*"):
             if not f.is_file():
                 continue
             rel = str(f.relative_to(content_mods))
-            upstream = BUILD_ROOT / rel
-            state["mods"][rel] = sha256_file(upstream)
+            # None if not in HEAD (good — Aavikko's new file)
+            state["mods"][rel] = sha256_git_head(rel)
 
     return state
 
@@ -429,11 +471,24 @@ def create_temp_snapshots(conflict: dict) -> None:
                         break
 
     # .conflict.upstream — copy of current upstream file (B)
+    # Use git HEAD version, NOT working tree. Working tree may contain our
+    # overlay if Apply was run (in which case the upstream content was overwritten
+    # by our patch — we want to see the REAL upstream, not our modification).
     conflict_upstream = patches_dir / f"{rel}.conflict.upstream"
     conflict_upstream.parent.mkdir(parents=True, exist_ok=True)
-    if upstream_file.exists():
+    # Read upstream content from HEAD via git show
+    quoted_path = shlex.quote(path)
+    show_result = subprocess.run(
+        f"git show HEAD:{quoted_path}",
+        shell=True, cwd=BUILD_ROOT, capture_output=True,
+    )
+    if show_result.returncode == 0:
+        conflict_upstream.write_bytes(show_result.stdout)
+        tag("SNAPSHOT", f"{conflict_upstream.relative_to(BUILD_ROOT)} (upstream B from HEAD)", indent=4, color=cyan)
+    elif upstream_file.exists():
+        # Fallback to working tree (rare: file is new and not yet committed upstream)
         shutil.copy2(upstream_file, conflict_upstream)
-        tag("SNAPSHOT", f"{conflict_upstream.relative_to(BUILD_ROOT)} (upstream B)", indent=4, color=cyan)
+        tag("SNAPSHOT", f"{conflict_upstream.relative_to(BUILD_ROOT)} (upstream B from working tree — fallback)", indent=4, color=yellow)
 
     # .old.patched — what our patched version looked like (A')
     old_state = load_state()
