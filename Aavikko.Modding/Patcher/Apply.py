@@ -28,6 +28,7 @@ import shlex
 import shutil
 import subprocess
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -65,12 +66,64 @@ TEMP_SNAPSHOT_SUFFIXES = (".conflict.upstream", ".old.patched", ".conflict.patch
 
 
 def run(cmd: str, cwd: Path | None = None, timeout: int | None = None) -> tuple[str, str, int]:
+    """Run a shell-style command (cross-platform).
+
+    OLD behavior: subprocess.run(cmd, shell=True).
+    Problem on Windows: PowerShell doesn't accept `&&` as separator.
+
+    NEW behavior: shlex.split the command into argv list, run without shell.
+    This works on Windows/Linux/macOS identically. Shell features (pipes,
+    redirects, glob) are NOT supported — but Apply.py doesn't use them.
+    """
+    try:
+        argv = shlex.split(cmd)
+    except ValueError:
+        # Fallback for edge cases (unbalanced quotes) — use shell
+        result = subprocess.run(
+            cmd, shell=True, cwd=cwd, capture_output=True,
+            text=True, encoding="utf-8", errors="replace",
+            timeout=timeout
+        )
+        return result.stdout.strip(), result.stderr.strip(), result.returncode
+    if not argv:
+        return "", "", 0
     result = subprocess.run(
-        cmd, shell=True, cwd=cwd, capture_output=True,
+        argv, cwd=cwd, capture_output=True,
         text=True, encoding="utf-8", errors="replace",
         timeout=timeout
     )
     return result.stdout.strip(), result.stderr.strip(), result.returncode
+
+
+def run_git_with_lock_retry(cmd: str, cwd: Path | None = None,
+                            max_retries: int = 5, retry_delay: float = 1.0,
+                            timeout: int | None = None) -> tuple[str, str, int]:
+    """Run a git command with retry on index.lock conflict.
+
+    Git returns rc=128 with message "Unable to create '.git/index.lock': File exists"
+    when another git process (Status.py polling, VS Code Source Control view, etc.)
+    is running concurrently. This is a common race condition when:
+      - VS Code extension polls Status.py every 5 sec (which calls git status)
+      - Apply.py runs git apply (which writes to .git/index.lock)
+      - User has VS Code Source Control panel open
+
+    Strategy: detect index.lock error, wait 1 sec, retry. Up to 5 times.
+    """
+    last_stdout, last_stderr, last_rc = "", "", 0
+    for attempt in range(max_retries):
+        last_stdout, last_stderr, last_rc = run(cmd, cwd=cwd, timeout=timeout)
+        if last_rc == 0:
+            return last_stdout, last_stderr, last_rc
+        # Check if this is the index.lock error
+        if "index.lock" not in last_stderr and "index.lock" not in (last_stdout or ""):
+            # Different error — don't retry, return immediately
+            return last_stdout, last_stderr, last_rc
+        # index.lock conflict — wait and retry
+        if attempt < max_retries - 1:
+            print(f"  [INFO] git index.lock busy, retry {attempt+1}/{max_retries} in {retry_delay}s...",
+                  file=sys.stderr)
+            time.sleep(retry_delay)
+    return last_stdout, last_stderr, last_rc
 
 
 def _atomic_write_text(path: Path, content: str) -> None:
@@ -319,16 +372,18 @@ def apply_cs_patch(patch_path: Path, skip_paths: set[str] | None = None,
         return True
 
     patch_str = shlex.quote(str(patch_path))
-    stdout, stderr, rc = run(f"git apply --check {patch_str}", cwd=cwd)
+    # Use run_git_with_lock_retry for git apply — same index.lock race as Clear
+    # (VS Code extension polls Status.py every 5s, which can hold .git/index.lock)
+    stdout, stderr, rc = run_git_with_lock_retry(f"git apply --check {patch_str}", cwd=cwd)
     if rc == 0:
-        stdout, stderr, rc = run(f"git apply {patch_str}", cwd=cwd)
+        stdout, stderr, rc = run_git_with_lock_retry(f"git apply {patch_str}", cwd=cwd)
         if rc == 0:
             print(f"  [OK] {patch_path.name}")
             return True
         print(f"  [FAIL] {patch_path.name}: git apply failed after --check passed")
         print(f"         stderr: {stderr[:200]}")
         return False
-    stdout2, stderr2, rc2 = run(f"git apply --reverse --check {patch_str}", cwd=cwd)
+    stdout2, stderr2, rc2 = run_git_with_lock_retry(f"git apply --reverse --check {patch_str}", cwd=cwd)
     if rc2 == 0:
         print(f"  [SKIP] {patch_path.name} (already applied)")
         return True
@@ -432,12 +487,15 @@ def check_conflicts() -> bool:
     Timeout: 120 seconds for Check.py (sha256 scanning of 5000+ files can be slow).
     """
     state_file = SCRIPT_DIR / ".upstream_state.json"
-    check_script = shlex.quote(str(SCRIPT_DIR / "Check.py"))
+    check_script = str(SCRIPT_DIR / "Check.py")
 
     if not state_file.exists():
         print("  [INFO] No .upstream_state.json found — recording baseline (first-time setup)")
+        # Use sys.executable (NOT "python3") for cross-platform compat.
+        # On Windows sys.executable is "C:\\Python\\python.exe" or "py.exe".
+        # On Linux/macOS sys.executable is "/usr/bin/python3" etc.
         stdout, stderr, rc = run(
-            f"python3 {check_script} --baseline",
+            f"{shlex.quote(sys.executable)} {shlex.quote(check_script)} --baseline",
             cwd=BUILD_ROOT,
             timeout=300  # 5 min for baseline (scans all files)
         )
@@ -452,7 +510,7 @@ def check_conflicts() -> bool:
     print("  [INFO] Running conflict check (can take 30-60s for large builds)...")
     try:
         stdout, stderr, rc = run(
-            f"python3 {check_script} --apply-check",
+            f"{shlex.quote(sys.executable)} {shlex.quote(check_script)} --apply-check",
             cwd=BUILD_ROOT,
             timeout=120  # 2 min timeout for apply-check
         )
@@ -461,7 +519,7 @@ def check_conflicts() -> bool:
         return True
     if rc != 0:
         print(f"\n[BLOCKED] Unresolved conflicts detected — Apply.py cannot run.")
-        print(f"  Run: python3 {SCRIPT_DIR.name}/Check.py")
+        print(f"  Run: python {SCRIPT_DIR.name}/Check.py")
         print(f"  Resolve all conflicts, then re-run Apply.py.")
         return False
     return True

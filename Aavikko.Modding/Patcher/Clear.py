@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shlex
 import subprocess
 import sys
 import time
@@ -48,11 +49,57 @@ REVERT_DIRS = [
 
 
 def run(cmd: str, cwd: Path | None = None) -> tuple[str, str, int]:
+    """Run a shell-style command (cross-platform).
+
+    shlex.split the command into argv list, run without shell.
+    Works on Windows/Linux/macOS identically.
+    """
+    try:
+        argv = shlex.split(cmd)
+    except ValueError:
+        # Fallback for edge cases (unbalanced quotes) — use shell
+        result = subprocess.run(
+            cmd, shell=True, cwd=cwd, capture_output=True,
+            text=True, encoding="utf-8", errors="replace"
+        )
+        return result.stdout.strip(), result.stderr.strip(), result.returncode
+    if not argv:
+        return "", "", 0
     result = subprocess.run(
-        cmd, shell=True, cwd=cwd, capture_output=True,
+        argv, cwd=cwd, capture_output=True,
         text=True, encoding="utf-8", errors="replace"
     )
     return result.stdout.strip(), result.stderr.strip(), result.returncode
+
+
+def run_git_with_lock_retry(cmd: str, cwd: Path | None = None,
+                            max_retries: int = 5, retry_delay: float = 1.0) -> tuple[str, str, int]:
+    """Run a git command with retry on index.lock conflict.
+
+    Git returns rc=128 with message "Unable to create '.git/index.lock': File exists"
+    when another git process (Status.py polling, VS Code Source Control view, etc.)
+    is running concurrently. This is a common race condition when:
+      - VS Code extension polls Status.py every 5 sec (which calls git status)
+      - Clear.py runs git checkout/git clean
+      - User has VS Code Source Control panel open
+
+    Strategy: detect index.lock error, wait 1 sec, retry. Up to 5 times.
+    """
+    last_stdout, last_stderr, last_rc = "", "", 0
+    for attempt in range(max_retries):
+        last_stdout, last_stderr, last_rc = run(cmd, cwd=cwd)
+        if last_rc == 0:
+            return last_stdout, last_stderr, last_rc
+        # Check if this is the index.lock error
+        if "index.lock" not in last_stderr and "index.lock" not in (last_stdout or ""):
+            # Different error — don't retry, return immediately
+            return last_stdout, last_stderr, last_rc
+        # index.lock conflict — wait and retry
+        if attempt < max_retries - 1:
+            print(f"  [INFO] git index.lock busy, retry {attempt+1}/{max_retries} in {retry_delay}s...",
+                  file=sys.stderr)
+            time.sleep(retry_delay)
+    return last_stdout, last_stderr, last_rc
 
 
 def sync_content_mods_back():
@@ -110,16 +157,22 @@ def sync_content_mods_back():
 
 def revert_dir(dirname: str) -> bool:
     """Revert a directory to HEAD: git checkout + git clean.
-    Returns True if BOTH commands succeeded (no errors)."""
+    Returns True if BOTH commands succeeded (no errors).
+
+    Uses run_git_with_lock_retry() because VS Code extension's Status.py
+    polling (every 5s) can hold .git/index.lock concurrently with Clear.py.
+    Without retry, Clear would fail with rc=128 on the FIRST attempt.
+    """
     target = BUILD_ROOT / dirname
     if not target.exists():
         return False
 
     # git checkout HEAD -- <dir> (revert tracked file modifications)
-    _, _, rc1 = run(f"git checkout HEAD -- {dirname}/", cwd=BUILD_ROOT)
+    # Retry on index.lock conflict (VS Code polling race condition)
+    _, _, rc1 = run_git_with_lock_retry(f"git checkout HEAD -- {dirname}/", cwd=BUILD_ROOT)
 
     # git clean -fd <dir> (remove untracked files added by Apply)
-    _, _, rc2 = run(f"git clean -fd {dirname}/", cwd=BUILD_ROOT)
+    _, _, rc2 = run_git_with_lock_retry(f"git clean -fd {dirname}/", cwd=BUILD_ROOT)
 
     # Both should succeed; if either fails, it's a real error (not partial)
     if rc1 != 0:
@@ -134,8 +187,9 @@ def revert_robusttoolbox() -> bool:
     rb = BUILD_ROOT / "RobustToolbox"
     if not rb.exists():
         return False
-    run("git checkout HEAD -- .", cwd=rb)
-    run("git clean -fd", cwd=rb)
+    # Use retry for submodule too (same race condition applies)
+    run_git_with_lock_retry("git checkout HEAD -- .", cwd=rb)
+    run_git_with_lock_retry("git clean -fd", cwd=rb)
     return True
 
 

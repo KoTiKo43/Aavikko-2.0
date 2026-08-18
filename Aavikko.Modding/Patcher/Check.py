@@ -61,8 +61,25 @@ DECISIONS_FILE = SCRIPT_DIR / ".conflict_decisions.yml"
 
 
 def run(cmd: str, cwd: Path | None = None) -> tuple[str, str, int]:
+    """Run a shell-style command (cross-platform).
+
+    shlex.split the command into argv list, run without shell.
+    Works on Windows/Linux/macOS identically. Shell features (pipes,
+    redirects, glob) are NOT supported.
+    """
+    try:
+        argv = shlex.split(cmd)
+    except ValueError:
+        # Fallback for edge cases (unbalanced quotes) — use shell
+        result = subprocess.run(
+            cmd, shell=True, cwd=cwd, capture_output=True,
+            text=True, encoding="utf-8", errors="replace"
+        )
+        return result.stdout.strip(), result.stderr.strip(), result.returncode
+    if not argv:
+        return "", "", 0
     result = subprocess.run(
-        cmd, shell=True, cwd=cwd, capture_output=True,
+        argv, cwd=cwd, capture_output=True,
         text=True, encoding="utf-8", errors="replace"
     )
     return result.stdout.strip(), result.stderr.strip(), result.returncode
@@ -99,13 +116,11 @@ def sha256_git_head(rel_path: str) -> str | None:
     Returns:
       SHA256 hex of the file content in HEAD, or None if not tracked in HEAD.
     """
-    # git show HEAD:<path> — outputs blob content to stdout
-    # Use shlex.quote to prevent shell injection (paths come from rglob of
-    # our own overlay files, but defense-in-depth)
-    quoted = shlex.quote(rel_path)
+    # git show HEAD:<path> — outputs blob content to stdout (binary)
+    # Use argv list (no shell) for cross-platform compat (Windows PowerShell).
     result = subprocess.run(
-        f"git show HEAD:{quoted}",
-        shell=True, cwd=BUILD_ROOT, capture_output=True,
+        ["git", "show", f"HEAD:{rel_path}"],
+        cwd=BUILD_ROOT, capture_output=True,
         # Binary mode — don't decode, just hash the bytes
     )
     if result.returncode != 0:
@@ -476,11 +491,10 @@ def create_temp_snapshots(conflict: dict) -> None:
     # by our patch — we want to see the REAL upstream, not our modification).
     conflict_upstream = patches_dir / f"{rel}.conflict.upstream"
     conflict_upstream.parent.mkdir(parents=True, exist_ok=True)
-    # Read upstream content from HEAD via git show
-    quoted_path = shlex.quote(path)
+    # Read upstream content from HEAD via git show (argv form, no shell — cross-platform)
     show_result = subprocess.run(
-        f"git show HEAD:{quoted_path}",
-        shell=True, cwd=BUILD_ROOT, capture_output=True,
+        ["git", "show", f"HEAD:{path}"],
+        cwd=BUILD_ROOT, capture_output=True,
     )
     if show_result.returncode == 0:
         conflict_upstream.write_bytes(show_result.stdout)

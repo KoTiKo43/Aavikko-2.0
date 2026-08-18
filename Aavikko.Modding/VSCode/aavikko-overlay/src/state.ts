@@ -97,7 +97,7 @@ export class StateManager {
     // progress (Apply/Clear/Generate take 30s-2min). See withBusy() below.
     private pollTimer: NodeJS.Timeout | null = null;
     private busyCount = 0;
-    private static readonly POLL_INTERVAL_MS = 5000;  // 5 sec
+    private static readonly POLL_INTERVAL_MS = 15000;  // 15 sec (user requested)
     private static readonly POLL_DEBOUNCE_MS = 1500;  // ignore rapid re-polls
 
     constructor(

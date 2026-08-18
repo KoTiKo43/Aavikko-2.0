@@ -110,20 +110,37 @@ def is_git_tracked(filepath: str, cwd: Path | None = None) -> bool:
     if cwd is None:
         cwd = BUILD_ROOT
     # git cat-file -e HEAD:<path> returns 0 if exists in HEAD, non-zero otherwise
-    # Quote the path for shell safety
+    # Use argv list (no shell) for cross-platform compat
     result = subprocess.run(
-        f"git cat-file -e HEAD:{shlex.quote(filepath)}",
-        shell=True, cwd=cwd, capture_output=True,
+        ["git", "cat-file", "-e", f"HEAD:{filepath}"],
+        cwd=cwd, capture_output=True,
         text=True, encoding="utf-8", errors="replace"
     )
     return result.returncode == 0
 
 
 def run(cmd: str, cwd: Path | None = None, check: bool = True) -> tuple[str, str, int]:
-    result = subprocess.run(
-        cmd, shell=True, cwd=cwd, capture_output=True,
-        text=True, encoding="utf-8", errors="replace"
-    )
+    """Run a shell-style command (cross-platform).
+
+    shlex.split the command into argv list, run without shell.
+    Works on Windows/Linux/macOS identically. Shell features (pipes,
+    redirects, glob) are NOT supported.
+    """
+    try:
+        argv = shlex.split(cmd)
+    except ValueError:
+        # Fallback for edge cases (unbalanced quotes) — use shell
+        result = subprocess.run(
+            cmd, shell=True, cwd=cwd, capture_output=True,
+            text=True, encoding="utf-8", errors="replace"
+        )
+    else:
+        if not argv:
+            return "", "", 0
+        result = subprocess.run(
+            argv, cwd=cwd, capture_output=True,
+            text=True, encoding="utf-8", errors="replace"
+        )
     if check and result.returncode != 0:
         error(f"Command failed: {cmd}")
         hint(f"stderr: {result.stderr}")
@@ -145,8 +162,8 @@ def get_diff(filepath: str) -> str:
     "corrupt patch at line N" error in git apply.
     """
     result = subprocess.run(
-        f"git diff -- {filepath}",
-        shell=True, cwd=BUILD_ROOT, capture_output=True,
+        ["git", "diff", "--", filepath],
+        cwd=BUILD_ROOT, capture_output=True,
         text=True, encoding="utf-8", errors="replace"
     )
     # Preserve trailing newlines — only strip leading/trailing whitespace
@@ -319,8 +336,8 @@ def capture_patch(filepath: str, restore: bool = False, is_csproj: bool = False,
 
     # Get diff (must use cwd-specific git, preserve raw output)
     diff_result = subprocess.run(
-        f"git diff -- {filepath}",
-        shell=True, cwd=cwd, capture_output=True,
+        ["git", "diff", "--", filepath],
+        cwd=cwd, capture_output=True,
         text=True, encoding="utf-8", errors="replace"
     )
     diff = diff_result.stdout

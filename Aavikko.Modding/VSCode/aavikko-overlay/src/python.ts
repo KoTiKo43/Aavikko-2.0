@@ -82,6 +82,19 @@ export async function runScript(
 /**
  * Run a Patcher script in the integrated terminal (for interactive scripts
  * like Check.py with prompts). Reuses a single "Aavikko" terminal.
+ *
+ * Cross-platform shell handling:
+ *   - On Windows, VS Code's default terminal is PowerShell, which does NOT
+ *     accept `&&` as a command separator (it's a bash-only operator).
+ *     PowerShell uses `;` instead.
+ *   - On macOS/Linux, the default is bash/zsh, which DOES accept `&&`.
+ *   - We can't reliably detect the active shell profile, so we use a
+ *     PowerShell-compatible sequence that also works in bash:
+ *       cd "DIR"; COMMAND
+ *     Both shells accept `;` as a statement separator.
+ *   - As a bonus: we explicitly set cwd via the `cd` command rather than
+ *     relying on terminal.sendText's cwd option (which doesn't exist for
+ *     existing terminals — only for newly-created ones via createTerminal).
  */
 let terminal: vscode.Terminal | null = null;
 
@@ -90,10 +103,18 @@ export function runScriptInTerminal(patcherDir: string, commandLine: string): vo
         terminal = null; // closed by user
     }
     if (!terminal) {
-        terminal = vscode.window.createTerminal('Aavikko');
+        // Create terminal with explicit cwd so we don't need `cd` at all.
+        // This works on all shells (PowerShell, bash, zsh, cmd) — the shell
+        // starts in the patcherDir, and the command runs there directly.
+        terminal = vscode.window.createTerminal({
+            name: 'Aavikko',
+            cwd: patcherDir,
+        });
     }
     terminal.show(true);
-    terminal.sendText(`cd "${patcherDir}" && ${commandLine}`);
+    // Just send the command — no `cd ... &&` prefix needed because we set
+    // cwd when creating the terminal. Works in PowerShell, bash, zsh, cmd.
+    terminal.sendText(commandLine);
 }
 
 export function disposeTerminal(): void {
