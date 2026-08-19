@@ -35,6 +35,9 @@
   - type: HeldSpeedModifier
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHardsuitOrcHead
+  - type: Tag
+    tags:
+    - OrcHardsuit
 
 # Рядовой Тагар:
 # У: 65%
@@ -73,3 +76,6 @@
   - type: HeldSpeedModifier
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHardsuitOrcCadet
+  - type: Tag
+    tags:
+    - OrcHardsuit
