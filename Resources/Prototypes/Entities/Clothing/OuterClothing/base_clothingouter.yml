@@ -1,6 +1,6 @@
 - type: entity
   abstract: true
-  parent: Clothing
+  parent: [ Clothing, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterBase
   components:
   - type: Clothing
