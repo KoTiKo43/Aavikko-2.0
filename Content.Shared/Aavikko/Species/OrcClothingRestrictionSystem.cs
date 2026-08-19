@@ -39,36 +39,23 @@ public sealed partial class OrcClothingRestrictionSystem : EntitySystem
 
     private void OnEquipAttempt(EntityUid uid, ClothingComponent clothing, BeingEquippedAttemptEvent args)
     {
-        _sawmill.Info($"OnEquipAttempt: equipment={ToPrettyString(uid)}, slot={args.Slot}, equipTarget={ToPrettyString(args.EquipTarget)}");
-
         if (args.Cancelled)
-        {
-            _sawmill.Info($"  -> already cancelled by another system");
             return;
-        }
 
         if (!RestrictedSlots.Contains(args.Slot))
-        {
-            _sawmill.Info($"  -> slot {args.Slot} not in restricted list, skipping");
             return;
-        }
 
         var equipment = args.Equipment;
         var equipTarget = args.EquipTarget;
 
         if (!TryComp<InventoryComponent>(equipTarget, out var inventory))
-        {
-            _sawmill.Info($"  -> no InventoryComponent on target");
             return;
-        }
 
         var isOrc = inventory.SpeciesId == OrcSpeciesId;
         var isOrcHardsuit = _tag.HasTag(equipment, OrcHardsuitTag);
 
         // Проверяем, есть ли у предмета ЛЮБОЙ из тегов скафандра/EVA
         var hasRestrictedTag = RestrictedHardsuitTags.Any(t => _tag.HasTag(equipment, t));
-
-        _sawmill.Info($"  -> speciesId={inventory.SpeciesId}, isOrc={isOrc}, hasRestrictedTag={hasRestrictedTag}, isOrcHardsuit={isOrcHardsuit}");
 
         // Случай 1: Орк пытается надеть скафандр/EVA (Hardsuit или SuitEVA), но НЕ OrcHardsuit - запрет
         if (isOrc && hasRestrictedTag && !isOrcHardsuit)
@@ -95,7 +82,5 @@ public sealed partial class OrcClothingRestrictionSystem : EntitySystem
                 PopupType.MediumCaution);
             return;
         }
-
-        _sawmill.Info($"  -> no restriction matched, allowing equip");
     }
 }
