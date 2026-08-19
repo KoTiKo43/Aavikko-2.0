@@ -846,6 +846,14 @@ def main():
             content_mods_count = copy_content_mods()
 
             # 4b. Apply .cs.patch / .xaml.patch (modifications to upstream files)
+            #
+            # PERFORMANCE: batch all patches into ONE `git apply` call instead
+            # of 32 separate calls. On Windows, each git.exe spawn costs ~140ms
+            # (CreateProcess + DLL load + git init + teardown). 32 spawns × 140ms
+            # = 4.5s. One spawn = ~200ms. Saves ~4.3s on Windows.
+            #
+            # If the batch fails (one or more patches don't apply cleanly),
+            # fall back to per-patch mode to identify which ones failed.
             all_patches = []
             if CS_PATCHES_DIR.exists():
                 all_patches.extend(sorted(CS_PATCHES_DIR.rglob("*.cs.patch")))
@@ -853,18 +861,38 @@ def main():
             applied_patches = []
             skipped_patches = []
             failed_patches = []
+
+            # Separate skipped patches (decision: s) from the rest
+            patches_to_apply: list[Path] = []
             for patch in all_patches:
-                # Pre-check skip decision so we can count it separately.
-                # apply_cs_patch() also checks internally and returns True for skips,
-                # but we want skipped patches in their own bucket for the summary.
                 if _patch_is_skipped(patch, skip_paths, cwd=BUILD_ROOT):
                     skipped_patches.append(str(patch.relative_to(BUILD_ROOT)))
                     print(f"  [SKIP] {patch.name} (decision: s in .conflict_decisions.yml)")
-                    continue
-                if apply_cs_patch(patch, skip_paths=set(), cwd=BUILD_ROOT):
-                    applied_patches.append(str(patch.relative_to(BUILD_ROOT)))
                 else:
-                    failed_patches.append(str(patch.relative_to(BUILD_ROOT)))
+                    patches_to_apply.append(patch)
+
+            if patches_to_apply:
+                # ── FAST PATH: try batch apply (all patches at once) ──
+                batch_args = ["git", "-c", "core.autocrlf=false", "apply"]
+                batch_args.extend(str(p) for p in patches_to_apply)
+                _, batch_stderr, batch_rc = run_git_with_lock_retry(
+                    batch_args, cwd=BUILD_ROOT)
+
+                if batch_rc == 0:
+                    # All patches applied successfully — one spawn, done!
+                    for patch in patches_to_apply:
+                        print(f"  [OK] {patch.name}")
+                        applied_patches.append(str(patch.relative_to(BUILD_ROOT)))
+                else:
+                    # Batch failed — one or more patches didn't apply.
+                    # Fall back to per-patch mode to identify which ones
+                    # failed and which were already applied (reverse-check).
+                    print(f"  [INFO] Batch apply failed, falling back to per-patch...")
+                    for patch in patches_to_apply:
+                        if apply_cs_patch(patch, skip_paths=set(), cwd=BUILD_ROOT):
+                            applied_patches.append(str(patch.relative_to(BUILD_ROOT)))
+                        else:
+                            failed_patches.append(str(patch.relative_to(BUILD_ROOT)))
             # Print summary — show skipped count separately so the user knows
             # (e.g. "Applied: 31/32, Skipped: 1" instead of misleading "Applied: 32/32")
             if skipped_patches:
@@ -878,6 +906,7 @@ def main():
                     print(f"    {p}")
 
         # 5. RobustToolbox overlay: Mods + Patches
+        # Uses same batch-apply optimization as Content patches above.
         print("\n--- [5/6] RobustToolbox overlay ---")
         with _step_timer("RobustToolbox overlay"):
             robust_mods_count = copy_robust_mods()
@@ -890,17 +919,38 @@ def main():
             applied_robust = []
             skipped_robust = []
             failed_robust = []
+
+            # Separate skipped from apply-able
+            robust_to_apply: list[Path] = []
             for patch in robust_patches:
                 if _patch_is_skipped(patch, skip_paths,
                                       cwd=ROBUST_DIR, upstream_prefix="RobustToolbox/"):
                     skipped_robust.append(str(patch.relative_to(BUILD_ROOT)))
                     print(f"  [SKIP] {patch.name} (decision: s in .conflict_decisions.yml)")
-                    continue
-                if apply_cs_patch(patch, skip_paths=set(),
-                                  cwd=ROBUST_DIR, upstream_prefix="RobustToolbox/"):
-                    applied_robust.append(str(patch.relative_to(BUILD_ROOT)))
                 else:
-                    failed_robust.append(str(patch.relative_to(BUILD_ROOT)))
+                    robust_to_apply.append(patch)
+
+            if robust_to_apply:
+                # ── FAST PATH: batch apply ──
+                batch_args = ["git", "-c", "core.autocrlf=false", "apply"]
+                batch_args.extend(str(p) for p in robust_to_apply)
+                _, _, batch_rc = run_git_with_lock_retry(
+                    batch_args, cwd=ROBUST_DIR)
+
+                if batch_rc == 0:
+                    for patch in robust_to_apply:
+                        print(f"  [OK] {patch.name}")
+                        applied_robust.append(str(patch.relative_to(BUILD_ROOT)))
+                else:
+                    # Fall back to per-patch
+                    print(f"  [INFO] Batch apply failed, falling back to per-patch...")
+                    for patch in robust_to_apply:
+                        if apply_cs_patch(patch, skip_paths=set(),
+                                          cwd=ROBUST_DIR, upstream_prefix="RobustToolbox/"):
+                            applied_robust.append(str(patch.relative_to(BUILD_ROOT)))
+                        else:
+                            failed_robust.append(str(patch.relative_to(BUILD_ROOT)))
+
             if robust_patches:
                 if skipped_robust:
                     print(f"  Robust patches: {len(applied_robust)}/{len(robust_patches)} applied, "
