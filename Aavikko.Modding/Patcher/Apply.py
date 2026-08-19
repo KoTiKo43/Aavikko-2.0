@@ -416,17 +416,19 @@ def apply_cs_patch(patch_path: Path, skip_paths: set[str] | None = None,
     # Disabling autocrlf for this specific command fixes it.
     # On Linux/macOS this is a no-op (autocrlf is already false).
     patch_path_str = str(patch_path)
+    # OPTIMIZATION: skip `git apply --check` — go straight to `git apply`.
+    # git apply is atomic: if the patch doesn't fit, it changes nothing.
+    # The old code did `--check` first (1 spawn) then `apply` (1 spawn) = 2 spawns
+    # per patch × 32 patches = 64 spawns × 50ms = 3.2s on Windows.
+    # Now: 1 spawn for `apply`. If it fails, 1 spawn for `--reverse --check`.
+    # Best case (all patches apply cleanly): 32 spawns = 1.6s. ~2x faster.
     stdout, stderr, rc = run_git_with_lock_retry(
-        ["git", "-c", "core.autocrlf=false", "apply", "--check", patch_path_str], cwd=cwd)
+        ["git", "-c", "core.autocrlf=false", "apply", patch_path_str], cwd=cwd)
     if rc == 0:
-        stdout, stderr, rc = run_git_with_lock_retry(
-            ["git", "-c", "core.autocrlf=false", "apply", patch_path_str], cwd=cwd)
-        if rc == 0:
-            print(f"  [OK] {patch_path.name}")
-            return True
-        print(f"  [FAIL] {patch_path.name}: git apply failed after --check passed")
-        print(f"         stderr: {stderr[:300]}", file=sys.stderr)
-        return False
+        print(f"  [OK] {patch_path.name}")
+        return True
+    # `git apply` failed — check if it's because patch was ALREADY applied
+    # (idempotency). reverse-check is the cheapest way to detect this.
     stdout2, stderr2, rc2 = run_git_with_lock_retry(
         ["git", "-c", "core.autocrlf=false", "apply", "--reverse", "--check", patch_path_str], cwd=cwd)
     if rc2 == 0:
