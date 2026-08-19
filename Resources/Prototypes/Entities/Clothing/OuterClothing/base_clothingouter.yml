@@ -1,6 +1,6 @@
 - type: entity
   abstract: true
-  parent: Clothing
+  parent: [ Clothing, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterBase
   components:
   - type: Clothing
@@ -159,6 +159,9 @@
   - type: HideLayerClothing
     slots:
     - Tail
+  - type: Tag
+    tags:
+    - SuitEVA
 
 - type: entity
   abstract: true
