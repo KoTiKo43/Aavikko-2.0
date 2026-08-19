@@ -36,6 +36,7 @@ from common import (
     STATE_FILE, DECISIONS_FILE,
     force_utf8_stdio, run, run_git_with_lock_retry,
     atomic_write_text,
+    step_timer, print_timing_summary,
 )
 
 force_utf8_stdio()
@@ -268,59 +269,84 @@ def main():
         return
 
     # 1. Revert Resources/
+    #    Resources is reverted separately because it's the largest tree
+    #    (5000+ files) and reverting it alone lets git optimize the walk.
     print(f"\n--- [1/5] Revert Resources/ ---")
-    revert_dir("Resources")
+    with step_timer("Revert Resources/"):
+        revert_dir("Resources")
     print("  [OK] Resources/ reverted to HEAD")
 
     # 2. Sync Content Mods back (before reverting Content.*!)
     #    Apply.py copies Aavikko.Content/Mods/*.cs → Content.*/Aavikko/
     #    Dev may have edited them in Content.*/Aavikko/ — sync back so nothing is lost
     print(f"\n--- [2/5] Sync Content Mods back ---")
-    synced = sync_content_mods_back()
+    with step_timer("Sync Content Mods back"):
+        synced = sync_content_mods_back()
     if synced > 0:
         print(f"  [OK] Synced {synced} file(s) back to Aavikko.Content/Mods/")
     else:
         print(f"  [OK] No changes to sync back")
 
-    # 3. Revert Content.*
+    # 3. Revert Content.* — BATCH all dirs in ONE git checkout + ONE git clean
+    #    OLD: loop over 6 dirs × 2 spawns each = 12 spawns × 140ms = 1.7s on Windows
+    #    NEW: 1 git checkout + 1 git clean = 2 spawns = ~280ms
+    #    Saves ~1.4s on Windows.
     print(f"\n--- [3/5] Revert Content.* ---")
-    for d in REVERT_DIRS[1:]:  # Skip "Resources", already done
-        if (BUILD_ROOT / d).exists():
-            revert_dir(d)
+    with step_timer("Revert Content.* (batch)"):
+        content_dirs = [d for d in REVERT_DIRS[1:] if (BUILD_ROOT / d).exists()]
+        if content_dirs:
+            # Batch: git checkout HEAD -- dir1/ dir2/ ... dirN/
+            checkout_args = ["git", "checkout", "HEAD", "--"]
+            checkout_args.extend(f"{d}/" for d in content_dirs)
+            _, _, rc1 = run_git_with_lock_retry(checkout_args, cwd=BUILD_ROOT)
+
+            # Batch: git clean -fd dir1/ dir2/ ... dirN/
+            clean_args = ["git", "clean", "-fd"]
+            clean_args.extend(f"{d}/" for d in content_dirs)
+            _, _, rc2 = run_git_with_lock_retry(clean_args, cwd=BUILD_ROOT)
+
+            if rc1 != 0:
+                print(f"  [WARN] git checkout failed (rc={rc1})", file=sys.stderr)
+            if rc2 != 0:
+                print(f"  [WARN] git clean failed (rc={rc2})", file=sys.stderr)
     print("  [OK] Content.* reverted to HEAD")
 
     # 4. Revert RobustToolbox
     print(f"\n--- [4/5] Revert RobustToolbox ---")
-    if revert_robusttoolbox():
+    with step_timer("Revert RobustToolbox"):
+        rb_ok = revert_robusttoolbox()
+    if rb_ok:
         print("  [OK] RobustToolbox/ reverted to HEAD")
     else:
         print("  [SKIP] RobustToolbox/ not found")
 
     # 5. Cleanup state files + temp snapshots
     print(f"\n--- [5/5] Cleanup state files ---")
-    cleaned_snapshots = cleanup_temp_snapshots()
-    if cleaned_snapshots > 0:
-        print(f"  [DEL] {cleaned_snapshots} temp snapshot(s) removed")
+    with step_timer("Cleanup state files"):
+        cleaned_snapshots = cleanup_temp_snapshots()
+        if cleaned_snapshots > 0:
+            print(f"  [DEL] {cleaned_snapshots} temp snapshot(s) removed")
 
-    if APPLIED_FILE.exists():
-        APPLIED_FILE.unlink()
-        print("  [DEL] .applied")
+        if APPLIED_FILE.exists():
+            APPLIED_FILE.unlink()
+            print("  [DEL] .applied")
 
-    if STATE_FILE.exists():
-        STATE_FILE.unlink()
-        print("  [DEL] .upstream_state.json")
+        if STATE_FILE.exists():
+            STATE_FILE.unlink()
+            print("  [DEL] .upstream_state.json")
 
-    if DECISIONS_FILE.exists():
-        if args.wipe_decisions:
-            DECISIONS_FILE.unlink()
-            print("  [DEL] .conflict_decisions.yml (--wipe-decisions)")
-        else:
-            print("  [KEEP] .conflict_decisions.yml (use --wipe-decisions to delete)")
+        if DECISIONS_FILE.exists():
+            if args.wipe_decisions:
+                DECISIONS_FILE.unlink()
+                print("  [DEL] .conflict_decisions.yml (--wipe-decisions)")
+            else:
+                print("  [KEEP] .conflict_decisions.yml (use --wipe-decisions to delete)")
 
     print(f"\n{'=' * 70}")
     print("Done! Upstream is clean.")
     print("  Safe to: git pull, run Migrate.py, run Apply.py")
     print(f"{'=' * 70}")
+    print_timing_summary()
 
 
 if __name__ == "__main__":
