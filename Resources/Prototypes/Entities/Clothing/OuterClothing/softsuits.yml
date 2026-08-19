@@ -52,6 +52,7 @@
     clothingPrototype: ClothingHeadHelmetEVALarge
   - type: Tag
     tags:
+    - SuitEVA # Aavikko: added so orc restriction system blocks this for orcs
     - CorgiWearable
     - ScurretWearable
     - MonkeyWearable
@@ -92,6 +93,9 @@
     walkModifier: 0.85
     sprintModifier: 0.85
   - type: HeldSpeedModifier
+  - type: Tag
+    tags:
+    - SuitEVA # Aavikko: added so orc restriction system blocks this for orcs
 
 #Paramedic Voidsuit
 - type: entity
@@ -148,4 +152,5 @@
     speed: 360
   - type: Tag
     tags:
+    - SuitEVA # Aavikko: added so orc restriction system blocks this for orcs
     - WhitelistChameleon

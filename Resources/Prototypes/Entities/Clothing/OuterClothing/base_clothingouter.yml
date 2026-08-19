@@ -159,6 +159,9 @@
   - type: HideLayerClothing
     slots:
     - Tail
+  - type: Tag
+    tags:
+    - SuitEVA
 
 - type: entity
   abstract: true

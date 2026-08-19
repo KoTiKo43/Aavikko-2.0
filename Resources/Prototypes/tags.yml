@@ -1033,6 +1033,11 @@
 - type: Tag
   id: Ointment # Storage whitelist: ClothingBeltMedical
 
+# Aavikko Orc
+- type: Tag
+  id: OrcHardsuit
+# Aavikko Orc
+
 - type: Tag
   id: Ore # Storage whitelist: OreBag, OreBox. MaterialStorage whitelist: OreProcessor
 
