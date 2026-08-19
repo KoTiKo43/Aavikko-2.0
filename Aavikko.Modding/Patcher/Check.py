@@ -51,6 +51,14 @@ if hasattr(sys.stdout, 'reconfigure'):
     except (OSError, ValueError):
         pass
 
+# Shared utilities — keeps run/atomic_write logic in one place.
+# We import lazily (only the helpers we use) to avoid pulling in
+# RESOURCES_DIR / BUILD_ROOT constants that already exist locally above.
+try:
+    from common import atomic_write_text as _atomic_write_text_impl
+except ImportError:
+    _atomic_write_text_impl = None  # fall back to local copy below
+
 # Validate git commit hashes (hex, 7-40 chars)
 COMMIT_RE = re.compile(r'^[0-9a-f]{7,40}$')
 
@@ -317,7 +325,16 @@ def _atomic_write_text(path: Path, content: str) -> None:
 
     Prevents corruption if the process is killed (Ctrl+C, OOM) or disk fills
     up mid-write. os.replace() is atomic on POSIX.
+
+    v0.3.1: delegates to common.atomic_write_text if available (single source
+    of truth). Falls back to local implementation if common.py is missing
+    (e.g. when Check.py is run from a different directory without sys.path
+    manipulation — should never happen in practice).
     """
+    if _atomic_write_text_impl is not None:
+        _atomic_write_text_impl(path, content)
+        return
+    # Local fallback (legacy copy)
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
     try:

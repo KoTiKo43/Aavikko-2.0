@@ -24,26 +24,21 @@ from __future__ import annotations
 
 import argparse
 import json
-import shlex
+import shutil
 import subprocess
 import sys
 import time
 from pathlib import Path
 
-# Force UTF-8 for stdout/stderr — Windows default is cp1251 which can't encode
-# Unicode characters like →, — used in print() statements.
-if hasattr(sys.stdout, 'reconfigure'):
-    try:
-        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
-        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
-    except (OSError, ValueError):
-        pass
+# Shared utilities (single source of truth for run/atomic_write/safe_resolve)
+from common import (
+    SCRIPT_DIR, BUILD_ROOT, APPLIED_FILE, LOCK_FILE,
+    STATE_FILE, DECISIONS_FILE,
+    force_utf8_stdio, run, run_git_with_lock_retry,
+    atomic_write_text,
+)
 
-SCRIPT_DIR = Path(__file__).resolve().parent
-BUILD_ROOT = SCRIPT_DIR.parent.parent
-APPLIED_FILE = SCRIPT_DIR / ".applied"
-STATE_FILE = SCRIPT_DIR / ".upstream_state.json"
-DECISIONS_FILE = SCRIPT_DIR / ".conflict_decisions.yml"
+force_utf8_stdio()
 
 # Directories that Apply.py touches — all reverted on clear
 REVERT_DIRS = [
@@ -56,65 +51,26 @@ REVERT_DIRS = [
     "Content.IntegrationTests",
 ]
 
+# Re-exported by common for backward compat with anything that imports from Clear
+__all__ = ['run', 'run_git_with_lock_retry', 'revert_dir', 'revert_robusttoolbox',
+           'sync_content_mods_back', 'cleanup_temp_snapshots', 'main']
+
 
 def run(cmd, cwd: Path | None = None) -> tuple[str, str, int]:
-    """Run a command. Accepts either a string (shell-style) OR an argv list.
+    """Run a command (delegates to common.run for cross-platform compat).
 
-    Cross-platform: never uses shell=True. If `cmd` is a string, it's split
-    via shlex.split (which can BREAK on Windows paths with backslashes if
-    they're not properly quoted). For safety, prefer passing an argv list.
-
-    The argv list form is 100% cross-platform — no shell, no quoting,
-    no backslash interpretation. Always prefer it for commands with paths.
+    Kept here as a thin wrapper so existing imports `from Clear import run`
+    still work — but all scripts should prefer `from common import run`.
     """
-    if isinstance(cmd, str):
-        try:
-            argv = shlex.split(cmd)
-        except ValueError:
-            # Fallback for edge cases (unbalanced quotes) — use shell
-            result = subprocess.run(
-                cmd, shell=True, cwd=cwd, capture_output=True,
-                text=True, encoding="utf-8", errors="replace"
-            )
-            return result.stdout.strip(), result.stderr.strip(), result.returncode
-        if not argv:
-            return "", "", 0
-    else:
-        argv = list(cmd)
-    result = subprocess.run(
-        argv, cwd=cwd, capture_output=True,
-        text=True, encoding="utf-8", errors="replace"
-    )
-    return result.stdout.strip(), result.stderr.strip(), result.returncode
+    from common import run as _run
+    return _run(cmd, cwd=cwd)
 
 
 def run_git_with_lock_retry(cmd, cwd: Path | None = None,
                             max_retries: int = 5, retry_delay: float = 1.0) -> tuple[str, str, int]:
-    """Run a git command with retry on index.lock conflict.
-
-    Accepts either a string OR an argv list (delegates to run()).
-
-    Git returns rc=128 with message "Unable to create '.git/index.lock': File exists"
-    when another git process (Status.py polling, VS Code Source Control view, etc.)
-    is running concurrently.
-
-    Strategy: detect index.lock error, wait 1 sec, retry. Up to 5 times.
-    """
-    last_stdout, last_stderr, last_rc = "", "", 0
-    for attempt in range(max_retries):
-        last_stdout, last_stderr, last_rc = run(cmd, cwd=cwd)
-        if last_rc == 0:
-            return last_stdout, last_stderr, last_rc
-        # Check if this is the index.lock error
-        if "index.lock" not in last_stderr and "index.lock" not in (last_stdout or ""):
-            # Different error — don't retry, return immediately
-            return last_stdout, last_stderr, last_rc
-        # index.lock conflict — wait and retry
-        if attempt < max_retries - 1:
-            print(f"  [INFO] git index.lock busy, retry {attempt+1}/{max_retries} in {retry_delay}s...",
-                  file=sys.stderr)
-            time.sleep(retry_delay)
-    return last_stdout, last_stderr, last_rc
+    """Delegate to common.run_git_with_lock_retry (kept for backward compat)."""
+    from common import run_git_with_lock_retry as _rg
+    return _rg(cmd, cwd=cwd, max_retries=max_retries, retry_delay=retry_delay)
 
 
 def sync_content_mods_back():
@@ -244,29 +200,41 @@ def main():
     # Fast-path: read .symlinks.json state file (O(N) where N = symlinks created, ~32).
     # Fallback: slow rglob walk (O(filesystem tree), ~50s on HDD with 5000+ files)
     # if state file is missing (first run, legacy state, or manual cleanup).
+    #
+    # v0.3.1 OPTIMIZATION: If NEITHER .applied NOR .symlinks.json exists, skip
+    # the removal step entirely. Clear.py is most often called when upstream
+    # is already pristine (right after a previous Clear, or fresh checkout) —
+    # in that case there are no symlinks to remove, and the slow rglob fallback
+    # would walk 5000+ files for nothing. On HDD this saves 30-50s per Clear.
     try:
         import SymLinks
         print("\n--- Removing all symlinks (@Mods/@Patches/@Path/@patched) ---", flush=True)
-        removed = SymLinks.remove_all_tracked_symlinks()
-        if removed >= 0:
-            # Fast path succeeded
-            if removed > 0:
-                print(f"  [OK] Removed {removed} symlinks (fast-path via .symlinks.json)")
-            else:
-                print(f"  [OK] No symlinks found (state file empty)")
+        if not SymLinks.symlinks_likely_exist():
+            # Neither .applied nor .symlinks.json → pristine state, no symlinks exist
+            print("  [OK] No symlinks (pristine state — no .applied, no .symlinks.json)")
         else:
-            # Fallback: state file missing — use slow rglob walk
-            print("  [INFO] No .symlinks.json — falling back to slow rglob scan...")
-            removed = 0
-            for overlay_root, label, _ in SymLinks.OVERLAY_PAIRS:
-                if overlay_root.exists():
-                    removed += SymLinks.remove_nav_links_for_pair(overlay_root, label)
-                    removed += SymLinks.remove_path_links_for_overlay(overlay_root, label)
-                    removed += SymLinks.remove_patched_links(overlay_root, label)
-            if removed > 0:
-                print(f"  [OK] Removed {removed} symlinks (legacy rglob scan)")
+            removed = SymLinks.remove_all_tracked_symlinks()
+            if removed >= 0:
+                # Fast path succeeded (state file existed)
+                if removed > 0:
+                    print(f"  [OK] Removed {removed} symlinks (fast-path via .symlinks.json)")
+                else:
+                    print(f"  [OK] No symlinks found (state file empty — already removed)")
             else:
-                print(f"  [OK] No symlinks found (legacy scan)")
+                # Fallback: state file missing BUT .applied exists → possible
+                # crash mid-Apply, or manual state file deletion.
+                # Use slow rglob walk to catch any stragglers.
+                print("  [INFO] No .symlinks.json but .applied exists — using rglob scan (crash recovery?)")
+                removed = 0
+                for overlay_root, label, _ in SymLinks.OVERLAY_PAIRS:
+                    if overlay_root.exists():
+                        removed += SymLinks.remove_nav_links_for_pair(overlay_root, label)
+                        removed += SymLinks.remove_path_links_for_overlay(overlay_root, label)
+                        removed += SymLinks.remove_patched_links(overlay_root, label)
+                if removed > 0:
+                    print(f"  [OK] Removed {removed} symlinks (legacy rglob scan)")
+                else:
+                    print(f"  [OK] No symlinks found (legacy scan)")
     except ImportError:
         pass
 

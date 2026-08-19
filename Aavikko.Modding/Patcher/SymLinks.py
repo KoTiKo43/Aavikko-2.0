@@ -142,6 +142,33 @@ def _clear_symlink_state() -> None:
         pass
 
 
+def reset_symlink_state() -> None:
+    """Public helper: clear state file before creating fresh symlinks.
+
+    Apply.py calls this right before `create_patched_links()` so the state
+    file contains ONLY the symlinks created in this run (not stale entries
+    from removed patches).
+    """
+    _clear_symlink_state()
+
+
+def symlinks_likely_exist() -> bool:
+    """Quick heuristic: are there any symlinks we created on disk?
+
+    Used by Apply.py / Clear.py to decide whether to even attempt the
+    removal step. If `.applied` exists OR `.symlinks.json` exists, we
+    might have symlinks — try removal. If neither, skip entirely (saves
+    the slow rglob fallback when called right after a fresh Clear.py).
+
+    Note: this is a heuristic, not a guarantee. The only 100% reliable
+    check is `os.walk()` + `is_symlink()` on every file, which is exactly
+    what we're trying to avoid.
+    """
+    # Local import to avoid circular dependency at module load time
+    applied_marker = SCRIPT_DIR / ".applied"
+    return SYMLINK_STATE_FILE.exists() or applied_marker.exists()
+
+
 def _record_symlink(link_path: Path) -> None:
     """Record a created symlink in the state file (append).
     Path stored relative to BUILD_ROOT for portability.
@@ -175,14 +202,20 @@ def _record_symlink(link_path: Path) -> None:
 
 
 def remove_all_tracked_symlinks() -> int:
-    """Fast-path: read .symlinks.json, unlink each entry, clear the file.
+    """Fast-path: read .symlinks.json, unlink each entry, KEEP the state file.
 
     This is the O(N) fast path — N = number of symlinks we created (typically 32).
     Avoids the O(filesystem tree) rglob walk which on HDD takes 50+ seconds
     for trees with 5000+ files.
 
+    IMPORTANT: As of v0.3.1, this function does NOT clear the state file
+    after removal. Previously it did, which meant the *next* Apply.py run
+    (after a Clear.py) had no state file → fell back to slow rglob scan.
+    Now the state file is kept as a "we tried to remove these" record;
+    Apply.py refreshes it (clear + recreate) before creating new symlinks.
+
     Returns:
-      >=0: number of symlinks removed via fast path
+      >=0: number of symlinks removed via fast path (0 is normal after Clear.py)
       -1 : state file missing — caller should fall back to slow rglob method
     """
     if not SYMLINK_STATE_FILE.exists():
@@ -190,6 +223,9 @@ def remove_all_tracked_symlinks() -> int:
 
     entries = _load_symlink_state()
     if not entries:
+        # State file exists but is empty (shouldn't normally happen —
+        # _save_symlink_state always writes a non-empty list). Clear it
+        # so we don't keep reading a corrupt file.
         _clear_symlink_state()
         return 0
 
@@ -214,7 +250,11 @@ def remove_all_tracked_symlinks() -> int:
         except OSError:
             pass  # already gone, permission issue, etc.
 
-    _clear_symlink_state()
+    # NOTE: deliberately NOT calling _clear_symlink_state() here.
+    # The state file is kept so the next Apply.py can read it (fast path)
+    # even when all entries are already removed (post-Clear scenario).
+    # Apply.py calls _clear_symlink_state() explicitly before creating
+    # new symlinks, so the file never grows unbounded.
     return removed
 
 
