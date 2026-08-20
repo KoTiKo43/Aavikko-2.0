@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingOuterStorageBase
+  parent: [ ClothingOuterStorageBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatBomber
   name: bomber jacket
   description: A thick, well-worn WW2 leather bomber jacket.
@@ -50,7 +50,7 @@
         - id: FlippoLighter #Not the steal objective, only difference from normal detective trenchcoat
 
 - type: entity
-  parent: ClothingOuterStorageBase
+  parent: [ ClothingOuterStorageBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatGentle
   name: gentle coat
   description: A gentle coat for a gentle man, or woman.
@@ -138,7 +138,7 @@
         Slash: 0.95
 
 - type: entity
-  parent: ClothingOuterStorageFoldableBase
+  parent: [ ClothingOuterStorageFoldableBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatLab
   name: lab coat
   description: A suit that protects against minor chemical spills.
@@ -158,7 +158,7 @@
   name: lab coat
 
 - type: entity
-  parent: ClothingOuterStorageFoldableBase
+  parent: [ ClothingOuterStorageFoldableBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatLabChem
   name: chemist lab coat
   description: A suit that protects against minor chemical spills. Has an orange stripe on the shoulder.
@@ -178,7 +178,7 @@
   name: chemist lab coat
 
 - type: entity
-  parent: ClothingOuterStorageFoldableBase
+  parent: [ ClothingOuterStorageFoldableBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatLabViro
   name: virologist lab coat
   description: A suit that protects against bacteria and viruses. Has an green stripe on the shoulder.
@@ -198,7 +198,7 @@
   name: virologist lab coat
 
 - type: entity
-  parent: ClothingOuterStorageFoldableBase
+  parent: [ ClothingOuterStorageFoldableBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatLabGene
   name: geneticist lab coat
   description: A suit that protects against minor chemical spills. Has an blue stripe on the shoulder.
@@ -218,7 +218,7 @@
   name: geneticist lab coat
 
 - type: entity
-  parent: ClothingOuterStorageFoldableBase
+  parent: [ ClothingOuterStorageFoldableBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatLabCmo
   name: chief medical officer's lab coat
   description: Custom made blue lab coat for the Chief Medical Officer, offers improved protection against chemical spills and minor cuts.
@@ -240,7 +240,7 @@
   name: chief medical officer's lab coat
 
 - type: entity
-  parent: ClothingOuterStorageFoldableBase
+  parent: [ ClothingOuterStorageFoldableBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatRnd
   name: scientist lab coat
   description: A suit that protects against minor chemical spills. Has a purple stripe on the shoulder.
@@ -260,7 +260,7 @@
   name: scientist lab coat
 
 - type: entity
-  parent: ClothingOuterStorageFoldableBase
+  parent: [ ClothingOuterStorageFoldableBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatRobo
   name: roboticist lab coat
   description: More like an eccentric coat than a labcoat. Helps pass off bloodstains as part of the aesthetic. Comes with red shoulder pads.
@@ -280,7 +280,7 @@
   name: roboticist lab coat
 
 - type: entity
-  parent: ClothingOuterStorageFoldableBase
+  parent: [ ClothingOuterStorageFoldableBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatRD
   name: research director lab coat
   description: Woven with top of the line technology, this labcoat helps protect against radiation in similar way to the experimental hardsuit.
@@ -301,7 +301,7 @@
   name: research director lab coat
 
 - type: entity
-  parent: ClothingOuterStorageBase
+  parent: [ ClothingOuterStorageBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatPirate
   name: pirate garb
   description: Yarr.
@@ -323,7 +323,7 @@
     sprite: Clothing/OuterClothing/Coats/warden.rsi
 
 - type: entity
-  parent: ClothingOuterStorageBase
+  parent: [ ClothingOuterStorageBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterDameDane
   name: yakuza coat
   description: Friday...
@@ -345,7 +345,7 @@
     sprite: Clothing/OuterClothing/Coats/clownpriest.rsi
 
 - type: entity
-  parent: [ClothingOuterStorageBase, BaseMajorContraband]
+  parent: [ClothingOuterStorageBase, BaseMajorContraband, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterDogi
   name: samurai dogi
   description: Dogi is a type of traditional Japanese clothing. The dogi is made of heavy, durable fabric, it is practical in combat and stylish in appearance. It is decorated with intricate patterns and embroidery on the back.
@@ -362,7 +362,7 @@
         Piercing: 0.85
 
 - type: entity
-  parent: ClothingOuterStorageFoldableBase
+  parent: [ ClothingOuterStorageFoldableBase,  AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatParamedicWB
   name: paramedic windbreaker
   description: A paramedic's trusty windbreaker, for all the space wind.
@@ -378,7 +378,7 @@
   name: paramedic windbreaker
 
 - type: entity
-  parent: [ClothingOuterStorageBase, BaseSyndicateContraband]
+  parent: [ClothingOuterStorageBase, BaseSyndicateContraband, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatSyndieCap
   name: syndicate's coat
   description: The syndicate's coat is made of durable fabric, with gilded patterns.
@@ -400,7 +400,7 @@
     sprite: Clothing/OuterClothing/Coats/syndicate/coatsyndiecaparmored.rsi
 
 - type: entity
-  parent: ClothingOuterStorageBase
+  parent: [ ClothingOuterStorageBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatAMG
   name: armored medical gown
   description: The version of the medical gown, with elements of a bulletproof vest, looks strange, but your heart is protected.
@@ -419,7 +419,7 @@
         Caustic: 0.75
 
 - type: entity
-  parent: ClothingOuterStorageFoldableBase
+  parent: [ ClothingOuterStorageFoldableBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatLabSeniorResearcher
   name: senior researcher lab coat
   description: A suit that protects against minor chemical spills. Has a purple collar and wrist trims.
@@ -439,7 +439,7 @@
   name: senior researcher lab coat
 
 - type: entity
-  parent: ClothingOuterStorageFoldableBase
+  parent: [ ClothingOuterStorageFoldableBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatLabSeniorPhysician
   name: senior physician lab coat
   description: A suit that protects against minor chemical spills. Has light blue sleeves and an orange waist trim.
@@ -459,7 +459,7 @@
   name: senior physician lab coat
 
 - type: entity
-  parent: ClothingOuterStorageBase
+  parent: [ ClothingOuterStorageBase,  AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatSpaceAsshole
   name: the coat of space asshole
   description: And there he was...
@@ -470,7 +470,7 @@
     sprite: Clothing/OuterClothing/Coats/space_asshole.rsi
 
 - type: entity
-  parent: ClothingOuterStorageFoldableBase
+  parent: [ ClothingOuterStorageFoldableBase, AllowSuitStorageClothingGasTanks ] # Aavikko
   id: ClothingOuterCoatExpensive
   name: expensive coat
   description: Very fluffy pink coat, made out of very expensive fur (clearly).
