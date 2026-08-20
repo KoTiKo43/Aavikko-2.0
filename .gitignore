@@ -334,3 +334,10 @@ error.glsl
 # Sandbox Server V3 AI patches (managed by deploy_patch, not git)
 /Content.Server/AiApi/
 /Content.Client/AiVision/
+
+# Aavikko overlay (auto-generated, don't commit)
+Aavikko.Modding/Patcher/.applied
+Aavikko.Modding/Patcher/.upstream_state.json
+Aavikko.Modding/Patcher/.symlinks.json
+Aavikko.Modding/Patcher/.conflict_decisions.yml
+Aavikko.Modding/Patcher/.apply.lock
